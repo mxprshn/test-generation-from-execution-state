@@ -296,6 +296,24 @@ public final class StateTrace {
                 || name.contains("$$Lambda");
         }
 
+        /**
+         * Mockito inline mocks of concrete classes keep the class name of the mocked type, so the
+         * name does not show them. Mockito is asked reflectively through the class loader of the
+         * value (no compile-time dependency); any failure means "not a mock".
+         */
+        static boolean inlineMock(Object v) {
+            ClassLoader cl = v.getClass().getClassLoader();
+            if (cl == null) return false;
+            try {
+                Class<?> mockito = Class.forName("org.mockito.Mockito", false, cl);
+                Object details = mockito.getMethod("mockingDetails", Object.class).invoke(null, v);
+                Object isMock = details.getClass().getMethod("isMock").invoke(details);
+                return Boolean.TRUE.equals(isMock);
+            } catch (Throwable t) {
+                return false;
+            }
+        }
+
         static boolean jdkType(String name) {
             return name.startsWith("java.") || name.startsWith("javax.") || name.startsWith("jdk.")
                 || name.startsWith("sun.") || name.startsWith("com.sun.");
@@ -323,7 +341,7 @@ public final class StateTrace {
                   .append(",\"$enum\":").append(quote(((Enum<?>) v).name())).append('}');
                 return;
             }
-            if (opaqueType(type)) {
+            if (opaqueType(type) || (!jdkType(type) && inlineMock(v))) {
                 sb.append("{\"$t\":").append(quote(type)).append(",\"$opaque\":true}");
                 return;
             }
