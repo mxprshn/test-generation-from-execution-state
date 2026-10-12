@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import hashlib
+import json
 import shutil
 import subprocess
 from pathlib import Path
@@ -59,6 +60,30 @@ def install_tree(source: Path | None, workspace: Path) -> list[str]:
             shutil.copy2(f, dest)
             installed.append(rel)
     return installed
+
+
+def split_dump(dump: Path, dest_dir: Path) -> list[str]:
+    """Write every element of the recorded dump (a JSON list, one element per recorded execution)
+    to its own file dest_dir/0001.json, 0002.json, ... in recording order. Nothing is removed or
+    merged: duplicates stay, and concatenating the files gives the original list. Returns the
+    file names."""
+    executions = json.loads(dump.read_text(encoding="utf-8"))
+    if not isinstance(executions, list):
+        raise ValueError(f"{dump}: expected a JSON list of recorded executions")
+    width = max(4, len(str(len(executions))))
+    dest_dir.mkdir(parents=True, exist_ok=True)
+    names = []
+    for i, execution in enumerate(executions, 1):
+        name = f"{i:0{width}d}.json"
+        (dest_dir / name).write_text(json.dumps(execution, indent=1, ensure_ascii=False) + "\n",
+                                     encoding="utf-8")
+        names.append(name)
+    return names
+
+
+def join_dump(dest_dir: Path) -> list:
+    """Inverse of split_dump (used by the tests)."""
+    return [json.loads(p.read_text(encoding="utf-8")) for p in sorted(dest_dir.glob("*.json"))]
 
 
 def init_repo(workspace: Path) -> None:

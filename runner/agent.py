@@ -82,6 +82,14 @@ def agent_env(cfg: Config, api_key_env: str | None) -> dict[str, str]:
     return env
 
 
+def effective_system_prompt(system: str, workspace: Path) -> str:
+    """The system prompt as Pi sends it to the model. With --system-prompt and context files, skills
+    and prompt templates disabled, Pi (pinned version) appends only the working directory
+    (core/system-prompt.js, buildSystemPrompt)."""
+    cwd = str(workspace).replace("\\", "/")
+    return f"{system}\nCurrent working directory: {cwd}"
+
+
 def pi_argv(cfg: Config, prompts: dict[str, str], session_dir: Path) -> list[str]:
     if cfg.thinking is not None and cfg.thinking not in THINKING_LEVELS:
         raise AgentError(f"unsupported thinking level: {cfg.thinking}")

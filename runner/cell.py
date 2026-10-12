@@ -17,6 +17,7 @@ Output: <results>/cells/<case>/<mode>/<run-id>/ summary.json, result.diff, promp
 """
 from __future__ import annotations
 
+import hashlib
 import json
 import re
 import shutil
@@ -129,7 +130,9 @@ def _generate(cfg: Config, case: Case, mode: str, checkout: Path, commit: str, c
     support = W.install_tree(case.workspace_files, ws) if mode != "baseline" else []
     summary["support_files"] = support
     execution_input = EXECUTION_INPUT.get(mode)
-    if execution_input:
+    if execution_input and mode == "dump":
+        summary["dump_files"] = len(W.split_dump(source, ws / execution_input))
+    elif execution_input:
         (ws / execution_input).parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(source, ws / execution_input)
     (ws / case.output_test_file).parent.mkdir(parents=True, exist_ok=True)
@@ -161,6 +164,13 @@ def _generate(cfg: Config, case: Case, mode: str, checkout: Path, commit: str, c
         prompts = render(cfg.prompts_dir, case, mode, commands)
         _write(cell / "prompts" / "system.txt", prompts["system"])
         _write(cell / "prompts" / "task.txt", prompts["task"])
+        effective = A.effective_system_prompt(prompts["system"], ws)
+        _write(cell / "prompts" / "system.effective.txt", effective)
+        summary["prompt_sha256"] = {
+            "system": hashlib.sha256(prompts["system"].encode()).hexdigest(),
+            "system_effective": hashlib.sha256(effective.encode()).hexdigest(),
+            "task": hashlib.sha256(prompts["task"].encode()).hexdigest(),
+        }
         res = A.run_agent(cfg, ws, case.output_test_file, commands, prompts, tmp / "agent", api_key_env)
         _jsonl(cell / "artifacts" / "session.jsonl", res.events)
         _jsonl(cell / "artifacts" / "agent-commands.jsonl", res.commands)

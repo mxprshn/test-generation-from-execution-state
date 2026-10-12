@@ -62,6 +62,18 @@ class PromptsTest(unittest.TestCase):
             if mode != "baseline":
                 self.assertIn(EXECUTION_INPUT[mode], p["task"])
 
+    def test_effective_system_prompt_matches_pi(self):
+        self.assertEqual(A.effective_system_prompt("S", Path("/w/x")), "S\nCurrent working directory: /w/x")
+
+    def test_baseline_block_states_only_the_absence_of_data(self):
+        text = (ROOT / "prompts" / "task-baseline.txt").read_text()
+        self.assertEqual(text, "Condition: source code only.\n\nNo execution data is provided.\n")
+
+    def test_dump_prompt_describes_split_files(self):
+        text = (ROOT / "prompts" / "task-dump.txt").read_text()
+        self.assertIn("one JSON file per recorded execution in {{execution_input}}, in recording order", text)
+        self.assertEqual(EXECUTION_INPUT["dump"], "carving/executions/")
+
     def test_rendered_prompt_allows_checks_on_recorded_values(self):
         text = (ROOT / "prompts" / "task-rendered.txt").read_text()
         self.assertIn("You may add checks only on values already recorded", text)
@@ -180,6 +192,35 @@ class CellLogicTest(unittest.TestCase):
 
 
 class WorkspaceTest(unittest.TestCase):
+    def test_split_dump_is_lossless_and_keeps_duplicates(self):
+        with tempfile.TemporaryDirectory() as d:
+            src = Path(d) / "call-dumps.json"
+            data = [{"calls": [{"a": 1}]}, {"calls": []}, {"calls": [{"a": 1}]}]
+            src.write_text(json.dumps(data))
+            names = W.split_dump(src, Path(d) / "executions")
+            self.assertEqual(names, ["0001.json", "0002.json", "0003.json"])
+            self.assertEqual(W.join_dump(Path(d) / "executions"), data)
+
+    def test_split_dump_on_all_cases(self):
+        with tempfile.TemporaryDirectory() as d:
+            n = 0
+            for row in case_rows():
+                case = load_case(row["id"])
+                if case.dump is None:
+                    continue
+                out = Path(d) / case.id
+                W.split_dump(case.dump, out)
+                self.assertEqual(W.join_dump(out), json.loads(case.dump.read_text()), case.id)
+                n += 1
+            self.assertGreater(n, 50)
+
+    def test_split_dump_widens_numbers_past_9999(self):
+        with tempfile.TemporaryDirectory() as d:
+            src = Path(d) / "call-dumps.json"
+            src.write_text(json.dumps([{}] * 10000))
+            names = W.split_dump(src, Path(d) / "e")
+            self.assertEqual((names[0], names[-1]), ("00001.json", "10000.json"))
+
     def test_export_hide_and_diff(self):
         with tempfile.TemporaryDirectory() as d:
             repo = Path(d) / "repo"

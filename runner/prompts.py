@@ -10,8 +10,9 @@ from runner.cases import Case, load_projects
 
 PLACEHOLDER = re.compile(r"\{\{\s*([a-zA-Z_][a-zA-Z0-9_]*)\s*\}\}")
 # Where the execution input of the dump/rendered modes is placed in the agent workspace.
-# The preliminary test gets a .txt suffix so that the build does not compile it.
-EXECUTION_INPUT = {"dump": "carving/call-dumps.json", "rendered": "carving/PreliminaryTest.java.txt"}
+# The dump is split into one file per recorded execution (carving/executions/0001.json, ...);
+# the preliminary test gets a .txt suffix so that the build does not compile it.
+EXECUTION_INPUT = {"dump": "carving/executions/", "rendered": "carving/PreliminaryTest.java.txt"}
 
 
 class PromptError(Exception):
