@@ -173,6 +173,35 @@ class CellLogicTest(unittest.TestCase):
         self.assertFalse(G.is_infra_failure({"status": "completed"}, cell))
         self.assertFalse(G.is_infra_failure({"status": "method_failed"}, cell))
 
+    def test_provider_unreachable_before_first_turn(self):
+        """Pi could not reach the provider (v2 run, 2026-10-12): stored with phase "done", 0 turns."""
+        real = ('[provider] failed to fetch models: fetch failed\n'
+                'Error: Unknown provider "gateway". Use --list-models to see available providers/models.\n')
+        failed = {"status": "failed", "phase": "done", "error": "agent exited with code 1",
+                  "agent_exit_code": 1, "tool_calls": 0, "usage": {"turns": 0}, "gateway_errors": 0}
+        with tempfile.TemporaryDirectory() as d:
+            cell = Path(d)
+            (cell / "artifacts").mkdir()
+            stderr = cell / "artifacts" / "pi-stderr.txt"
+            stderr.write_text(real)
+            self.assertTrue(G.is_infra_failure(failed, cell))
+            self.assertTrue(G.is_infra_failure({**failed, "phase": "result"}, cell))
+            stderr.write_text("[provider] failed to fetch models (attempt 4/4): fetch failed\n"
+                              "[provider] model list unavailable: https://h/v1/models failed 4 times (fetch failed)\n")
+            self.assertTrue(G.is_infra_failure(failed, cell))
+            stderr.write_text(real)
+            # the model answered: a failure of the model, not of the provider
+            self.assertFalse(G.is_infra_failure({**failed, "usage": {"turns": 1}}, cell))
+            self.assertFalse(G.is_infra_failure({**failed, "tool_calls": 2}, cell))
+            self.assertFalse(G.is_infra_failure({**failed, "agent_exit_code": 0, "status": "failed",
+                                                 "error": "the agent left no test class"}, cell))
+            self.assertFalse(G.is_infra_failure({**failed, "status": "completed"}, cell))
+            # Pi failed for another reason
+            stderr.write_text("Error: Model \"x\" not found\n")
+            self.assertFalse(G.is_infra_failure(failed, cell))
+            stderr.unlink()
+            self.assertFalse(G.is_infra_failure(failed, cell))
+
     def test_session_usage_and_gateway_errors(self):
         events = [
             {"type": "message_end", "message": {"role": "assistant", "usage": {"input": 10, "output": 2,
@@ -292,6 +321,12 @@ class PiExtensionsTest(unittest.TestCase):
             self.assertIsNone(out[bypass], bypass)
         self.assertEqual(out["env"], {"PATH": "/bin", "HOME": "/h"})
         self.assertEqual(out["literal"], ["plain-key", "a$$B", "$!rm"])
+        self.assertEqual(out["modelsRecovered"], {"ids": ["m"], "calls": 3})
+        self.assertEqual(out["modelsDown"]["calls"], 4)
+        self.assertIn("model list unavailable", out["modelsDown"]["error"])
+        self.assertIn("fetch failed", out["modelsDown"]["error"])
+        self.assertIn("empty model list", out["modelsEmpty"])
+        self.assertEqual(out["retryDelays"], [2000, 5000, 10000])
 
 
 if __name__ == "__main__":

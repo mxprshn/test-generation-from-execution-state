@@ -37,4 +37,33 @@ const out = {
 		provider.literalConfigValue("!rm"),
 	],
 };
+// model list: retried after failures, then a clear error
+const answers = (list) => {
+	let n = 0;
+	const fake = async () => {
+		const a = list[Math.min(n++, list.length - 1)];
+		if (a instanceof Error) throw a;
+		return { ok: a.ok ?? true, status: a.status ?? 200, json: async () => a.body };
+	};
+	fake.calls = () => n;
+	return fake;
+};
+const flaky = answers([new TypeError("fetch failed"), { ok: false, status: 502 }, { body: { data: [{ id: "m" }] } }]);
+const recovered = await provider.fetchModels("https://h/v1", "k", [0, 0, 0], flaky);
+out.modelsRecovered = { ids: recovered.map((m) => m.id), calls: flaky.calls() };
+const down = answers([new TypeError("fetch failed")]);
+try {
+	await provider.fetchModels("https://h/v1", "k", [0, 0, 0], down);
+	out.modelsDown = { error: null, calls: down.calls() };
+} catch (error) {
+	out.modelsDown = { error: String(error.message), calls: down.calls() };
+}
+const empty = answers([{ body: { data: [] } }]);
+try {
+	await provider.fetchModels("https://h/v1", "k", [0], empty);
+	out.modelsEmpty = null;
+} catch (error) {
+	out.modelsEmpty = String(error.message);
+}
+out.retryDelays = provider.MODEL_LIST_RETRY_DELAYS;
 process.stdout.write(JSON.stringify(out));

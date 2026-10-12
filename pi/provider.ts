@@ -58,18 +58,38 @@ function toModelConfig(m: RemoteModel): ProviderModelConfig {
 	};
 }
 
-async function fetchModels(baseUrl: string, apiKey: string): Promise<RemoteModel[]> {
-	try {
-		const response = await fetch(`${baseUrl}/models`, { headers: { Authorization: `Bearer ${apiKey}` } });
-		if (!response.ok) {
-			throw new Error(`HTTP ${response.status} from ${baseUrl}/models`);
+/** Pauses before the retries of the model list request, milliseconds. */
+export const MODEL_LIST_RETRY_DELAYS = [2000, 5000, 10000];
+
+/** The model list of the provider. A failed or empty answer is retried after each delay; when every
+ * attempt fails, the error says so (otherwise Pi would only report an unknown provider). */
+export async function fetchModels(
+	baseUrl: string,
+	apiKey: string,
+	delays: number[] = MODEL_LIST_RETRY_DELAYS,
+	fetchImpl: typeof fetch = fetch,
+): Promise<RemoteModel[]> {
+	let last = "";
+	for (let attempt = 0; attempt <= delays.length; attempt++) {
+		if (attempt > 0) {
+			await new Promise((resolve) => setTimeout(resolve, delays[attempt - 1]));
 		}
-		const payload = (await response.json()) as { data?: RemoteModel[] };
-		return payload.data ?? [];
-	} catch (error) {
-		console.error(`[provider] failed to fetch models: ${error instanceof Error ? error.message : error}`);
-		return [];
+		try {
+			const response = await fetchImpl(`${baseUrl}/models`, { headers: { Authorization: `Bearer ${apiKey}` } });
+			if (!response.ok) {
+				throw new Error(`HTTP ${response.status}`);
+			}
+			const payload = (await response.json()) as { data?: RemoteModel[] };
+			if (payload.data?.length) {
+				return payload.data;
+			}
+			last = "empty model list";
+		} catch (error) {
+			last = error instanceof Error ? error.message : String(error);
+		}
+		console.error(`[provider] failed to fetch models (attempt ${attempt + 1}/${delays.length + 1}): ${last}`);
 	}
+	throw new Error(`[provider] model list unavailable: ${baseUrl}/models failed ${delays.length + 1} times (${last})`);
 }
 
 /** Pi reads `$NAME` in an API key as an environment reference and a leading `!` as a command:
@@ -88,9 +108,15 @@ export default async function (pi: ExtensionAPI) {
 	}
 	const name = process.env.TESTGEN_PROVIDER_NAME || "custom";
 	const configured = JSON.parse(process.env.TESTGEN_MODELS || "[]") as (string | RemoteModel)[];
-	const models = configured.length
-		? configured.map((m) => (typeof m === "string" ? { id: m, supports_reasoning: true } : m))
-		: await fetchModels(baseUrl, apiKey);
+	let models: RemoteModel[];
+	try {
+		models = configured.length
+			? configured.map((m) => (typeof m === "string" ? { id: m, supports_reasoning: true } : m))
+			: await fetchModels(baseUrl, apiKey);
+	} catch (error) {
+		console.error(error instanceof Error ? error.message : String(error));
+		throw error;
+	}
 	pi.registerProvider(name, {
 		name,
 		baseUrl,

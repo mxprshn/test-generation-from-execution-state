@@ -174,7 +174,7 @@ class Runner:
                 shutil.move(str(cell), str(aside))
                 self.log(case_id, f"{mode}/{run_id}: infrastructure failure, retry: {str(s.get('error'))[:160]}")
                 fb = self.cfg.fallback_api_key_env
-                if s.get("gateway_errors") and fb and os.environ.get(fb):
+                if (s.get("gateway_errors") or G.provider_unreachable(s, aside)) and fb and os.environ.get(fb):
                     key = fb
                     self.log(case_id, f"{mode}/{run_id}: retry on the fallback key {fb}")
             elif cell.exists():
