@@ -1,0 +1,62 @@
+[
+  {
+    "staticMethodMocks": [
+      {
+        "method": {
+          "methodName": "parseFileText",
+          "fullName": "com.puppycrawl.tools.checkstyle.JavaParser.parseFileText(Lcom/puppycrawl/tools/checkstyle/api/FileText;Lcom/puppycrawl/tools/checkstyle/JavaParser$Options;)Lcom/puppycrawl/tools/checkstyle/api/DetailAST;",
+          "argumentsSize": 2,
+          "returnTypeName": "com.puppycrawl.tools.checkstyle.api.DetailAST",
+          "containingClass": "com.puppycrawl.tools.checkstyle.JavaParser"
+        },
+        "calls": [
+          {
+            "result": {
+              "kind": "mock",
+              "typeName": "com.puppycrawl.tools.checkstyle.DetailAstImpl",
+              "methods": [],
+              "isSpy": false,
+              "id": 1
+            },
+            "args": []
+          }
+        ]
+      }
+    ],
+    "calls": [
+      {
+        "type": "commonCall",
+        "methodDump": {
+          "methodName": "parseFile",
+          "fullName": "parseFile(File, Options)",
+          "argumentsSize": 2,
+          "returnTypeName": "DetailAST",
+          "containingClass": "com.puppycrawl.tools.checkstyle.JavaParser"
+        },
+        "thisDump": {
+          "kind": "object",
+          "typeName": "unknown",
+          "fields": {},
+          "id": -1
+        },
+        "args": [
+          {
+            "kind": "converted",
+            "isResource": true,
+            "typeName": "java.io.File",
+            "resourcePath": "javaParserReproducedTests/java.io.File.java",
+            "content": "/*\nSuppressionCommentFilter\noffCommentFormat = CSOFF\nonCommentFormat = CSON\ncheckFormat = MemberNameCheck\nmessageFormat = (default)(null)\nidFormat = (default)(null)\ncheckCPP = (default)true\ncheckC = (default)true\n\n\ncom.puppycrawl.tools.checkstyle.checks.naming.MemberNameCheck\nid = ignore\nformat = (default)^[a-z][a-zA-Z0-9]*$\napplyToPublic = (default)true\napplyToProtected = (default)true\napplyToPackage = (default)true\napplyToPrivate = (default)true\n\n*/\n\npackage com.puppycrawl.tools.checkstyle.filters.suppressioncommentfilter;\n\npublic class InputSuppressionCommentFilterSuppressById6 {\n\n    // CSOFF\n    int line_length = 100; // filtered violation\n    //CSON\n}\n"
+          },
+          {
+            "kind": "enum",
+            "typeName": "com.puppycrawl.tools.checkstyle.JavaParser$Options",
+            "value": "WITH_COMMENTS"
+          }
+        ],
+        "returnValue": {
+          "kind": "unknown"
+        }
+      }
+    ]
+  }
+]

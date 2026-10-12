@@ -1,0 +1,235 @@
+"""Metrics: RQ1 comparison levels, trace reading, PIT scores, quality statistics."""
+import unittest
+
+from evaluation import compare as C
+from evaluation import mutation as M
+from evaluation import quality as Q
+from evaluation import trace as T
+
+ND = {"types": ["java.util.UUID"], "type_prefixes": ["org.h2."], "fields": {"*": ["birthTime"], "p": ["id"]}}
+
+
+def inv(args, value="r", calls=("virtual int A#b()",), outcome="return", self=None):
+    return {"self": self, "args": args, "calls": list(calls), "outcome": outcome, "value": value}
+
+
+class CompareTest(unittest.TestCase):
+    def test_identical_invocations_collapse(self):
+        ref = [inv(["a"]), inv(["a"]), inv(["b"])]
+        r = C.compare(ref, [inv(["a"])], ND, "p")
+        self.assertEqual(r["scenarios"], 2)
+        self.assertEqual(r["data_hits"], 1)
+        self.assertEqual(r["structure_hits"], 2)
+
+    def test_data_never_exceeds_structure(self):
+        ref = [inv(["a"]), inv(["b"], calls=("virtual int A#c()",))]
+        r = C.compare(ref, [inv(["x"]), inv(["b"], calls=("virtual int A#c()",))], ND, "p")
+        self.assertLessEqual(r["data_hits"], r["structure_hits"])
+
+    def test_not_run_counts_as_zero(self):
+        r = C.compare([inv(["a"])], None, ND, "p")
+        self.assertEqual(r["recall_data"], 0.0)
+        self.assertEqual(r["recall_structure"], 0.0)
+
+    def test_proxy_suffix_normalised_in_calls(self):
+        a = inv(["a"], calls=("virtual int Repo$MockitoMock$123#find()",))
+        b = inv(["a"], calls=("virtual int Repo$$EnhancerBySpringCGLIB$$abc#find()",))
+        self.assertEqual(C.compare([a], [b], ND, "p")["data_hits"], 1)
+
+    def test_masked_types_fields_and_strings(self):
+        g1 = {"$t": "x.E", "$id": 1, "$fields": {"id": 5, "u": {"$t": "java.util.UUID", "$str": "1"},
+                                              "db": {"$t": "org.h2.Session", "$id": 2}, "birthTime": 1,
+                                              "msg": "at 2026-10-11 23:57:39 obj@1a2b3c"}}
+        g2 = {"$t": "x.E", "$id": 7, "$fields": {"id": 9, "u": {"$t": "java.util.UUID", "$str": "2"},
+                                              "db": {"$t": "org.h2.Session", "$id": 8}, "birthTime": 2,
+                                              "msg": "at 2026-10-12 01:00:00 obj@ffee00"}}
+        self.assertEqual(C.compare([inv([g1])], [inv([g2])], ND, "p")["data_hits"], 1)
+
+    NO_ND = {"types": [], "fields": {}}
+
+    @staticmethod
+    def svc(dep, name):
+        return {"$t": "x.Svc", "$id": 1, "$fields": {"dep": dep, "name": name}}
+
+    def cmp(self, ref, cand, components=(), test_classes=()):
+        return C.compare(ref, cand, self.NO_ND, "p", set(components), set(test_classes))
+
+    def hits(self, r):
+        return tuple(r[f"{lvl}_hits"] for lvl in C.LEVELS)
+
+    def test_each_level(self):
+        call = ("virtual int A#b()",)
+        ref = [inv(["a"], value="r", calls=call, self=self.svc(None, "n"))]
+        # S only: other arguments
+        self.assertEqual(self.hits(self.cmp(ref, [inv(["z"], value="r", calls=call, self=self.svc(None, "n"))])),
+                         (1, 0, 0, 0))
+        # S and A: same input/output, other receiver data
+        self.assertEqual(self.hits(self.cmp(ref, [inv(["a"], value="r", calls=call, self=self.svc(None, "m"))])),
+                         (1, 1, 0, 0))
+        # nothing: other outgoing calls
+        self.assertEqual(self.hits(self.cmp(ref, [inv(["a"], value="r", calls=("virtual int A#c()",))])),
+                         (0, 0, 0, 0))
+        # all levels
+        r = self.cmp(ref, [inv(["a"], value="r", calls=call, self=self.svc(None, "n"))])
+        self.assertEqual(self.hits(r), (1, 1, 1, 1))
+        self.assertEqual(r["recall_data"], r["recall_io"])
+
+    def test_receiver_ignored_at_io_level(self):
+        ref = [inv(["a"], self={"$t": "x.T", "$fields": {"tabWidth": 4}})]
+        cand = [inv(["a"], self={"$t": "x.T", "$fields": {"tabWidth": 8}})]
+        self.assertEqual(self.hits(self.cmp(ref, cand)), (1, 1, 0, 0))
+
+    def test_pairwise_mock_vs_real_object(self):
+        real = {"$t": "x.Executor", "$id": 2, "$fields": {"n": 7}}
+        mock = {"$t": "x.Executor$MockitoMock$1", "$opaque": True}
+        ref = [inv([1], self=self.svc(real, "a"))]
+        # mock only on the candidate side: the field is a dependency on both sides
+        r = self.cmp(ref, [inv([1], self=self.svc(mock, "a"))])
+        self.assertEqual(self.hits(r), (1, 1, 1, 0))
+        self.assertEqual(r["dependency_fields"], ["dep"])
+        # the remaining receiver data still counts at level B
+        self.assertEqual(self.hits(self.cmp(ref, [inv([1], self=self.svc(mock, "b"))])), (1, 1, 0, 0))
+        # and the rule is symmetric
+        self.assertEqual(self.hits(self.cmp([inv([1], self=self.svc(mock, "a"))], ref)), (1, 1, 1, 0))
+
+    def test_component_stub_and_null_dependencies(self):
+        bean = {"$t": "x.Repo", "$id": 2, "$fields": {"cache": 1}}
+        other = {"$t": "x.Repo", "$id": 2, "$fields": {"cache": 2}}
+        stub = {"$t": "x.SvcCarvedTest$FakeRepo", "$id": 2, "$fields": {}}
+        ref = [inv([1], self=self.svc(bean, "a"))]
+        self.assertEqual(self.hits(self.cmp(ref, [inv([1], self=self.svc(other, "a"))], components=["x.Repo"])),
+                         (1, 1, 1, 0))
+        self.assertEqual(self.hits(self.cmp(ref, [inv([1], self=self.svc(other, "a"))])), (1, 1, 0, 0))
+        self.assertEqual(self.hits(self.cmp(ref, [inv([1], self=self.svc(stub, "a"))])), (1, 1, 1, 0))
+        self.assertEqual(self.hits(self.cmp(ref, [inv([1], self=self.svc({"$t": "x.Stub", "$fields": {}}, "a"))],
+                                            test_classes=["x.Stub"])), (1, 1, 1, 0))
+        self.assertEqual(self.hits(self.cmp(ref, [inv([1], self=self.svc(None, "a"))])), (1, 1, 1, 0))
+        # a null string against a value is a data difference, not a dependency
+        r = self.cmp([inv([1], self=self.svc("text", "a"))], [inv([1], self=self.svc(None, "a"))])
+        self.assertEqual((self.hits(r), r["dependency_fields"]), ((1, 1, 0, 0), []))
+
+    def test_levels_nested(self):
+        import random
+        rnd = random.Random(7)
+        pick = lambda xs: xs[rnd.randrange(len(xs))]
+        for _ in range(200):
+            def one():
+                return inv([pick(["a", "b"])], value=pick(["r", "q"]),
+                           calls=(pick(["virtual int A#b()", "virtual int A#c()"]),),
+                           self=self.svc(pick([None, {"$t": "x.D", "$fields": {"k": pick([1, 2])}},
+                                               {"$t": "x.D$MockitoMock$1", "$opaque": True}]),
+                                         pick(["n", "m"])))
+            r = self.cmp([one() for _ in range(3)], [one() for _ in range(3)])
+            h = self.hits(r)
+            self.assertTrue(h[0] >= h[1] >= h[2] >= h[3], h)
+
+    def test_junit_temporary_directories(self):
+        a = "/data/results/v2/work/ws/c-r1-reference/m/target/junit16315607296389577792/testDiff-1753139585/x"
+        b = "/private/var/folders/ab/T/results/work/ws/c-dump-r1-rq1/m/target/junit987654321/carvedDiff1987433262/x"
+        self.assertEqual(C.norm_str(a), C.norm_str(b))
+        self.assertEqual(C.norm_str("/tmp/junit1234567/x"), C.norm_str("/tmp/junit7654321/x"))
+        self.assertNotEqual(C.norm_str("/tmp/junit1234567/x"), C.norm_str("/tmp/junit1234567/y"))
+
+    def test_collections_by_interface(self):
+        al = {"$t": "java.util.ArrayList", "$len": 2, "$items": [1, 2]}
+        ll = {"$t": "java.util.Arrays$ArrayList", "$len": 2, "$items": [1, 2]}
+        im = {"$t": "java.util.ImmutableCollections$ListN", "$len": 2, "$items": [1, 2]}
+        rev = {"$t": "java.util.LinkedList", "$len": 2, "$items": [2, 1]}
+        self.assertEqual(self.cmp([inv([al])], [inv([ll]), inv([im])])["io_hits"], 1)
+        self.assertEqual(self.cmp([inv([al])], [inv([rev])])["io_hits"], 0)
+        hs = {"$t": "java.util.HashSet", "$len": 2, "$items": ["a", "b"]}
+        ts = {"$t": "java.util.TreeSet", "$len": 2, "$items": ["b", "a"]}
+        self.assertEqual(self.cmp([inv([hs])], [inv([ts])])["io_hits"], 1)
+        hm = {"$t": "java.util.HashMap", "$len": 1, "$entries": [["k", 1]]}
+        lm = {"$t": "java.util.LinkedHashMap", "$len": 1, "$entries": [["k", 1]]}
+        self.assertEqual(self.cmp([inv([hm])], [inv([lm])])["io_hits"], 1)
+        # a list is not a set
+        self.assertEqual(self.cmp([inv([al])], [inv([{**hs, "$items": [1, 2]}])])["io_hits"], 0)
+
+    def test_unordered_collections_sorted(self):
+        a = {"$t": "java.util.HashMap", "$entries": [["k1", 1], ["k2", 2]]}
+        b = {"$t": "java.util.HashMap", "$entries": [["k2", 2], ["k1", 1]]}
+        self.assertEqual(C.compare([inv([a])], [inv([b])], ND, "p")["data_hits"], 1)
+        la = {"$t": "java.util.ArrayList", "$items": [1, 2]}
+        lb = {"$t": "java.util.ArrayList", "$items": [2, 1]}
+        self.assertEqual(C.compare([inv([la])], [inv([lb])], ND, "p")["data_hits"], 0)
+
+    def test_btrace_internal_calls_dropped(self):
+        a = inv(["a"], calls=("virtual int A#b()", "static void ##mc$test:timed"))
+        self.assertEqual(C.structure_key(a), C.structure_key(inv(["a"])))
+
+
+class TraceTest(unittest.TestCase):
+    def test_parse_signature(self):
+        self.assertEqual(T.parse_signature("(java.util.List<x.Y>, int) -> java.util.Map<a,b>"),
+                         (["java.util.List", "int"], "java.util.Map"))
+        self.assertEqual(T.parse_signature("() -> void"), ([], "void"))
+
+    def test_read_trace_closes_open_invocations(self):
+        import json, tempfile
+        from pathlib import Path
+        d = Path(tempfile.mkdtemp())
+        (d / "trace-1.jsonl").write_text("\n".join(json.dumps(e) for e in [
+            {"ev": "enter", "id": 1, "self": None, "args": [1]},
+            {"ev": "call", "id": 1, "sig": "s"},
+            {"ev": "return", "id": 1, "value": 2, "void": False},
+            {"ev": "enter", "id": 2, "self": None, "args": [3]},
+        ]))
+        t = T.read_trace(d)
+        self.assertEqual([i["outcome"] for i in t["invocations"]], ["return", "throw"])
+
+    def test_read_trace_drops_launcher_jvms(self):
+        import json, tempfile
+        from pathlib import Path
+        d = Path(tempfile.mkdtemp())
+        enter = {"ev": "enter", "id": 1, "self": None, "args": [1]}
+        (d / "trace-1-1.jsonl").write_text("\n".join(json.dumps(e) for e in [
+            {"ev": "jvm", "pid": 1, "main": "org.codehaus.plexus.classworlds.launcher.Launcher"}, enter]))
+        (d / "trace-2-2.jsonl").write_text("\n".join(json.dumps(e) for e in [
+            {"ev": "jvm", "pid": 2, "main": "/tmp/surefire/surefirebooter1.jar"}, enter]))
+        t = T.read_trace(d)
+        self.assertEqual(len(t["invocations"]), 1)
+        self.assertEqual(len(t["skipped_launcher_files"]), 1)
+
+
+class MutationTest(unittest.TestCase):
+    def test_gain_over_baseline(self):
+        base = {"m1": "KILLED", "m2": "SURVIVED", "m3": "NO_COVERAGE"}
+        mode = {"m1": "SURVIVED", "m2": "KILLED", "m3": "TIMED_OUT"}
+        g = M.gain_over_baseline(base, mode)
+        self.assertEqual((g["baseline_killed"], g["union_killed"], g["additional"]), (1, 3, 2))
+
+    def test_score(self):
+        s = M.score({"a": "KILLED", "b": "SURVIVED", "c": "NO_COVERAGE"})
+        self.assertEqual((s["covered"], s["killed"]), (2, 1))
+        self.assertAlmostEqual(s["oracle_strength"], 0.5)
+
+
+class QualityTest(unittest.TestCase):
+    SRC = """
+    class T {
+      @Test void a() { Foo v0 = mock(Foo.class); when(v0.x()).thenReturn(1);
+        ReflectionTestUtils.setField(t, "f", 2); assertEquals(3, t.target("s", 4)); }
+      @Test void b() { t.target("q", 5); }
+    }"""
+
+    def test_readability_and_mocks(self):
+        r = Q.readability(self.SRC)
+        self.assertEqual(r["test_methods"], 2)
+        self.assertEqual(r["tests_without_assertions"], 1)
+        self.assertEqual(r["reflection"], 1)
+        self.assertGreaterEqual(r["generated_names"], 1)
+        m = Q.mock_stats(self.SRC)
+        self.assertEqual((m["mocks"], m["stubbings"]), (1, 1))
+
+    def test_preservation(self):
+        final = self.SRC.replace("v0", "foo").replace("ReflectionTestUtils.setField(t, \"f\", 2);", "t.setF(2);")
+        p = Q.preservation(self.SRC, final, "target")
+        self.assertEqual(p["target_calls"], [2, 2])
+        self.assertEqual(p["assertions"], [1, 1])
+        # the field-name literal "f" of the removed reflection call is legitimately gone
+        self.assertAlmostEqual(p["literals_kept"], 7 / 8)
+
+
+if __name__ == "__main__":
+    unittest.main()

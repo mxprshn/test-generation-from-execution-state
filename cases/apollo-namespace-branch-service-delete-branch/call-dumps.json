@@ -1,0 +1,427 @@
+[
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "deleteBranch",
+                    "fullName": "deleteBranch(String, String, String, String, int, String)",
+                    "argumentsSize": 6,
+                    "returnTypeName": "void",
+                    "containingClass": "com.ctrip.framework.apollo.biz.service.NamespaceBranchService"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "com.ctrip.framework.apollo.biz.service.NamespaceBranchService",
+                    "fields": {
+                        "auditService": {
+                            "kind": "mock",
+                            "typeName": "com.ctrip.framework.apollo.biz.service.AuditService",
+                            "methods": [],
+                            "isSpy": false,
+                            "id": 1
+                        },
+                        "grayReleaseRuleRepository": {
+                            "kind": "mock",
+                            "typeName": "com.ctrip.framework.apollo.biz.repository.GrayReleaseRuleRepository",
+                            "methods": [
+                                {
+                                    "method": {
+                                        "methodName": "findTopByAppIdAndClusterNameAndNamespaceNameAndBranchNameOrderByIdDesc",
+                                        "fullName": "com.ctrip.framework.apollo.biz.repository.GrayReleaseRuleRepository.findTopByAppIdAndClusterNameAndNamespaceNameAndBranchNameOrderByIdDesc(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lcom/ctrip/framework/apollo/biz/entity/GrayReleaseRule;",
+                                        "argumentsSize": 4,
+                                        "returnTypeName": "com.ctrip.framework.apollo.biz.entity.GrayReleaseRule",
+                                        "containingClass": "com.ctrip.framework.apollo.biz.repository.GrayReleaseRuleRepository"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "null"
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "method": {
+                                        "methodName": "save",
+                                        "fullName": "com.ctrip.framework.apollo.biz.repository.GrayReleaseRuleRepository.save(Ljava/lang/Object;)Ljava/lang/Object;",
+                                        "argumentsSize": 1,
+                                        "returnTypeName": "java.lang.Object",
+                                        "containingClass": "com.ctrip.framework.apollo.biz.repository.GrayReleaseRuleRepository"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "object",
+                                                "typeName": "com.ctrip.framework.apollo.biz.entity.GrayReleaseRule",
+                                                "fields": {
+                                                    "clusterName": {
+                                                        "kind": "string",
+                                                        "value": "default"
+                                                    },
+                                                    "branchName": {
+                                                        "kind": "string",
+                                                        "value": "child-cluster"
+                                                    },
+                                                    "releaseId": {
+                                                        "kind": "long",
+                                                        "value": 0
+                                                    },
+                                                    "branchStatus": {
+                                                        "kind": "int",
+                                                        "value": 0
+                                                    },
+                                                    "id": {
+                                                        "kind": "long",
+                                                        "value": 1
+                                                    },
+                                                    "deletedAt": {
+                                                        "kind": "long",
+                                                        "value": 0
+                                                    },
+                                                    "dataChangeCreatedBy": {
+                                                        "kind": "string",
+                                                        "value": "apollo"
+                                                    },
+                                                    "dataChangeLastModifiedBy": {
+                                                        "kind": "string",
+                                                        "value": "apollo"
+                                                    },
+                                                    "appId": {
+                                                        "kind": "string",
+                                                        "value": "testApp"
+                                                    },
+                                                    "namespaceName": {
+                                                        "kind": "string",
+                                                        "value": "application"
+                                                    },
+                                                    "rules": {
+                                                        "kind": "string",
+                                                        "value": "[]"
+                                                    },
+                                                    "isDeleted": {
+                                                        "kind": "boolean",
+                                                        "value": false
+                                                    },
+                                                    "dataChangeCreatedTime": {
+                                                        "kind": "object",
+                                                        "typeName": "java.util.Date",
+                                                        "fields": {
+                                                            "fastTime": {
+                                                                "kind": "long",
+                                                                "value": 1791751403782
+                                                            },
+                                                            "cdate": {
+                                                                "kind": "null"
+                                                            },
+                                                            "jcal": {
+                                                                "kind": "null"
+                                                            },
+                                                            "defaultCenturyStart": {
+                                                                "kind": "int",
+                                                                "value": 0
+                                                            }
+                                                        },
+                                                        "id": 4
+                                                    },
+                                                    "dataChangeLastModifiedTime": {
+                                                        "kind": "object",
+                                                        "typeName": "java.util.Date",
+                                                        "fields": {
+                                                            "fastTime": {
+                                                                "kind": "long",
+                                                                "value": 1791751403782
+                                                            },
+                                                            "cdate": {
+                                                                "kind": "null"
+                                                            },
+                                                            "jcal": {
+                                                                "kind": "null"
+                                                            },
+                                                            "defaultCenturyStart": {
+                                                                "kind": "int",
+                                                                "value": 0
+                                                            }
+                                                        },
+                                                        "id": 5
+                                                    }
+                                                },
+                                                "id": 3
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                }
+                            ],
+                            "isSpy": false,
+                            "id": 2
+                        },
+                        "clusterService": {
+                            "kind": "mock",
+                            "typeName": "com.ctrip.framework.apollo.biz.service.ClusterService",
+                            "methods": [
+                                {
+                                    "method": {
+                                        "methodName": "findOne",
+                                        "fullName": "com.ctrip.framework.apollo.biz.service.ClusterService.findOne(Ljava/lang/String;Ljava/lang/String;)Lcom/ctrip/framework/apollo/biz/entity/Cluster;",
+                                        "argumentsSize": 2,
+                                        "returnTypeName": "com.ctrip.framework.apollo.biz.entity.Cluster",
+                                        "containingClass": "com.ctrip.framework.apollo.biz.service.ClusterService"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "object",
+                                                "typeName": "com.ctrip.framework.apollo.biz.entity.Cluster",
+                                                "fields": {
+                                                    "name": {
+                                                        "kind": "string",
+                                                        "value": "child-cluster"
+                                                    },
+                                                    "parentClusterId": {
+                                                        "kind": "long",
+                                                        "value": 1
+                                                    },
+                                                    "comment": {
+                                                        "kind": "null"
+                                                    },
+                                                    "id": {
+                                                        "kind": "long",
+                                                        "value": 2
+                                                    },
+                                                    "deletedAt": {
+                                                        "kind": "long",
+                                                        "value": 0
+                                                    },
+                                                    "dataChangeCreatedBy": {
+                                                        "kind": "string",
+                                                        "value": "default"
+                                                    },
+                                                    "dataChangeLastModifiedBy": {
+                                                        "kind": "string",
+                                                        "value": "default"
+                                                    },
+                                                    "appId": {
+                                                        "kind": "string",
+                                                        "value": "testApp"
+                                                    },
+                                                    "isDeleted": {
+                                                        "kind": "boolean",
+                                                        "value": false
+                                                    },
+                                                    "dataChangeCreatedTime": {
+                                                        "kind": "null"
+                                                    },
+                                                    "dataChangeLastModifiedTime": {
+                                                        "kind": "null"
+                                                    }
+                                                },
+                                                "id": 7
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                }
+                            ],
+                            "isSpy": false,
+                            "id": 6
+                        },
+                        "releaseService": {
+                            "kind": "mock",
+                            "typeName": "com.ctrip.framework.apollo.biz.service.ReleaseService",
+                            "methods": [
+                                {
+                                    "method": {
+                                        "methodName": "findLatestActiveRelease",
+                                        "fullName": "com.ctrip.framework.apollo.biz.service.ReleaseService.findLatestActiveRelease(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lcom/ctrip/framework/apollo/biz/entity/Release;",
+                                        "argumentsSize": 3,
+                                        "returnTypeName": "com.ctrip.framework.apollo.biz.entity.Release",
+                                        "containingClass": "com.ctrip.framework.apollo.biz.service.ReleaseService"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "null"
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "null"
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                }
+                            ],
+                            "isSpy": false,
+                            "id": 8
+                        },
+                        "namespaceService": {
+                            "kind": "mock",
+                            "typeName": "com.ctrip.framework.apollo.biz.service.NamespaceService",
+                            "methods": [],
+                            "isSpy": false,
+                            "id": 9
+                        },
+                        "releaseHistoryService": {
+                            "kind": "mock",
+                            "typeName": "com.ctrip.framework.apollo.biz.service.ReleaseHistoryService",
+                            "methods": [
+                                {
+                                    "method": {
+                                        "methodName": "createReleaseHistory",
+                                        "fullName": "com.ctrip.framework.apollo.biz.service.ReleaseHistoryService.createReleaseHistory(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;JJILjava/util/Map;Ljava/lang/String;)Lcom/ctrip/framework/apollo/biz/entity/ReleaseHistory;",
+                                        "argumentsSize": 9,
+                                        "returnTypeName": "com.ctrip.framework.apollo.biz.entity.ReleaseHistory",
+                                        "containingClass": "com.ctrip.framework.apollo.biz.service.ReleaseHistoryService"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "object",
+                                                "typeName": "com.ctrip.framework.apollo.biz.entity.ReleaseHistory",
+                                                "fields": {
+                                                    "branchName": {
+                                                        "kind": "string",
+                                                        "value": "child-cluster"
+                                                    },
+                                                    "releaseId": {
+                                                        "kind": "long",
+                                                        "value": 0
+                                                    },
+                                                    "operation": {
+                                                        "kind": "int",
+                                                        "value": 7
+                                                    },
+                                                    "id": {
+                                                        "kind": "long",
+                                                        "value": 2
+                                                    },
+                                                    "dataChangeCreatedBy": {
+                                                        "kind": "string",
+                                                        "value": "apollo"
+                                                    },
+                                                    "appId": {
+                                                        "kind": "string",
+                                                        "value": "testApp"
+                                                    },
+                                                    "operationContext": {
+                                                        "kind": "string",
+                                                        "value": "{}"
+                                                    },
+                                                    "dataChangeCreatedTime": {
+                                                        "kind": "object",
+                                                        "typeName": "java.util.Date",
+                                                        "fields": {
+                                                            "fastTime": {
+                                                                "kind": "long",
+                                                                "value": 1791751404099
+                                                            },
+                                                            "cdate": {
+                                                                "kind": "null"
+                                                            },
+                                                            "jcal": {
+                                                                "kind": "null"
+                                                            },
+                                                            "defaultCenturyStart": {
+                                                                "kind": "int",
+                                                                "value": 0
+                                                            }
+                                                        },
+                                                        "id": 12
+                                                    },
+                                                    "clusterName": {
+                                                        "kind": "string",
+                                                        "value": "default"
+                                                    },
+                                                    "previousReleaseId": {
+                                                        "kind": "long",
+                                                        "value": 0
+                                                    },
+                                                    "deletedAt": {
+                                                        "kind": "long",
+                                                        "value": 0
+                                                    },
+                                                    "dataChangeLastModifiedBy": {
+                                                        "kind": "string",
+                                                        "value": "apollo"
+                                                    },
+                                                    "namespaceName": {
+                                                        "kind": "string",
+                                                        "value": "application"
+                                                    },
+                                                    "isDeleted": {
+                                                        "kind": "boolean",
+                                                        "value": false
+                                                    },
+                                                    "dataChangeLastModifiedTime": {
+                                                        "kind": "object",
+                                                        "typeName": "java.util.Date",
+                                                        "fields": {
+                                                            "fastTime": {
+                                                                "kind": "long",
+                                                                "value": 1791751404100
+                                                            },
+                                                            "cdate": {
+                                                                "kind": "null"
+                                                            },
+                                                            "jcal": {
+                                                                "kind": "null"
+                                                            },
+                                                            "defaultCenturyStart": {
+                                                                "kind": "int",
+                                                                "value": 0
+                                                            }
+                                                        },
+                                                        "id": 13
+                                                    }
+                                                },
+                                                "id": 11
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                }
+                            ],
+                            "isSpy": false,
+                            "id": 10
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "string",
+                        "value": "testApp"
+                    },
+                    {
+                        "kind": "string",
+                        "value": "default"
+                    },
+                    {
+                        "kind": "string",
+                        "value": "application"
+                    },
+                    {
+                        "kind": "string",
+                        "value": "child-cluster"
+                    },
+                    {
+                        "kind": "int",
+                        "value": 0
+                    },
+                    {
+                        "kind": "string",
+                        "value": "apollo"
+                    }
+                ],
+                "returnValue": {
+                    "kind": "unknown"
+                }
+            }
+        ]
+    }
+]

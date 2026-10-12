@@ -1,0 +1,1185 @@
+[
+  {
+    "staticMethodMocks": [],
+    "calls": [
+      {
+        "type": "commonCall",
+        "methodDump": {
+          "methodName": "generate",
+          "fullName": "generate()",
+          "argumentsSize": 0,
+          "returnTypeName": "List<String>",
+          "containingClass": "com.puppycrawl.tools.checkstyle.xpath.XpathQueryGenerator"
+        },
+        "thisDump": {
+          "kind": "object",
+          "typeName": "com.puppycrawl.tools.checkstyle.xpath.XpathQueryGenerator",
+          "fields": {
+            "rootAst": {
+              "kind": "mock",
+              "typeName": "com.puppycrawl.tools.checkstyle.DetailAstImpl",
+              "methods": [
+                {
+                  "method": {
+                    "methodName": "getLineNo",
+                    "fullName": "com.puppycrawl.tools.checkstyle.DetailAstImpl.getLineNo()I",
+                    "argumentsSize": 0,
+                    "returnTypeName": "int",
+                    "containingClass": "com.puppycrawl.tools.checkstyle.DetailAstImpl"
+                  },
+                  "calls": [
+                    {
+                      "result": {
+                        "kind": "int",
+                        "value": 1
+                      },
+                      "args": []
+                    }
+                  ]
+                },
+                {
+                  "method": {
+                    "methodName": "getFirstChild",
+                    "fullName": "com.puppycrawl.tools.checkstyle.DetailAstImpl.getFirstChild()Lcom/puppycrawl/tools/checkstyle/api/DetailAST;",
+                    "argumentsSize": 0,
+                    "returnTypeName": "com.puppycrawl.tools.checkstyle.api.DetailAST",
+                    "containingClass": "com.puppycrawl.tools.checkstyle.DetailAstImpl"
+                  },
+                  "calls": [
+                    {
+                      "result": {
+                        "kind": "mock",
+                        "typeName": "com.puppycrawl.tools.checkstyle.DetailAstImpl",
+                        "methods": [
+                          {
+                            "method": {
+                              "methodName": "getLineNo",
+                              "fullName": "com.puppycrawl.tools.checkstyle.DetailAstImpl.getLineNo()I",
+                              "argumentsSize": 0,
+                              "returnTypeName": "int",
+                              "containingClass": "com.puppycrawl.tools.checkstyle.DetailAstImpl"
+                            },
+                            "calls": [
+                              {
+                                "result": {
+                                  "kind": "int",
+                                  "value": 1
+                                },
+                                "args": []
+                              }
+                            ]
+                          },
+                          {
+                            "method": {
+                              "methodName": "getFirstChild",
+                              "fullName": "com.puppycrawl.tools.checkstyle.DetailAstImpl.getFirstChild()Lcom/puppycrawl/tools/checkstyle/api/DetailAST;",
+                              "argumentsSize": 0,
+                              "returnTypeName": "com.puppycrawl.tools.checkstyle.api.DetailAST",
+                              "containingClass": "com.puppycrawl.tools.checkstyle.DetailAstImpl"
+                            },
+                            "calls": [
+                              {
+                                "result": {
+                                  "kind": "mock",
+                                  "typeName": "com.puppycrawl.tools.checkstyle.DetailAstImpl",
+                                  "methods": [
+                                    {
+                                      "method": {
+                                        "methodName": "getLineNo",
+                                        "fullName": "com.puppycrawl.tools.checkstyle.DetailAstImpl.getLineNo()I",
+                                        "argumentsSize": 0,
+                                        "returnTypeName": "int",
+                                        "containingClass": "com.puppycrawl.tools.checkstyle.DetailAstImpl"
+                                      },
+                                      "calls": [
+                                        {
+                                          "result": {
+                                            "kind": "int",
+                                            "value": 1
+                                          },
+                                          "args": []
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "method": {
+                                        "methodName": "getFirstChild",
+                                        "fullName": "com.puppycrawl.tools.checkstyle.DetailAstImpl.getFirstChild()Lcom/puppycrawl/tools/checkstyle/api/DetailAST;",
+                                        "argumentsSize": 0,
+                                        "returnTypeName": "com.puppycrawl.tools.checkstyle.api.DetailAST",
+                                        "containingClass": "com.puppycrawl.tools.checkstyle.DetailAstImpl"
+                                      },
+                                      "calls": [
+                                        {
+                                          "result": {
+                                            "kind": "null"
+                                          },
+                                          "args": []
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "method": {
+                                        "methodName": "getNextSibling",
+                                        "fullName": "com.puppycrawl.tools.checkstyle.DetailAstImpl.getNextSibling()Lcom/puppycrawl/tools/checkstyle/api/DetailAST;",
+                                        "argumentsSize": 0,
+                                        "returnTypeName": "com.puppycrawl.tools.checkstyle.api.DetailAST",
+                                        "containingClass": "com.puppycrawl.tools.checkstyle.DetailAstImpl"
+                                      },
+                                      "calls": [
+                                        {
+                                          "result": {
+                                            "kind": "mock",
+                                            "typeName": "com.puppycrawl.tools.checkstyle.DetailAstImpl",
+                                            "methods": [
+                                              {
+                                                "method": {
+                                                  "methodName": "getLineNo",
+                                                  "fullName": "com.puppycrawl.tools.checkstyle.DetailAstImpl.getLineNo()I",
+                                                  "argumentsSize": 0,
+                                                  "returnTypeName": "int",
+                                                  "containingClass": "com.puppycrawl.tools.checkstyle.DetailAstImpl"
+                                                },
+                                                "calls": [
+                                                  {
+                                                    "result": {
+                                                      "kind": "int",
+                                                      "value": 1
+                                                    },
+                                                    "args": []
+                                                  }
+                                                ]
+                                              },
+                                              {
+                                                "method": {
+                                                  "methodName": "getFirstChild",
+                                                  "fullName": "com.puppycrawl.tools.checkstyle.DetailAstImpl.getFirstChild()Lcom/puppycrawl/tools/checkstyle/api/DetailAST;",
+                                                  "argumentsSize": 0,
+                                                  "returnTypeName": "com.puppycrawl.tools.checkstyle.api.DetailAST",
+                                                  "containingClass": "com.puppycrawl.tools.checkstyle.DetailAstImpl"
+                                                },
+                                                "calls": [
+                                                  {
+                                                    "result": {
+                                                      "kind": "mock",
+                                                      "typeName": "com.puppycrawl.tools.checkstyle.DetailAstImpl",
+                                                      "methods": [
+                                                        {
+                                                          "method": {
+                                                            "methodName": "getLineNo",
+                                                            "fullName": "com.puppycrawl.tools.checkstyle.DetailAstImpl.getLineNo()I",
+                                                            "argumentsSize": 0,
+                                                            "returnTypeName": "int",
+                                                            "containingClass": "com.puppycrawl.tools.checkstyle.DetailAstImpl"
+                                                          },
+                                                          "calls": [
+                                                            {
+                                                              "result": {
+                                                                "kind": "int",
+                                                                "value": 1
+                                                              },
+                                                              "args": []
+                                                            }
+                                                          ]
+                                                        },
+                                                        {
+                                                          "method": {
+                                                            "methodName": "getFirstChild",
+                                                            "fullName": "com.puppycrawl.tools.checkstyle.DetailAstImpl.getFirstChild()Lcom/puppycrawl/tools/checkstyle/api/DetailAST;",
+                                                            "argumentsSize": 0,
+                                                            "returnTypeName": "com.puppycrawl.tools.checkstyle.api.DetailAST",
+                                                            "containingClass": "com.puppycrawl.tools.checkstyle.DetailAstImpl"
+                                                          },
+                                                          "calls": [
+                                                            {
+                                                              "result": {
+                                                                "kind": "mock",
+                                                                "typeName": "com.puppycrawl.tools.checkstyle.DetailAstImpl",
+                                                                "methods": [
+                                                                  {
+                                                                    "method": {
+                                                                      "methodName": "getLineNo",
+                                                                      "fullName": "com.puppycrawl.tools.checkstyle.DetailAstImpl.getLineNo()I",
+                                                                      "argumentsSize": 0,
+                                                                      "returnTypeName": "int",
+                                                                      "containingClass": "com.puppycrawl.tools.checkstyle.DetailAstImpl"
+                                                                    },
+                                                                    "calls": [
+                                                                      {
+                                                                        "result": {
+                                                                          "kind": "int",
+                                                                          "value": 1
+                                                                        },
+                                                                        "args": []
+                                                                      }
+                                                                    ]
+                                                                  },
+                                                                  {
+                                                                    "method": {
+                                                                      "methodName": "getFirstChild",
+                                                                      "fullName": "com.puppycrawl.tools.checkstyle.DetailAstImpl.getFirstChild()Lcom/puppycrawl/tools/checkstyle/api/DetailAST;",
+                                                                      "argumentsSize": 0,
+                                                                      "returnTypeName": "com.puppycrawl.tools.checkstyle.api.DetailAST",
+                                                                      "containingClass": "com.puppycrawl.tools.checkstyle.DetailAstImpl"
+                                                                    },
+                                                                    "calls": [
+                                                                      {
+                                                                        "result": {
+                                                                          "kind": "mock",
+                                                                          "typeName": "com.puppycrawl.tools.checkstyle.DetailAstImpl",
+                                                                          "methods": [
+                                                                            {
+                                                                              "method": {
+                                                                                "methodName": "getLineNo",
+                                                                                "fullName": "com.puppycrawl.tools.checkstyle.DetailAstImpl.getLineNo()I",
+                                                                                "argumentsSize": 0,
+                                                                                "returnTypeName": "int",
+                                                                                "containingClass": "com.puppycrawl.tools.checkstyle.DetailAstImpl"
+                                                                              },
+                                                                              "calls": [
+                                                                                {
+                                                                                  "result": {
+                                                                                    "kind": "int",
+                                                                                    "value": 1
+                                                                                  },
+                                                                                  "args": []
+                                                                                }
+                                                                              ]
+                                                                            },
+                                                                            {
+                                                                              "method": {
+                                                                                "methodName": "getFirstChild",
+                                                                                "fullName": "com.puppycrawl.tools.checkstyle.DetailAstImpl.getFirstChild()Lcom/puppycrawl/tools/checkstyle/api/DetailAST;",
+                                                                                "argumentsSize": 0,
+                                                                                "returnTypeName": "com.puppycrawl.tools.checkstyle.api.DetailAST",
+                                                                                "containingClass": "com.puppycrawl.tools.checkstyle.DetailAstImpl"
+                                                                              },
+                                                                              "calls": [
+                                                                                {
+                                                                                  "result": {
+                                                                                    "kind": "mock",
+                                                                                    "typeName": "com.puppycrawl.tools.checkstyle.DetailAstImpl",
+                                                                                    "methods": [
+                                                                                      {
+                                                                                        "method": {
+                                                                                          "methodName": "getLineNo",
+                                                                                          "fullName": "com.puppycrawl.tools.checkstyle.DetailAstImpl.getLineNo()I",
+                                                                                          "argumentsSize": 0,
+                                                                                          "returnTypeName": "int",
+                                                                                          "containingClass": "com.puppycrawl.tools.checkstyle.DetailAstImpl"
+                                                                                        },
+                                                                                        "calls": [
+                                                                                          {
+                                                                                            "result": {
+                                                                                              "kind": "int",
+                                                                                              "value": 1
+                                                                                            },
+                                                                                            "args": []
+                                                                                          }
+                                                                                        ]
+                                                                                      },
+                                                                                      {
+                                                                                        "method": {
+                                                                                          "methodName": "getFirstChild",
+                                                                                          "fullName": "com.puppycrawl.tools.checkstyle.DetailAstImpl.getFirstChild()Lcom/puppycrawl/tools/checkstyle/api/DetailAST;",
+                                                                                          "argumentsSize": 0,
+                                                                                          "returnTypeName": "com.puppycrawl.tools.checkstyle.api.DetailAST",
+                                                                                          "containingClass": "com.puppycrawl.tools.checkstyle.DetailAstImpl"
+                                                                                        },
+                                                                                        "calls": [
+                                                                                          {
+                                                                                            "result": {
+                                                                                              "kind": "mock",
+                                                                                              "typeName": "com.puppycrawl.tools.checkstyle.DetailAstImpl",
+                                                                                              "methods": [
+                                                                                                {
+                                                                                                  "method": {
+                                                                                                    "methodName": "getLineNo",
+                                                                                                    "fullName": "com.puppycrawl.tools.checkstyle.DetailAstImpl.getLineNo()I",
+                                                                                                    "argumentsSize": 0,
+                                                                                                    "returnTypeName": "int",
+                                                                                                    "containingClass": "com.puppycrawl.tools.checkstyle.DetailAstImpl"
+                                                                                                  },
+                                                                                                  "calls": [
+                                                                                                    {
+                                                                                                      "result": {
+                                                                                                        "kind": "int",
+                                                                                                        "value": 1
+                                                                                                      },
+                                                                                                      "args": []
+                                                                                                    }
+                                                                                                  ]
+                                                                                                },
+                                                                                                {
+                                                                                                  "method": {
+                                                                                                    "methodName": "getFirstChild",
+                                                                                                    "fullName": "com.puppycrawl.tools.checkstyle.DetailAstImpl.getFirstChild()Lcom/puppycrawl/tools/checkstyle/api/DetailAST;",
+                                                                                                    "argumentsSize": 0,
+                                                                                                    "returnTypeName": "com.puppycrawl.tools.checkstyle.api.DetailAST",
+                                                                                                    "containingClass": "com.puppycrawl.tools.checkstyle.DetailAstImpl"
+                                                                                                  },
+                                                                                                  "calls": [
+                                                                                                    {
+                                                                                                      "result": {
+                                                                                                        "kind": "null"
+                                                                                                      },
+                                                                                                      "args": []
+                                                                                                    }
+                                                                                                  ]
+                                                                                                },
+                                                                                                {
+                                                                                                  "method": {
+                                                                                                    "methodName": "getNextSibling",
+                                                                                                    "fullName": "com.puppycrawl.tools.checkstyle.DetailAstImpl.getNextSibling()Lcom/puppycrawl/tools/checkstyle/api/DetailAST;",
+                                                                                                    "argumentsSize": 0,
+                                                                                                    "returnTypeName": "com.puppycrawl.tools.checkstyle.api.DetailAST",
+                                                                                                    "containingClass": "com.puppycrawl.tools.checkstyle.DetailAstImpl"
+                                                                                                  },
+                                                                                                  "calls": [
+                                                                                                    {
+                                                                                                      "result": {
+                                                                                                        "kind": "mock",
+                                                                                                        "typeName": "com.puppycrawl.tools.checkstyle.DetailAstImpl",
+                                                                                                        "methods": [
+                                                                                                          {
+                                                                                                            "method": {
+                                                                                                              "methodName": "getLineNo",
+                                                                                                              "fullName": "com.puppycrawl.tools.checkstyle.DetailAstImpl.getLineNo()I",
+                                                                                                              "argumentsSize": 0,
+                                                                                                              "returnTypeName": "int",
+                                                                                                              "containingClass": "com.puppycrawl.tools.checkstyle.DetailAstImpl"
+                                                                                                            },
+                                                                                                            "calls": [
+                                                                                                              {
+                                                                                                                "result": {
+                                                                                                                  "kind": "int",
+                                                                                                                  "value": 1
+                                                                                                                },
+                                                                                                                "args": []
+                                                                                                              }
+                                                                                                            ]
+                                                                                                          },
+                                                                                                          {
+                                                                                                            "method": {
+                                                                                                              "methodName": "getFirstChild",
+                                                                                                              "fullName": "com.puppycrawl.tools.checkstyle.DetailAstImpl.getFirstChild()Lcom/puppycrawl/tools/checkstyle/api/DetailAST;",
+                                                                                                              "argumentsSize": 0,
+                                                                                                              "returnTypeName": "com.puppycrawl.tools.checkstyle.api.DetailAST",
+                                                                                                              "containingClass": "com.puppycrawl.tools.checkstyle.DetailAstImpl"
+                                                                                                            },
+                                                                                                            "calls": [
+                                                                                                              {
+                                                                                                                "result": {
+                                                                                                                  "kind": "null"
+                                                                                                                },
+                                                                                                                "args": []
+                                                                                                              }
+                                                                                                            ]
+                                                                                                          },
+                                                                                                          {
+                                                                                                            "method": {
+                                                                                                              "methodName": "getNextSibling",
+                                                                                                              "fullName": "com.puppycrawl.tools.checkstyle.DetailAstImpl.getNextSibling()Lcom/puppycrawl/tools/checkstyle/api/DetailAST;",
+                                                                                                              "argumentsSize": 0,
+                                                                                                              "returnTypeName": "com.puppycrawl.tools.checkstyle.api.DetailAST",
+                                                                                                              "containingClass": "com.puppycrawl.tools.checkstyle.DetailAstImpl"
+                                                                                                            },
+                                                                                                            "calls": [
+                                                                                                              {
+                                                                                                                "result": {
+                                                                                                                  "kind": "null"
+                                                                                                                },
+                                                                                                                "args": []
+                                                                                                              }
+                                                                                                            ]
+                                                                                                          },
+                                                                                                          {
+                                                                                                            "method": {
+                                                                                                              "methodName": "getParent",
+                                                                                                              "fullName": "com.puppycrawl.tools.checkstyle.DetailAstImpl.getParent()Lcom/puppycrawl/tools/checkstyle/api/DetailAST;",
+                                                                                                              "argumentsSize": 0,
+                                                                                                              "returnTypeName": "com.puppycrawl.tools.checkstyle.api.DetailAST",
+                                                                                                              "containingClass": "com.puppycrawl.tools.checkstyle.DetailAstImpl"
+                                                                                                            },
+                                                                                                            "calls": [
+                                                                                                              {
+                                                                                                                "result": {
+                                                                                                                  "kind": "ref",
+                                                                                                                  "typeName": "com.puppycrawl.tools.checkstyle.DetailAstImpl",
+                                                                                                                  "refId": 8
+                                                                                                                },
+                                                                                                                "args": []
+                                                                                                              }
+                                                                                                            ]
+                                                                                                          }
+                                                                                                        ],
+                                                                                                        "isSpy": false,
+                                                                                                        "id": 10
+                                                                                                      },
+                                                                                                      "args": []
+                                                                                                    }
+                                                                                                  ]
+                                                                                                },
+                                                                                                {
+                                                                                                  "method": {
+                                                                                                    "methodName": "getParent",
+                                                                                                    "fullName": "com.puppycrawl.tools.checkstyle.DetailAstImpl.getParent()Lcom/puppycrawl/tools/checkstyle/api/DetailAST;",
+                                                                                                    "argumentsSize": 0,
+                                                                                                    "returnTypeName": "com.puppycrawl.tools.checkstyle.api.DetailAST",
+                                                                                                    "containingClass": "com.puppycrawl.tools.checkstyle.DetailAstImpl"
+                                                                                                  },
+                                                                                                  "calls": [
+                                                                                                    {
+                                                                                                      "result": {
+                                                                                                        "kind": "ref",
+                                                                                                        "typeName": "com.puppycrawl.tools.checkstyle.DetailAstImpl",
+                                                                                                        "refId": 8
+                                                                                                      },
+                                                                                                      "args": []
+                                                                                                    }
+                                                                                                  ]
+                                                                                                }
+                                                                                              ],
+                                                                                              "isSpy": false,
+                                                                                              "id": 9
+                                                                                            },
+                                                                                            "args": []
+                                                                                          }
+                                                                                        ]
+                                                                                      },
+                                                                                      {
+                                                                                        "method": {
+                                                                                          "methodName": "getNextSibling",
+                                                                                          "fullName": "com.puppycrawl.tools.checkstyle.DetailAstImpl.getNextSibling()Lcom/puppycrawl/tools/checkstyle/api/DetailAST;",
+                                                                                          "argumentsSize": 0,
+                                                                                          "returnTypeName": "com.puppycrawl.tools.checkstyle.api.DetailAST",
+                                                                                          "containingClass": "com.puppycrawl.tools.checkstyle.DetailAstImpl"
+                                                                                        },
+                                                                                        "calls": [
+                                                                                          {
+                                                                                            "result": {
+                                                                                              "kind": "mock",
+                                                                                              "typeName": "com.puppycrawl.tools.checkstyle.DetailAstImpl",
+                                                                                              "methods": [
+                                                                                                {
+                                                                                                  "method": {
+                                                                                                    "methodName": "getNextSibling",
+                                                                                                    "fullName": "com.puppycrawl.tools.checkstyle.DetailAstImpl.getNextSibling()Lcom/puppycrawl/tools/checkstyle/api/DetailAST;",
+                                                                                                    "argumentsSize": 0,
+                                                                                                    "returnTypeName": "com.puppycrawl.tools.checkstyle.api.DetailAST",
+                                                                                                    "containingClass": "com.puppycrawl.tools.checkstyle.DetailAstImpl"
+                                                                                                  },
+                                                                                                  "calls": [
+                                                                                                    {
+                                                                                                      "result": {
+                                                                                                        "kind": "null"
+                                                                                                      },
+                                                                                                      "args": []
+                                                                                                    }
+                                                                                                  ]
+                                                                                                },
+                                                                                                {
+                                                                                                  "method": {
+                                                                                                    "methodName": "getParent",
+                                                                                                    "fullName": "com.puppycrawl.tools.checkstyle.DetailAstImpl.getParent()Lcom/puppycrawl/tools/checkstyle/api/DetailAST;",
+                                                                                                    "argumentsSize": 0,
+                                                                                                    "returnTypeName": "com.puppycrawl.tools.checkstyle.api.DetailAST",
+                                                                                                    "containingClass": "com.puppycrawl.tools.checkstyle.DetailAstImpl"
+                                                                                                  },
+                                                                                                  "calls": [
+                                                                                                    {
+                                                                                                      "result": {
+                                                                                                        "kind": "ref",
+                                                                                                        "typeName": "com.puppycrawl.tools.checkstyle.DetailAstImpl",
+                                                                                                        "refId": 7
+                                                                                                      },
+                                                                                                      "args": []
+                                                                                                    }
+                                                                                                  ]
+                                                                                                }
+                                                                                              ],
+                                                                                              "isSpy": false,
+                                                                                              "id": 11
+                                                                                            },
+                                                                                            "args": []
+                                                                                          }
+                                                                                        ]
+                                                                                      },
+                                                                                      {
+                                                                                        "method": {
+                                                                                          "methodName": "getParent",
+                                                                                          "fullName": "com.puppycrawl.tools.checkstyle.DetailAstImpl.getParent()Lcom/puppycrawl/tools/checkstyle/api/DetailAST;",
+                                                                                          "argumentsSize": 0,
+                                                                                          "returnTypeName": "com.puppycrawl.tools.checkstyle.api.DetailAST",
+                                                                                          "containingClass": "com.puppycrawl.tools.checkstyle.DetailAstImpl"
+                                                                                        },
+                                                                                        "calls": [
+                                                                                          {
+                                                                                            "result": {
+                                                                                              "kind": "ref",
+                                                                                              "typeName": "com.puppycrawl.tools.checkstyle.DetailAstImpl",
+                                                                                              "refId": 7
+                                                                                            },
+                                                                                            "args": []
+                                                                                          }
+                                                                                        ]
+                                                                                      }
+                                                                                    ],
+                                                                                    "isSpy": false,
+                                                                                    "id": 8
+                                                                                  },
+                                                                                  "args": []
+                                                                                }
+                                                                              ]
+                                                                            },
+                                                                            {
+                                                                              "method": {
+                                                                                "methodName": "getNextSibling",
+                                                                                "fullName": "com.puppycrawl.tools.checkstyle.DetailAstImpl.getNextSibling()Lcom/puppycrawl/tools/checkstyle/api/DetailAST;",
+                                                                                "argumentsSize": 0,
+                                                                                "returnTypeName": "com.puppycrawl.tools.checkstyle.api.DetailAST",
+                                                                                "containingClass": "com.puppycrawl.tools.checkstyle.DetailAstImpl"
+                                                                              },
+                                                                              "calls": [
+                                                                                {
+                                                                                  "result": {
+                                                                                    "kind": "mock",
+                                                                                    "typeName": "com.puppycrawl.tools.checkstyle.DetailAstImpl",
+                                                                                    "methods": [
+                                                                                      {
+                                                                                        "method": {
+                                                                                          "methodName": "getNextSibling",
+                                                                                          "fullName": "com.puppycrawl.tools.checkstyle.DetailAstImpl.getNextSibling()Lcom/puppycrawl/tools/checkstyle/api/DetailAST;",
+                                                                                          "argumentsSize": 0,
+                                                                                          "returnTypeName": "com.puppycrawl.tools.checkstyle.api.DetailAST",
+                                                                                          "containingClass": "com.puppycrawl.tools.checkstyle.DetailAstImpl"
+                                                                                        },
+                                                                                        "calls": [
+                                                                                          {
+                                                                                            "result": {
+                                                                                              "kind": "null"
+                                                                                            },
+                                                                                            "args": []
+                                                                                          }
+                                                                                        ]
+                                                                                      },
+                                                                                      {
+                                                                                        "method": {
+                                                                                          "methodName": "getParent",
+                                                                                          "fullName": "com.puppycrawl.tools.checkstyle.DetailAstImpl.getParent()Lcom/puppycrawl/tools/checkstyle/api/DetailAST;",
+                                                                                          "argumentsSize": 0,
+                                                                                          "returnTypeName": "com.puppycrawl.tools.checkstyle.api.DetailAST",
+                                                                                          "containingClass": "com.puppycrawl.tools.checkstyle.DetailAstImpl"
+                                                                                        },
+                                                                                        "calls": [
+                                                                                          {
+                                                                                            "result": {
+                                                                                              "kind": "ref",
+                                                                                              "typeName": "com.puppycrawl.tools.checkstyle.DetailAstImpl",
+                                                                                              "refId": 6
+                                                                                            },
+                                                                                            "args": []
+                                                                                          }
+                                                                                        ]
+                                                                                      }
+                                                                                    ],
+                                                                                    "isSpy": false,
+                                                                                    "id": 12
+                                                                                  },
+                                                                                  "args": []
+                                                                                }
+                                                                              ]
+                                                                            },
+                                                                            {
+                                                                              "method": {
+                                                                                "methodName": "getParent",
+                                                                                "fullName": "com.puppycrawl.tools.checkstyle.DetailAstImpl.getParent()Lcom/puppycrawl/tools/checkstyle/api/DetailAST;",
+                                                                                "argumentsSize": 0,
+                                                                                "returnTypeName": "com.puppycrawl.tools.checkstyle.api.DetailAST",
+                                                                                "containingClass": "com.puppycrawl.tools.checkstyle.DetailAstImpl"
+                                                                              },
+                                                                              "calls": [
+                                                                                {
+                                                                                  "result": {
+                                                                                    "kind": "ref",
+                                                                                    "typeName": "com.puppycrawl.tools.checkstyle.DetailAstImpl",
+                                                                                    "refId": 6
+                                                                                  },
+                                                                                  "args": []
+                                                                                }
+                                                                              ]
+                                                                            }
+                                                                          ],
+                                                                          "isSpy": false,
+                                                                          "id": 7
+                                                                        },
+                                                                        "args": []
+                                                                      }
+                                                                    ]
+                                                                  },
+                                                                  {
+                                                                    "method": {
+                                                                      "methodName": "getNextSibling",
+                                                                      "fullName": "com.puppycrawl.tools.checkstyle.DetailAstImpl.getNextSibling()Lcom/puppycrawl/tools/checkstyle/api/DetailAST;",
+                                                                      "argumentsSize": 0,
+                                                                      "returnTypeName": "com.puppycrawl.tools.checkstyle.api.DetailAST",
+                                                                      "containingClass": "com.puppycrawl.tools.checkstyle.DetailAstImpl"
+                                                                    },
+                                                                    "calls": [
+                                                                      {
+                                                                        "result": {
+                                                                          "kind": "mock",
+                                                                          "typeName": "com.puppycrawl.tools.checkstyle.DetailAstImpl",
+                                                                          "methods": [
+                                                                            {
+                                                                              "method": {
+                                                                                "methodName": "getNextSibling",
+                                                                                "fullName": "com.puppycrawl.tools.checkstyle.DetailAstImpl.getNextSibling()Lcom/puppycrawl/tools/checkstyle/api/DetailAST;",
+                                                                                "argumentsSize": 0,
+                                                                                "returnTypeName": "com.puppycrawl.tools.checkstyle.api.DetailAST",
+                                                                                "containingClass": "com.puppycrawl.tools.checkstyle.DetailAstImpl"
+                                                                              },
+                                                                              "calls": [
+                                                                                {
+                                                                                  "result": {
+                                                                                    "kind": "null"
+                                                                                  },
+                                                                                  "args": []
+                                                                                }
+                                                                              ]
+                                                                            },
+                                                                            {
+                                                                              "method": {
+                                                                                "methodName": "getParent",
+                                                                                "fullName": "com.puppycrawl.tools.checkstyle.DetailAstImpl.getParent()Lcom/puppycrawl/tools/checkstyle/api/DetailAST;",
+                                                                                "argumentsSize": 0,
+                                                                                "returnTypeName": "com.puppycrawl.tools.checkstyle.api.DetailAST",
+                                                                                "containingClass": "com.puppycrawl.tools.checkstyle.DetailAstImpl"
+                                                                              },
+                                                                              "calls": [
+                                                                                {
+                                                                                  "result": {
+                                                                                    "kind": "ref",
+                                                                                    "typeName": "com.puppycrawl.tools.checkstyle.DetailAstImpl",
+                                                                                    "refId": 5
+                                                                                  },
+                                                                                  "args": []
+                                                                                }
+                                                                              ]
+                                                                            }
+                                                                          ],
+                                                                          "isSpy": false,
+                                                                          "id": 13
+                                                                        },
+                                                                        "args": []
+                                                                      }
+                                                                    ]
+                                                                  },
+                                                                  {
+                                                                    "method": {
+                                                                      "methodName": "getParent",
+                                                                      "fullName": "com.puppycrawl.tools.checkstyle.DetailAstImpl.getParent()Lcom/puppycrawl/tools/checkstyle/api/DetailAST;",
+                                                                      "argumentsSize": 0,
+                                                                      "returnTypeName": "com.puppycrawl.tools.checkstyle.api.DetailAST",
+                                                                      "containingClass": "com.puppycrawl.tools.checkstyle.DetailAstImpl"
+                                                                    },
+                                                                    "calls": [
+                                                                      {
+                                                                        "result": {
+                                                                          "kind": "ref",
+                                                                          "typeName": "com.puppycrawl.tools.checkstyle.DetailAstImpl",
+                                                                          "refId": 5
+                                                                        },
+                                                                        "args": []
+                                                                      }
+                                                                    ]
+                                                                  }
+                                                                ],
+                                                                "isSpy": false,
+                                                                "id": 6
+                                                              },
+                                                              "args": []
+                                                            }
+                                                          ]
+                                                        },
+                                                        {
+                                                          "method": {
+                                                            "methodName": "getNextSibling",
+                                                            "fullName": "com.puppycrawl.tools.checkstyle.DetailAstImpl.getNextSibling()Lcom/puppycrawl/tools/checkstyle/api/DetailAST;",
+                                                            "argumentsSize": 0,
+                                                            "returnTypeName": "com.puppycrawl.tools.checkstyle.api.DetailAST",
+                                                            "containingClass": "com.puppycrawl.tools.checkstyle.DetailAstImpl"
+                                                          },
+                                                          "calls": [
+                                                            {
+                                                              "result": {
+                                                                "kind": "mock",
+                                                                "typeName": "com.puppycrawl.tools.checkstyle.DetailAstImpl",
+                                                                "methods": [],
+                                                                "isSpy": false,
+                                                                "id": 14
+                                                              },
+                                                              "args": []
+                                                            }
+                                                          ]
+                                                        },
+                                                        {
+                                                          "method": {
+                                                            "methodName": "getParent",
+                                                            "fullName": "com.puppycrawl.tools.checkstyle.DetailAstImpl.getParent()Lcom/puppycrawl/tools/checkstyle/api/DetailAST;",
+                                                            "argumentsSize": 0,
+                                                            "returnTypeName": "com.puppycrawl.tools.checkstyle.api.DetailAST",
+                                                            "containingClass": "com.puppycrawl.tools.checkstyle.DetailAstImpl"
+                                                          },
+                                                          "calls": [
+                                                            {
+                                                              "result": {
+                                                                "kind": "ref",
+                                                                "typeName": "com.puppycrawl.tools.checkstyle.DetailAstImpl",
+                                                                "refId": 4
+                                                              },
+                                                              "args": []
+                                                            }
+                                                          ]
+                                                        }
+                                                      ],
+                                                      "isSpy": false,
+                                                      "id": 5
+                                                    },
+                                                    "args": []
+                                                  }
+                                                ]
+                                              }
+                                            ],
+                                            "isSpy": false,
+                                            "id": 4
+                                          },
+                                          "args": []
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "method": {
+                                        "methodName": "getParent",
+                                        "fullName": "com.puppycrawl.tools.checkstyle.DetailAstImpl.getParent()Lcom/puppycrawl/tools/checkstyle/api/DetailAST;",
+                                        "argumentsSize": 0,
+                                        "returnTypeName": "com.puppycrawl.tools.checkstyle.api.DetailAST",
+                                        "containingClass": "com.puppycrawl.tools.checkstyle.DetailAstImpl"
+                                      },
+                                      "calls": [
+                                        {
+                                          "result": {
+                                            "kind": "ref",
+                                            "typeName": "com.puppycrawl.tools.checkstyle.DetailAstImpl",
+                                            "refId": 2
+                                          },
+                                          "args": []
+                                        }
+                                      ]
+                                    }
+                                  ],
+                                  "isSpy": false,
+                                  "id": 3
+                                },
+                                "args": []
+                              }
+                            ]
+                          },
+                          {
+                            "method": {
+                              "methodName": "getType",
+                              "fullName": "com.puppycrawl.tools.checkstyle.DetailAstImpl.getType()I",
+                              "argumentsSize": 0,
+                              "returnTypeName": "int",
+                              "containingClass": "com.puppycrawl.tools.checkstyle.DetailAstImpl"
+                            },
+                            "calls": [
+                              {
+                                "result": {
+                                  "kind": "int",
+                                  "value": 16
+                                },
+                                "args": []
+                              },
+                              {
+                                "result": {
+                                  "kind": "int",
+                                  "value": 16
+                                },
+                                "args": []
+                              },
+                              {
+                                "result": {
+                                  "kind": "int",
+                                  "value": 16
+                                },
+                                "args": []
+                              }
+                            ]
+                          }
+                        ],
+                        "isSpy": false,
+                        "id": 2
+                      },
+                      "args": []
+                    }
+                  ]
+                },
+                {
+                  "method": {
+                    "methodName": "getType",
+                    "fullName": "com.puppycrawl.tools.checkstyle.DetailAstImpl.getType()I",
+                    "argumentsSize": 0,
+                    "returnTypeName": "int",
+                    "containingClass": "com.puppycrawl.tools.checkstyle.DetailAstImpl"
+                  },
+                  "calls": [
+                    {
+                      "result": {
+                        "kind": "int",
+                        "value": 1
+                      },
+                      "args": []
+                    },
+                    {
+                      "result": {
+                        "kind": "int",
+                        "value": 1
+                      },
+                      "args": []
+                    },
+                    {
+                      "result": {
+                        "kind": "int",
+                        "value": 1
+                      },
+                      "args": []
+                    },
+                    {
+                      "result": {
+                        "kind": "int",
+                        "value": 1
+                      },
+                      "args": []
+                    },
+                    {
+                      "result": {
+                        "kind": "int",
+                        "value": 1
+                      },
+                      "args": []
+                    },
+                    {
+                      "result": {
+                        "kind": "int",
+                        "value": 1
+                      },
+                      "args": []
+                    }
+                  ]
+                }
+              ],
+              "isSpy": false,
+              "id": 1
+            },
+            "lineNumber": {
+              "kind": "int",
+              "value": 4
+            },
+            "columnNumber": {
+              "kind": "int",
+              "value": 13
+            },
+            "tokenType": {
+              "kind": "int",
+              "value": 0
+            },
+            "fileText": {
+              "kind": "object",
+              "typeName": "com.puppycrawl.tools.checkstyle.api.FileText",
+              "fields": {
+                "file": {
+                  "kind": "converted",
+                  "isResource": true,
+                  "typeName": "java.io.File",
+                  "resourcePath": "xpathQueryGeneratorReproducedTests/java.io.File.java",
+                  "content": "package com.puppycrawl.tools.checkstyle.xpath.xpathquerygenerator;\n\npublic class InputXpathQueryGeneratorTabWidth {\n\t\t\tpublic String toString() {\n\t\t\t\treturn \"\";\n\t\t\t}\n\n\t\t\tpublic\t\tvoid getName() {\n\n\t\t\t}\n\n\t\t\tprivate int tabAfterMe()\t{\n\t\t\t\treturn 1;\n\t\t\t}\n\n\t\t\tprivate String endLineTab = \"qwe\";\n\n\n}\n"
+                },
+                "charset": {
+                  "kind": "object",
+                  "typeName": "sun.nio.cs.UTF_8",
+                  "fields": {
+                    "cache1": {
+                      "kind": "array",
+                      "isShallow": false,
+                      "size": 2,
+                      "elements": [
+                        {
+                          "kind": "string",
+                          "value": "UTF-8"
+                        },
+                        {
+                          "kind": "ref",
+                          "typeName": "sun.nio.cs.UTF_8",
+                          "refId": 16
+                        }
+                      ]
+                    },
+                    "cache2": {
+                      "kind": "array",
+                      "isShallow": false,
+                      "size": 2,
+                      "elements": [
+                        {
+                          "kind": "string",
+                          "value": "US-ASCII"
+                        },
+                        {
+                          "kind": "object",
+                          "typeName": "sun.nio.cs.US_ASCII",
+                          "fields": {
+                            "cache1": {
+                              "kind": "array",
+                              "isShallow": false,
+                              "size": 2,
+                              "elements": [
+                                {
+                                  "kind": "string",
+                                  "value": "UTF-8"
+                                },
+                                {
+                                  "kind": "ref",
+                                  "typeName": "sun.nio.cs.UTF_8",
+                                  "refId": 16
+                                }
+                              ]
+                            },
+                            "cache2": {
+                              "kind": "array",
+                              "isShallow": false,
+                              "size": 2,
+                              "elements": [
+                                {
+                                  "kind": "string",
+                                  "value": "US-ASCII"
+                                },
+                                {
+                                  "kind": "ref",
+                                  "typeName": "sun.nio.cs.US_ASCII",
+                                  "refId": 17
+                                }
+                              ]
+                            },
+                            "defaultCharset": {
+                              "kind": "null"
+                            },
+                            "name": {
+                              "kind": "string",
+                              "value": "US-ASCII"
+                            },
+                            "aliases": {
+                              "kind": "array",
+                              "isShallow": false,
+                              "size": 13,
+                              "elements": [
+                                {
+                                  "kind": "string",
+                                  "value": "iso-ir-6"
+                                },
+                                {
+                                  "kind": "string",
+                                  "value": "ANSI_X3.4-1986"
+                                },
+                                {
+                                  "kind": "string",
+                                  "value": "ISO_646.irv:1991"
+                                },
+                                {
+                                  "kind": "string",
+                                  "value": "ASCII"
+                                },
+                                {
+                                  "kind": "string",
+                                  "value": "ISO646-US"
+                                },
+                                {
+                                  "kind": "string",
+                                  "value": "us"
+                                },
+                                {
+                                  "kind": "string",
+                                  "value": "IBM367"
+                                },
+                                {
+                                  "kind": "string",
+                                  "value": "cp367"
+                                },
+                                {
+                                  "kind": "string",
+                                  "value": "csASCII"
+                                },
+                                {
+                                  "kind": "string",
+                                  "value": "646"
+                                },
+                                {
+                                  "kind": "string",
+                                  "value": "iso_646.irv:1983"
+                                },
+                                {
+                                  "kind": "string",
+                                  "value": "ANSI_X3.4-1968"
+                                },
+                                {
+                                  "kind": "string",
+                                  "value": "ascii7"
+                                }
+                              ]
+                            },
+                            "aliasSet": {
+                              "kind": "null"
+                            }
+                          },
+                          "id": 17
+                        }
+                      ]
+                    },
+                    "defaultCharset": {
+                      "kind": "null"
+                    },
+                    "name": {
+                      "kind": "string",
+                      "value": "UTF-8"
+                    },
+                    "aliases": {
+                      "kind": "array",
+                      "isShallow": false,
+                      "size": 2,
+                      "elements": [
+                        {
+                          "kind": "string",
+                          "value": "UTF8"
+                        },
+                        {
+                          "kind": "string",
+                          "value": "unicode-1-1-utf-8"
+                        }
+                      ]
+                    },
+                    "aliasSet": {
+                      "kind": "null"
+                    }
+                  },
+                  "id": 16
+                },
+                "lines": {
+                  "kind": "array",
+                  "isShallow": false,
+                  "size": 19,
+                  "elements": [
+                    {
+                      "kind": "string",
+                      "value": "package com.puppycrawl.tools.checkstyle.xpath.xpathquerygenerator;"
+                    },
+                    {
+                      "kind": "string",
+                      "value": ""
+                    },
+                    {
+                      "kind": "string",
+                      "value": "public class InputXpathQueryGeneratorTabWidth {"
+                    },
+                    {
+                      "kind": "string",
+                      "value": "\t\t\tpublic String toString() {"
+                    },
+                    {
+                      "kind": "string",
+                      "value": "\t\t\t\treturn \"\";"
+                    },
+                    {
+                      "kind": "string",
+                      "value": "\t\t\t}"
+                    },
+                    {
+                      "kind": "string",
+                      "value": ""
+                    },
+                    {
+                      "kind": "string",
+                      "value": "\t\t\tpublic\t\tvoid getName() {"
+                    },
+                    {
+                      "kind": "string",
+                      "value": ""
+                    },
+                    {
+                      "kind": "string",
+                      "value": "\t\t\t}"
+                    },
+                    {
+                      "kind": "string",
+                      "value": ""
+                    },
+                    {
+                      "kind": "string",
+                      "value": "\t\t\tprivate int tabAfterMe()\t{"
+                    },
+                    {
+                      "kind": "string",
+                      "value": "\t\t\t\treturn 1;"
+                    },
+                    {
+                      "kind": "string",
+                      "value": "\t\t\t}"
+                    },
+                    {
+                      "kind": "string",
+                      "value": ""
+                    },
+                    {
+                      "kind": "string",
+                      "value": "\t\t\tprivate String endLineTab = \"qwe\";"
+                    },
+                    {
+                      "kind": "string",
+                      "value": ""
+                    },
+                    {
+                      "kind": "string",
+                      "value": ""
+                    },
+                    {
+                      "kind": "string",
+                      "value": "}"
+                    }
+                  ]
+                },
+                "fullText": {
+                  "kind": "string",
+                  "value": "package com.puppycrawl.tools.checkstyle.xpath.xpathquerygenerator;\n\npublic class InputXpathQueryGeneratorTabWidth {\n\t\t\tpublic String toString() {\n\t\t\t\treturn \"\";\n\t\t\t}\n\n\t\t\tpublic\t\tvoid getName() {\n\n\t\t\t}\n\n\t\t\tprivate int tabAfterMe()\t{\n\t\t\t\treturn 1;\n\t\t\t}\n\n\t\t\tprivate String endLineTab = \"qwe\";\n\n\n}\n"
+                },
+                "lineBreaks": {
+                  "kind": "null"
+                }
+              },
+              "id": 15
+            },
+            "tabWidth": {
+              "kind": "int",
+              "value": 4
+            }
+          },
+          "id": -1
+        },
+        "args": [],
+        "returnValue": {
+          "kind": "list",
+          "isShallow": true,
+          "size": 3,
+          "elements": []
+        }
+      }
+    ]
+  }
+]

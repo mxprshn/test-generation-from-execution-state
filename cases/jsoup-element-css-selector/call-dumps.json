@@ -1,0 +1,818 @@
+[
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "cssSelector",
+                    "fullName": "cssSelector()",
+                    "argumentsSize": 0,
+                    "returnTypeName": "String",
+                    "containingClass": "org.jsoup.nodes.Element"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "org.jsoup.nodes.Element",
+                    "fields": {
+                        "tag": {
+                            "kind": "object",
+                            "typeName": "org.jsoup.parser.Tag",
+                            "fields": {
+                                "tagName": {
+                                    "kind": "string",
+                                    "value": "div"
+                                },
+                                "parserOptions": {
+                                    "kind": "int",
+                                    "value": 128
+                                },
+                                "RcData": {
+                                    "kind": "int",
+                                    "value": 128
+                                },
+                                "Data": {
+                                    "kind": "int",
+                                    "value": 256
+                                },
+                                "FormSubmittable": {
+                                    "kind": "int",
+                                    "value": 512
+                                },
+                                "TextBoundary": {
+                                    "kind": "int",
+                                    "value": 1024
+                                },
+                                "Known": {
+                                    "kind": "int",
+                                    "value": 1
+                                },
+                                "Void": {
+                                    "kind": "int",
+                                    "value": 2
+                                },
+                                "Block": {
+                                    "kind": "int",
+                                    "value": 4
+                                },
+                                "InlineContainer": {
+                                    "kind": "int",
+                                    "value": 8
+                                },
+                                "SelfClose": {
+                                    "kind": "int",
+                                    "value": 16
+                                },
+                                "SeenSelfClose": {
+                                    "kind": "int",
+                                    "value": 32
+                                },
+                                "PreserveWhitespace": {
+                                    "kind": "int",
+                                    "value": 64
+                                },
+                                "namespace": {
+                                    "kind": "string",
+                                    "value": "http://www.w3.org/1999/xhtml"
+                                },
+                                "normalName": {
+                                    "kind": "string",
+                                    "value": "div"
+                                },
+                                "options": {
+                                    "kind": "int",
+                                    "value": 5
+                                }
+                            },
+                            "id": 1
+                        },
+                        "childNodes": {
+                            "kind": "list",
+                            "isShallow": false,
+                            "size": 1,
+                            "elements": [
+                                {
+                                    "kind": "mock",
+                                    "typeName": "org.jsoup.nodes.TextNode",
+                                    "methods": [],
+                                    "isSpy": false,
+                                    "id": 2
+                                }
+                            ]
+                        },
+                        "attributes": {
+                            "kind": "object",
+                            "typeName": "org.jsoup.nodes.Attributes",
+                            "fields": {
+                                "size": {
+                                    "kind": "int",
+                                    "value": 1
+                                },
+                                "keys": {
+                                    "kind": "array",
+                                    "isShallow": false,
+                                    "size": 3,
+                                    "elements": [
+                                        {
+                                            "kind": "string",
+                                            "value": "class"
+                                        },
+                                        {
+                                            "kind": "null"
+                                        },
+                                        {
+                                            "kind": "null"
+                                        }
+                                    ]
+                                },
+                                "vals": {
+                                    "kind": "array",
+                                    "isShallow": false,
+                                    "size": 3,
+                                    "elements": [
+                                        {
+                                            "kind": "string",
+                                            "value": "-4a"
+                                        },
+                                        {
+                                            "kind": "null"
+                                        },
+                                        {
+                                            "kind": "null"
+                                        }
+                                    ]
+                                }
+                            },
+                            "id": 3
+                        },
+                        "parentNode": {
+                            "kind": "mock",
+                            "typeName": "org.jsoup.nodes.Element",
+                            "methods": [
+                                {
+                                    "method": {
+                                        "methodName": "select",
+                                        "fullName": "org.jsoup.nodes.Element.select(Ljava/lang/String;)Lorg/jsoup/select/Elements;",
+                                        "argumentsSize": 1,
+                                        "returnTypeName": "org.jsoup.select.Elements",
+                                        "containingClass": "org.jsoup.nodes.Element"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "list",
+                                                "isShallow": false,
+                                                "size": 1,
+                                                "elements": [
+                                                    {
+                                                        "kind": "mock",
+                                                        "typeName": "org.jsoup.nodes.Element",
+                                                        "methods": [
+                                                            {
+                                                                "method": {
+                                                                    "methodName": "parent",
+                                                                    "fullName": "org.jsoup.nodes.Element.parent()Lorg/jsoup/nodes/Element;",
+                                                                    "argumentsSize": 0,
+                                                                    "returnTypeName": "org.jsoup.nodes.Element",
+                                                                    "containingClass": "org.jsoup.nodes.Element"
+                                                                },
+                                                                "calls": [
+                                                                    {
+                                                                        "result": {
+                                                                            "kind": "ref",
+                                                                            "typeName": "org.jsoup.nodes.Element",
+                                                                            "refId": 4
+                                                                        },
+                                                                        "args": []
+                                                                    }
+                                                                ]
+                                                            }
+                                                        ],
+                                                        "isSpy": false,
+                                                        "id": 5
+                                                    }
+                                                ]
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "method": {
+                                        "methodName": "uniqueIdSelector",
+                                        "fullName": "org.jsoup.nodes.Element.uniqueIdSelector(Lorg/jsoup/nodes/Document;)Ljava/lang/String;",
+                                        "argumentsSize": 1,
+                                        "returnTypeName": "java.lang.String",
+                                        "containingClass": "org.jsoup.nodes.Element"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "string",
+                                                "value": ""
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "method": {
+                                        "methodName": "cssSelectorComponent",
+                                        "fullName": "org.jsoup.nodes.Element.cssSelectorComponent()Ljava/lang/String;",
+                                        "argumentsSize": 0,
+                                        "returnTypeName": "java.lang.String",
+                                        "containingClass": "org.jsoup.nodes.Element"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "string",
+                                                "value": " > body"
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "method": {
+                                        "methodName": "parent",
+                                        "fullName": "org.jsoup.nodes.Element.parent()Lorg/jsoup/nodes/Element;",
+                                        "argumentsSize": 0,
+                                        "returnTypeName": "org.jsoup.nodes.Element",
+                                        "containingClass": "org.jsoup.nodes.Element"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "mock",
+                                                "typeName": "org.jsoup.nodes.Element",
+                                                "methods": [
+                                                    {
+                                                        "method": {
+                                                            "methodName": "uniqueIdSelector",
+                                                            "fullName": "org.jsoup.nodes.Element.uniqueIdSelector(Lorg/jsoup/nodes/Document;)Ljava/lang/String;",
+                                                            "argumentsSize": 1,
+                                                            "returnTypeName": "java.lang.String",
+                                                            "containingClass": "org.jsoup.nodes.Element"
+                                                        },
+                                                        "calls": [
+                                                            {
+                                                                "result": {
+                                                                    "kind": "string",
+                                                                    "value": ""
+                                                                },
+                                                                "args": []
+                                                            }
+                                                        ]
+                                                    },
+                                                    {
+                                                        "method": {
+                                                            "methodName": "cssSelectorComponent",
+                                                            "fullName": "org.jsoup.nodes.Element.cssSelectorComponent()Ljava/lang/String;",
+                                                            "argumentsSize": 0,
+                                                            "returnTypeName": "java.lang.String",
+                                                            "containingClass": "org.jsoup.nodes.Element"
+                                                        },
+                                                        "calls": [
+                                                            {
+                                                                "result": {
+                                                                    "kind": "string",
+                                                                    "value": "html"
+                                                                },
+                                                                "args": []
+                                                            }
+                                                        ]
+                                                    },
+                                                    {
+                                                        "method": {
+                                                            "methodName": "parent",
+                                                            "fullName": "org.jsoup.nodes.Element.parent()Lorg/jsoup/nodes/Element;",
+                                                            "argumentsSize": 0,
+                                                            "returnTypeName": "org.jsoup.nodes.Element",
+                                                            "containingClass": "org.jsoup.nodes.Element"
+                                                        },
+                                                        "calls": [
+                                                            {
+                                                                "result": {
+                                                                    "kind": "mock",
+                                                                    "typeName": "org.jsoup.nodes.Document",
+                                                                    "methods": [],
+                                                                    "isSpy": false,
+                                                                    "id": 7
+                                                                },
+                                                                "args": []
+                                                            }
+                                                        ]
+                                                    }
+                                                ],
+                                                "isSpy": false,
+                                                "id": 6
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                }
+                            ],
+                            "isSpy": false,
+                            "id": 4
+                        },
+                        "siblingIndex": {
+                            "kind": "int",
+                            "value": 0
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [],
+                "returnValue": {
+                    "kind": "string",
+                    "value": "html > body > div.-\\34 a"
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "cssSelector",
+                    "fullName": "cssSelector()",
+                    "argumentsSize": 0,
+                    "returnTypeName": "String",
+                    "containingClass": "org.jsoup.nodes.Element"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "org.jsoup.nodes.Element",
+                    "fields": {
+                        "tag": {
+                            "kind": "object",
+                            "typeName": "org.jsoup.parser.Tag",
+                            "fields": {
+                                "tagName": {
+                                    "kind": "string",
+                                    "value": "div"
+                                },
+                                "parserOptions": {
+                                    "kind": "int",
+                                    "value": 128
+                                },
+                                "RcData": {
+                                    "kind": "int",
+                                    "value": 128
+                                },
+                                "Data": {
+                                    "kind": "int",
+                                    "value": 256
+                                },
+                                "FormSubmittable": {
+                                    "kind": "int",
+                                    "value": 512
+                                },
+                                "TextBoundary": {
+                                    "kind": "int",
+                                    "value": 1024
+                                },
+                                "Known": {
+                                    "kind": "int",
+                                    "value": 1
+                                },
+                                "Void": {
+                                    "kind": "int",
+                                    "value": 2
+                                },
+                                "Block": {
+                                    "kind": "int",
+                                    "value": 4
+                                },
+                                "InlineContainer": {
+                                    "kind": "int",
+                                    "value": 8
+                                },
+                                "SelfClose": {
+                                    "kind": "int",
+                                    "value": 16
+                                },
+                                "SeenSelfClose": {
+                                    "kind": "int",
+                                    "value": 32
+                                },
+                                "PreserveWhitespace": {
+                                    "kind": "int",
+                                    "value": 64
+                                },
+                                "namespace": {
+                                    "kind": "string",
+                                    "value": "http://www.w3.org/1999/xhtml"
+                                },
+                                "normalName": {
+                                    "kind": "string",
+                                    "value": "div"
+                                },
+                                "options": {
+                                    "kind": "int",
+                                    "value": 5
+                                }
+                            },
+                            "id": 1
+                        },
+                        "childNodes": {
+                            "kind": "list",
+                            "isShallow": false,
+                            "size": 1,
+                            "elements": [
+                                {
+                                    "kind": "mock",
+                                    "typeName": "org.jsoup.nodes.TextNode",
+                                    "methods": [],
+                                    "isSpy": false,
+                                    "id": 2
+                                }
+                            ]
+                        },
+                        "attributes": {
+                            "kind": "object",
+                            "typeName": "org.jsoup.nodes.Attributes",
+                            "fields": {
+                                "size": {
+                                    "kind": "int",
+                                    "value": 1
+                                },
+                                "keys": {
+                                    "kind": "array",
+                                    "isShallow": false,
+                                    "size": 3,
+                                    "elements": [
+                                        {
+                                            "kind": "string",
+                                            "value": "id"
+                                        },
+                                        {
+                                            "kind": "null"
+                                        },
+                                        {
+                                            "kind": "null"
+                                        }
+                                    ]
+                                },
+                                "vals": {
+                                    "kind": "array",
+                                    "isShallow": false,
+                                    "size": 3,
+                                    "elements": [
+                                        {
+                                            "kind": "string",
+                                            "value": "-4a"
+                                        },
+                                        {
+                                            "kind": "null"
+                                        },
+                                        {
+                                            "kind": "null"
+                                        }
+                                    ]
+                                }
+                            },
+                            "id": 3
+                        },
+                        "parentNode": {
+                            "kind": "mock",
+                            "typeName": "org.jsoup.nodes.Element",
+                            "methods": [
+                                {
+                                    "method": {
+                                        "methodName": "parent",
+                                        "fullName": "org.jsoup.nodes.Element.parent()Lorg/jsoup/nodes/Node;",
+                                        "argumentsSize": 0,
+                                        "returnTypeName": "org.jsoup.nodes.Node",
+                                        "containingClass": "org.jsoup.nodes.Element"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "mock",
+                                                "typeName": "org.jsoup.nodes.Element",
+                                                "methods": [],
+                                                "isSpy": false,
+                                                "id": 5
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "method": {
+                                        "methodName": "id",
+                                        "fullName": "org.jsoup.nodes.Element.id()Ljava/lang/String;",
+                                        "argumentsSize": 0,
+                                        "returnTypeName": "java.lang.String",
+                                        "containingClass": "org.jsoup.nodes.Element"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "string",
+                                                "value": ""
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "method": {
+                                        "methodName": "hasParent",
+                                        "fullName": "org.jsoup.nodes.Node.hasParent()Z",
+                                        "argumentsSize": 0,
+                                        "returnTypeName": "boolean",
+                                        "containingClass": "org.jsoup.nodes.Node"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": true
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "method": {
+                                        "methodName": "childNodeSize",
+                                        "fullName": "org.jsoup.nodes.Element.childNodeSize()I",
+                                        "argumentsSize": 0,
+                                        "returnTypeName": "int",
+                                        "containingClass": "org.jsoup.nodes.Element"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "int",
+                                                "value": 3
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "method": {
+                                        "methodName": "childNode",
+                                        "fullName": "org.jsoup.nodes.Node.childNode(I)Lorg/jsoup/nodes/Node;",
+                                        "argumentsSize": 1,
+                                        "returnTypeName": "org.jsoup.nodes.Node",
+                                        "containingClass": "org.jsoup.nodes.Node"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "mock",
+                                                "typeName": "org.jsoup.nodes.Element",
+                                                "methods": [
+                                                    {
+                                                        "method": {
+                                                            "methodName": "parent",
+                                                            "fullName": "org.jsoup.nodes.Element.parent()Lorg/jsoup/nodes/Node;",
+                                                            "argumentsSize": 0,
+                                                            "returnTypeName": "org.jsoup.nodes.Node",
+                                                            "containingClass": "org.jsoup.nodes.Element"
+                                                        },
+                                                        "calls": [
+                                                            {
+                                                                "result": {
+                                                                    "kind": "ref",
+                                                                    "typeName": "org.jsoup.nodes.Element",
+                                                                    "refId": 4
+                                                                },
+                                                                "args": []
+                                                            }
+                                                        ]
+                                                    },
+                                                    {
+                                                        "method": {
+                                                            "methodName": "id",
+                                                            "fullName": "org.jsoup.nodes.Element.id()Ljava/lang/String;",
+                                                            "argumentsSize": 0,
+                                                            "returnTypeName": "java.lang.String",
+                                                            "containingClass": "org.jsoup.nodes.Element"
+                                                        },
+                                                        "calls": [
+                                                            {
+                                                                "result": {
+                                                                    "kind": "string",
+                                                                    "value": ""
+                                                                },
+                                                                "args": []
+                                                            }
+                                                        ]
+                                                    },
+                                                    {
+                                                        "method": {
+                                                            "methodName": "hasParent",
+                                                            "fullName": "org.jsoup.nodes.Node.hasParent()Z",
+                                                            "argumentsSize": 0,
+                                                            "returnTypeName": "boolean",
+                                                            "containingClass": "org.jsoup.nodes.Node"
+                                                        },
+                                                        "calls": [
+                                                            {
+                                                                "result": {
+                                                                    "kind": "boolean",
+                                                                    "value": true
+                                                                },
+                                                                "args": []
+                                                            }
+                                                        ]
+                                                    },
+                                                    {
+                                                        "method": {
+                                                            "methodName": "childNodeSize",
+                                                            "fullName": "org.jsoup.nodes.Element.childNodeSize()I",
+                                                            "argumentsSize": 0,
+                                                            "returnTypeName": "int",
+                                                            "containingClass": "org.jsoup.nodes.Element"
+                                                        },
+                                                        "calls": [
+                                                            {
+                                                                "result": {
+                                                                    "kind": "int",
+                                                                    "value": 1
+                                                                },
+                                                                "args": []
+                                                            }
+                                                        ]
+                                                    },
+                                                    {
+                                                        "method": {
+                                                            "methodName": "childNode",
+                                                            "fullName": "org.jsoup.nodes.Node.childNode(I)Lorg/jsoup/nodes/Node;",
+                                                            "argumentsSize": 1,
+                                                            "returnTypeName": "org.jsoup.nodes.Node",
+                                                            "containingClass": "org.jsoup.nodes.Node"
+                                                        },
+                                                        "calls": [
+                                                            {
+                                                                "result": {
+                                                                    "kind": "mock",
+                                                                    "typeName": "org.jsoup.nodes.TextNode",
+                                                                    "methods": [
+                                                                        {
+                                                                            "method": {
+                                                                                "methodName": "childNodeSize",
+                                                                                "fullName": "org.jsoup.nodes.LeafNode.childNodeSize()I",
+                                                                                "argumentsSize": 0,
+                                                                                "returnTypeName": "int",
+                                                                                "containingClass": "org.jsoup.nodes.LeafNode"
+                                                                            },
+                                                                            "calls": [
+                                                                                {
+                                                                                    "result": {
+                                                                                        "kind": "int",
+                                                                                        "value": 0
+                                                                                    },
+                                                                                    "args": []
+                                                                                }
+                                                                            ]
+                                                                        },
+                                                                        {
+                                                                            "method": {
+                                                                                "methodName": "nextSibling",
+                                                                                "fullName": "org.jsoup.nodes.Node.nextSibling()Lorg/jsoup/nodes/Node;",
+                                                                                "argumentsSize": 0,
+                                                                                "returnTypeName": "org.jsoup.nodes.Node",
+                                                                                "containingClass": "org.jsoup.nodes.Node"
+                                                                            },
+                                                                            "calls": [
+                                                                                {
+                                                                                    "result": {
+                                                                                        "kind": "null"
+                                                                                    },
+                                                                                    "args": []
+                                                                                }
+                                                                            ]
+                                                                        },
+                                                                        {
+                                                                            "method": {
+                                                                                "methodName": "parent",
+                                                                                "fullName": "org.jsoup.nodes.LeafNode.parent()Lorg/jsoup/nodes/Node;",
+                                                                                "argumentsSize": 0,
+                                                                                "returnTypeName": "org.jsoup.nodes.Node",
+                                                                                "containingClass": "org.jsoup.nodes.LeafNode"
+                                                                            },
+                                                                            "calls": [
+                                                                                {
+                                                                                    "result": {
+                                                                                        "kind": "ref",
+                                                                                        "typeName": "org.jsoup.nodes.Element",
+                                                                                        "refId": 6
+                                                                                    },
+                                                                                    "args": []
+                                                                                }
+                                                                            ]
+                                                                        }
+                                                                    ],
+                                                                    "isSpy": false,
+                                                                    "id": 7
+                                                                },
+                                                                "args": []
+                                                            }
+                                                        ]
+                                                    },
+                                                    {
+                                                        "method": {
+                                                            "methodName": "nextSibling",
+                                                            "fullName": "org.jsoup.nodes.Node.nextSibling()Lorg/jsoup/nodes/Node;",
+                                                            "argumentsSize": 0,
+                                                            "returnTypeName": "org.jsoup.nodes.Node",
+                                                            "containingClass": "org.jsoup.nodes.Node"
+                                                        },
+                                                        "calls": [
+                                                            {
+                                                                "result": {
+                                                                    "kind": "mock",
+                                                                    "typeName": "org.jsoup.nodes.TextNode",
+                                                                    "methods": [
+                                                                        {
+                                                                            "method": {
+                                                                                "methodName": "childNodeSize",
+                                                                                "fullName": "org.jsoup.nodes.LeafNode.childNodeSize()I",
+                                                                                "argumentsSize": 0,
+                                                                                "returnTypeName": "int",
+                                                                                "containingClass": "org.jsoup.nodes.LeafNode"
+                                                                            },
+                                                                            "calls": [
+                                                                                {
+                                                                                    "result": {
+                                                                                        "kind": "int",
+                                                                                        "value": 0
+                                                                                    },
+                                                                                    "args": []
+                                                                                }
+                                                                            ]
+                                                                        },
+                                                                        {
+                                                                            "method": {
+                                                                                "methodName": "nextSibling",
+                                                                                "fullName": "org.jsoup.nodes.Node.nextSibling()Lorg/jsoup/nodes/Node;",
+                                                                                "argumentsSize": 0,
+                                                                                "returnTypeName": "org.jsoup.nodes.Node",
+                                                                                "containingClass": "org.jsoup.nodes.Node"
+                                                                            },
+                                                                            "calls": [
+                                                                                {
+                                                                                    "result": {
+                                                                                        "kind": "mock",
+                                                                                        "typeName": "org.jsoup.nodes.Element",
+                                                                                        "methods": [],
+                                                                                        "isSpy": false,
+                                                                                        "id": 9
+                                                                                    },
+                                                                                    "args": []
+                                                                                }
+                                                                            ]
+                                                                        }
+                                                                    ],
+                                                                    "isSpy": false,
+                                                                    "id": 8
+                                                                },
+                                                                "args": []
+                                                            },
+                                                            {
+                                                                "result": {
+                                                                    "kind": "ref",
+                                                                    "typeName": "org.jsoup.nodes.TextNode",
+                                                                    "refId": 8
+                                                                },
+                                                                "args": []
+                                                            }
+                                                        ]
+                                                    }
+                                                ],
+                                                "isSpy": false,
+                                                "id": 6
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                }
+                            ],
+                            "isSpy": false,
+                            "id": 4
+                        },
+                        "siblingIndex": {
+                            "kind": "int",
+                            "value": 2
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [],
+                "returnValue": {
+                    "kind": "string",
+                    "value": "#-\\34 a"
+                }
+            }
+        ]
+    }
+]

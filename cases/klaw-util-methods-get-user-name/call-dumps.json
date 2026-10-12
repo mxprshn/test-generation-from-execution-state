@@ -1,0 +1,204 @@
+[
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "getUserName",
+                    "fullName": "getUserName(Object, String, String)",
+                    "argumentsSize": 3,
+                    "returnTypeName": "String",
+                    "containingClass": "io.aiven.klaw.helpers.UtilMethods"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "unknown",
+                    "fields": {},
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "object",
+                        "typeName": "org.springframework.security.oauth2.core.user.DefaultOAuth2User",
+                        "fields": {
+                            "authorities": {
+                                "kind": "null"
+                            },
+                            "attributes": {
+                                "kind": "null"
+                            },
+                            "nameAttributeKey": {
+                                "kind": "null"
+                            }
+                        },
+                        "id": 1
+                    },
+                    {
+                        "kind": "string",
+                        "value": "preferred_username"
+                    },
+                    {
+                        "kind": "string",
+                        "value": "email"
+                    }
+                ],
+                "returnValue": {
+                    "kind": "string",
+                    "value": "test@example.com"
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "getUserName",
+                    "fullName": "getUserName(Object, String, String)",
+                    "argumentsSize": 3,
+                    "returnTypeName": "String",
+                    "containingClass": "io.aiven.klaw.helpers.UtilMethods"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "unknown",
+                    "fields": {},
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "mock",
+                        "typeName": "org.springframework.security.core.userdetails.UserDetails",
+                        "methods": [
+                            {
+                                "method": {
+                                    "methodName": "getUsername",
+                                    "fullName": "org.springframework.security.core.userdetails.UserDetails.getUsername()Ljava/lang/String;",
+                                    "argumentsSize": 0,
+                                    "returnTypeName": "java.lang.String",
+                                    "containingClass": "org.springframework.security.core.userdetails.UserDetails"
+                                },
+                                "calls": [
+                                    {
+                                        "result": {
+                                            "kind": "string",
+                                            "value": "testUser"
+                                        },
+                                        "args": []
+                                    }
+                                ]
+                            }
+                        ],
+                        "isSpy": false,
+                        "id": 1
+                    },
+                    {
+                        "kind": "string",
+                        "value": "preferred_username"
+                    },
+                    {
+                        "kind": "string",
+                        "value": "email"
+                    }
+                ],
+                "returnValue": {
+                    "kind": "string",
+                    "value": "testUser"
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "getUserName",
+                    "fullName": "getUserName(Object, String, String)",
+                    "argumentsSize": 3,
+                    "returnTypeName": "String",
+                    "containingClass": "io.aiven.klaw.helpers.UtilMethods"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "unknown",
+                    "fields": {},
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "string",
+                        "value": "testUser"
+                    },
+                    {
+                        "kind": "string",
+                        "value": "preferred_username"
+                    },
+                    {
+                        "kind": "string",
+                        "value": "email"
+                    }
+                ],
+                "returnValue": {
+                    "kind": "string",
+                    "value": "testUser"
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "getUserName",
+                    "fullName": "getUserName(Object, String, String)",
+                    "argumentsSize": 3,
+                    "returnTypeName": "String",
+                    "containingClass": "io.aiven.klaw.helpers.UtilMethods"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "unknown",
+                    "fields": {},
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "object",
+                        "typeName": "org.springframework.security.oauth2.core.user.DefaultOAuth2User",
+                        "fields": {
+                            "authorities": {
+                                "kind": "null"
+                            },
+                            "attributes": {
+                                "kind": "null"
+                            },
+                            "nameAttributeKey": {
+                                "kind": "null"
+                            }
+                        },
+                        "id": 1
+                    },
+                    {
+                        "kind": "string",
+                        "value": "preferred_username"
+                    },
+                    {
+                        "kind": "string",
+                        "value": "email"
+                    }
+                ],
+                "returnValue": {
+                    "kind": "string",
+                    "value": "testUser"
+                }
+            }
+        ]
+    }
+]

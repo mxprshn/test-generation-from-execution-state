@@ -1,0 +1,385 @@
+"""RQ1 comparison: scenario keys, four nested levels, recall and precision.
+
+Levels (fixed before the final run):
+  S  structure       = outcome + ordered signatures of outgoing calls from the target body;
+  A  input/output    = S + arguments + returned value                       (main data level);
+  B  with state      = A + receiver, where receiver fields that are collaborators are compared by
+                       presence only (see "dependency fields" below)       (shown next to A);
+  C  strict          = A + full receiver graph                              (appendix).
+
+Scenario = unique invocation of the target at level C (identical invocations collapse). All levels
+share one denominator: the number of distinct reference scenarios. B and C keys contain the A key,
+which contains the S key, so hits satisfy S >= A >= B >= C by construction.
+
+Dependency fields (level B) are decided pairwise, from the union of the reference and the candidate
+traces, before any key is built, and masked identically on both sides. A top-level receiver field is
+a dependency if, in some invocation on either side, it holds
+  * a mock or proxy (the tracer marks it "$opaque"),
+  * an instance of a framework component class (components.json: Spring stereotypes),
+  * an instance of a class from the project's test sources or of a test class (a hand-written stub),
+or if it is null in every invocation on one side and a (non-JDK) object on the other side; a null
+string, number or collection against a value is a data difference, not a collaborator.
+
+Normalisation, the same for every level and mode:
+  * BTrace-internal pseudo calls (``##...``) are dropped;
+  * synthetic proxy / mock class suffixes are reduced to the declared class name;
+  * object identities ($id/$ref) are dropped, back references become a marker;
+  * strings: workspace paths, JUnit / java.io temporary directories, identity hash codes,
+    timestamps, epoch milliseconds and UUIDs are replaced by placeholders;
+  * JDK collections are compared by interface: List in order, Set and Map without order;
+  * values of types and fields listed in nondeterminism.json are masked.
+"""
+from __future__ import annotations
+
+import hashlib
+import json
+import re
+from pathlib import Path
+from typing import Any, Iterable
+
+PROXY_RE = re.compile(
+    r"(\$MockitoMock\$\w+|\$\$EnhancerBySpringCGLIB\$\$\w+|\$\$SpringCGLIB\$\$\d+|\$HibernateProxy\$\w+"
+    r"|\$ByteBuddy\$\w+|\$\$Lambda[\$/][\w/\.\$]*|\$Proxy\d+)"
+)
+HERE = Path(__file__).resolve().parent
+DEFAULT_NONDET = HERE / "nondeterminism.json"
+DEFAULT_COMPONENTS = HERE / "components.json"
+DEFAULT_TEST_CLASSES = HERE / "test-classes.json"
+
+IDENTITY_HASH = re.compile(r"@[0-9a-f]{4,}\b")
+# timestamps embedded in strings (JSON payloads, messages): 2026-10-11 23:57:39, 2026-10-11T23:57:39.123Z
+TIMESTAMP = re.compile(r"\d{4}-\d{2}-\d{2}[ T]\d{2}:\d{2}:\d{2}(?:[.,]\d+)?(?:Z|[+-]\d{2}:?\d{2})?")
+UUID_RE = re.compile(r"\b[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\b", re.I)
+# Every trace runs in its own copy of the checkout (<work>/ws/<case>-<tag>), so absolute paths into
+# the workspace differ between the reference and any candidate by construction.
+WORKSPACE_PATH = re.compile(r"(?:/private)?/[^\s\"',;]*?/work/ws/[^/\s\"',;]+")
+# JUnit temporary folders with the directory created inside them, named after the running test
+# method: junit16315607296389577792/testDiff-1753139585, junit123/indexWithGitmodules1987433262.
+# The test method name differs between the scenario and any generated test, so the pair is replaced
+# as a whole.
+JUNIT_DIR = re.compile(r"\bjunit\d{6,}(?:/[^/\s\"',;]*?-?\d{6,})?")
+# Remaining random suffixes of temporary files and directories (File.createTempFile, @TempDir):
+# tmp_10881433622251430644, prefix-1987433262.
+TEMP_SUFFIX = re.compile(r"(?<=[A-Za-z_])-?\d{6,}")
+TEMP_DIR = re.compile(r"(?:/private)?/(?:tmp|var/folders/[^\s\"',;]+?/T)/[^\s\"',;]*")
+# Epoch milliseconds inside strings (2023-2033), e.g. JSON payloads with deletedAt, test data built
+# with "johnny" + System.currentTimeMillis().
+EPOCH_MS = re.compile(r"(?<!\d)1[789]\d{11}(?!\d)")
+# Generated test classes are not in the dataset's test sources; their nested stubs are recognised by
+# the name of the outer class.
+TEST_NAME = re.compile(r"(Test|Tests|TestCase|IT)$")
+
+COLLABORATOR = {"$t": "$collaborator"}
+
+
+def norm_str(s: str) -> str:
+    s = WORKSPACE_PATH.sub("<ws>", s)
+    s = JUNIT_DIR.sub("<tmp>", s)
+    if "<ws>" in s or "<tmp>" in s or TEMP_DIR.search(s):
+        s = TEMP_SUFFIX.sub("<n>", s)
+    s = EPOCH_MS.sub("<millis>", s)
+    return UUID_RE.sub("<uuid>", TIMESTAMP.sub("<time>", IDENTITY_HASH.sub("@#", s)))
+
+
+def norm_type(name: str) -> str:
+    return PROXY_RE.sub("", name or "")
+
+
+def norm_sig(sig: str) -> str:
+    return PROXY_RE.sub("", sig)
+
+
+def collection_kind(t: str, v: dict[str, Any]) -> str | None:
+    """Interface of a JDK collection value: 'List', 'Set', 'Map', 'Collection'; None otherwise."""
+    if not t.startswith("java.") or t.startswith("["):
+        return None
+    if "$entries" in v:
+        return "Map"
+    if "$items" not in v:
+        return None
+    simple = t.rsplit(".", 1)[-1]
+    if "Set" in simple:
+        return "Set"
+    if "Values" in simple or "PriorityQueue" in simple:
+        return "Collection"
+    return "List"
+
+
+# ---------------------------------------------------------------------------------------------
+# project data: framework components and test-source classes (components.py writes both files)
+
+_JSON_CACHE: dict[Path, dict[str, list[str]]] = {}
+
+
+def _load_json(path: Path) -> dict[str, list[str]]:
+    if path not in _JSON_CACHE:
+        _JSON_CACHE[path] = json.loads(path.read_text()) if path.is_file() else {}
+    return _JSON_CACHE[path]
+
+
+_COMPONENTS: dict[str, list[str]] | None = None  # test hook: overrides components.json
+_TEST_CLASSES: dict[str, list[str]] | None = None  # test hook: overrides test-classes.json
+
+
+def load_components(project: str | None) -> set[str]:
+    data = _COMPONENTS if _COMPONENTS is not None else _load_json(DEFAULT_COMPONENTS)
+    return set(data.get(project or "", []))
+
+
+def load_test_classes(project: str | None) -> set[str]:
+    data = _TEST_CLASSES if _TEST_CLASSES is not None else _load_json(DEFAULT_TEST_CLASSES)
+    return set(data.get(project or "", []))
+
+
+def load_nondet(path: Path | None = None) -> dict[str, Any]:
+    p = path or DEFAULT_NONDET
+    if p.is_file():
+        return json.loads(p.read_text())
+    return {"types": [], "fields": {}}
+
+
+# ---------------------------------------------------------------------------------------------
+
+
+class Normaliser:
+    def __init__(self, nondet: dict[str, Any], project: str | None = None,
+                 components: set[str] | None = None, test_classes: set[str] | None = None):
+        self.components = load_components(project) if components is None else components
+        self.test_classes = load_test_classes(project) if test_classes is None else test_classes
+        self.types = set(nondet.get("types", []))
+        self.prefixes = tuple(nondet.get("type_prefixes", []))
+        fields = nondet.get("fields", {})
+        self.fields = set(fields.get("*", [])) | set(fields.get(project or "", []))
+        self.masked = 0
+        self.cuts = 0
+
+    def value(self, v: Any) -> Any:
+        """Canonical form: identities dropped (a back reference becomes a marker), JDK collections by
+        interface, identity hash codes and masked values removed."""
+        if isinstance(v, list):
+            return [self.value(x) for x in v]
+        if isinstance(v, str):
+            return norm_str(v)
+        if not isinstance(v, dict):
+            return v
+        if "$ref" in v:
+            return {"$ref": True}
+        t = norm_type(v.get("$t", ""))
+        if t in self.types or (self.prefixes and t.startswith(self.prefixes)):
+            self.masked += 1
+            return {"$t": t, "$masked": True}
+        kind = collection_kind(t, v)
+        out: dict[str, Any] = {"$t": kind or t}
+        if v.get("$cut"):
+            self.cuts += 1
+            out["$cut"] = True
+        if v.get("$opaque"):
+            out["$opaque"] = True
+        for k in ("$enum", "v", "$len"):
+            if k in v:
+                out[k] = v[k]
+        if "$str" in v:
+            out["$str"] = norm_str(v["$str"])
+        unordered = kind in ("Set", "Map", "Collection")
+        if "$items" in v:
+            items = [self.value(x) for x in v["$items"]]
+            out["$items"] = sorted(items, key=_sort_key) if unordered else items
+        if "$entries" in v:
+            entries = [[self.value(a), self.value(b)] for a, b in v["$entries"]]
+            out["$entries"] = sorted(entries, key=_sort_key) if unordered else entries
+        if "$fields" in v:
+            fs = {}
+            for name, fv in v["$fields"].items():
+                short = name.split(".")[-1]
+                if short in self.fields or f"{t}.{short}" in self.fields:
+                    self.masked += 1
+                    fs[name] = {"$masked": True}
+                else:
+                    fs[name] = self.value(fv)
+            out["$fields"] = fs
+        return out
+
+    # -- dependency fields of the receiver (level B) --------------------------------------------
+
+    def is_test_class(self, t: str) -> bool:
+        outer = norm_type(t).split("$", 1)[0]
+        return outer in self.test_classes or bool(TEST_NAME.search(outer.rsplit(".", 1)[-1]))
+
+    def is_collaborator(self, v: Any) -> bool:
+        if not isinstance(v, dict) or "$ref" in v:
+            return False
+        if v.get("$opaque"):
+            return True
+        t = norm_type(v.get("$t", ""))
+        return t in self.components or self.is_test_class(t)
+
+    def receiver(self, v: Any, deps: set[str]) -> Any:
+        """Receiver with dependency fields reduced to a marker (level B)."""
+        if not (isinstance(v, dict) and "$fields" in v) or not deps:
+            return self.value(v)
+        fields = {name: (COLLABORATOR if name in deps else fv) for name, fv in v["$fields"].items()}
+        return self.value({**v, "$fields": fields})
+
+
+def _sort_key(x: Any) -> str:
+    return json.dumps(x, sort_keys=True)
+
+
+def _is_object(v: Any) -> bool:
+    """A non-JDK object (field graph, mock, cut or back reference): something that can be a
+    collaborator. Strings, numbers, enums, JDK values and collections are data."""
+    if not isinstance(v, dict) or "$enum" in v:
+        return False
+    if "$ref" in v or v.get("$opaque"):
+        return True
+    return ("$fields" in v or bool(v.get("$cut"))) and not norm_type(v.get("$t", "")).startswith("java.")
+
+
+def dependency_fields(sides: Iterable[list[dict[str, Any]]], norm: Normaliser) -> set[str]:
+    """Receiver fields treated as collaborators, from all traces at once (pairwise rule)."""
+    deps: set[str] = set()
+    null_only: list[set[str]] = []
+    objects: list[set[str]] = []
+    for invocations in sides:
+        seen_null: dict[str, bool] = {}
+        seen_obj: set[str] = set()
+        for inv in invocations or []:
+            self_ = inv.get("self")
+            if not (isinstance(self_, dict) and "$fields" in self_):
+                continue
+            for name, fv in self_["$fields"].items():
+                if norm.is_collaborator(fv):
+                    deps.add(name)
+                if fv is None:
+                    seen_null.setdefault(name, True)
+                else:
+                    seen_null[name] = False
+                    if _is_object(fv):
+                        seen_obj.add(name)
+        null_only.append({n for n, only in seen_null.items() if only})
+        objects.append(seen_obj)
+    for i, nulls in enumerate(null_only):
+        for j, objs in enumerate(objects):
+            if i != j:
+                deps |= nulls & objs
+    return deps
+
+
+def structure_key(inv: dict[str, Any]) -> str:
+    calls = [norm_sig(c) for c in inv.get("calls", []) if "##" not in c]
+    return json.dumps([inv.get("outcome"), calls])
+
+
+def io_key(inv: dict[str, Any], norm: Normaliser) -> str:
+    return json.dumps(
+        [
+            json.loads(structure_key(inv)),
+            norm.value(inv.get("args", [])),
+            norm.value(inv.get("value")) if inv.get("outcome") == "return" else None,
+        ],
+        sort_keys=True,
+    )
+
+
+def state_key(inv: dict[str, Any], norm: Normaliser, deps: set[str]) -> str:
+    return json.dumps([json.loads(io_key(inv, norm)), norm.receiver(inv.get("self"), deps)], sort_keys=True)
+
+
+def strict_key(inv: dict[str, Any], norm: Normaliser) -> str:
+    return json.dumps([json.loads(io_key(inv, norm)), norm.value(inv.get("self"))], sort_keys=True)
+
+
+def data_key(inv: dict[str, Any], norm: Normaliser, strict: bool = False) -> str:
+    """Compatibility: level A key, or the strict (C) key."""
+    return strict_key(inv, norm) if strict else io_key(inv, norm)
+
+
+LEVELS = ("structure", "io", "state", "strict")
+
+
+def scenarios(invocations: list[dict[str, Any]], norm: Normaliser,
+              deps: set[str] | None = None) -> dict[str, tuple[str, str, str]]:
+    """strict key -> (structure key, io key, state key), for distinct scenarios."""
+    if deps is None:
+        deps = dependency_fields([invocations], norm)
+    out: dict[str, tuple[str, str, str]] = {}
+    for inv in invocations:
+        out.setdefault(strict_key(inv, norm), (structure_key(inv), io_key(inv, norm), state_key(inv, norm, deps)))
+    return out
+
+
+def compare(reference: list[dict[str, Any]], candidate: list[dict[str, Any]] | None,
+            nondet: dict[str, Any] | None = None, project: str | None = None,
+            components: set[str] | None = None, test_classes: set[str] | None = None) -> dict[str, Any]:
+    """Recall/precision at levels S, A, B, C. candidate=None means the test did not run."""
+    norm = Normaliser(nondet if nondet is not None else load_nondet(), project, components, test_classes)
+    deps = dependency_fields([reference, candidate or []], norm)
+    ref = scenarios(reference, norm, deps)
+    n = len(ref)
+    out: dict[str, Any] = {"scenarios": n}
+    if candidate is None:
+        z = 0.0 if n else None
+        for level in LEVELS:
+            out[f"{level}_hits"] = 0
+            out[f"recall_{level}"] = z
+            out[f"precision_{level}"] = None
+        out["candidate_scenarios"] = 0
+    else:
+        cand = scenarios(candidate, norm, deps)
+        m = len(cand)
+        ref_keys = {"strict": set(ref)}
+        cand_keys = {"strict": set(cand)}
+        for i, level in enumerate(("structure", "io", "state")):
+            ref_keys[level] = {k[i] for k in ref.values()}
+            cand_keys[level] = {k[i] for k in cand.values()}
+
+        def level_of(keys: tuple[str, str, str], strict: str, level: str) -> str:
+            return strict if level == "strict" else keys[("structure", "io", "state").index(level)]
+
+        for level in LEVELS:
+            hits = sum(1 for sk, ks in ref.items() if level_of(ks, sk, level) in cand_keys[level])
+            ok = sum(1 for sk, ks in cand.items() if level_of(ks, sk, level) in ref_keys[level])
+            out[f"{level}_hits"] = hits
+            out[f"recall_{level}"] = hits / n if n else None
+            out[f"precision_{level}"] = ok / m if m else None
+        out["candidate_scenarios"] = m
+        # reference scenarios reproduced at level A (short ids), for stability across rounds
+        out["io_hit_ids"] = sorted(hashlib.sha1(sk.encode()).hexdigest()[:12] for sk, ks in ref.items()
+                                   if ks[1] in cand_keys["io"])
+    # "data" is an alias of the main data level A
+    out["data_hits"] = out["io_hits"]
+    out["recall_data"] = out["recall_io"]
+    out["precision_data"] = out["precision_io"]
+    out["dependency_fields"] = sorted(deps)
+    out["masked"] = norm.masked
+    out["cuts"] = norm.cuts
+    return out
+
+
+def unstable_paths(a: Any, b: Any, path: str = "", norm: "Normaliser | None" = None) -> list[str]:
+    """Paths where two traces of the same scenario differ after normalisation (audit of the
+    nondeterminism list)."""
+    if norm is not None and path == "":
+        # a and b are invocations: normalise the value parts, keep outcome and call signatures
+        def canon(inv: dict[str, Any]) -> dict[str, Any]:
+            return {"structure": json.loads(structure_key(inv)), "self": norm.value(inv.get("self")),
+                    "args": norm.value(inv.get("args", [])),
+                    "value": norm.value(inv.get("value")) if inv.get("outcome") == "return" else None}
+        a, b = canon(a), canon(b)
+    if type(a) is not type(b):
+        return [path or "/"]
+    if isinstance(a, dict):
+        out = []
+        for k in set(a) | set(b):
+            if k in ("$id", "$ref"):
+                continue
+            out += unstable_paths(a.get(k), b.get(k), f"{path}/{k}")
+        return out
+    if isinstance(a, list):
+        if len(a) != len(b):
+            return [f"{path}[len]"]
+        out = []
+        for i, (x, y) in enumerate(zip(a, b)):
+            out += unstable_paths(x, y, f"{path}[{i}]")
+        return out
+    return [] if a == b else [path or "/"]

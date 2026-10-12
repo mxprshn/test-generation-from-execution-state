@@ -1,0 +1,95 @@
+[
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "expandFromSource",
+                    "fullName": "expandFromSource(String)",
+                    "argumentsSize": 1,
+                    "returnTypeName": "RefSpec",
+                    "containingClass": "org.eclipse.jgit.transport.RefSpec"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "org.eclipse.jgit.transport.RefSpec",
+                    "fields": {
+                        "force": {
+                            "kind": "boolean",
+                            "value": false
+                        },
+                        "wildcard": {
+                            "kind": "boolean",
+                            "value": true
+                        },
+                        "matching": {
+                            "kind": "boolean",
+                            "value": false
+                        },
+                        "negative": {
+                            "kind": "boolean",
+                            "value": false
+                        },
+                        "allowMismatchedWildcards": {
+                            "kind": "enum",
+                            "typeName": "org.eclipse.jgit.transport.RefSpec$WildcardMode",
+                            "value": "REQUIRE_MATCH"
+                        },
+                        "srcName": {
+                            "kind": "string",
+                            "value": "refs/heads/*"
+                        },
+                        "dstName": {
+                            "kind": "string",
+                            "value": "refs/remotes/test/*"
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "string",
+                        "value": "refs/heads/a"
+                    }
+                ],
+                "returnValue": {
+                    "kind": "object",
+                    "typeName": "org.eclipse.jgit.transport.RefSpec",
+                    "fields": {
+                        "force": {
+                            "kind": "boolean",
+                            "value": false
+                        },
+                        "allowMismatchedWildcards": {
+                            "kind": "enum",
+                            "typeName": "org.eclipse.jgit.transport.RefSpec$WildcardMode",
+                            "value": "REQUIRE_MATCH"
+                        },
+                        "srcName": {
+                            "kind": "string",
+                            "value": "refs/heads/a"
+                        },
+                        "dstName": {
+                            "kind": "string",
+                            "value": "refs/remotes/test/a"
+                        },
+                        "wildcard": {
+                            "kind": "boolean",
+                            "value": false
+                        },
+                        "matching": {
+                            "kind": "boolean",
+                            "value": false
+                        },
+                        "negative": {
+                            "kind": "boolean",
+                            "value": false
+                        }
+                    },
+                    "id": 1
+                }
+            }
+        ]
+    }
+]

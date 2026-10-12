@@ -1,0 +1,646 @@
+[
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "query",
+                    "fullName": "query(MappedStatement, Object, RowBounds, ResultHandler, CacheKey, BoundSql)",
+                    "argumentsSize": 6,
+                    "returnTypeName": "List<E>",
+                    "containingClass": "org.apache.ibatis.executor.CachingExecutor"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "org.apache.ibatis.executor.CachingExecutor",
+                    "fields": {
+                        "delegate": {
+                            "kind": "mock",
+                            "typeName": "org.apache.ibatis.executor.SimpleExecutor",
+                            "methods": [
+                                {
+                                    "method": {
+                                        "methodName": "query",
+                                        "fullName": "org.apache.ibatis.executor.BaseExecutor.query(Lorg/apache/ibatis/mapping/MappedStatement;Ljava/lang/Object;Lorg/apache/ibatis/session/RowBounds;Lorg/apache/ibatis/session/ResultHandler;Lorg/apache/ibatis/cache/CacheKey;Lorg/apache/ibatis/mapping/BoundSql;)Ljava/util/List;",
+                                        "argumentsSize": 6,
+                                        "returnTypeName": "java.util.List",
+                                        "containingClass": "org.apache.ibatis.executor.BaseExecutor"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "list",
+                                                "isShallow": false,
+                                                "size": 2,
+                                                "elements": [
+                                                    {
+                                                        "kind": "object",
+                                                        "typeName": "org.apache.ibatis.submitted.cache.Person",
+                                                        "fields": {
+                                                            "id": {
+                                                                "kind": "int",
+                                                                "value": 1
+                                                            },
+                                                            "firstname": {
+                                                                "kind": "string",
+                                                                "value": "Jane"
+                                                            },
+                                                            "lastname": {
+                                                                "kind": "string",
+                                                                "value": "Doe"
+                                                            }
+                                                        },
+                                                        "id": 2
+                                                    },
+                                                    {
+                                                        "kind": "object",
+                                                        "typeName": "org.apache.ibatis.submitted.cache.Person",
+                                                        "fields": {
+                                                            "id": {
+                                                                "kind": "int",
+                                                                "value": 2
+                                                            },
+                                                            "firstname": {
+                                                                "kind": "string",
+                                                                "value": "John"
+                                                            },
+                                                            "lastname": {
+                                                                "kind": "string",
+                                                                "value": "Smith"
+                                                            }
+                                                        },
+                                                        "id": 3
+                                                    }
+                                                ]
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                }
+                            ],
+                            "isSpy": false,
+                            "id": 1
+                        },
+                        "tcm": {
+                            "kind": "object",
+                            "typeName": "org.apache.ibatis.cache.TransactionalCacheManager",
+                            "fields": {
+                                "transactionalCaches": {
+                                    "kind": "map",
+                                    "isShallow": false,
+                                    "size": 0,
+                                    "elements": []
+                                }
+                            },
+                            "id": 4
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "mock",
+                        "typeName": "org.apache.ibatis.mapping.MappedStatement",
+                        "methods": [
+                            {
+                                "method": {
+                                    "methodName": "getCache",
+                                    "fullName": "org.apache.ibatis.mapping.MappedStatement.getCache()Lorg/apache/ibatis/cache/Cache;",
+                                    "argumentsSize": 0,
+                                    "returnTypeName": "org.apache.ibatis.cache.Cache",
+                                    "containingClass": "org.apache.ibatis.mapping.MappedStatement"
+                                },
+                                "calls": [
+                                    {
+                                        "result": {
+                                            "kind": "mock",
+                                            "typeName": "org.apache.ibatis.cache.decorators.SynchronizedCache",
+                                            "methods": [
+                                                {
+                                                    "method": {
+                                                        "methodName": "getObject",
+                                                        "fullName": "org.apache.ibatis.cache.decorators.SynchronizedCache.getObject(Ljava/lang/Object;)Ljava/lang/Object;",
+                                                        "argumentsSize": 1,
+                                                        "returnTypeName": "java.lang.Object",
+                                                        "containingClass": "org.apache.ibatis.cache.decorators.SynchronizedCache"
+                                                    },
+                                                    "calls": [
+                                                        {
+                                                            "result": {
+                                                                "kind": "null"
+                                                            },
+                                                            "args": []
+                                                        }
+                                                    ]
+                                                }
+                                            ],
+                                            "isSpy": false,
+                                            "id": 6
+                                        },
+                                        "args": []
+                                    },
+                                    {
+                                        "result": {
+                                            "kind": "ref",
+                                            "typeName": "org.apache.ibatis.cache.decorators.SynchronizedCache",
+                                            "refId": 6
+                                        },
+                                        "args": []
+                                    }
+                                ]
+                            },
+                            {
+                                "method": {
+                                    "methodName": "isFlushCacheRequired",
+                                    "fullName": "org.apache.ibatis.mapping.MappedStatement.isFlushCacheRequired()Z",
+                                    "argumentsSize": 0,
+                                    "returnTypeName": "boolean",
+                                    "containingClass": "org.apache.ibatis.mapping.MappedStatement"
+                                },
+                                "calls": [
+                                    {
+                                        "result": {
+                                            "kind": "boolean",
+                                            "value": false
+                                        },
+                                        "args": []
+                                    }
+                                ]
+                            },
+                            {
+                                "method": {
+                                    "methodName": "isUseCache",
+                                    "fullName": "org.apache.ibatis.mapping.MappedStatement.isUseCache()Z",
+                                    "argumentsSize": 0,
+                                    "returnTypeName": "boolean",
+                                    "containingClass": "org.apache.ibatis.mapping.MappedStatement"
+                                },
+                                "calls": [
+                                    {
+                                        "result": {
+                                            "kind": "boolean",
+                                            "value": true
+                                        },
+                                        "args": []
+                                    }
+                                ]
+                            },
+                            {
+                                "method": {
+                                    "methodName": "getStatementType",
+                                    "fullName": "org.apache.ibatis.mapping.MappedStatement.getStatementType()Lorg/apache/ibatis/mapping/StatementType;",
+                                    "argumentsSize": 0,
+                                    "returnTypeName": "org.apache.ibatis.mapping.StatementType",
+                                    "containingClass": "org.apache.ibatis.mapping.MappedStatement"
+                                },
+                                "calls": [
+                                    {
+                                        "result": {
+                                            "kind": "enum",
+                                            "typeName": "org.apache.ibatis.mapping.StatementType",
+                                            "value": "PREPARED"
+                                        },
+                                        "args": []
+                                    }
+                                ]
+                            }
+                        ],
+                        "isSpy": false,
+                        "id": 5
+                    },
+                    {
+                        "kind": "null"
+                    },
+                    {
+                        "kind": "object",
+                        "typeName": "org.apache.ibatis.session.RowBounds",
+                        "fields": {
+                            "offset": {
+                                "kind": "int",
+                                "value": 0
+                            },
+                            "limit": {
+                                "kind": "int",
+                                "value": 2147483647
+                            }
+                        },
+                        "id": 7
+                    },
+                    {
+                        "kind": "null"
+                    },
+                    {
+                        "kind": "object",
+                        "typeName": "org.apache.ibatis.cache.CacheKey",
+                        "fields": {
+                            "multiplier": {
+                                "kind": "int",
+                                "value": 37
+                            },
+                            "hashcode": {
+                                "kind": "int",
+                                "value": 2077283010
+                            },
+                            "checksum": {
+                                "kind": "long",
+                                "value": -277894317
+                            },
+                            "count": {
+                                "kind": "int",
+                                "value": 5
+                            },
+                            "updateList": {
+                                "kind": "list",
+                                "isShallow": false,
+                                "size": 5,
+                                "elements": [
+                                    {
+                                        "kind": "string",
+                                        "value": "org.apache.ibatis.submitted.cache.PersonMapper.findAll"
+                                    },
+                                    {
+                                        "kind": "int",
+                                        "value": 0
+                                    },
+                                    {
+                                        "kind": "int",
+                                        "value": 2147483647
+                                    },
+                                    {
+                                        "kind": "string",
+                                        "value": "select id, firstname, lastname from person"
+                                    },
+                                    {
+                                        "kind": "string",
+                                        "value": "development"
+                                    }
+                                ]
+                            }
+                        },
+                        "id": 8
+                    },
+                    {
+                        "kind": "object",
+                        "typeName": "org.apache.ibatis.mapping.BoundSql",
+                        "fields": {
+                            "sql": {
+                                "kind": "string",
+                                "value": "select id, firstname, lastname from person"
+                            },
+                            "parameterMappings": {
+                                "kind": "list",
+                                "isShallow": false,
+                                "size": 0,
+                                "elements": []
+                            },
+                            "parameterObject": {
+                                "kind": "null"
+                            },
+                            "additionalParameters": {
+                                "kind": "map",
+                                "isShallow": false,
+                                "size": 0,
+                                "elements": []
+                            },
+                            "metaParameters": {
+                                "kind": "mock",
+                                "typeName": "org.apache.ibatis.reflection.MetaObject",
+                                "methods": [],
+                                "isSpy": false,
+                                "id": 10
+                            }
+                        },
+                        "id": 9
+                    }
+                ],
+                "returnValue": {
+                    "kind": "list",
+                    "isShallow": true,
+                    "size": 2,
+                    "elements": []
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "query",
+                    "fullName": "query(MappedStatement, Object, RowBounds, ResultHandler, CacheKey, BoundSql)",
+                    "argumentsSize": 6,
+                    "returnTypeName": "List<E>",
+                    "containingClass": "org.apache.ibatis.executor.CachingExecutor"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "org.apache.ibatis.executor.CachingExecutor",
+                    "fields": {
+                        "delegate": {
+                            "kind": "mock",
+                            "typeName": "org.apache.ibatis.executor.SimpleExecutor",
+                            "methods": [
+                                {
+                                    "method": {
+                                        "methodName": "query",
+                                        "fullName": "org.apache.ibatis.executor.BaseExecutor.query(Lorg/apache/ibatis/mapping/MappedStatement;Ljava/lang/Object;Lorg/apache/ibatis/session/RowBounds;Lorg/apache/ibatis/session/ResultHandler;Lorg/apache/ibatis/cache/CacheKey;Lorg/apache/ibatis/mapping/BoundSql;)Ljava/util/List;",
+                                        "argumentsSize": 6,
+                                        "returnTypeName": "java.util.List",
+                                        "containingClass": "org.apache.ibatis.executor.BaseExecutor"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "list",
+                                                "isShallow": false,
+                                                "size": 1,
+                                                "elements": [
+                                                    {
+                                                        "kind": "object",
+                                                        "typeName": "org.apache.ibatis.submitted.cache.Person",
+                                                        "fields": {
+                                                            "id": {
+                                                                "kind": "int",
+                                                                "value": 2
+                                                            },
+                                                            "firstname": {
+                                                                "kind": "string",
+                                                                "value": "John"
+                                                            },
+                                                            "lastname": {
+                                                                "kind": "string",
+                                                                "value": "Smith"
+                                                            }
+                                                        },
+                                                        "id": 2
+                                                    }
+                                                ]
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                }
+                            ],
+                            "isSpy": false,
+                            "id": 1
+                        },
+                        "tcm": {
+                            "kind": "object",
+                            "typeName": "org.apache.ibatis.cache.TransactionalCacheManager",
+                            "fields": {
+                                "transactionalCaches": {
+                                    "kind": "map",
+                                    "isShallow": false,
+                                    "size": 1,
+                                    "elements": [
+                                        {
+                                            "key": {
+                                                "kind": "mock",
+                                                "typeName": "org.apache.ibatis.cache.decorators.SynchronizedCache",
+                                                "methods": [],
+                                                "isSpy": false,
+                                                "id": 4
+                                            },
+                                            "value": {
+                                                "kind": "mock",
+                                                "typeName": "org.apache.ibatis.cache.decorators.TransactionalCache",
+                                                "methods": [
+                                                    {
+                                                        "method": {
+                                                            "methodName": "getObject",
+                                                            "fullName": "org.apache.ibatis.cache.decorators.TransactionalCache.getObject(Ljava/lang/Object;)Ljava/lang/Object;",
+                                                            "argumentsSize": 1,
+                                                            "returnTypeName": "java.lang.Object",
+                                                            "containingClass": "org.apache.ibatis.cache.decorators.TransactionalCache"
+                                                        },
+                                                        "calls": [
+                                                            {
+                                                                "result": {
+                                                                    "kind": "null"
+                                                                },
+                                                                "args": []
+                                                            }
+                                                        ]
+                                                    }
+                                                ],
+                                                "isSpy": false,
+                                                "id": 5
+                                            }
+                                        }
+                                    ]
+                                }
+                            },
+                            "id": 3
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "mock",
+                        "typeName": "org.apache.ibatis.mapping.MappedStatement",
+                        "methods": [
+                            {
+                                "method": {
+                                    "methodName": "getCache",
+                                    "fullName": "org.apache.ibatis.mapping.MappedStatement.getCache()Lorg/apache/ibatis/cache/Cache;",
+                                    "argumentsSize": 0,
+                                    "returnTypeName": "org.apache.ibatis.cache.Cache",
+                                    "containingClass": "org.apache.ibatis.mapping.MappedStatement"
+                                },
+                                "calls": [
+                                    {
+                                        "result": {
+                                            "kind": "ref",
+                                            "typeName": "org.apache.ibatis.cache.decorators.SynchronizedCache",
+                                            "refId": 4
+                                        },
+                                        "args": []
+                                    },
+                                    {
+                                        "result": {
+                                            "kind": "ref",
+                                            "typeName": "org.apache.ibatis.cache.decorators.SynchronizedCache",
+                                            "refId": 4
+                                        },
+                                        "args": []
+                                    }
+                                ]
+                            },
+                            {
+                                "method": {
+                                    "methodName": "isFlushCacheRequired",
+                                    "fullName": "org.apache.ibatis.mapping.MappedStatement.isFlushCacheRequired()Z",
+                                    "argumentsSize": 0,
+                                    "returnTypeName": "boolean",
+                                    "containingClass": "org.apache.ibatis.mapping.MappedStatement"
+                                },
+                                "calls": [
+                                    {
+                                        "result": {
+                                            "kind": "boolean",
+                                            "value": false
+                                        },
+                                        "args": []
+                                    }
+                                ]
+                            },
+                            {
+                                "method": {
+                                    "methodName": "isUseCache",
+                                    "fullName": "org.apache.ibatis.mapping.MappedStatement.isUseCache()Z",
+                                    "argumentsSize": 0,
+                                    "returnTypeName": "boolean",
+                                    "containingClass": "org.apache.ibatis.mapping.MappedStatement"
+                                },
+                                "calls": [
+                                    {
+                                        "result": {
+                                            "kind": "boolean",
+                                            "value": true
+                                        },
+                                        "args": []
+                                    }
+                                ]
+                            },
+                            {
+                                "method": {
+                                    "methodName": "getStatementType",
+                                    "fullName": "org.apache.ibatis.mapping.MappedStatement.getStatementType()Lorg/apache/ibatis/mapping/StatementType;",
+                                    "argumentsSize": 0,
+                                    "returnTypeName": "org.apache.ibatis.mapping.StatementType",
+                                    "containingClass": "org.apache.ibatis.mapping.MappedStatement"
+                                },
+                                "calls": [
+                                    {
+                                        "result": {
+                                            "kind": "enum",
+                                            "typeName": "org.apache.ibatis.mapping.StatementType",
+                                            "value": "PREPARED"
+                                        },
+                                        "args": []
+                                    }
+                                ]
+                            }
+                        ],
+                        "isSpy": false,
+                        "id": 6
+                    },
+                    {
+                        "kind": "null"
+                    },
+                    {
+                        "kind": "object",
+                        "typeName": "org.apache.ibatis.session.RowBounds",
+                        "fields": {
+                            "offset": {
+                                "kind": "int",
+                                "value": 0
+                            },
+                            "limit": {
+                                "kind": "int",
+                                "value": 2147483647
+                            }
+                        },
+                        "id": 7
+                    },
+                    {
+                        "kind": "null"
+                    },
+                    {
+                        "kind": "object",
+                        "typeName": "org.apache.ibatis.cache.CacheKey",
+                        "fields": {
+                            "multiplier": {
+                                "kind": "int",
+                                "value": 37
+                            },
+                            "hashcode": {
+                                "kind": "int",
+                                "value": 2077283010
+                            },
+                            "checksum": {
+                                "kind": "long",
+                                "value": -277894317
+                            },
+                            "count": {
+                                "kind": "int",
+                                "value": 5
+                            },
+                            "updateList": {
+                                "kind": "list",
+                                "isShallow": false,
+                                "size": 5,
+                                "elements": [
+                                    {
+                                        "kind": "string",
+                                        "value": "org.apache.ibatis.submitted.cache.PersonMapper.findAll"
+                                    },
+                                    {
+                                        "kind": "int",
+                                        "value": 0
+                                    },
+                                    {
+                                        "kind": "int",
+                                        "value": 2147483647
+                                    },
+                                    {
+                                        "kind": "string",
+                                        "value": "select id, firstname, lastname from person"
+                                    },
+                                    {
+                                        "kind": "string",
+                                        "value": "development"
+                                    }
+                                ]
+                            }
+                        },
+                        "id": 8
+                    },
+                    {
+                        "kind": "object",
+                        "typeName": "org.apache.ibatis.mapping.BoundSql",
+                        "fields": {
+                            "sql": {
+                                "kind": "string",
+                                "value": "select id, firstname, lastname from person"
+                            },
+                            "parameterMappings": {
+                                "kind": "list",
+                                "isShallow": false,
+                                "size": 0,
+                                "elements": []
+                            },
+                            "parameterObject": {
+                                "kind": "null"
+                            },
+                            "additionalParameters": {
+                                "kind": "map",
+                                "isShallow": false,
+                                "size": 0,
+                                "elements": []
+                            },
+                            "metaParameters": {
+                                "kind": "mock",
+                                "typeName": "org.apache.ibatis.reflection.MetaObject",
+                                "methods": [],
+                                "isSpy": false,
+                                "id": 10
+                            }
+                        },
+                        "id": 9
+                    }
+                ],
+                "returnValue": {
+                    "kind": "list",
+                    "isShallow": true,
+                    "size": 1,
+                    "elements": []
+                }
+            }
+        ]
+    }
+]

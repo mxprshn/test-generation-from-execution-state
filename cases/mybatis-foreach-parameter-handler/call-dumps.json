@@ -1,0 +1,489 @@
+[
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "setParameters",
+                    "fullName": "setParameters(PreparedStatement)",
+                    "argumentsSize": 1,
+                    "returnTypeName": "void",
+                    "containingClass": "org.apache.ibatis.scripting.defaults.DefaultParameterHandler"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "org.apache.ibatis.scripting.defaults.DefaultParameterHandler",
+                    "fields": {
+                        "typeHandlerRegistry": {
+                            "kind": "mock",
+                            "typeName": "org.apache.ibatis.type.TypeHandlerRegistry",
+                            "methods": [],
+                            "isSpy": false,
+                            "id": 1
+                        },
+                        "mappedStatement": {
+                            "kind": "mock",
+                            "typeName": "org.apache.ibatis.mapping.MappedStatement",
+                            "methods": [
+                                {
+                                    "method": {
+                                        "methodName": "getParameterMap",
+                                        "fullName": "org.apache.ibatis.mapping.MappedStatement.getParameterMap()Lorg/apache/ibatis/mapping/ParameterMap;",
+                                        "argumentsSize": 0,
+                                        "returnTypeName": "org.apache.ibatis.mapping.ParameterMap",
+                                        "containingClass": "org.apache.ibatis.mapping.MappedStatement"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "object",
+                                                "typeName": "org.apache.ibatis.mapping.ParameterMap",
+                                                "fields": {
+                                                    "id": {
+                                                        "kind": "string",
+                                                        "value": "org.apache.ibatis.submitted.foreach.Mapper.countByBestFriend-Inline"
+                                                    },
+                                                    "type": {
+                                                        "kind": "class",
+                                                        "typeName": "java.util.List"
+                                                    },
+                                                    "parameterMappings": {
+                                                        "kind": "list",
+                                                        "isShallow": false,
+                                                        "size": 0,
+                                                        "elements": []
+                                                    }
+                                                },
+                                                "id": 3
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "method": {
+                                        "methodName": "getParamNameResolver",
+                                        "fullName": "org.apache.ibatis.mapping.MappedStatement.getParamNameResolver()Lorg/apache/ibatis/reflection/ParamNameResolver;",
+                                        "argumentsSize": 0,
+                                        "returnTypeName": "org.apache.ibatis.reflection.ParamNameResolver",
+                                        "containingClass": "org.apache.ibatis.mapping.MappedStatement"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "null"
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                }
+                            ],
+                            "isSpy": false,
+                            "id": 2
+                        },
+                        "parameterObject": {
+                            "kind": "map",
+                            "isShallow": false,
+                            "size": 3,
+                            "elements": [
+                                {
+                                    "key": {
+                                        "kind": "string",
+                                        "value": "collection"
+                                    },
+                                    "value": {
+                                        "kind": "list",
+                                        "isShallow": false,
+                                        "size": 2,
+                                        "elements": [
+                                            {
+                                                "kind": "object",
+                                                "typeName": "org.apache.ibatis.submitted.foreach.User",
+                                                "fields": {
+                                                    "id": {
+                                                        "kind": "null"
+                                                    },
+                                                    "name": {
+                                                        "kind": "null"
+                                                    },
+                                                    "bestFriend": {
+                                                        "kind": "object",
+                                                        "typeName": "org.apache.ibatis.submitted.foreach.User",
+                                                        "fields": {
+                                                            "id": {
+                                                                "kind": "int",
+                                                                "value": 5
+                                                            },
+                                                            "name": {
+                                                                "kind": "null"
+                                                            },
+                                                            "bestFriend": {
+                                                                "kind": "null"
+                                                            },
+                                                            "friendList": {
+                                                                "kind": "null"
+                                                            }
+                                                        },
+                                                        "id": 5
+                                                    },
+                                                    "friendList": {
+                                                        "kind": "null"
+                                                    }
+                                                },
+                                                "id": 4
+                                            },
+                                            {
+                                                "kind": "null"
+                                            }
+                                        ]
+                                    }
+                                },
+                                {
+                                    "key": {
+                                        "kind": "string",
+                                        "value": "list"
+                                    },
+                                    "value": {
+                                        "kind": "list",
+                                        "isShallow": false,
+                                        "size": 2,
+                                        "elements": [
+                                            {
+                                                "kind": "ref",
+                                                "typeName": "org.apache.ibatis.submitted.foreach.User",
+                                                "refId": 4
+                                            },
+                                            {
+                                                "kind": "null"
+                                            }
+                                        ]
+                                    }
+                                },
+                                {
+                                    "key": {
+                                        "kind": "string",
+                                        "value": "users"
+                                    },
+                                    "value": {
+                                        "kind": "list",
+                                        "isShallow": false,
+                                        "size": 2,
+                                        "elements": [
+                                            {
+                                                "kind": "ref",
+                                                "typeName": "org.apache.ibatis.submitted.foreach.User",
+                                                "refId": 4
+                                            },
+                                            {
+                                                "kind": "null"
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        },
+                        "boundSql": {
+                            "kind": "mock",
+                            "typeName": "org.apache.ibatis.mapping.BoundSql",
+                            "methods": [
+                                {
+                                    "method": {
+                                        "methodName": "getParameterMappings",
+                                        "fullName": "org.apache.ibatis.mapping.BoundSql.getParameterMappings()Ljava/util/List;",
+                                        "argumentsSize": 0,
+                                        "returnTypeName": "java.util.List",
+                                        "containingClass": "org.apache.ibatis.mapping.BoundSql"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "list",
+                                                "isShallow": false,
+                                                "size": 2,
+                                                "elements": [
+                                                    {
+                                                        "kind": "mock",
+                                                        "typeName": "org.apache.ibatis.mapping.ParameterMapping",
+                                                        "methods": [
+                                                            {
+                                                                "method": {
+                                                                    "methodName": "getMode",
+                                                                    "fullName": "org.apache.ibatis.mapping.ParameterMapping.getMode()Lorg/apache/ibatis/mapping/ParameterMode;",
+                                                                    "argumentsSize": 0,
+                                                                    "returnTypeName": "org.apache.ibatis.mapping.ParameterMode",
+                                                                    "containingClass": "org.apache.ibatis.mapping.ParameterMapping"
+                                                                },
+                                                                "calls": [
+                                                                    {
+                                                                        "result": {
+                                                                            "kind": "enum",
+                                                                            "typeName": "org.apache.ibatis.mapping.ParameterMode",
+                                                                            "value": "IN"
+                                                                        },
+                                                                        "args": []
+                                                                    }
+                                                                ]
+                                                            },
+                                                            {
+                                                                "method": {
+                                                                    "methodName": "getProperty",
+                                                                    "fullName": "org.apache.ibatis.mapping.ParameterMapping.getProperty()Ljava/lang/String;",
+                                                                    "argumentsSize": 0,
+                                                                    "returnTypeName": "java.lang.String",
+                                                                    "containingClass": "org.apache.ibatis.mapping.ParameterMapping"
+                                                                },
+                                                                "calls": [
+                                                                    {
+                                                                        "result": {
+                                                                            "kind": "string",
+                                                                            "value": "item.bestFriend.id"
+                                                                        },
+                                                                        "args": []
+                                                                    }
+                                                                ]
+                                                            },
+                                                            {
+                                                                "method": {
+                                                                    "methodName": "getJdbcType",
+                                                                    "fullName": "org.apache.ibatis.mapping.ParameterMapping.getJdbcType()Lorg/apache/ibatis/type/JdbcType;",
+                                                                    "argumentsSize": 0,
+                                                                    "returnTypeName": "org.apache.ibatis.type.JdbcType",
+                                                                    "containingClass": "org.apache.ibatis.mapping.ParameterMapping"
+                                                                },
+                                                                "calls": [
+                                                                    {
+                                                                        "result": {
+                                                                            "kind": "enum",
+                                                                            "typeName": "org.apache.ibatis.type.JdbcType",
+                                                                            "value": "NUMERIC"
+                                                                        },
+                                                                        "args": []
+                                                                    }
+                                                                ]
+                                                            },
+                                                            {
+                                                                "method": {
+                                                                    "methodName": "getTypeHandler",
+                                                                    "fullName": "org.apache.ibatis.mapping.ParameterMapping.getTypeHandler()Lorg/apache/ibatis/type/TypeHandler;",
+                                                                    "argumentsSize": 0,
+                                                                    "returnTypeName": "org.apache.ibatis.type.TypeHandler",
+                                                                    "containingClass": "org.apache.ibatis.mapping.ParameterMapping"
+                                                                },
+                                                                "calls": [
+                                                                    {
+                                                                        "result": {
+                                                                            "kind": "mock",
+                                                                            "typeName": "org.apache.ibatis.type.IntegerTypeHandler",
+                                                                            "methods": [],
+                                                                            "isSpy": false,
+                                                                            "id": 8
+                                                                        },
+                                                                        "args": []
+                                                                    }
+                                                                ]
+                                                            },
+                                                            {
+                                                                "method": {
+                                                                    "methodName": "hasValue",
+                                                                    "fullName": "org.apache.ibatis.mapping.ParameterMapping.hasValue()Z",
+                                                                    "argumentsSize": 0,
+                                                                    "returnTypeName": "boolean",
+                                                                    "containingClass": "org.apache.ibatis.mapping.ParameterMapping"
+                                                                },
+                                                                "calls": [
+                                                                    {
+                                                                        "result": {
+                                                                            "kind": "boolean",
+                                                                            "value": true
+                                                                        },
+                                                                        "args": []
+                                                                    }
+                                                                ]
+                                                            },
+                                                            {
+                                                                "method": {
+                                                                    "methodName": "getValue",
+                                                                    "fullName": "org.apache.ibatis.mapping.ParameterMapping.getValue()Ljava/lang/Object;",
+                                                                    "argumentsSize": 0,
+                                                                    "returnTypeName": "java.lang.Object",
+                                                                    "containingClass": "org.apache.ibatis.mapping.ParameterMapping"
+                                                                },
+                                                                "calls": [
+                                                                    {
+                                                                        "result": {
+                                                                            "kind": "int",
+                                                                            "value": 5
+                                                                        },
+                                                                        "args": []
+                                                                    }
+                                                                ]
+                                                            }
+                                                        ],
+                                                        "isSpy": false,
+                                                        "id": 7
+                                                    },
+                                                    {
+                                                        "kind": "mock",
+                                                        "typeName": "org.apache.ibatis.mapping.ParameterMapping",
+                                                        "methods": [
+                                                            {
+                                                                "method": {
+                                                                    "methodName": "getMode",
+                                                                    "fullName": "org.apache.ibatis.mapping.ParameterMapping.getMode()Lorg/apache/ibatis/mapping/ParameterMode;",
+                                                                    "argumentsSize": 0,
+                                                                    "returnTypeName": "org.apache.ibatis.mapping.ParameterMode",
+                                                                    "containingClass": "org.apache.ibatis.mapping.ParameterMapping"
+                                                                },
+                                                                "calls": [
+                                                                    {
+                                                                        "result": {
+                                                                            "kind": "enum",
+                                                                            "typeName": "org.apache.ibatis.mapping.ParameterMode",
+                                                                            "value": "IN"
+                                                                        },
+                                                                        "args": []
+                                                                    }
+                                                                ]
+                                                            },
+                                                            {
+                                                                "method": {
+                                                                    "methodName": "getProperty",
+                                                                    "fullName": "org.apache.ibatis.mapping.ParameterMapping.getProperty()Ljava/lang/String;",
+                                                                    "argumentsSize": 0,
+                                                                    "returnTypeName": "java.lang.String",
+                                                                    "containingClass": "org.apache.ibatis.mapping.ParameterMapping"
+                                                                },
+                                                                "calls": [
+                                                                    {
+                                                                        "result": {
+                                                                            "kind": "string",
+                                                                            "value": "item.bestFriend.id"
+                                                                        },
+                                                                        "args": []
+                                                                    }
+                                                                ]
+                                                            },
+                                                            {
+                                                                "method": {
+                                                                    "methodName": "getJdbcType",
+                                                                    "fullName": "org.apache.ibatis.mapping.ParameterMapping.getJdbcType()Lorg/apache/ibatis/type/JdbcType;",
+                                                                    "argumentsSize": 0,
+                                                                    "returnTypeName": "org.apache.ibatis.type.JdbcType",
+                                                                    "containingClass": "org.apache.ibatis.mapping.ParameterMapping"
+                                                                },
+                                                                "calls": [
+                                                                    {
+                                                                        "result": {
+                                                                            "kind": "enum",
+                                                                            "typeName": "org.apache.ibatis.type.JdbcType",
+                                                                            "value": "NUMERIC"
+                                                                        },
+                                                                        "args": []
+                                                                    }
+                                                                ]
+                                                            },
+                                                            {
+                                                                "method": {
+                                                                    "methodName": "getTypeHandler",
+                                                                    "fullName": "org.apache.ibatis.mapping.ParameterMapping.getTypeHandler()Lorg/apache/ibatis/type/TypeHandler;",
+                                                                    "argumentsSize": 0,
+                                                                    "returnTypeName": "org.apache.ibatis.type.TypeHandler",
+                                                                    "containingClass": "org.apache.ibatis.mapping.ParameterMapping"
+                                                                },
+                                                                "calls": [
+                                                                    {
+                                                                        "result": {
+                                                                            "kind": "null"
+                                                                        },
+                                                                        "args": []
+                                                                    }
+                                                                ]
+                                                            },
+                                                            {
+                                                                "method": {
+                                                                    "methodName": "hasValue",
+                                                                    "fullName": "org.apache.ibatis.mapping.ParameterMapping.hasValue()Z",
+                                                                    "argumentsSize": 0,
+                                                                    "returnTypeName": "boolean",
+                                                                    "containingClass": "org.apache.ibatis.mapping.ParameterMapping"
+                                                                },
+                                                                "calls": [
+                                                                    {
+                                                                        "result": {
+                                                                            "kind": "boolean",
+                                                                            "value": true
+                                                                        },
+                                                                        "args": []
+                                                                    }
+                                                                ]
+                                                            },
+                                                            {
+                                                                "method": {
+                                                                    "methodName": "getValue",
+                                                                    "fullName": "org.apache.ibatis.mapping.ParameterMapping.getValue()Ljava/lang/Object;",
+                                                                    "argumentsSize": 0,
+                                                                    "returnTypeName": "java.lang.Object",
+                                                                    "containingClass": "org.apache.ibatis.mapping.ParameterMapping"
+                                                                },
+                                                                "calls": [
+                                                                    {
+                                                                        "result": {
+                                                                            "kind": "null"
+                                                                        },
+                                                                        "args": []
+                                                                    }
+                                                                ]
+                                                            }
+                                                        ],
+                                                        "isSpy": false,
+                                                        "id": 9
+                                                    }
+                                                ]
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                }
+                            ],
+                            "isSpy": false,
+                            "id": 6
+                        },
+                        "configuration": {
+                            "kind": "mock",
+                            "typeName": "org.apache.ibatis.session.Configuration",
+                            "methods": [],
+                            "isSpy": false,
+                            "id": 10
+                        },
+                        "paramMetaData": {
+                            "kind": "null"
+                        },
+                        "paramMetaObject": {
+                            "kind": "null"
+                        },
+                        "metaClassCache": {
+                            "kind": "map",
+                            "isShallow": false,
+                            "size": 0,
+                            "elements": []
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "mock",
+                        "typeName": "org.hsqldb.jdbc.JDBCPreparedStatement",
+                        "methods": [],
+                        "isSpy": false,
+                        "id": 11
+                    }
+                ],
+                "returnValue": {
+                    "kind": "unknown"
+                }
+            }
+        ]
+    }
+]

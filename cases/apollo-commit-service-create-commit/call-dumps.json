@@ -1,0 +1,310 @@
+[
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "createCommit",
+                    "fullName": "createCommit(String, String, String, String, String)",
+                    "argumentsSize": 5,
+                    "returnTypeName": "void",
+                    "containingClass": "com.ctrip.framework.apollo.biz.service.CommitService"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "com.ctrip.framework.apollo.biz.service.CommitService",
+                    "fields": {
+                        "commitRepository": {
+                            "kind": "mock",
+                            "typeName": "com.ctrip.framework.apollo.biz.repository.CommitRepository",
+                            "methods": [
+                                {
+                                    "method": {
+                                        "methodName": "save",
+                                        "fullName": "com.ctrip.framework.apollo.biz.repository.CommitRepository.save(Ljava/lang/Object;)Ljava/lang/Object;",
+                                        "argumentsSize": 1,
+                                        "returnTypeName": "java.lang.Object",
+                                        "containingClass": "com.ctrip.framework.apollo.biz.repository.CommitRepository"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "object",
+                                                "typeName": "com.ctrip.framework.apollo.biz.entity.Commit",
+                                                "fields": {
+                                                    "changeSets": {
+                                                        "kind": "string",
+                                                        "value": "{\"createItems\":[{\"namespaceId\":1,\"key\":\"k6\",\"type\":0,\"value\":\"v6\",\"comment\":\"test item num limit\",\"lineNum\":6,\"id\":9906,\"isDeleted\":false,\"deletedAt\":0,\"dataChangeCreatedTime\":\"2026-10-11 16:59:14\",\"dataChangeLastModifiedTime\":\"2026-10-11 16:59:14\"},{\"namespaceId\":1,\"key\":\"k7\",\"type\":0,\"value\":\"v7\",\"comment\":\"test item num limit\",\"lineNum\":7,\"id\":9907,\"isDeleted\":false,\"deletedAt\":0,\"dataChangeCreatedTime\":\"2026-10-11 16:59:14\",\"dataChangeLastModifiedTime\":\"2026-10-11 16:59:14\"}],\"updateItems\":[],\"deleteItems\":[]}"
+                                                    },
+                                                    "clusterName": {
+                                                        "kind": "string",
+                                                        "value": "default"
+                                                    },
+                                                    "comment": {
+                                                        "kind": "null"
+                                                    },
+                                                    "id": {
+                                                        "kind": "long",
+                                                        "value": 1
+                                                    },
+                                                    "deletedAt": {
+                                                        "kind": "long",
+                                                        "value": 0
+                                                    },
+                                                    "dataChangeCreatedBy": {
+                                                        "kind": "null"
+                                                    },
+                                                    "dataChangeLastModifiedBy": {
+                                                        "kind": "null"
+                                                    },
+                                                    "appId": {
+                                                        "kind": "string",
+                                                        "value": "testApp"
+                                                    },
+                                                    "namespaceName": {
+                                                        "kind": "string",
+                                                        "value": "application"
+                                                    },
+                                                    "isDeleted": {
+                                                        "kind": "boolean",
+                                                        "value": false
+                                                    },
+                                                    "dataChangeCreatedTime": {
+                                                        "kind": "object",
+                                                        "typeName": "java.util.Date",
+                                                        "fields": {
+                                                            "fastTime": {
+                                                                "kind": "long",
+                                                                "value": 1791727155222
+                                                            },
+                                                            "cdate": {
+                                                                "kind": "null"
+                                                            },
+                                                            "jcal": {
+                                                                "kind": "null"
+                                                            },
+                                                            "defaultCenturyStart": {
+                                                                "kind": "int",
+                                                                "value": 0
+                                                            }
+                                                        },
+                                                        "id": 3
+                                                    },
+                                                    "dataChangeLastModifiedTime": {
+                                                        "kind": "object",
+                                                        "typeName": "java.util.Date",
+                                                        "fields": {
+                                                            "fastTime": {
+                                                                "kind": "long",
+                                                                "value": 1791727155222
+                                                            },
+                                                            "cdate": {
+                                                                "kind": "null"
+                                                            },
+                                                            "jcal": {
+                                                                "kind": "null"
+                                                            },
+                                                            "defaultCenturyStart": {
+                                                                "kind": "int",
+                                                                "value": 0
+                                                            }
+                                                        },
+                                                        "id": 4
+                                                    }
+                                                },
+                                                "id": 2
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                }
+                            ],
+                            "isSpy": false,
+                            "id": 1
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "string",
+                        "value": "testApp"
+                    },
+                    {
+                        "kind": "string",
+                        "value": "default"
+                    },
+                    {
+                        "kind": "string",
+                        "value": "application"
+                    },
+                    {
+                        "kind": "string",
+                        "value": "{\"createItems\":[{\"namespaceId\":1,\"key\":\"k6\",\"type\":0,\"value\":\"v6\",\"comment\":\"test item num limit\",\"lineNum\":6,\"id\":9906,\"isDeleted\":false,\"deletedAt\":0,\"dataChangeCreatedTime\":\"2026-10-11 16:59:14\",\"dataChangeLastModifiedTime\":\"2026-10-11 16:59:14\"},{\"namespaceId\":1,\"key\":\"k7\",\"type\":0,\"value\":\"v7\",\"comment\":\"test item num limit\",\"lineNum\":7,\"id\":9907,\"isDeleted\":false,\"deletedAt\":0,\"dataChangeCreatedTime\":\"2026-10-11 16:59:14\",\"dataChangeLastModifiedTime\":\"2026-10-11 16:59:14\"}],\"updateItems\":[],\"deleteItems\":[]}"
+                    },
+                    {
+                        "kind": "null"
+                    }
+                ],
+                "returnValue": {
+                    "kind": "unknown"
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "createCommit",
+                    "fullName": "createCommit(String, String, String, String, String)",
+                    "argumentsSize": 5,
+                    "returnTypeName": "void",
+                    "containingClass": "com.ctrip.framework.apollo.biz.service.CommitService"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "com.ctrip.framework.apollo.biz.service.CommitService",
+                    "fields": {
+                        "commitRepository": {
+                            "kind": "mock",
+                            "typeName": "com.ctrip.framework.apollo.biz.repository.CommitRepository",
+                            "methods": [
+                                {
+                                    "method": {
+                                        "methodName": "save",
+                                        "fullName": "com.ctrip.framework.apollo.biz.repository.CommitRepository.save(Ljava/lang/Object;)Ljava/lang/Object;",
+                                        "argumentsSize": 1,
+                                        "returnTypeName": "java.lang.Object",
+                                        "containingClass": "com.ctrip.framework.apollo.biz.repository.CommitRepository"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "object",
+                                                "typeName": "com.ctrip.framework.apollo.biz.entity.Commit",
+                                                "fields": {
+                                                    "changeSets": {
+                                                        "kind": "string",
+                                                        "value": "{\"createItems\":[{\"namespaceId\":1,\"key\":\"k6\",\"type\":0,\"value\":\"v6\",\"comment\":\"test item num limit\",\"lineNum\":6,\"id\":9908,\"isDeleted\":false,\"deletedAt\":0,\"dataChangeCreatedTime\":\"2026-10-11 16:59:15\",\"dataChangeLastModifiedTime\":\"2026-10-11 16:59:15\"}],\"updateItems\":[{\"oldItem\":{\"namespaceId\":1,\"key\":\"k1\",\"type\":0,\"value\":\"v1\",\"comment\":\"\",\"lineNum\":1,\"id\":9901,\"isDeleted\":false,\"deletedAt\":0},\"newItem\":{\"namespaceId\":1,\"key\":\"k1\",\"type\":0,\"value\":\"v1 update\",\"comment\":\"\",\"lineNum\":1,\"id\":9901,\"isDeleted\":false,\"deletedAt\":0,\"dataChangeLastModifiedTime\":\"2026-10-11 16:59:15\"}}],\"deleteItems\":[{\"namespaceId\":1,\"key\":\"k2\",\"type\":2,\"value\":\"v2\",\"comment\":\"\",\"lineNum\":2,\"id\":9902,\"isDeleted\":true,\"deletedAt\":1791727155487,\"dataChangeLastModifiedTime\":\"2026-10-11 16:59:15\"}]}"
+                                                    },
+                                                    "clusterName": {
+                                                        "kind": "string",
+                                                        "value": "default"
+                                                    },
+                                                    "comment": {
+                                                        "kind": "null"
+                                                    },
+                                                    "id": {
+                                                        "kind": "long",
+                                                        "value": 2
+                                                    },
+                                                    "deletedAt": {
+                                                        "kind": "long",
+                                                        "value": 0
+                                                    },
+                                                    "dataChangeCreatedBy": {
+                                                        "kind": "null"
+                                                    },
+                                                    "dataChangeLastModifiedBy": {
+                                                        "kind": "null"
+                                                    },
+                                                    "appId": {
+                                                        "kind": "string",
+                                                        "value": "testApp"
+                                                    },
+                                                    "namespaceName": {
+                                                        "kind": "string",
+                                                        "value": "application"
+                                                    },
+                                                    "isDeleted": {
+                                                        "kind": "boolean",
+                                                        "value": false
+                                                    },
+                                                    "dataChangeCreatedTime": {
+                                                        "kind": "object",
+                                                        "typeName": "java.util.Date",
+                                                        "fields": {
+                                                            "fastTime": {
+                                                                "kind": "long",
+                                                                "value": 1791727155746
+                                                            },
+                                                            "cdate": {
+                                                                "kind": "null"
+                                                            },
+                                                            "jcal": {
+                                                                "kind": "null"
+                                                            },
+                                                            "defaultCenturyStart": {
+                                                                "kind": "int",
+                                                                "value": 0
+                                                            }
+                                                        },
+                                                        "id": 3
+                                                    },
+                                                    "dataChangeLastModifiedTime": {
+                                                        "kind": "object",
+                                                        "typeName": "java.util.Date",
+                                                        "fields": {
+                                                            "fastTime": {
+                                                                "kind": "long",
+                                                                "value": 1791727155746
+                                                            },
+                                                            "cdate": {
+                                                                "kind": "null"
+                                                            },
+                                                            "jcal": {
+                                                                "kind": "null"
+                                                            },
+                                                            "defaultCenturyStart": {
+                                                                "kind": "int",
+                                                                "value": 0
+                                                            }
+                                                        },
+                                                        "id": 4
+                                                    }
+                                                },
+                                                "id": 2
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                }
+                            ],
+                            "isSpy": false,
+                            "id": 1
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "string",
+                        "value": "testApp"
+                    },
+                    {
+                        "kind": "string",
+                        "value": "default"
+                    },
+                    {
+                        "kind": "string",
+                        "value": "application"
+                    },
+                    {
+                        "kind": "string",
+                        "value": "{\"createItems\":[{\"namespaceId\":1,\"key\":\"k6\",\"type\":0,\"value\":\"v6\",\"comment\":\"test item num limit\",\"lineNum\":6,\"id\":9908,\"isDeleted\":false,\"deletedAt\":0,\"dataChangeCreatedTime\":\"2026-10-11 16:59:15\",\"dataChangeLastModifiedTime\":\"2026-10-11 16:59:15\"}],\"updateItems\":[{\"oldItem\":{\"namespaceId\":1,\"key\":\"k1\",\"type\":0,\"value\":\"v1\",\"comment\":\"\",\"lineNum\":1,\"id\":9901,\"isDeleted\":false,\"deletedAt\":0},\"newItem\":{\"namespaceId\":1,\"key\":\"k1\",\"type\":0,\"value\":\"v1 update\",\"comment\":\"\",\"lineNum\":1,\"id\":9901,\"isDeleted\":false,\"deletedAt\":0,\"dataChangeLastModifiedTime\":\"2026-10-11 16:59:15\"}}],\"deleteItems\":[{\"namespaceId\":1,\"key\":\"k2\",\"type\":2,\"value\":\"v2\",\"comment\":\"\",\"lineNum\":2,\"id\":9902,\"isDeleted\":true,\"deletedAt\":1791727155487,\"dataChangeLastModifiedTime\":\"2026-10-11 16:59:15\"}]}"
+                    },
+                    {
+                        "kind": "null"
+                    }
+                ],
+                "returnValue": {
+                    "kind": "unknown"
+                }
+            }
+        ]
+    }
+]

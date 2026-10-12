@@ -1,0 +1,91 @@
+package org.apache.ibatis.executor.keygen;
+
+import org.junit.jupiter.api.Test;
+import java.lang.reflect.InvocationTargetException;
+import org.springframework.util.ReflectionUtils;
+import java.util.KeyValueHolder;
+import org.springframework.test.util.ReflectionTestUtils;
+import org.hsqldb.result.ResultMetaData;
+import org.hsqldb.rowio.RowInputInterface;
+import org.hsqldb.types.NumberType;
+import org.hsqldb.ColumnSchema;
+import org.mockito.Mockito;
+import java.sql.SQLException;
+import org.hsqldb.jdbc.JDBCResultSetMetaData;
+import org.hsqldb.jdbc.JDBCConnection;
+import org.apache.ibatis.submitted.keygen.Country;
+import org.apache.ibatis.mapping.MappedStatement;
+import org.apache.ibatis.session.Configuration;
+import org.apache.ibatis.type.TypeHandlerRegistry;
+import java.lang.reflect.Type;
+import org.apache.ibatis.type.JdbcType;
+import org.apache.ibatis.type.TypeHandler;
+import org.apache.ibatis.type.IntegerTypeHandler;
+import java.sql.ResultSet;
+import org.mockito.invocation.InvocationOnMock;
+import org.apache.ibatis.reflection.MetaObject;
+import java.util.Map$Entry;
+import org.hsqldb.jdbc.JDBCPreparedStatement;
+import org.hsqldb.jdbc.JDBCResultSet;
+import java.sql.ResultSetMetaData;
+import org.apache.ibatis.executor.keygen.Jdbc3KeyGenerator;
+import java.lang.*;
+
+class Jdbc3KeyGeneratorReproducedTests {
+
+    @Test
+    void processBatchReproducedTest() throws SQLException, NoSuchMethodException, InstantiationException, InvocationTargetException, IllegalAccessException {
+        String[] v = new String[1];
+        v[0] = "id";
+        KeyValueHolder<Object, Object> v1 = ReflectionUtils.<KeyValueHolder>accessibleConstructor(KeyValueHolder.class, Object.class, Object.class).newInstance(null, null);
+        Integer v2 = Integer.class;
+        ReflectionTestUtils.setField(v1, "key", v2);
+        v1.setValue(v2);
+        String[] v3 = new String[1];
+        v3[0] = null;
+        ResultMetaData v4 = ReflectionUtils.<ResultMetaData>accessibleConstructor(ResultMetaData.class, RowInputInterface.class).newInstance(null);
+        v4.columnLabels = v3;
+        ReflectionTestUtils.setField(v4, "columnCount", 1);
+        ReflectionTestUtils.setField(v4, "type", 1);
+        NumberType v5 = new NumberType(null, 10L, 0);
+        ReflectionTestUtils.setField(v5, "typeWidth", 32);
+        ReflectionTestUtils.setField(v5, "typeComparisonGroup", 2);
+        ReflectionTestUtils.setField(v5, "typeDataGroup", 4);
+        ReflectionTestUtils.setField(v5, "typeCode", 4);
+        ReflectionTestUtils.setField(v5, "precision", 10L);
+        NumberType[] v6 = new NumberType[1];
+        v6[0] = v5;
+        v4.columnTypes = v6;
+        ReflectionTestUtils.setField(v4, "extendedColumnCount", 1);
+        ColumnSchema[] v7 = new ColumnSchema[1];
+        v7[0] = Mockito.mock(ColumnSchema.class);
+        v4.columns = v7;
+        JDBCResultSetMetaData v8 = ReflectionUtils.<JDBCResultSetMetaData>accessibleConstructor(JDBCResultSetMetaData.class, ResultMetaData.class, boolean.class, boolean.class, JDBCConnection.class).newInstance(null, null, null, null);
+        ReflectionTestUtils.setField(v8, "resultMetaData", v4);
+        ReflectionTestUtils.setField(v8, "useColumnName", true);
+        ReflectionTestUtils.setField(v8, "columnCount", 1);
+        ReflectionTestUtils.setField(v8, "translateTTIType", true);
+        Country v9 = new Country();
+        v9.setCountryname("China");
+        v9.setCountrycode("CN");
+        MappedStatement mocked = Mockito.mock(MappedStatement.class);
+        Mockito.when(mocked.getKeyProperties()).thenReturn(v);
+        Configuration mocked1 = Mockito.mock(Configuration.class);
+        TypeHandlerRegistry mocked2 = Mockito.mock(TypeHandlerRegistry.class);
+        IntegerTypeHandler mocked3 = Mockito.mock(IntegerTypeHandler.class);
+        Mockito.when(mocked3.getResult(Mockito.<ResultSet>any(), Mockito.anyInt())).thenReturn(0);
+        Mockito.when(mocked2.getTypeHandler(Mockito.<Type>any(), Mockito.<JdbcType>any())).thenReturn((TypeHandler<Object>) (Object) mocked3);
+        Mockito.when(mocked1.getTypeHandlerRegistry()).thenReturn(mocked2);
+        MetaObject mocked4 = Mockito.mock(MetaObject.class);
+        Mockito.when(mocked4.hasSetter(Mockito.<String>any())).thenReturn(true);
+        Mockito.when(mocked4.getGenericSetterType(Mockito.<String>any())).thenReturn((Map.Entry<Type, Class<Object>>) (Object) v1);
+        Mockito.when(mocked1.newMetaObject(Mockito.<Object>any())).thenReturn(mocked4);
+        Mockito.when(mocked.getConfiguration()).thenReturn(mocked1);
+        JDBCPreparedStatement mocked5 = Mockito.mock(JDBCPreparedStatement.class);
+        JDBCResultSet mocked6 = Mockito.mock(JDBCResultSet.class);
+        Mockito.when(mocked6.getMetaData()).thenReturn(v8);
+        Mockito.when(mocked6.next()).thenReturn(true).thenReturn(false);
+        Mockito.when(mocked5.getGeneratedKeys()).thenReturn(mocked6);
+        new Jdbc3KeyGenerator().processBatch(mocked, mocked5, v9);
+    }
+}

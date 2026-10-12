@@ -1,0 +1,975 @@
+{
+  "big": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "big",
+    "normalName": "big",
+    "options": 1,
+    "parserOptions": 0
+  },
+  "select": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "select",
+    "normalName": "select",
+    "options": 1537,
+    "parserOptions": 129
+  },
+  "wbr": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "wbr",
+    "normalName": "wbr",
+    "options": 3,
+    "parserOptions": 128
+  },
+  "legend": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "legend",
+    "normalName": "legend",
+    "options": 1,
+    "parserOptions": 0
+  },
+  "caption": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "caption",
+    "normalName": "caption",
+    "options": 5,
+    "parserOptions": 193
+  },
+  "textarea": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "textarea",
+    "normalName": "textarea",
+    "options": 1729,
+    "parserOptions": 128
+  },
+  "hr": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "hr",
+    "normalName": "hr",
+    "options": 7,
+    "parserOptions": 128
+  },
+  "del": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "del",
+    "normalName": "del",
+    "options": 1,
+    "parserOptions": 0
+  },
+  "output": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "output",
+    "normalName": "output",
+    "options": 1025,
+    "parserOptions": 0
+  },
+  "xmp": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "xmp",
+    "normalName": "xmp",
+    "options": 257,
+    "parserOptions": 128
+  },
+  "embed": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "embed",
+    "normalName": "embed",
+    "options": 1027,
+    "parserOptions": 128
+  },
+  "abbr": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "abbr",
+    "normalName": "abbr",
+    "options": 1,
+    "parserOptions": 0
+  },
+  "nav": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "nav",
+    "normalName": "nav",
+    "options": 5,
+    "parserOptions": 128
+  },
+  "canvas": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "canvas",
+    "normalName": "canvas",
+    "options": 1025,
+    "parserOptions": 0
+  },
+  "frameset": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "frameset",
+    "normalName": "frameset",
+    "options": 5,
+    "parserOptions": 128
+  },
+  "var": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "var",
+    "normalName": "var",
+    "options": 1,
+    "parserOptions": 0
+  },
+  "marquee": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "marquee",
+    "normalName": "marquee",
+    "options": 5,
+    "parserOptions": 129
+  },
+  "dfn": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "dfn",
+    "normalName": "dfn",
+    "options": 1,
+    "parserOptions": 0
+  },
+  "script": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "script",
+    "normalName": "script",
+    "options": 333,
+    "parserOptions": 128
+  },
+  "rb": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "rb",
+    "normalName": "rb",
+    "options": 1,
+    "parserOptions": 96
+  },
+  "input": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "input",
+    "normalName": "input",
+    "options": 1539,
+    "parserOptions": 128
+  },
+  "meta": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "meta",
+    "normalName": "meta",
+    "options": 7,
+    "parserOptions": 128
+  },
+  "style": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "style",
+    "normalName": "style",
+    "options": 269,
+    "parserOptions": 128
+  },
+  "device": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "device",
+    "normalName": "device",
+    "options": 3,
+    "parserOptions": 0
+  },
+  "rp": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "rp",
+    "normalName": "rp",
+    "options": 1,
+    "parserOptions": 96
+  },
+  "object": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "object",
+    "normalName": "object",
+    "options": 1537,
+    "parserOptions": 129
+  },
+  "template": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "template",
+    "normalName": "template",
+    "options": 5,
+    "parserOptions": 137
+  },
+  "sub": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "sub",
+    "normalName": "sub",
+    "options": 1,
+    "parserOptions": 0
+  },
+  "strong": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "strong",
+    "normalName": "strong",
+    "options": 1,
+    "parserOptions": 0
+  },
+  "rt": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "rt",
+    "normalName": "rt",
+    "options": 1,
+    "parserOptions": 96
+  },
+  "samp": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "samp",
+    "normalName": "samp",
+    "options": 1,
+    "parserOptions": 0
+  },
+  "hgroup": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "hgroup",
+    "normalName": "hgroup",
+    "options": 5,
+    "parserOptions": 128
+  },
+  "sup": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "sup",
+    "normalName": "sup",
+    "options": 1,
+    "parserOptions": 0
+  },
+  "br": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "br",
+    "normalName": "br",
+    "options": 3,
+    "parserOptions": 128
+  },
+  "search": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "search",
+    "normalName": "search",
+    "options": 5,
+    "parserOptions": 128
+  },
+  "iframe": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "iframe",
+    "normalName": "iframe",
+    "options": 1281,
+    "parserOptions": 128
+  },
+  "audio": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "audio",
+    "normalName": "audio",
+    "options": 1025,
+    "parserOptions": 0
+  },
+  "listing": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "listing",
+    "normalName": "listing",
+    "options": 5,
+    "parserOptions": 128
+  },
+  "map": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "map",
+    "normalName": "map",
+    "options": 1,
+    "parserOptions": 0
+  },
+  "table": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "table",
+    "normalName": "table",
+    "options": 5,
+    "parserOptions": 137
+  },
+  "rtc": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "rtc",
+    "normalName": "rtc",
+    "options": 1,
+    "parserOptions": 96
+  },
+  "a": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "a",
+    "normalName": "a",
+    "options": 1,
+    "parserOptions": 0
+  },
+  "b": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "b",
+    "normalName": "b",
+    "options": 1,
+    "parserOptions": 0
+  },
+  "address": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "address",
+    "normalName": "address",
+    "options": 13,
+    "parserOptions": 128
+  },
+  "acronym": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "acronym",
+    "normalName": "acronym",
+    "options": 1,
+    "parserOptions": 0
+  },
+  "bdi": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "bdi",
+    "normalName": "bdi",
+    "options": 1,
+    "parserOptions": 0
+  },
+  "strike": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "strike",
+    "normalName": "strike",
+    "options": 1,
+    "parserOptions": 0
+  },
+  "i": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "i",
+    "normalName": "i",
+    "options": 1,
+    "parserOptions": 0
+  },
+  "plaintext": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "plaintext",
+    "normalName": "plaintext",
+    "options": 69,
+    "parserOptions": 128
+  },
+  "menu": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "menu",
+    "normalName": "menu",
+    "options": 5,
+    "parserOptions": 128
+  },
+  "bdo": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "bdo",
+    "normalName": "bdo",
+    "options": 1,
+    "parserOptions": 0
+  },
+  "picture": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "picture",
+    "normalName": "picture",
+    "options": 1025,
+    "parserOptions": 0
+  },
+  "p": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "p",
+    "normalName": "p",
+    "options": 13,
+    "parserOptions": 224
+  },
+  "tfoot": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "tfoot",
+    "normalName": "tfoot",
+    "options": 5,
+    "parserOptions": 192
+  },
+  "td": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "td",
+    "normalName": "td",
+    "options": 13,
+    "parserOptions": 193
+  },
+  "q": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "q",
+    "normalName": "q",
+    "options": 1,
+    "parserOptions": 0
+  },
+  "s": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "s",
+    "normalName": "s",
+    "options": 1,
+    "parserOptions": 0
+  },
+  "th": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "th",
+    "normalName": "th",
+    "options": 13,
+    "parserOptions": 193
+  },
+  "u": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "u",
+    "normalName": "u",
+    "options": 1,
+    "parserOptions": 0
+  },
+  "cite": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "cite",
+    "normalName": "cite",
+    "options": 1,
+    "parserOptions": 0
+  },
+  "progress": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "progress",
+    "normalName": "progress",
+    "options": 1025,
+    "parserOptions": 0
+  },
+  "li": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "li",
+    "normalName": "li",
+    "options": 13,
+    "parserOptions": 224
+  },
+  "tr": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "tr",
+    "normalName": "tr",
+    "options": 5,
+    "parserOptions": 192
+  },
+  "font": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "font",
+    "normalName": "font",
+    "options": 1,
+    "parserOptions": 0
+  },
+  "span": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "span",
+    "normalName": "span",
+    "options": 1,
+    "parserOptions": 0
+  },
+  "dd": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "dd",
+    "normalName": "dd",
+    "options": 5,
+    "parserOptions": 224
+  },
+  "tt": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "tt",
+    "normalName": "tt",
+    "options": 1,
+    "parserOptions": 0
+  },
+  "small": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "small",
+    "normalName": "small",
+    "options": 1,
+    "parserOptions": 0
+  },
+  "col": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "col",
+    "normalName": "col",
+    "options": 7,
+    "parserOptions": 128
+  },
+  "optgroup": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "optgroup",
+    "normalName": "optgroup",
+    "options": 1,
+    "parserOptions": 112
+  },
+  "bgsound": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "bgsound",
+    "normalName": "bgsound",
+    "options": 3,
+    "parserOptions": 128
+  },
+  "data": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "data",
+    "normalName": "data",
+    "options": 1,
+    "parserOptions": 0
+  },
+  "tbody": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "tbody",
+    "normalName": "tbody",
+    "options": 5,
+    "parserOptions": 192
+  },
+  "fieldset": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "fieldset",
+    "normalName": "fieldset",
+    "options": 5,
+    "parserOptions": 128
+  },
+  "dl": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "dl",
+    "normalName": "dl",
+    "options": 5,
+    "parserOptions": 128
+  },
+  "section": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "section",
+    "normalName": "section",
+    "options": 5,
+    "parserOptions": 128
+  },
+  "main": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "main",
+    "normalName": "main",
+    "options": 5,
+    "parserOptions": 128
+  },
+  "source": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "source",
+    "normalName": "source",
+    "options": 3,
+    "parserOptions": 128
+  },
+  "body": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "body",
+    "normalName": "body",
+    "options": 5,
+    "parserOptions": 128
+  },
+  "dir": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "dir",
+    "normalName": "dir",
+    "options": 5,
+    "parserOptions": 128
+  },
+  "div": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "div",
+    "normalName": "div",
+    "options": 5,
+    "parserOptions": 128
+  },
+  "dt": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "dt",
+    "normalName": "dt",
+    "options": 5,
+    "parserOptions": 224
+  },
+  "ul": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "ul",
+    "normalName": "ul",
+    "options": 5,
+    "parserOptions": 130
+  },
+  "html": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "html",
+    "normalName": "html",
+    "options": 5,
+    "parserOptions": 137
+  },
+  "details": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "details",
+    "normalName": "details",
+    "options": 5,
+    "parserOptions": 128
+  },
+  "area": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "area",
+    "normalName": "area",
+    "options": 3,
+    "parserOptions": 128
+  },
+  "noembed": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "noembed",
+    "normalName": "noembed",
+    "options": 257,
+    "parserOptions": 128
+  },
+  "pre": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "pre",
+    "normalName": "pre",
+    "options": 77,
+    "parserOptions": 128
+  },
+  "blockquote": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "blockquote",
+    "normalName": "blockquote",
+    "options": 5,
+    "parserOptions": 128
+  },
+  "meter": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "meter",
+    "normalName": "meter",
+    "options": 1025,
+    "parserOptions": 0
+  },
+  "#root": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "#root",
+    "normalName": "#root",
+    "options": 5,
+    "parserOptions": 0
+  },
+  "em": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "em",
+    "normalName": "em",
+    "options": 1,
+    "parserOptions": 0
+  },
+  "article": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "article",
+    "normalName": "article",
+    "options": 5,
+    "parserOptions": 128
+  },
+  "noframes": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "noframes",
+    "normalName": "noframes",
+    "options": 261,
+    "parserOptions": 128
+  },
+  "aside": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "aside",
+    "normalName": "aside",
+    "options": 5,
+    "parserOptions": 128
+  },
+  "noscript": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "noscript",
+    "normalName": "noscript",
+    "options": 5,
+    "parserOptions": 128
+  },
+  "header": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "header",
+    "normalName": "header",
+    "options": 5,
+    "parserOptions": 128
+  },
+  "applet": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "applet",
+    "normalName": "applet",
+    "options": 5,
+    "parserOptions": 129
+  },
+  "frame": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "frame",
+    "normalName": "frame",
+    "options": 7,
+    "parserOptions": 128
+  },
+  "figcaption": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "figcaption",
+    "normalName": "figcaption",
+    "options": 5,
+    "parserOptions": 128
+  },
+  "option": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "option",
+    "normalName": "option",
+    "options": 1025,
+    "parserOptions": 112
+  },
+  "img": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "img",
+    "normalName": "img",
+    "options": 1027,
+    "parserOptions": 128
+  },
+  "code": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "code",
+    "normalName": "code",
+    "options": 1,
+    "parserOptions": 0
+  },
+  "footer": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "footer",
+    "normalName": "footer",
+    "options": 5,
+    "parserOptions": 128
+  },
+  "thead": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "thead",
+    "normalName": "thead",
+    "options": 5,
+    "parserOptions": 192
+  },
+  "link": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "link",
+    "normalName": "link",
+    "options": 7,
+    "parserOptions": 128
+  },
+  "h1": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "h1",
+    "normalName": "h1",
+    "options": 13,
+    "parserOptions": 128
+  },
+  "h2": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "h2",
+    "normalName": "h2",
+    "options": 13,
+    "parserOptions": 128
+  },
+  "h3": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "h3",
+    "normalName": "h3",
+    "options": 13,
+    "parserOptions": 128
+  },
+  "video": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "video",
+    "normalName": "video",
+    "options": 1025,
+    "parserOptions": 0
+  },
+  "slot": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "slot",
+    "normalName": "slot",
+    "options": 1,
+    "parserOptions": 0
+  },
+  "title": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "title",
+    "normalName": "title",
+    "options": 205,
+    "parserOptions": 128
+  },
+  "h4": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "h4",
+    "normalName": "h4",
+    "options": 13,
+    "parserOptions": 128
+  },
+  "basefont": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "basefont",
+    "normalName": "basefont",
+    "options": 3,
+    "parserOptions": 128
+  },
+  "h5": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "h5",
+    "normalName": "h5",
+    "options": 13,
+    "parserOptions": 128
+  },
+  "h6": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "h6",
+    "normalName": "h6",
+    "options": 13,
+    "parserOptions": 128
+  },
+  "keygen": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "keygen",
+    "normalName": "keygen",
+    "options": 515,
+    "parserOptions": 128
+  },
+  "head": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "head",
+    "normalName": "head",
+    "options": 5,
+    "parserOptions": 128
+  },
+  "button": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "button",
+    "normalName": "button",
+    "options": 1025,
+    "parserOptions": 132
+  },
+  "dialog": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "dialog",
+    "normalName": "dialog",
+    "options": 5,
+    "parserOptions": 0
+  },
+  "param": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "param",
+    "normalName": "param",
+    "options": 3,
+    "parserOptions": 128
+  },
+  "track": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "track",
+    "normalName": "track",
+    "options": 3,
+    "parserOptions": 128
+  },
+  "ol": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "ol",
+    "normalName": "ol",
+    "options": 5,
+    "parserOptions": 130
+  },
+  "summary": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "summary",
+    "normalName": "summary",
+    "options": 1,
+    "parserOptions": 128
+  },
+  "figure": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "figure",
+    "normalName": "figure",
+    "options": 5,
+    "parserOptions": 128
+  },
+  "nobr": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "nobr",
+    "normalName": "nobr",
+    "options": 1,
+    "parserOptions": 0
+  },
+  "datalist": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "datalist",
+    "normalName": "datalist",
+    "options": 1,
+    "parserOptions": 0
+  },
+  "center": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "center",
+    "normalName": "center",
+    "options": 5,
+    "parserOptions": 128
+  },
+  "colgroup": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "colgroup",
+    "normalName": "colgroup",
+    "options": 5,
+    "parserOptions": 192
+  },
+  "label": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "label",
+    "normalName": "label",
+    "options": 1,
+    "parserOptions": 0
+  },
+  "kbd": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "kbd",
+    "normalName": "kbd",
+    "options": 1,
+    "parserOptions": 0
+  },
+  "command": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "command",
+    "normalName": "command",
+    "options": 3,
+    "parserOptions": 0
+  },
+  "ruby": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "ruby",
+    "normalName": "ruby",
+    "options": 1,
+    "parserOptions": 0
+  },
+  "ins": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "ins",
+    "normalName": "ins",
+    "options": 1,
+    "parserOptions": 0
+  },
+  "form": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "form",
+    "normalName": "form",
+    "options": 5,
+    "parserOptions": 128
+  },
+  "time": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "time",
+    "normalName": "time",
+    "options": 1,
+    "parserOptions": 0
+  },
+  "mark": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "mark",
+    "normalName": "mark",
+    "options": 1,
+    "parserOptions": 0
+  },
+  "menuitem": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "menuitem",
+    "normalName": "menuitem",
+    "options": 3,
+    "parserOptions": 0
+  },
+  "base": {
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "tagName": "base",
+    "normalName": "base",
+    "options": 3,
+    "parserOptions": 128
+  }
+}

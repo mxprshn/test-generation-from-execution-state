@@ -1,0 +1,211 @@
+"""Run the Pi coding agent on a prepared workspace.
+
+Pi starts with nothing but the two prompts and two extensions: pi/provider.ts (the model provider
+from config.yaml) and pi/guard.ts (writes only to the generated test class, reads only inside the
+workspace, bash only for the named case commands). No user settings, skills, prompt templates or
+context files (AGENTS.md, CLAUDE.md) are loaded: Pi gets a fresh agent directory per cell.
+"""
+from __future__ import annotations
+
+import json
+import os
+import shutil
+from dataclasses import dataclass
+from pathlib import Path
+from typing import Any
+
+from runner.config import ROOT, Config
+from runner.process import run
+
+PI_DIR = ROOT / "pi"
+BUILTIN_TOOLS = ("read", "write", "edit", "bash", "grep", "find", "ls")
+THINKING_LEVELS = ("off", "minimal", "low", "medium", "high", "xhigh")
+
+
+class AgentError(Exception):
+    pass
+
+
+@dataclass
+class AgentResult:
+    exit_code: int | None
+    timed_out: bool
+    seconds: float
+    events: list[dict]
+    stderr: str
+    denied: list[dict]
+    commands: list[dict]
+    output_versions: list[str]
+
+
+def pi_binary(cfg: Config) -> Path:
+    configured = (cfg.raw.get("paths") or {}).get("pi")
+    candidates = [Path(os.path.expanduser(str(configured)))] if configured else []
+    candidates.append(cfg.tools_dir / "pi" / "bin" / "pi")
+    found = shutil.which("pi")
+    if found:
+        candidates.append(Path(found))
+    for c in candidates:
+        c = c if c.is_absolute() else ROOT / c
+        if c.is_file() and os.access(c, os.X_OK):
+            return c.resolve()
+    raise AgentError("pi not found: run scripts/setup.sh or set paths.pi in the config")
+
+
+def pi_version(cfg: Config) -> str | None:
+    try:
+        r = run([str(pi_binary(cfg)), "--version"], ROOT, agent_env(cfg, None), 60)
+        return (r.stdout or r.stderr).strip().splitlines()[-1] or None
+    except Exception:
+        return None
+
+
+def agent_env(cfg: Config, api_key_env: str | None) -> dict[str, str]:
+    """Command environment plus the provider settings; no API key variable other than TESTGEN_API_KEY."""
+    env = cfg.command_env()
+    node_bin = cfg.tools_dir / "node" / "bin"
+    if node_bin.is_dir():
+        env["PATH"] = f"{node_bin}{os.pathsep}{env['PATH']}"
+    key = os.environ.get(api_key_env) if api_key_env else None
+    for name in (cfg.api_key_env, cfg.fallback_api_key_env):
+        if name:
+            env.pop(name, None)
+    if api_key_env is not None:
+        if not key:
+            raise AgentError(f"API key variable {api_key_env} is not set")
+        env["TESTGEN_API_KEY"] = key
+    env["TESTGEN_PROVIDER_NAME"] = cfg.provider_name
+    env["TESTGEN_BASE_URL"] = cfg.base_url
+    env["TESTGEN_MODELS"] = json.dumps(cfg.provider_models)
+    return env
+
+
+def pi_argv(cfg: Config, prompts: dict[str, str], session_dir: Path) -> list[str]:
+    if cfg.thinking is not None and cfg.thinking not in THINKING_LEVELS:
+        raise AgentError(f"unsupported thinking level: {cfg.thinking}")
+    argv = [str(pi_binary(cfg)), "--no-extensions", "--no-skills", "--no-prompt-templates",
+            "--no-context-files", "--no-themes",
+            "-e", str(PI_DIR / "provider.ts"), "-e", str(PI_DIR / "guard.ts"),
+            "-t", ",".join(BUILTIN_TOOLS),
+            "--provider", cfg.provider_name, "--model", cfg.model]
+    if cfg.thinking is not None:
+        argv += ["--thinking", str(cfg.thinking)]
+    argv += ["--session-dir", str(session_dir), "--mode", "json", "--no-approve", "-p",
+             "--system-prompt", prompts["system"], prompts["task"]]
+    return argv
+
+
+def _jsonl(path: Path) -> list[dict]:
+    rows = []
+    if path.is_file():
+        for line in path.read_text(encoding="utf-8").splitlines():
+            try:
+                rows.append(json.loads(line))
+            except json.JSONDecodeError:
+                continue
+    return rows
+
+
+def parse_events(stdout: str) -> list[dict]:
+    events = []
+    for line in stdout.splitlines():
+        line = line.strip()
+        if line.startswith("{"):
+            try:
+                payload = json.loads(line)
+            except json.JSONDecodeError:
+                continue
+            if isinstance(payload, dict):
+                events.append(payload)
+    return events
+
+
+def tool_calls(events: list[dict]) -> list[dict]:
+    """Tool calls of the agent, once each (Pi repeats a toolCall block in several events)."""
+    calls, seen = [], set()
+    for event in events:
+        message = event.get("message")
+        if not isinstance(message, dict):
+            continue
+        for block in message.get("content") or []:
+            if not isinstance(block, dict) or block.get("type") != "toolCall":
+                continue
+            ident = block.get("id")
+            if isinstance(ident, str) and ident:
+                if ident in seen:
+                    continue
+                seen.add(ident)
+            calls.append(block)
+    return calls
+
+
+def run_agent(cfg: Config, workspace: Path, output_test_file: str, commands: dict[str, list[str]],
+              prompts: dict[str, str], agent_dir: Path, api_key_env: str) -> AgentResult:
+    """Run Pi with the cell's prompts; agent_dir holds Pi's own state and the guard logs."""
+    agent_dir.mkdir(parents=True, exist_ok=True)
+    session_dir = agent_dir / "session"
+    session_dir.mkdir(exist_ok=True)
+    guard_config = agent_dir / "guard.json"
+    guard_config.write_text(json.dumps({"workspace": str(workspace), "output_test_file": output_test_file,
+                                        "commands": commands}, indent=2))
+    env = agent_env(cfg, api_key_env)
+    env.update({
+        "PI_CODING_AGENT_DIR": str(agent_dir / "pi-home"),
+        "GUARD_CONFIG": str(guard_config),
+        "GUARD_DENIED_LOG": str(agent_dir / "denied.jsonl"),
+        "GUARD_COMMAND_LOG": str(agent_dir / "commands.jsonl"),
+        "GUARD_OUTPUT_VERSION_LOG": str(agent_dir / "output-versions.jsonl"),
+    })
+    result = run(pi_argv(cfg, prompts, session_dir), workspace, env, cfg.timeout, "pi")
+    return AgentResult(
+        exit_code=result.exit_code, timed_out=result.timed_out, seconds=result.seconds,
+        events=parse_events(result.stdout), stderr=result.stderr,
+        denied=_jsonl(agent_dir / "denied.jsonl"), commands=_jsonl(agent_dir / "commands.jsonl"),
+        output_versions=[r["content"] for r in _jsonl(agent_dir / "output-versions.jsonl")
+                         if isinstance(r.get("content"), str)],
+    )
+
+
+# ---------------------------------------------------------------------------------------------
+# reading a finished session: cost, gateway errors
+
+GATEWAY_ERROR_MARKERS = ("upstream_empty_response", "overloaded", "rate limit", "ECONNRESET", "socket hang up",
+                         "fetch failed", "Bad Gateway", "Service Unavailable", "Gateway Timeout")
+GATEWAY_STATUS_PREFIXES = ("429", "500", "502", "503", "504")
+
+
+def _assistant_messages(events: list[dict]):
+    for event in events:
+        if event.get("type") != "message_end":
+            continue
+        message = event.get("message") or {}
+        if message.get("role") == "assistant":
+            yield message
+
+
+def usage(events: list[dict]) -> dict[str, Any]:
+    totals: dict[str, Any] = {"turns": 0, "input_tokens": 0, "output_tokens": 0, "cache_read_tokens": 0,
+                              "cache_write_tokens": 0, "cost_usd": 0.0}
+    for message in _assistant_messages(events):
+        u = message.get("usage") or {}
+        totals["turns"] += 1
+        totals["input_tokens"] += u.get("input", 0) or 0
+        totals["output_tokens"] += u.get("output", 0) or 0
+        totals["cache_read_tokens"] += u.get("cacheRead", 0) or 0
+        totals["cache_write_tokens"] += u.get("cacheWrite", 0) or 0
+        totals["cost_usd"] += (u.get("cost") or {}).get("total") or 0
+    return totals
+
+
+def is_gateway_error(text: str) -> bool:
+    text = text.strip()
+    return text.startswith(GATEWAY_STATUS_PREFIXES) or any(m in text for m in GATEWAY_ERROR_MARKERS)
+
+
+def gateway_errors(events: list[dict]) -> tuple[int, bool]:
+    """(number of model calls that ended with a gateway error, whether the last one did)."""
+    count, last = 0, False
+    for message in _assistant_messages(events):
+        last = message.get("stopReason") == "error" and is_gateway_error(str(message.get("errorMessage") or ""))
+        count += last
+    return count, last

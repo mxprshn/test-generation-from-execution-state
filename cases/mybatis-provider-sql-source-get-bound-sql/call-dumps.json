@@ -1,0 +1,674 @@
+[
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "getBoundSql",
+                    "fullName": "getBoundSql(Object)",
+                    "argumentsSize": 1,
+                    "returnTypeName": "BoundSql",
+                    "containingClass": "org.apache.ibatis.builder.annotation.ProviderSqlSource"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "org.apache.ibatis.builder.annotation.ProviderSqlSource",
+                    "fields": {
+                        "configuration": {
+                            "kind": "mock",
+                            "typeName": "org.apache.ibatis.session.Configuration",
+                            "methods": [],
+                            "isSpy": false,
+                            "id": 1
+                        },
+                        "providerType": {
+                            "kind": "class",
+                            "typeName": "org.apache.ibatis.submitted.sqlprovider.SqlProviderTest$DefaultSqlProviderMapper$SqlProvider"
+                        },
+                        "languageDriver": {
+                            "kind": "object",
+                            "typeName": "org.apache.ibatis.scripting.xmltags.XMLLanguageDriver",
+                            "fields": {},
+                            "id": 2
+                        },
+                        "mapperMethod": {
+                            "kind": "mock",
+                            "typeName": "java.lang.reflect.Method",
+                            "methods": [],
+                            "isSpy": false,
+                            "id": 3
+                        },
+                        "providerMethod": {
+                            "kind": "mock",
+                            "typeName": "java.lang.reflect.Method",
+                            "methods": [
+                                {
+                                    "method": {
+                                        "methodName": "getModifiers",
+                                        "fullName": "java.lang.reflect.Method.getModifiers()I",
+                                        "argumentsSize": 0,
+                                        "returnTypeName": "int",
+                                        "containingClass": "java.lang.reflect.Method"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "int",
+                                                "value": 9
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                }
+                            ],
+                            "isSpy": false,
+                            "id": 4
+                        },
+                        "paramNameResolver": {
+                            "kind": "mock",
+                            "typeName": "org.apache.ibatis.reflection.ParamNameResolver",
+                            "methods": [],
+                            "isSpy": false,
+                            "id": 5
+                        },
+                        "providerMethodParameterTypes": {
+                            "kind": "array",
+                            "isShallow": false,
+                            "size": 1,
+                            "elements": [
+                                {
+                                    "kind": "class",
+                                    "typeName": "org.apache.ibatis.builder.annotation.ProviderContext"
+                                }
+                            ]
+                        },
+                        "providerContext": {
+                            "kind": "mock",
+                            "typeName": "org.apache.ibatis.builder.annotation.ProviderContext",
+                            "methods": [],
+                            "isSpy": false,
+                            "id": 6
+                        },
+                        "providerContextIndex": {
+                            "kind": "int",
+                            "value": 0
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "int",
+                        "value": 1
+                    }
+                ],
+                "returnValue": {
+                    "kind": "object",
+                    "typeName": "org.apache.ibatis.mapping.BoundSql",
+                    "fields": {
+                        "sql": {
+                            "kind": "string",
+                            "value": "select name from foo where id = ?"
+                        },
+                        "parameterMappings": {
+                            "kind": "unknown"
+                        },
+                        "parameterObject": {
+                            "kind": "int",
+                            "value": 1
+                        },
+                        "additionalParameters": {
+                            "kind": "map",
+                            "isShallow": true,
+                            "size": 0,
+                            "elements": []
+                        },
+                        "metaParameters": {
+                            "kind": "object",
+                            "typeName": "org.apache.ibatis.reflection.MetaObject",
+                            "fields": {
+                                "originalObject": {
+                                    "kind": "unknown"
+                                },
+                                "objectWrapper": {
+                                    "kind": "unknown"
+                                },
+                                "objectFactory": {
+                                    "kind": "unknown"
+                                },
+                                "objectWrapperFactory": {
+                                    "kind": "unknown"
+                                },
+                                "reflectorFactory": {
+                                    "kind": "unknown"
+                                }
+                            },
+                            "id": 8
+                        }
+                    },
+                    "id": 7
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "getBoundSql",
+                    "fullName": "getBoundSql(Object)",
+                    "argumentsSize": 1,
+                    "returnTypeName": "BoundSql",
+                    "containingClass": "org.apache.ibatis.builder.annotation.ProviderSqlSource"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "org.apache.ibatis.builder.annotation.ProviderSqlSource",
+                    "fields": {
+                        "configuration": {
+                            "kind": "mock",
+                            "typeName": "org.apache.ibatis.session.Configuration",
+                            "methods": [],
+                            "isSpy": false,
+                            "id": 1
+                        },
+                        "providerType": {
+                            "kind": "class",
+                            "typeName": "org.apache.ibatis.submitted.sqlprovider.SqlProviderTest$DefaultSqlProviderMapper$SqlProvider"
+                        },
+                        "languageDriver": {
+                            "kind": "object",
+                            "typeName": "org.apache.ibatis.scripting.xmltags.XMLLanguageDriver",
+                            "fields": {},
+                            "id": 2
+                        },
+                        "mapperMethod": {
+                            "kind": "mock",
+                            "typeName": "java.lang.reflect.Method",
+                            "methods": [],
+                            "isSpy": false,
+                            "id": 3
+                        },
+                        "providerMethod": {
+                            "kind": "mock",
+                            "typeName": "java.lang.reflect.Method",
+                            "methods": [
+                                {
+                                    "method": {
+                                        "methodName": "getModifiers",
+                                        "fullName": "java.lang.reflect.Method.getModifiers()I",
+                                        "argumentsSize": 0,
+                                        "returnTypeName": "int",
+                                        "containingClass": "java.lang.reflect.Method"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "int",
+                                                "value": 9
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                }
+                            ],
+                            "isSpy": false,
+                            "id": 4
+                        },
+                        "paramNameResolver": {
+                            "kind": "mock",
+                            "typeName": "org.apache.ibatis.reflection.ParamNameResolver",
+                            "methods": [],
+                            "isSpy": false,
+                            "id": 5
+                        },
+                        "providerMethodParameterTypes": {
+                            "kind": "array",
+                            "isShallow": false,
+                            "size": 1,
+                            "elements": [
+                                {
+                                    "kind": "class",
+                                    "typeName": "org.apache.ibatis.builder.annotation.ProviderContext"
+                                }
+                            ]
+                        },
+                        "providerContext": {
+                            "kind": "mock",
+                            "typeName": "org.apache.ibatis.builder.annotation.ProviderContext",
+                            "methods": [],
+                            "isSpy": false,
+                            "id": 6
+                        },
+                        "providerContextIndex": {
+                            "kind": "int",
+                            "value": 0
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "string",
+                        "value": "Taro"
+                    }
+                ],
+                "returnValue": {
+                    "kind": "object",
+                    "typeName": "org.apache.ibatis.mapping.BoundSql",
+                    "fields": {
+                        "sql": {
+                            "kind": "string",
+                            "value": "insert into foo (name) values(?)"
+                        },
+                        "parameterMappings": {
+                            "kind": "unknown"
+                        },
+                        "parameterObject": {
+                            "kind": "string",
+                            "value": "Taro"
+                        },
+                        "additionalParameters": {
+                            "kind": "map",
+                            "isShallow": true,
+                            "size": 0,
+                            "elements": []
+                        },
+                        "metaParameters": {
+                            "kind": "object",
+                            "typeName": "org.apache.ibatis.reflection.MetaObject",
+                            "fields": {
+                                "originalObject": {
+                                    "kind": "unknown"
+                                },
+                                "objectWrapper": {
+                                    "kind": "unknown"
+                                },
+                                "objectFactory": {
+                                    "kind": "unknown"
+                                },
+                                "objectWrapperFactory": {
+                                    "kind": "unknown"
+                                },
+                                "reflectorFactory": {
+                                    "kind": "unknown"
+                                }
+                            },
+                            "id": 8
+                        }
+                    },
+                    "id": 7
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "getBoundSql",
+                    "fullName": "getBoundSql(Object)",
+                    "argumentsSize": 1,
+                    "returnTypeName": "BoundSql",
+                    "containingClass": "org.apache.ibatis.builder.annotation.ProviderSqlSource"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "org.apache.ibatis.builder.annotation.ProviderSqlSource",
+                    "fields": {
+                        "configuration": {
+                            "kind": "mock",
+                            "typeName": "org.apache.ibatis.session.Configuration",
+                            "methods": [],
+                            "isSpy": false,
+                            "id": 1
+                        },
+                        "providerType": {
+                            "kind": "class",
+                            "typeName": "org.apache.ibatis.submitted.sqlprovider.SqlProviderTest$DefaultSqlProviderMapper$SqlProvider"
+                        },
+                        "languageDriver": {
+                            "kind": "object",
+                            "typeName": "org.apache.ibatis.scripting.xmltags.XMLLanguageDriver",
+                            "fields": {},
+                            "id": 2
+                        },
+                        "mapperMethod": {
+                            "kind": "mock",
+                            "typeName": "java.lang.reflect.Method",
+                            "methods": [],
+                            "isSpy": false,
+                            "id": 3
+                        },
+                        "providerMethod": {
+                            "kind": "mock",
+                            "typeName": "java.lang.reflect.Method",
+                            "methods": [
+                                {
+                                    "method": {
+                                        "methodName": "getModifiers",
+                                        "fullName": "java.lang.reflect.Method.getModifiers()I",
+                                        "argumentsSize": 0,
+                                        "returnTypeName": "int",
+                                        "containingClass": "java.lang.reflect.Method"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "int",
+                                                "value": 9
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                }
+                            ],
+                            "isSpy": false,
+                            "id": 4
+                        },
+                        "paramNameResolver": {
+                            "kind": "mock",
+                            "typeName": "org.apache.ibatis.reflection.ParamNameResolver",
+                            "methods": [
+                                {
+                                    "method": {
+                                        "methodName": "getNames",
+                                        "fullName": "org.apache.ibatis.reflection.ParamNameResolver.getNames()[Ljava/lang/String;",
+                                        "argumentsSize": 0,
+                                        "returnTypeName": "java.lang.String[]",
+                                        "containingClass": "org.apache.ibatis.reflection.ParamNameResolver"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "array",
+                                                "isShallow": false,
+                                                "size": 1,
+                                                "elements": [
+                                                    {
+                                                        "kind": "string",
+                                                        "value": "c"
+                                                    }
+                                                ]
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                }
+                            ],
+                            "isSpy": false,
+                            "id": 5
+                        },
+                        "providerMethodParameterTypes": {
+                            "kind": "array",
+                            "isShallow": false,
+                            "size": 1,
+                            "elements": [
+                                {
+                                    "kind": "class",
+                                    "typeName": "org.apache.ibatis.builder.annotation.ProviderContext"
+                                }
+                            ]
+                        },
+                        "providerContext": {
+                            "kind": "mock",
+                            "typeName": "org.apache.ibatis.builder.annotation.ProviderContext",
+                            "methods": [],
+                            "isSpy": false,
+                            "id": 6
+                        },
+                        "providerContextIndex": {
+                            "kind": "int",
+                            "value": 0
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "map",
+                        "isShallow": false,
+                        "size": 0,
+                        "elements": []
+                    }
+                ],
+                "returnValue": {
+                    "kind": "object",
+                    "typeName": "org.apache.ibatis.mapping.BoundSql",
+                    "fields": {
+                        "sql": {
+                            "kind": "string",
+                            "value": "update foo set name = ? where id = ?"
+                        },
+                        "parameterMappings": {
+                            "kind": "unknown"
+                        },
+                        "parameterObject": {
+                            "kind": "map",
+                            "isShallow": true,
+                            "size": 0,
+                            "elements": []
+                        },
+                        "additionalParameters": {
+                            "kind": "map",
+                            "isShallow": true,
+                            "size": 0,
+                            "elements": []
+                        },
+                        "metaParameters": {
+                            "kind": "object",
+                            "typeName": "org.apache.ibatis.reflection.MetaObject",
+                            "fields": {
+                                "originalObject": {
+                                    "kind": "unknown"
+                                },
+                                "objectWrapper": {
+                                    "kind": "unknown"
+                                },
+                                "objectFactory": {
+                                    "kind": "unknown"
+                                },
+                                "objectWrapperFactory": {
+                                    "kind": "unknown"
+                                },
+                                "reflectorFactory": {
+                                    "kind": "unknown"
+                                }
+                            },
+                            "id": 8
+                        }
+                    },
+                    "id": 7
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "getBoundSql",
+                    "fullName": "getBoundSql(Object)",
+                    "argumentsSize": 1,
+                    "returnTypeName": "BoundSql",
+                    "containingClass": "org.apache.ibatis.builder.annotation.ProviderSqlSource"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "org.apache.ibatis.builder.annotation.ProviderSqlSource",
+                    "fields": {
+                        "configuration": {
+                            "kind": "mock",
+                            "typeName": "org.apache.ibatis.session.Configuration",
+                            "methods": [],
+                            "isSpy": false,
+                            "id": 1
+                        },
+                        "providerType": {
+                            "kind": "class",
+                            "typeName": "org.apache.ibatis.submitted.sqlprovider.SqlProviderTest$DefaultSqlProviderMapper$SqlProvider"
+                        },
+                        "languageDriver": {
+                            "kind": "object",
+                            "typeName": "org.apache.ibatis.scripting.xmltags.XMLLanguageDriver",
+                            "fields": {},
+                            "id": 2
+                        },
+                        "mapperMethod": {
+                            "kind": "mock",
+                            "typeName": "java.lang.reflect.Method",
+                            "methods": [],
+                            "isSpy": false,
+                            "id": 3
+                        },
+                        "providerMethod": {
+                            "kind": "mock",
+                            "typeName": "java.lang.reflect.Method",
+                            "methods": [
+                                {
+                                    "method": {
+                                        "methodName": "getModifiers",
+                                        "fullName": "java.lang.reflect.Method.getModifiers()I",
+                                        "argumentsSize": 0,
+                                        "returnTypeName": "int",
+                                        "containingClass": "java.lang.reflect.Method"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "int",
+                                                "value": 9
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                }
+                            ],
+                            "isSpy": false,
+                            "id": 4
+                        },
+                        "paramNameResolver": {
+                            "kind": "mock",
+                            "typeName": "org.apache.ibatis.reflection.ParamNameResolver",
+                            "methods": [
+                                {
+                                    "method": {
+                                        "methodName": "getNames",
+                                        "fullName": "org.apache.ibatis.reflection.ParamNameResolver.getNames()[Ljava/lang/String;",
+                                        "argumentsSize": 0,
+                                        "returnTypeName": "java.lang.String[]",
+                                        "containingClass": "org.apache.ibatis.reflection.ParamNameResolver"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "array",
+                                                "isShallow": false,
+                                                "size": 1,
+                                                "elements": [
+                                                    {
+                                                        "kind": "string",
+                                                        "value": "c"
+                                                    }
+                                                ]
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                }
+                            ],
+                            "isSpy": false,
+                            "id": 5
+                        },
+                        "providerMethodParameterTypes": {
+                            "kind": "array",
+                            "isShallow": false,
+                            "size": 1,
+                            "elements": [
+                                {
+                                    "kind": "class",
+                                    "typeName": "org.apache.ibatis.builder.annotation.ProviderContext"
+                                }
+                            ]
+                        },
+                        "providerContext": {
+                            "kind": "mock",
+                            "typeName": "org.apache.ibatis.builder.annotation.ProviderContext",
+                            "methods": [],
+                            "isSpy": false,
+                            "id": 6
+                        },
+                        "providerContextIndex": {
+                            "kind": "int",
+                            "value": 0
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "map",
+                        "isShallow": false,
+                        "size": 0,
+                        "elements": []
+                    }
+                ],
+                "returnValue": {
+                    "kind": "object",
+                    "typeName": "org.apache.ibatis.mapping.BoundSql",
+                    "fields": {
+                        "sql": {
+                            "kind": "string",
+                            "value": "delete from foo where id = ?"
+                        },
+                        "parameterMappings": {
+                            "kind": "unknown"
+                        },
+                        "parameterObject": {
+                            "kind": "map",
+                            "isShallow": true,
+                            "size": 0,
+                            "elements": []
+                        },
+                        "additionalParameters": {
+                            "kind": "map",
+                            "isShallow": true,
+                            "size": 0,
+                            "elements": []
+                        },
+                        "metaParameters": {
+                            "kind": "object",
+                            "typeName": "org.apache.ibatis.reflection.MetaObject",
+                            "fields": {
+                                "originalObject": {
+                                    "kind": "unknown"
+                                },
+                                "objectWrapper": {
+                                    "kind": "unknown"
+                                },
+                                "objectFactory": {
+                                    "kind": "unknown"
+                                },
+                                "objectWrapperFactory": {
+                                    "kind": "unknown"
+                                },
+                                "reflectorFactory": {
+                                    "kind": "unknown"
+                                }
+                            },
+                            "id": 8
+                        }
+                    },
+                    "id": 7
+                }
+            }
+        ]
+    }
+]

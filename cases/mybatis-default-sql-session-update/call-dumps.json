@@ -1,0 +1,148 @@
+[
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "update",
+                    "fullName": "update(String, Object)",
+                    "argumentsSize": 2,
+                    "returnTypeName": "int",
+                    "containingClass": "org.apache.ibatis.session.defaults.DefaultSqlSession"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "org.apache.ibatis.session.defaults.DefaultSqlSession",
+                    "fields": {
+                        "configuration": {
+                            "kind": "mock",
+                            "typeName": "org.apache.ibatis.session.Configuration",
+                            "methods": [
+                                {
+                                    "method": {
+                                        "methodName": "getMappedStatement",
+                                        "fullName": "org.apache.ibatis.session.Configuration.getMappedStatement(Ljava/lang/String;)Lorg/apache/ibatis/mapping/MappedStatement;",
+                                        "argumentsSize": 1,
+                                        "returnTypeName": "org.apache.ibatis.mapping.MappedStatement",
+                                        "containingClass": "org.apache.ibatis.session.Configuration"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "mock",
+                                                "typeName": "org.apache.ibatis.mapping.MappedStatement",
+                                                "methods": [],
+                                                "isSpy": false,
+                                                "id": 2
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                }
+                            ],
+                            "isSpy": false,
+                            "id": 1
+                        },
+                        "executor": {
+                            "kind": "mock",
+                            "typeName": "org.apache.ibatis.executor.CachingExecutor",
+                            "methods": [
+                                {
+                                    "method": {
+                                        "methodName": "update",
+                                        "fullName": "org.apache.ibatis.executor.CachingExecutor.update(Lorg/apache/ibatis/mapping/MappedStatement;Ljava/lang/Object;)I",
+                                        "argumentsSize": 2,
+                                        "returnTypeName": "int",
+                                        "containingClass": "org.apache.ibatis.executor.CachingExecutor"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "int",
+                                                "value": 2
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                }
+                            ],
+                            "isSpy": false,
+                            "id": 3
+                        },
+                        "autoCommit": {
+                            "kind": "boolean",
+                            "value": false
+                        },
+                        "dirty": {
+                            "kind": "boolean",
+                            "value": false
+                        },
+                        "cursorList": {
+                            "kind": "null"
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "string",
+                        "value": "updateProps"
+                    },
+                    {
+                        "kind": "object",
+                        "typeName": "org.apache.ibatis.submitted.complex_type.Item",
+                        "fields": {
+                            "id": {
+                                "kind": "int",
+                                "value": 10
+                            },
+                            "properties": {
+                                "kind": "list",
+                                "isShallow": false,
+                                "size": 2,
+                                "elements": [
+                                    {
+                                        "kind": "object",
+                                        "typeName": "org.apache.ibatis.submitted.complex_type.Property",
+                                        "fields": {
+                                            "id": {
+                                                "kind": "int",
+                                                "value": 11
+                                            },
+                                            "value": {
+                                                "kind": "string",
+                                                "value": "value11"
+                                            }
+                                        },
+                                        "id": 5
+                                    },
+                                    {
+                                        "kind": "object",
+                                        "typeName": "org.apache.ibatis.submitted.complex_type.Property",
+                                        "fields": {
+                                            "id": {
+                                                "kind": "int",
+                                                "value": 12
+                                            },
+                                            "value": {
+                                                "kind": "string",
+                                                "value": "value12"
+                                            }
+                                        },
+                                        "id": 6
+                                    }
+                                ]
+                            }
+                        },
+                        "id": 4
+                    }
+                ],
+                "returnValue": {
+                    "kind": "int",
+                    "value": 2
+                }
+            }
+        ]
+    }
+]

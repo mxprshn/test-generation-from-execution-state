@@ -1,0 +1,211 @@
+[
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "update",
+                    "fullName": "update(Statement)",
+                    "argumentsSize": 1,
+                    "returnTypeName": "int",
+                    "containingClass": "org.apache.ibatis.executor.statement.PreparedStatementHandler"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "org.apache.ibatis.executor.statement.PreparedStatementHandler",
+                    "fields": {
+                        "configuration": {
+                            "kind": "mock",
+                            "typeName": "org.apache.ibatis.session.Configuration",
+                            "methods": [],
+                            "isSpy": false,
+                            "id": 1
+                        },
+                        "objectFactory": {
+                            "kind": "mock",
+                            "typeName": "org.apache.ibatis.reflection.factory.DefaultObjectFactory",
+                            "methods": [],
+                            "isSpy": false,
+                            "id": 2
+                        },
+                        "typeHandlerRegistry": {
+                            "kind": "mock",
+                            "typeName": "org.apache.ibatis.type.TypeHandlerRegistry",
+                            "methods": [],
+                            "isSpy": false,
+                            "id": 3
+                        },
+                        "resultSetHandler": {
+                            "kind": "mock",
+                            "typeName": "org.apache.ibatis.executor.resultset.DefaultResultSetHandler",
+                            "methods": [],
+                            "isSpy": false,
+                            "id": 4
+                        },
+                        "parameterHandler": {
+                            "kind": "mock",
+                            "typeName": "org.apache.ibatis.scripting.defaults.DefaultParameterHandler",
+                            "methods": [],
+                            "isSpy": false,
+                            "id": 5
+                        },
+                        "executor": {
+                            "kind": "mock",
+                            "typeName": "org.apache.ibatis.executor.SimpleExecutor",
+                            "methods": [],
+                            "isSpy": false,
+                            "id": 6
+                        },
+                        "mappedStatement": {
+                            "kind": "mock",
+                            "typeName": "org.apache.ibatis.mapping.MappedStatement",
+                            "methods": [
+                                {
+                                    "method": {
+                                        "methodName": "getKeyGenerator",
+                                        "fullName": "org.apache.ibatis.mapping.MappedStatement.getKeyGenerator()Lorg/apache/ibatis/executor/keygen/KeyGenerator;",
+                                        "argumentsSize": 0,
+                                        "returnTypeName": "org.apache.ibatis.executor.keygen.KeyGenerator",
+                                        "containingClass": "org.apache.ibatis.mapping.MappedStatement"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "object",
+                                                "typeName": "org.apache.ibatis.executor.keygen.NoKeyGenerator",
+                                                "fields": {},
+                                                "id": 8
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                }
+                            ],
+                            "isSpy": false,
+                            "id": 7
+                        },
+                        "rowBounds": {
+                            "kind": "object",
+                            "typeName": "org.apache.ibatis.session.RowBounds",
+                            "fields": {
+                                "offset": {
+                                    "kind": "int",
+                                    "value": 0
+                                },
+                                "limit": {
+                                    "kind": "int",
+                                    "value": 2147483647
+                                }
+                            },
+                            "id": 9
+                        },
+                        "boundSql": {
+                            "kind": "mock",
+                            "typeName": "org.apache.ibatis.mapping.BoundSql",
+                            "methods": [
+                                {
+                                    "method": {
+                                        "methodName": "getParameterObject",
+                                        "fullName": "org.apache.ibatis.mapping.BoundSql.getParameterObject()Ljava/lang/Object;",
+                                        "argumentsSize": 0,
+                                        "returnTypeName": "java.lang.Object",
+                                        "containingClass": "org.apache.ibatis.mapping.BoundSql"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "object",
+                                                "typeName": "org.apache.ibatis.submitted.complex_property.User",
+                                                "fields": {
+                                                    "id": {
+                                                        "kind": "long",
+                                                        "value": 500000
+                                                    },
+                                                    "username": {
+                                                        "kind": "string",
+                                                        "value": "johnny1791729018608"
+                                                    },
+                                                    "password": {
+                                                        "kind": "object",
+                                                        "typeName": "org.apache.ibatis.submitted.complex_property.EncryptedString",
+                                                        "fields": {
+                                                            "encrypted": {
+                                                                "kind": "string",
+                                                                "value": "secret"
+                                                            }
+                                                        },
+                                                        "id": 12
+                                                    },
+                                                    "administrator": {
+                                                        "kind": "boolean",
+                                                        "value": true
+                                                    }
+                                                },
+                                                "id": 11
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                }
+                            ],
+                            "isSpy": false,
+                            "id": 10
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "mock",
+                        "typeName": "org.hsqldb.jdbc.JDBCPreparedStatement",
+                        "methods": [
+                            {
+                                "method": {
+                                    "methodName": "execute",
+                                    "fullName": "org.hsqldb.jdbc.JDBCPreparedStatement.execute()Z",
+                                    "argumentsSize": 0,
+                                    "returnTypeName": "boolean",
+                                    "containingClass": "org.hsqldb.jdbc.JDBCPreparedStatement"
+                                },
+                                "calls": [
+                                    {
+                                        "result": {
+                                            "kind": "boolean",
+                                            "value": false
+                                        },
+                                        "args": []
+                                    }
+                                ]
+                            },
+                            {
+                                "method": {
+                                    "methodName": "getUpdateCount",
+                                    "fullName": "org.hsqldb.jdbc.JDBCPreparedStatement.getUpdateCount()I",
+                                    "argumentsSize": 0,
+                                    "returnTypeName": "int",
+                                    "containingClass": "org.hsqldb.jdbc.JDBCPreparedStatement"
+                                },
+                                "calls": [
+                                    {
+                                        "result": {
+                                            "kind": "int",
+                                            "value": 1
+                                        },
+                                        "args": []
+                                    }
+                                ]
+                            }
+                        ],
+                        "isSpy": false,
+                        "id": 13
+                    }
+                ],
+                "returnValue": {
+                    "kind": "int",
+                    "value": 1
+                }
+            }
+        ]
+    }
+]

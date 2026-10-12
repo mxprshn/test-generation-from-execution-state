@@ -1,0 +1,5 @@
+Condition: source code only.
+
+No execution data is provided. Determine the executions of the target method and their values by
+reading the driving scenario and the production code along the call chain from the scenario to the
+target method. You may run the available commands.

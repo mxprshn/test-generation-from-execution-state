@@ -1,0 +1,252 @@
+[
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "loadResult",
+                    "fullName": "loadResult()",
+                    "argumentsSize": 0,
+                    "returnTypeName": "Object",
+                    "containingClass": "org.apache.ibatis.executor.loader.ResultLoader"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "org.apache.ibatis.executor.loader.ResultLoader",
+                    "fields": {
+                        "configuration": {
+                            "kind": "mock",
+                            "typeName": "org.apache.ibatis.session.Configuration",
+                            "methods": [],
+                            "isSpy": false,
+                            "id": 1
+                        },
+                        "executor": {
+                            "kind": "mock",
+                            "typeName": "org.apache.ibatis.executor.CachingExecutor",
+                            "methods": [
+                                {
+                                    "method": {
+                                        "methodName": "isClosed",
+                                        "fullName": "org.apache.ibatis.executor.CachingExecutor.isClosed()Z",
+                                        "argumentsSize": 0,
+                                        "returnTypeName": "boolean",
+                                        "containingClass": "org.apache.ibatis.executor.CachingExecutor"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "method": {
+                                        "methodName": "query",
+                                        "fullName": "org.apache.ibatis.executor.CachingExecutor.query(Lorg/apache/ibatis/mapping/MappedStatement;Ljava/lang/Object;Lorg/apache/ibatis/session/RowBounds;Lorg/apache/ibatis/session/ResultHandler;Lorg/apache/ibatis/cache/CacheKey;Lorg/apache/ibatis/mapping/BoundSql;)Ljava/util/List;",
+                                        "argumentsSize": 6,
+                                        "returnTypeName": "java.util.List",
+                                        "containingClass": "org.apache.ibatis.executor.CachingExecutor"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "list",
+                                                "isShallow": false,
+                                                "size": 1,
+                                                "elements": [
+                                                    {
+                                                        "kind": "object",
+                                                        "typeName": "org.apache.ibatis.submitted.lazy_properties.User",
+                                                        "fields": {
+                                                            "id": {
+                                                                "kind": "int",
+                                                                "value": 11
+                                                            },
+                                                            "name": {
+                                                                "kind": "string",
+                                                                "value": "lazy1"
+                                                            },
+                                                            "lazy1": {
+                                                                "kind": "null"
+                                                            },
+                                                            "lazy2": {
+                                                                "kind": "null"
+                                                            },
+                                                            "lazy3": {
+                                                                "kind": "null"
+                                                            },
+                                                            "setterCounter": {
+                                                                "kind": "int",
+                                                                "value": 0
+                                                            }
+                                                        },
+                                                        "id": 3
+                                                    }
+                                                ]
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                }
+                            ],
+                            "isSpy": false,
+                            "id": 2
+                        },
+                        "mappedStatement": {
+                            "kind": "mock",
+                            "typeName": "org.apache.ibatis.mapping.MappedStatement",
+                            "methods": [],
+                            "isSpy": false,
+                            "id": 4
+                        },
+                        "parameterObject": {
+                            "kind": "int",
+                            "value": 1
+                        },
+                        "targetType": {
+                            "kind": "class",
+                            "typeName": "org.apache.ibatis.submitted.lazy_properties.User"
+                        },
+                        "objectFactory": {
+                            "kind": "mock",
+                            "typeName": "org.apache.ibatis.reflection.factory.DefaultObjectFactory",
+                            "methods": [],
+                            "isSpy": false,
+                            "id": 5
+                        },
+                        "cacheKey": {
+                            "kind": "object",
+                            "typeName": "org.apache.ibatis.cache.CacheKey",
+                            "fields": {
+                                "multiplier": {
+                                    "kind": "int",
+                                    "value": 37
+                                },
+                                "hashcode": {
+                                    "kind": "int",
+                                    "value": 843017580
+                                },
+                                "checksum": {
+                                    "kind": "long",
+                                    "value": -788039104
+                                },
+                                "count": {
+                                    "kind": "int",
+                                    "value": 5
+                                },
+                                "updateList": {
+                                    "kind": "list",
+                                    "isShallow": false,
+                                    "size": 5,
+                                    "elements": [
+                                        {
+                                            "kind": "string",
+                                            "value": "org.apache.ibatis.submitted.lazy_properties.Mapper.getLazy1"
+                                        },
+                                        {
+                                            "kind": "int",
+                                            "value": 0
+                                        },
+                                        {
+                                            "kind": "int",
+                                            "value": 2147483647
+                                        },
+                                        {
+                                            "kind": "string",
+                                            "value": "select 11 id, 'lazy1' name from (values(0))"
+                                        },
+                                        {
+                                            "kind": "string",
+                                            "value": "development"
+                                        }
+                                    ]
+                                }
+                            },
+                            "id": 6
+                        },
+                        "boundSql": {
+                            "kind": "mock",
+                            "typeName": "org.apache.ibatis.mapping.BoundSql",
+                            "methods": [],
+                            "isSpy": false,
+                            "id": 7
+                        },
+                        "resultExtractor": {
+                            "kind": "mock",
+                            "typeName": "org.apache.ibatis.executor.ResultExtractor",
+                            "methods": [
+                                {
+                                    "method": {
+                                        "methodName": "extractObjectFromList",
+                                        "fullName": "org.apache.ibatis.executor.ResultExtractor.extractObjectFromList(Ljava/util/List;Ljava/lang/Class;)Ljava/lang/Object;",
+                                        "argumentsSize": 2,
+                                        "returnTypeName": "java.lang.Object",
+                                        "containingClass": "org.apache.ibatis.executor.ResultExtractor"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "ref",
+                                                "typeName": "org.apache.ibatis.submitted.lazy_properties.User",
+                                                "refId": 3
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                }
+                            ],
+                            "isSpy": false,
+                            "id": 8
+                        },
+                        "creatorThreadId": {
+                            "kind": "long",
+                            "value": 1
+                        },
+                        "loaded": {
+                            "kind": "boolean",
+                            "value": false
+                        },
+                        "resultObject": {
+                            "kind": "null"
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [],
+                "returnValue": {
+                    "kind": "object",
+                    "typeName": "org.apache.ibatis.submitted.lazy_properties.User",
+                    "fields": {
+                        "id": {
+                            "kind": "int",
+                            "value": 11
+                        },
+                        "name": {
+                            "kind": "string",
+                            "value": "lazy1"
+                        },
+                        "lazy1": {
+                            "kind": "unknown"
+                        },
+                        "lazy2": {
+                            "kind": "unknown"
+                        },
+                        "lazy3": {
+                            "kind": "unknown"
+                        },
+                        "setterCounter": {
+                            "kind": "int",
+                            "value": 0
+                        }
+                    },
+                    "id": 9
+                }
+            }
+        ]
+    }
+]

@@ -1,0 +1,1134 @@
+[
+    {
+        "staticMethodMocks": [
+            {
+                "method": {
+                    "methodName": "ok",
+                    "fullName": "io.aiven.klaw.model.ApiResponse.ok(Ljava/lang/String;)Lio/aiven/klaw/model/ApiResponse;",
+                    "argumentsSize": 1,
+                    "returnTypeName": "io.aiven.klaw.model.ApiResponse",
+                    "containingClass": "io.aiven.klaw.model.ApiResponse"
+                },
+                "calls": [
+                    {
+                        "result": {
+                            "kind": "object",
+                            "typeName": "io.aiven.klaw.model.ApiResponse",
+                            "fields": {
+                                "success": {
+                                    "kind": "boolean",
+                                    "value": true
+                                },
+                                "errCode": {
+                                    "kind": "null"
+                                },
+                                "message": {
+                                    "kind": "string",
+                                    "value": "success"
+                                },
+                                "debugMessage": {
+                                    "kind": "null"
+                                },
+                                "data": {
+                                    "kind": "null"
+                                },
+                                "timestamp": {
+                                    "kind": "null"
+                                }
+                            },
+                            "id": 9
+                        },
+                        "args": []
+                    }
+                ]
+            }
+        ],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "addNewTeam",
+                    "fullName": "addNewTeam(TeamModel, boolean)",
+                    "argumentsSize": 2,
+                    "returnTypeName": "ApiResponse",
+                    "containingClass": "io.aiven.klaw.service.UsersTeamsControllerService"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "io.aiven.klaw.service.UsersTeamsControllerService",
+                    "fields": {
+                        "authenticationType": {
+                            "kind": "string",
+                            "value": "db"
+                        },
+                        "ssoEnabled": {
+                            "kind": "boolean",
+                            "value": false
+                        },
+                        "encryptorSecretKey": {
+                            "kind": "string",
+                            "value": "kw2021secretkey"
+                        },
+                        "kwInstallationType": {
+                            "kind": "string",
+                            "value": "onpremise"
+                        },
+                        "mailService": {
+                            "kind": "mock",
+                            "typeName": "io.aiven.klaw.service.MailUtils",
+                            "methods": [
+                                {
+                                    "method": {
+                                        "methodName": "getUserName",
+                                        "fullName": "io.aiven.klaw.service.MailUtils.getUserName(Ljava/lang/Object;)Ljava/lang/String;",
+                                        "argumentsSize": 1,
+                                        "returnTypeName": "java.lang.String",
+                                        "containingClass": "io.aiven.klaw.service.MailUtils"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "string",
+                                                "value": "superadmin"
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                }
+                            ],
+                            "isSpy": false,
+                            "id": 1
+                        },
+                        "commonUtilsService": {
+                            "kind": "mock",
+                            "typeName": "io.aiven.klaw.service.CommonUtilsService",
+                            "methods": [
+                                {
+                                    "method": {
+                                        "methodName": "getPrincipal",
+                                        "fullName": "io.aiven.klaw.service.CommonUtilsService.getPrincipal()Ljava/lang/Object;",
+                                        "argumentsSize": 0,
+                                        "returnTypeName": "java.lang.Object",
+                                        "containingClass": "io.aiven.klaw.service.CommonUtilsService"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "object",
+                                                "typeName": "org.springframework.security.core.userdetails.User",
+                                                "fields": {
+                                                    "password": {
+                                                        "kind": "string",
+                                                        "value": "WelcomeToKlaw321@"
+                                                    },
+                                                    "username": {
+                                                        "kind": "string",
+                                                        "value": "superadmin"
+                                                    },
+                                                    "authorities": {
+                                                        "kind": "set",
+                                                        "isShallow": false,
+                                                        "size": 1,
+                                                        "elements": [
+                                                            {
+                                                                "kind": "object",
+                                                                "typeName": "org.springframework.security.core.authority.SimpleGrantedAuthority",
+                                                                "fields": {
+                                                                    "role": {
+                                                                        "kind": "string",
+                                                                        "value": "ROLE_USER"
+                                                                    }
+                                                                },
+                                                                "id": 4
+                                                            }
+                                                        ]
+                                                    },
+                                                    "accountNonExpired": {
+                                                        "kind": "boolean",
+                                                        "value": true
+                                                    },
+                                                    "accountNonLocked": {
+                                                        "kind": "boolean",
+                                                        "value": true
+                                                    },
+                                                    "credentialsNonExpired": {
+                                                        "kind": "boolean",
+                                                        "value": true
+                                                    },
+                                                    "enabled": {
+                                                        "kind": "boolean",
+                                                        "value": true
+                                                    }
+                                                },
+                                                "id": 3
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "ref",
+                                                "typeName": "org.springframework.security.core.userdetails.User",
+                                                "refId": 3
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "method": {
+                                        "methodName": "isNotAuthorizedUser",
+                                        "fullName": "io.aiven.klaw.service.CommonUtilsService.isNotAuthorizedUser(Ljava/lang/Object;Lio/aiven/klaw/model/enums/PermissionType;)Z",
+                                        "argumentsSize": 2,
+                                        "returnTypeName": "boolean",
+                                        "containingClass": "io.aiven.klaw.service.CommonUtilsService"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "method": {
+                                        "methodName": "getTenantId",
+                                        "fullName": "io.aiven.klaw.service.CommonUtilsService.getTenantId(Ljava/lang/String;)I",
+                                        "argumentsSize": 1,
+                                        "returnTypeName": "int",
+                                        "containingClass": "io.aiven.klaw.service.CommonUtilsService"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "int",
+                                                "value": 101
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                }
+                            ],
+                            "isSpy": false,
+                            "id": 2
+                        },
+                        "manageDatabase": {
+                            "kind": "mock",
+                            "typeName": "io.aiven.klaw.config.ManageDatabase",
+                            "methods": [
+                                {
+                                    "method": {
+                                        "methodName": "getTeamNamesForTenant",
+                                        "fullName": "io.aiven.klaw.config.ManageDatabase.getTeamNamesForTenant(I)Ljava/util/List;",
+                                        "argumentsSize": 1,
+                                        "returnTypeName": "java.util.List",
+                                        "containingClass": "io.aiven.klaw.config.ManageDatabase"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "list",
+                                                "isShallow": false,
+                                                "size": 2,
+                                                "elements": [
+                                                    {
+                                                        "kind": "string",
+                                                        "value": "INFRATEAM"
+                                                    },
+                                                    {
+                                                        "kind": "string",
+                                                        "value": "STAGINGTEAM"
+                                                    }
+                                                ]
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "method": {
+                                        "methodName": "getHandleDbRequests",
+                                        "fullName": "io.aiven.klaw.config.ManageDatabase.getHandleDbRequests()Lio/aiven/klaw/helpers/db/rdbms/HandleDbRequestsJdbc;",
+                                        "argumentsSize": 0,
+                                        "returnTypeName": "io.aiven.klaw.helpers.db.rdbms.HandleDbRequestsJdbc",
+                                        "containingClass": "io.aiven.klaw.config.ManageDatabase"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "mock",
+                                                "typeName": "io.aiven.klaw.helpers.db.rdbms.HandleDbRequestsJdbc",
+                                                "methods": [
+                                                    {
+                                                        "method": {
+                                                            "methodName": "addNewTeam",
+                                                            "fullName": "io.aiven.klaw.helpers.db.rdbms.HandleDbRequestsJdbc.addNewTeam(Lio/aiven/klaw/dao/Team;)Ljava/lang/String;",
+                                                            "argumentsSize": 1,
+                                                            "returnTypeName": "java.lang.String",
+                                                            "containingClass": "io.aiven.klaw.helpers.db.rdbms.HandleDbRequestsJdbc"
+                                                        },
+                                                        "calls": [
+                                                            {
+                                                                "result": {
+                                                                    "kind": "string",
+                                                                    "value": "success"
+                                                                },
+                                                                "args": []
+                                                            }
+                                                        ]
+                                                    }
+                                                ],
+                                                "isSpy": false,
+                                                "id": 6
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                }
+                            ],
+                            "isSpy": false,
+                            "id": 5
+                        },
+                        "inMemoryUserDetailsManager": {
+                            "kind": "mock",
+                            "typeName": "org.springframework.security.provisioning.InMemoryUserDetailsManager",
+                            "methods": [],
+                            "isSpy": false,
+                            "id": 7
+                        },
+                        "passwordService": {
+                            "kind": "mock",
+                            "typeName": "io.aiven.klaw.service.PasswordService",
+                            "methods": [],
+                            "isSpy": false,
+                            "id": 8
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "object",
+                        "typeName": "io.aiven.klaw.model.requests.TeamModel",
+                        "fields": {
+                            "teamname": {
+                                "kind": "string",
+                                "value": "Octopus"
+                            },
+                            "teamphone": {
+                                "kind": "string",
+                                "value": "0031003423432"
+                            },
+                            "tenantId": {
+                                "kind": "int",
+                                "value": 101
+                            },
+                            "app": {
+                                "kind": "null"
+                            },
+                            "envList": {
+                                "kind": "null"
+                            },
+                            "teammail": {
+                                "kind": "string",
+                                "value": "Octopus@Octopus.com"
+                            },
+                            "contactperson": {
+                                "kind": "string",
+                                "value": "Contact Person"
+                            },
+                            "teamId": {
+                                "kind": "null"
+                            },
+                            "showDeleteTeam": {
+                                "kind": "boolean",
+                                "value": false
+                            },
+                            "tenantName": {
+                                "kind": "null"
+                            }
+                        },
+                        "id": 11
+                    },
+                    {
+                        "kind": "boolean",
+                        "value": true
+                    }
+                ],
+                "returnValue": {
+                    "kind": "object",
+                    "typeName": "io.aiven.klaw.model.ApiResponse",
+                    "fields": {
+                        "success": {
+                            "kind": "boolean",
+                            "value": true
+                        },
+                        "errCode": {
+                            "kind": "unknown"
+                        },
+                        "message": {
+                            "kind": "string",
+                            "value": "success"
+                        },
+                        "debugMessage": {
+                            "kind": "unknown"
+                        },
+                        "data": {
+                            "kind": "unknown"
+                        },
+                        "timestamp": {
+                            "kind": "unknown"
+                        }
+                    },
+                    "id": 10
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [
+            {
+                "method": {
+                    "methodName": "notOk",
+                    "fullName": "io.aiven.klaw.model.ApiResponse.notOk(Ljava/lang/String;)Lio/aiven/klaw/model/ApiResponse;",
+                    "argumentsSize": 1,
+                    "returnTypeName": "io.aiven.klaw.model.ApiResponse",
+                    "containingClass": "io.aiven.klaw.model.ApiResponse"
+                },
+                "calls": [
+                    {
+                        "result": {
+                            "kind": "object",
+                            "typeName": "io.aiven.klaw.model.ApiResponse",
+                            "fields": {
+                                "success": {
+                                    "kind": "boolean",
+                                    "value": false
+                                },
+                                "errCode": {
+                                    "kind": "null"
+                                },
+                                "message": {
+                                    "kind": "string",
+                                    "value": "Failure. Team already exists."
+                                },
+                                "debugMessage": {
+                                    "kind": "null"
+                                },
+                                "data": {
+                                    "kind": "null"
+                                },
+                                "timestamp": {
+                                    "kind": "null"
+                                }
+                            },
+                            "id": 8
+                        },
+                        "args": []
+                    }
+                ]
+            }
+        ],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "addNewTeam",
+                    "fullName": "addNewTeam(TeamModel, boolean)",
+                    "argumentsSize": 2,
+                    "returnTypeName": "ApiResponse",
+                    "containingClass": "io.aiven.klaw.service.UsersTeamsControllerService"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "io.aiven.klaw.service.UsersTeamsControllerService",
+                    "fields": {
+                        "authenticationType": {
+                            "kind": "string",
+                            "value": "db"
+                        },
+                        "ssoEnabled": {
+                            "kind": "boolean",
+                            "value": false
+                        },
+                        "encryptorSecretKey": {
+                            "kind": "string",
+                            "value": "kw2021secretkey"
+                        },
+                        "kwInstallationType": {
+                            "kind": "string",
+                            "value": "onpremise"
+                        },
+                        "mailService": {
+                            "kind": "mock",
+                            "typeName": "io.aiven.klaw.service.MailUtils",
+                            "methods": [
+                                {
+                                    "method": {
+                                        "methodName": "getUserName",
+                                        "fullName": "io.aiven.klaw.service.MailUtils.getUserName(Ljava/lang/Object;)Ljava/lang/String;",
+                                        "argumentsSize": 1,
+                                        "returnTypeName": "java.lang.String",
+                                        "containingClass": "io.aiven.klaw.service.MailUtils"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "string",
+                                                "value": "superadmin"
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                }
+                            ],
+                            "isSpy": false,
+                            "id": 1
+                        },
+                        "commonUtilsService": {
+                            "kind": "mock",
+                            "typeName": "io.aiven.klaw.service.CommonUtilsService",
+                            "methods": [
+                                {
+                                    "method": {
+                                        "methodName": "getPrincipal",
+                                        "fullName": "io.aiven.klaw.service.CommonUtilsService.getPrincipal()Ljava/lang/Object;",
+                                        "argumentsSize": 0,
+                                        "returnTypeName": "java.lang.Object",
+                                        "containingClass": "io.aiven.klaw.service.CommonUtilsService"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "object",
+                                                "typeName": "org.springframework.security.core.userdetails.User",
+                                                "fields": {
+                                                    "password": {
+                                                        "kind": "string",
+                                                        "value": "WelcomeToKlaw321@"
+                                                    },
+                                                    "username": {
+                                                        "kind": "string",
+                                                        "value": "superadmin"
+                                                    },
+                                                    "authorities": {
+                                                        "kind": "set",
+                                                        "isShallow": false,
+                                                        "size": 1,
+                                                        "elements": [
+                                                            {
+                                                                "kind": "object",
+                                                                "typeName": "org.springframework.security.core.authority.SimpleGrantedAuthority",
+                                                                "fields": {
+                                                                    "role": {
+                                                                        "kind": "string",
+                                                                        "value": "ROLE_USER"
+                                                                    }
+                                                                },
+                                                                "id": 4
+                                                            }
+                                                        ]
+                                                    },
+                                                    "accountNonExpired": {
+                                                        "kind": "boolean",
+                                                        "value": true
+                                                    },
+                                                    "accountNonLocked": {
+                                                        "kind": "boolean",
+                                                        "value": true
+                                                    },
+                                                    "credentialsNonExpired": {
+                                                        "kind": "boolean",
+                                                        "value": true
+                                                    },
+                                                    "enabled": {
+                                                        "kind": "boolean",
+                                                        "value": true
+                                                    }
+                                                },
+                                                "id": 3
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "ref",
+                                                "typeName": "org.springframework.security.core.userdetails.User",
+                                                "refId": 3
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "method": {
+                                        "methodName": "isNotAuthorizedUser",
+                                        "fullName": "io.aiven.klaw.service.CommonUtilsService.isNotAuthorizedUser(Ljava/lang/Object;Lio/aiven/klaw/model/enums/PermissionType;)Z",
+                                        "argumentsSize": 2,
+                                        "returnTypeName": "boolean",
+                                        "containingClass": "io.aiven.klaw.service.CommonUtilsService"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "method": {
+                                        "methodName": "getTenantId",
+                                        "fullName": "io.aiven.klaw.service.CommonUtilsService.getTenantId(Ljava/lang/String;)I",
+                                        "argumentsSize": 1,
+                                        "returnTypeName": "int",
+                                        "containingClass": "io.aiven.klaw.service.CommonUtilsService"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "int",
+                                                "value": 101
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                }
+                            ],
+                            "isSpy": false,
+                            "id": 2
+                        },
+                        "manageDatabase": {
+                            "kind": "mock",
+                            "typeName": "io.aiven.klaw.config.ManageDatabase",
+                            "methods": [
+                                {
+                                    "method": {
+                                        "methodName": "getTeamNamesForTenant",
+                                        "fullName": "io.aiven.klaw.config.ManageDatabase.getTeamNamesForTenant(I)Ljava/util/List;",
+                                        "argumentsSize": 1,
+                                        "returnTypeName": "java.util.List",
+                                        "containingClass": "io.aiven.klaw.config.ManageDatabase"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "list",
+                                                "isShallow": false,
+                                                "size": 3,
+                                                "elements": [
+                                                    {
+                                                        "kind": "string",
+                                                        "value": "INFRATEAM"
+                                                    },
+                                                    {
+                                                        "kind": "string",
+                                                        "value": "STAGINGTEAM"
+                                                    },
+                                                    {
+                                                        "kind": "string",
+                                                        "value": "Octopus"
+                                                    }
+                                                ]
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                }
+                            ],
+                            "isSpy": false,
+                            "id": 5
+                        },
+                        "inMemoryUserDetailsManager": {
+                            "kind": "mock",
+                            "typeName": "org.springframework.security.provisioning.InMemoryUserDetailsManager",
+                            "methods": [],
+                            "isSpy": false,
+                            "id": 6
+                        },
+                        "passwordService": {
+                            "kind": "mock",
+                            "typeName": "io.aiven.klaw.service.PasswordService",
+                            "methods": [],
+                            "isSpy": false,
+                            "id": 7
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "object",
+                        "typeName": "io.aiven.klaw.model.requests.TeamModel",
+                        "fields": {
+                            "teamname": {
+                                "kind": "string",
+                                "value": "Octopus"
+                            },
+                            "teamphone": {
+                                "kind": "string",
+                                "value": "0031003423432"
+                            },
+                            "tenantId": {
+                                "kind": "int",
+                                "value": 101
+                            },
+                            "app": {
+                                "kind": "null"
+                            },
+                            "envList": {
+                                "kind": "null"
+                            },
+                            "teammail": {
+                                "kind": "string",
+                                "value": "Octopus@Octopus.com"
+                            },
+                            "contactperson": {
+                                "kind": "string",
+                                "value": "Contact Person"
+                            },
+                            "teamId": {
+                                "kind": "null"
+                            },
+                            "showDeleteTeam": {
+                                "kind": "boolean",
+                                "value": false
+                            },
+                            "tenantName": {
+                                "kind": "null"
+                            }
+                        },
+                        "id": 10
+                    },
+                    {
+                        "kind": "boolean",
+                        "value": true
+                    }
+                ],
+                "returnValue": {
+                    "kind": "object",
+                    "typeName": "io.aiven.klaw.model.ApiResponse",
+                    "fields": {
+                        "success": {
+                            "kind": "boolean",
+                            "value": false
+                        },
+                        "errCode": {
+                            "kind": "unknown"
+                        },
+                        "message": {
+                            "kind": "string",
+                            "value": "Failure. Team already exists."
+                        },
+                        "debugMessage": {
+                            "kind": "unknown"
+                        },
+                        "data": {
+                            "kind": "unknown"
+                        },
+                        "timestamp": {
+                            "kind": "unknown"
+                        }
+                    },
+                    "id": 9
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [
+            {
+                "method": {
+                    "methodName": "ok",
+                    "fullName": "io.aiven.klaw.model.ApiResponse.ok(Ljava/lang/String;)Lio/aiven/klaw/model/ApiResponse;",
+                    "argumentsSize": 1,
+                    "returnTypeName": "io.aiven.klaw.model.ApiResponse",
+                    "containingClass": "io.aiven.klaw.model.ApiResponse"
+                },
+                "calls": [
+                    {
+                        "result": {
+                            "kind": "object",
+                            "typeName": "io.aiven.klaw.model.ApiResponse",
+                            "fields": {
+                                "success": {
+                                    "kind": "boolean",
+                                    "value": true
+                                },
+                                "errCode": {
+                                    "kind": "null"
+                                },
+                                "message": {
+                                    "kind": "string",
+                                    "value": "success"
+                                },
+                                "debugMessage": {
+                                    "kind": "null"
+                                },
+                                "data": {
+                                    "kind": "null"
+                                },
+                                "timestamp": {
+                                    "kind": "null"
+                                }
+                            },
+                            "id": 9
+                        },
+                        "args": []
+                    }
+                ]
+            }
+        ],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "addNewTeam",
+                    "fullName": "addNewTeam(TeamModel, boolean)",
+                    "argumentsSize": 2,
+                    "returnTypeName": "ApiResponse",
+                    "containingClass": "io.aiven.klaw.service.UsersTeamsControllerService"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "io.aiven.klaw.service.UsersTeamsControllerService",
+                    "fields": {
+                        "authenticationType": {
+                            "kind": "string",
+                            "value": "db"
+                        },
+                        "ssoEnabled": {
+                            "kind": "boolean",
+                            "value": false
+                        },
+                        "encryptorSecretKey": {
+                            "kind": "string",
+                            "value": "kw2021secretkey"
+                        },
+                        "kwInstallationType": {
+                            "kind": "string",
+                            "value": "onpremise"
+                        },
+                        "mailService": {
+                            "kind": "mock",
+                            "typeName": "io.aiven.klaw.service.MailUtils",
+                            "methods": [
+                                {
+                                    "method": {
+                                        "methodName": "getUserName",
+                                        "fullName": "io.aiven.klaw.service.MailUtils.getUserName(Ljava/lang/Object;)Ljava/lang/String;",
+                                        "argumentsSize": 1,
+                                        "returnTypeName": "java.lang.String",
+                                        "containingClass": "io.aiven.klaw.service.MailUtils"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "string",
+                                                "value": "superadmin"
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                }
+                            ],
+                            "isSpy": false,
+                            "id": 1
+                        },
+                        "commonUtilsService": {
+                            "kind": "mock",
+                            "typeName": "io.aiven.klaw.service.CommonUtilsService",
+                            "methods": [
+                                {
+                                    "method": {
+                                        "methodName": "getPrincipal",
+                                        "fullName": "io.aiven.klaw.service.CommonUtilsService.getPrincipal()Ljava/lang/Object;",
+                                        "argumentsSize": 0,
+                                        "returnTypeName": "java.lang.Object",
+                                        "containingClass": "io.aiven.klaw.service.CommonUtilsService"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "object",
+                                                "typeName": "org.springframework.security.core.userdetails.User",
+                                                "fields": {
+                                                    "password": {
+                                                        "kind": "string",
+                                                        "value": "WelcomeToKlaw321@"
+                                                    },
+                                                    "username": {
+                                                        "kind": "string",
+                                                        "value": "superadmin"
+                                                    },
+                                                    "authorities": {
+                                                        "kind": "set",
+                                                        "isShallow": false,
+                                                        "size": 1,
+                                                        "elements": [
+                                                            {
+                                                                "kind": "object",
+                                                                "typeName": "org.springframework.security.core.authority.SimpleGrantedAuthority",
+                                                                "fields": {
+                                                                    "role": {
+                                                                        "kind": "string",
+                                                                        "value": "ROLE_USER"
+                                                                    }
+                                                                },
+                                                                "id": 4
+                                                            }
+                                                        ]
+                                                    },
+                                                    "accountNonExpired": {
+                                                        "kind": "boolean",
+                                                        "value": true
+                                                    },
+                                                    "accountNonLocked": {
+                                                        "kind": "boolean",
+                                                        "value": true
+                                                    },
+                                                    "credentialsNonExpired": {
+                                                        "kind": "boolean",
+                                                        "value": true
+                                                    },
+                                                    "enabled": {
+                                                        "kind": "boolean",
+                                                        "value": true
+                                                    }
+                                                },
+                                                "id": 3
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "ref",
+                                                "typeName": "org.springframework.security.core.userdetails.User",
+                                                "refId": 3
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "method": {
+                                        "methodName": "isNotAuthorizedUser",
+                                        "fullName": "io.aiven.klaw.service.CommonUtilsService.isNotAuthorizedUser(Ljava/lang/Object;Lio/aiven/klaw/model/enums/PermissionType;)Z",
+                                        "argumentsSize": 2,
+                                        "returnTypeName": "boolean",
+                                        "containingClass": "io.aiven.klaw.service.CommonUtilsService"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "method": {
+                                        "methodName": "getTenantId",
+                                        "fullName": "io.aiven.klaw.service.CommonUtilsService.getTenantId(Ljava/lang/String;)I",
+                                        "argumentsSize": 1,
+                                        "returnTypeName": "int",
+                                        "containingClass": "io.aiven.klaw.service.CommonUtilsService"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "int",
+                                                "value": 101
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                }
+                            ],
+                            "isSpy": false,
+                            "id": 2
+                        },
+                        "manageDatabase": {
+                            "kind": "mock",
+                            "typeName": "io.aiven.klaw.config.ManageDatabase",
+                            "methods": [
+                                {
+                                    "method": {
+                                        "methodName": "getTeamNamesForTenant",
+                                        "fullName": "io.aiven.klaw.config.ManageDatabase.getTeamNamesForTenant(I)Ljava/util/List;",
+                                        "argumentsSize": 1,
+                                        "returnTypeName": "java.util.List",
+                                        "containingClass": "io.aiven.klaw.config.ManageDatabase"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "list",
+                                                "isShallow": false,
+                                                "size": 3,
+                                                "elements": [
+                                                    {
+                                                        "kind": "string",
+                                                        "value": "INFRATEAM"
+                                                    },
+                                                    {
+                                                        "kind": "string",
+                                                        "value": "STAGINGTEAM"
+                                                    },
+                                                    {
+                                                        "kind": "string",
+                                                        "value": "Octopus"
+                                                    }
+                                                ]
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "method": {
+                                        "methodName": "getHandleDbRequests",
+                                        "fullName": "io.aiven.klaw.config.ManageDatabase.getHandleDbRequests()Lio/aiven/klaw/helpers/db/rdbms/HandleDbRequestsJdbc;",
+                                        "argumentsSize": 0,
+                                        "returnTypeName": "io.aiven.klaw.helpers.db.rdbms.HandleDbRequestsJdbc",
+                                        "containingClass": "io.aiven.klaw.config.ManageDatabase"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "mock",
+                                                "typeName": "io.aiven.klaw.helpers.db.rdbms.HandleDbRequestsJdbc",
+                                                "methods": [
+                                                    {
+                                                        "method": {
+                                                            "methodName": "addNewTeam",
+                                                            "fullName": "io.aiven.klaw.helpers.db.rdbms.HandleDbRequestsJdbc.addNewTeam(Lio/aiven/klaw/dao/Team;)Ljava/lang/String;",
+                                                            "argumentsSize": 1,
+                                                            "returnTypeName": "java.lang.String",
+                                                            "containingClass": "io.aiven.klaw.helpers.db.rdbms.HandleDbRequestsJdbc"
+                                                        },
+                                                        "calls": [
+                                                            {
+                                                                "result": {
+                                                                    "kind": "string",
+                                                                    "value": "success"
+                                                                },
+                                                                "args": []
+                                                            }
+                                                        ]
+                                                    }
+                                                ],
+                                                "isSpy": false,
+                                                "id": 6
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                }
+                            ],
+                            "isSpy": false,
+                            "id": 5
+                        },
+                        "inMemoryUserDetailsManager": {
+                            "kind": "mock",
+                            "typeName": "org.springframework.security.provisioning.InMemoryUserDetailsManager",
+                            "methods": [],
+                            "isSpy": false,
+                            "id": 7
+                        },
+                        "passwordService": {
+                            "kind": "mock",
+                            "typeName": "io.aiven.klaw.service.PasswordService",
+                            "methods": [],
+                            "isSpy": false,
+                            "id": 8
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "object",
+                        "typeName": "io.aiven.klaw.model.requests.TeamModel",
+                        "fields": {
+                            "teamname": {
+                                "kind": "string",
+                                "value": "Testteam"
+                            },
+                            "teamphone": {
+                                "kind": "string",
+                                "value": "0031003423432"
+                            },
+                            "tenantId": {
+                                "kind": "int",
+                                "value": 101
+                            },
+                            "app": {
+                                "kind": "null"
+                            },
+                            "envList": {
+                                "kind": "null"
+                            },
+                            "teammail": {
+                                "kind": "string",
+                                "value": "Testteam@Testteam.com"
+                            },
+                            "contactperson": {
+                                "kind": "string",
+                                "value": "Contact Person"
+                            },
+                            "teamId": {
+                                "kind": "null"
+                            },
+                            "showDeleteTeam": {
+                                "kind": "boolean",
+                                "value": false
+                            },
+                            "tenantName": {
+                                "kind": "null"
+                            }
+                        },
+                        "id": 11
+                    },
+                    {
+                        "kind": "boolean",
+                        "value": true
+                    }
+                ],
+                "returnValue": {
+                    "kind": "object",
+                    "typeName": "io.aiven.klaw.model.ApiResponse",
+                    "fields": {
+                        "success": {
+                            "kind": "boolean",
+                            "value": true
+                        },
+                        "errCode": {
+                            "kind": "unknown"
+                        },
+                        "message": {
+                            "kind": "string",
+                            "value": "success"
+                        },
+                        "debugMessage": {
+                            "kind": "unknown"
+                        },
+                        "data": {
+                            "kind": "unknown"
+                        },
+                        "timestamp": {
+                            "kind": "unknown"
+                        }
+                    },
+                    "id": 10
+                }
+            }
+        ]
+    }
+]

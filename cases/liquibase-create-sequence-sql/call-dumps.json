@@ -1,0 +1,3178 @@
+[
+    {
+        "staticMethodMocks": [
+            {
+                "method": {
+                    "methodName": "trimToNull",
+                    "fullName": "liquibase.util.StringUtil.trimToNull(Ljava/lang/String;)Ljava/lang/String;",
+                    "argumentsSize": 1,
+                    "returnTypeName": "java.lang.String",
+                    "containingClass": "liquibase.util.StringUtil"
+                },
+                "calls": [
+                    {
+                        "result": {
+                            "kind": "null"
+                        },
+                        "args": []
+                    }
+                ]
+            },
+            {
+                "method": {
+                    "methodName": "trimToEmpty",
+                    "fullName": "liquibase.util.StringUtil.trimToEmpty(Ljava/lang/String;)Ljava/lang/String;",
+                    "argumentsSize": 1,
+                    "returnTypeName": "java.lang.String",
+                    "containingClass": "liquibase.util.StringUtil"
+                },
+                "calls": [
+                    {
+                        "result": {
+                            "kind": "string",
+                            "value": "CREATE SEQUENCE PUBLIC.seq_person"
+                        },
+                        "args": []
+                    }
+                ]
+            }
+        ],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "generateSql",
+                    "fullName": "generateSql(CreateSequenceStatement, Database, SqlGeneratorChain)",
+                    "argumentsSize": 3,
+                    "returnTypeName": "Sql[]",
+                    "containingClass": "liquibase.sqlgenerator.core.CreateSequenceGenerator"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "liquibase.sqlgenerator.core.CreateSequenceGenerator",
+                    "fields": {},
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "object",
+                        "typeName": "liquibase.statement.core.CreateSequenceStatement",
+                        "fields": {
+                            "catalogName": {
+                                "kind": "null"
+                            },
+                            "sequenceName": {
+                                "kind": "string",
+                                "value": "seq_person"
+                            },
+                            "incrementBy": {
+                                "kind": "null"
+                            },
+                            "minValue": {
+                                "kind": "null"
+                            },
+                            "cycle": {
+                                "kind": "null"
+                            },
+                            "dataType": {
+                                "kind": "null"
+                            },
+                            "schemaName": {
+                                "kind": "null"
+                            },
+                            "startValue": {
+                                "kind": "null"
+                            },
+                            "maxValue": {
+                                "kind": "null"
+                            },
+                            "ordered": {
+                                "kind": "null"
+                            },
+                            "cacheSize": {
+                                "kind": "null"
+                            },
+                            "continueOnError": {
+                                "kind": "boolean",
+                                "value": false
+                            }
+                        },
+                        "id": 1
+                    },
+                    {
+                        "kind": "mock",
+                        "typeName": "liquibase.database.core.H2Database",
+                        "methods": [
+                            {
+                                "method": {
+                                    "methodName": "escapeSequenceName",
+                                    "fullName": "liquibase.database.AbstractJdbcDatabase.escapeSequenceName(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;",
+                                    "argumentsSize": 3,
+                                    "returnTypeName": "java.lang.String",
+                                    "containingClass": "liquibase.database.AbstractJdbcDatabase"
+                                },
+                                "calls": [
+                                    {
+                                        "result": {
+                                            "kind": "string",
+                                            "value": "PUBLIC.seq_person"
+                                        },
+                                        "args": []
+                                    }
+                                ]
+                            }
+                        ],
+                        "isSpy": false,
+                        "id": 2
+                    },
+                    {
+                        "kind": "object",
+                        "typeName": "liquibase.sqlgenerator.SqlGeneratorChain",
+                        "fields": {
+                            "sqlGenerators": {
+                                "kind": "object",
+                                "typeName": "java.util.TreeMap$KeyIterator",
+                                "fields": {
+                                    "next": {
+                                        "kind": "null"
+                                    },
+                                    "lastReturned": {
+                                        "kind": "object",
+                                        "typeName": "java.util.TreeMap$Entry",
+                                        "fields": {
+                                            "key": {
+                                                "kind": "object",
+                                                "typeName": "liquibase.sqlgenerator.core.CreateSequenceGenerator",
+                                                "fields": {},
+                                                "id": 6
+                                            },
+                                            "value": {
+                                                "kind": "object",
+                                                "typeName": "java.lang.Object",
+                                                "fields": {},
+                                                "id": 7
+                                            },
+                                            "left": {
+                                                "kind": "null"
+                                            },
+                                            "right": {
+                                                "kind": "null"
+                                            },
+                                            "parent": {
+                                                "kind": "null"
+                                            },
+                                            "color": {
+                                                "kind": "boolean",
+                                                "value": true
+                                            }
+                                        },
+                                        "id": 5
+                                    },
+                                    "expectedModCount": {
+                                        "kind": "int",
+                                        "value": 1
+                                    }
+                                },
+                                "id": 4
+                            }
+                        },
+                        "id": 3
+                    }
+                ],
+                "returnValue": {
+                    "kind": "array",
+                    "isShallow": true,
+                    "size": 1,
+                    "elements": []
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [
+            {
+                "method": {
+                    "methodName": "trimToNull",
+                    "fullName": "liquibase.util.StringUtil.trimToNull(Ljava/lang/String;)Ljava/lang/String;",
+                    "argumentsSize": 1,
+                    "returnTypeName": "java.lang.String",
+                    "containingClass": "liquibase.util.StringUtil"
+                },
+                "calls": [
+                    {
+                        "result": {
+                            "kind": "null"
+                        },
+                        "args": []
+                    }
+                ]
+            },
+            {
+                "method": {
+                    "methodName": "trimToEmpty",
+                    "fullName": "liquibase.util.StringUtil.trimToEmpty(Ljava/lang/String;)Ljava/lang/String;",
+                    "argumentsSize": 1,
+                    "returnTypeName": "java.lang.String",
+                    "containingClass": "liquibase.util.StringUtil"
+                },
+                "calls": [
+                    {
+                        "result": {
+                            "kind": "string",
+                            "value": "CREATE SEQUENCE PUBLIC.seq_person"
+                        },
+                        "args": []
+                    }
+                ]
+            }
+        ],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "generateSql",
+                    "fullName": "generateSql(CreateSequenceStatement, Database, SqlGeneratorChain)",
+                    "argumentsSize": 3,
+                    "returnTypeName": "Sql[]",
+                    "containingClass": "liquibase.sqlgenerator.core.CreateSequenceGenerator"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "liquibase.sqlgenerator.core.CreateSequenceGenerator",
+                    "fields": {},
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "object",
+                        "typeName": "liquibase.statement.core.CreateSequenceStatement",
+                        "fields": {
+                            "catalogName": {
+                                "kind": "null"
+                            },
+                            "sequenceName": {
+                                "kind": "string",
+                                "value": "seq_person"
+                            },
+                            "incrementBy": {
+                                "kind": "null"
+                            },
+                            "minValue": {
+                                "kind": "null"
+                            },
+                            "cycle": {
+                                "kind": "null"
+                            },
+                            "dataType": {
+                                "kind": "null"
+                            },
+                            "schemaName": {
+                                "kind": "null"
+                            },
+                            "startValue": {
+                                "kind": "null"
+                            },
+                            "maxValue": {
+                                "kind": "null"
+                            },
+                            "ordered": {
+                                "kind": "null"
+                            },
+                            "cacheSize": {
+                                "kind": "null"
+                            },
+                            "continueOnError": {
+                                "kind": "boolean",
+                                "value": false
+                            }
+                        },
+                        "id": 1
+                    },
+                    {
+                        "kind": "mock",
+                        "typeName": "liquibase.database.core.H2Database",
+                        "methods": [
+                            {
+                                "method": {
+                                    "methodName": "escapeSequenceName",
+                                    "fullName": "liquibase.database.AbstractJdbcDatabase.escapeSequenceName(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;",
+                                    "argumentsSize": 3,
+                                    "returnTypeName": "java.lang.String",
+                                    "containingClass": "liquibase.database.AbstractJdbcDatabase"
+                                },
+                                "calls": [
+                                    {
+                                        "result": {
+                                            "kind": "string",
+                                            "value": "PUBLIC.seq_person"
+                                        },
+                                        "args": []
+                                    }
+                                ]
+                            }
+                        ],
+                        "isSpy": false,
+                        "id": 2
+                    },
+                    {
+                        "kind": "object",
+                        "typeName": "liquibase.sqlgenerator.SqlGeneratorChain",
+                        "fields": {
+                            "sqlGenerators": {
+                                "kind": "object",
+                                "typeName": "java.util.TreeMap$KeyIterator",
+                                "fields": {
+                                    "next": {
+                                        "kind": "null"
+                                    },
+                                    "lastReturned": {
+                                        "kind": "object",
+                                        "typeName": "java.util.TreeMap$Entry",
+                                        "fields": {
+                                            "key": {
+                                                "kind": "object",
+                                                "typeName": "liquibase.sqlgenerator.core.CreateSequenceGenerator",
+                                                "fields": {},
+                                                "id": 6
+                                            },
+                                            "value": {
+                                                "kind": "object",
+                                                "typeName": "java.lang.Object",
+                                                "fields": {},
+                                                "id": 7
+                                            },
+                                            "left": {
+                                                "kind": "null"
+                                            },
+                                            "right": {
+                                                "kind": "null"
+                                            },
+                                            "parent": {
+                                                "kind": "null"
+                                            },
+                                            "color": {
+                                                "kind": "boolean",
+                                                "value": true
+                                            }
+                                        },
+                                        "id": 5
+                                    },
+                                    "expectedModCount": {
+                                        "kind": "int",
+                                        "value": 1
+                                    }
+                                },
+                                "id": 4
+                            }
+                        },
+                        "id": 3
+                    }
+                ],
+                "returnValue": {
+                    "kind": "array",
+                    "isShallow": true,
+                    "size": 1,
+                    "elements": []
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [
+            {
+                "method": {
+                    "methodName": "trimToNull",
+                    "fullName": "liquibase.util.StringUtil.trimToNull(Ljava/lang/String;)Ljava/lang/String;",
+                    "argumentsSize": 1,
+                    "returnTypeName": "java.lang.String",
+                    "containingClass": "liquibase.util.StringUtil"
+                },
+                "calls": [
+                    {
+                        "result": {
+                            "kind": "null"
+                        },
+                        "args": []
+                    }
+                ]
+            },
+            {
+                "method": {
+                    "methodName": "trimToEmpty",
+                    "fullName": "liquibase.util.StringUtil.trimToEmpty(Ljava/lang/String;)Ljava/lang/String;",
+                    "argumentsSize": 1,
+                    "returnTypeName": "java.lang.String",
+                    "containingClass": "liquibase.util.StringUtil"
+                },
+                "calls": [
+                    {
+                        "result": {
+                            "kind": "string",
+                            "value": "CREATE SEQUENCE PUBLIC.seq_test AS int START WITH 1000 INCREMENT BY 2"
+                        },
+                        "args": []
+                    }
+                ]
+            }
+        ],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "generateSql",
+                    "fullName": "generateSql(CreateSequenceStatement, Database, SqlGeneratorChain)",
+                    "argumentsSize": 3,
+                    "returnTypeName": "Sql[]",
+                    "containingClass": "liquibase.sqlgenerator.core.CreateSequenceGenerator"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "liquibase.sqlgenerator.core.CreateSequenceGenerator",
+                    "fields": {},
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "object",
+                        "typeName": "liquibase.statement.core.CreateSequenceStatement",
+                        "fields": {
+                            "catalogName": {
+                                "kind": "null"
+                            },
+                            "sequenceName": {
+                                "kind": "string",
+                                "value": "seq_test"
+                            },
+                            "incrementBy": {
+                                "kind": "object",
+                                "typeName": "java.math.BigInteger",
+                                "fields": {
+                                    "signum": {
+                                        "kind": "int",
+                                        "value": 1
+                                    },
+                                    "mag": {
+                                        "kind": "array",
+                                        "isShallow": false,
+                                        "size": 1,
+                                        "elements": [
+                                            {
+                                                "kind": "int",
+                                                "value": 2
+                                            }
+                                        ]
+                                    }
+                                },
+                                "id": 2
+                            },
+                            "minValue": {
+                                "kind": "null"
+                            },
+                            "cycle": {
+                                "kind": "null"
+                            },
+                            "dataType": {
+                                "kind": "string",
+                                "value": "int"
+                            },
+                            "schemaName": {
+                                "kind": "null"
+                            },
+                            "startValue": {
+                                "kind": "object",
+                                "typeName": "java.math.BigInteger",
+                                "fields": {
+                                    "signum": {
+                                        "kind": "int",
+                                        "value": 1
+                                    },
+                                    "mag": {
+                                        "kind": "array",
+                                        "isShallow": false,
+                                        "size": 1,
+                                        "elements": [
+                                            {
+                                                "kind": "int",
+                                                "value": 1000
+                                            }
+                                        ]
+                                    }
+                                },
+                                "id": 3
+                            },
+                            "maxValue": {
+                                "kind": "null"
+                            },
+                            "ordered": {
+                                "kind": "null"
+                            },
+                            "cacheSize": {
+                                "kind": "null"
+                            },
+                            "continueOnError": {
+                                "kind": "boolean",
+                                "value": false
+                            }
+                        },
+                        "id": 1
+                    },
+                    {
+                        "kind": "mock",
+                        "typeName": "liquibase.database.core.H2Database",
+                        "methods": [
+                            {
+                                "method": {
+                                    "methodName": "escapeSequenceName",
+                                    "fullName": "liquibase.database.AbstractJdbcDatabase.escapeSequenceName(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;",
+                                    "argumentsSize": 3,
+                                    "returnTypeName": "java.lang.String",
+                                    "containingClass": "liquibase.database.AbstractJdbcDatabase"
+                                },
+                                "calls": [
+                                    {
+                                        "result": {
+                                            "kind": "string",
+                                            "value": "PUBLIC.seq_test"
+                                        },
+                                        "args": []
+                                    }
+                                ]
+                            },
+                            {
+                                "method": {
+                                    "methodName": "getDatabaseMajorVersion",
+                                    "fullName": "liquibase.database.AbstractJdbcDatabase.getDatabaseMajorVersion()I",
+                                    "argumentsSize": 0,
+                                    "returnTypeName": "int",
+                                    "containingClass": "liquibase.database.AbstractJdbcDatabase"
+                                },
+                                "calls": [
+                                    {
+                                        "result": {
+                                            "kind": "int",
+                                            "value": 2
+                                        },
+                                        "args": []
+                                    }
+                                ]
+                            }
+                        ],
+                        "isSpy": false,
+                        "id": 4
+                    },
+                    {
+                        "kind": "object",
+                        "typeName": "liquibase.sqlgenerator.SqlGeneratorChain",
+                        "fields": {
+                            "sqlGenerators": {
+                                "kind": "object",
+                                "typeName": "java.util.TreeMap$KeyIterator",
+                                "fields": {
+                                    "next": {
+                                        "kind": "null"
+                                    },
+                                    "lastReturned": {
+                                        "kind": "object",
+                                        "typeName": "java.util.TreeMap$Entry",
+                                        "fields": {
+                                            "key": {
+                                                "kind": "object",
+                                                "typeName": "liquibase.sqlgenerator.core.CreateSequenceGenerator",
+                                                "fields": {},
+                                                "id": 8
+                                            },
+                                            "value": {
+                                                "kind": "object",
+                                                "typeName": "java.lang.Object",
+                                                "fields": {},
+                                                "id": 9
+                                            },
+                                            "left": {
+                                                "kind": "null"
+                                            },
+                                            "right": {
+                                                "kind": "null"
+                                            },
+                                            "parent": {
+                                                "kind": "null"
+                                            },
+                                            "color": {
+                                                "kind": "boolean",
+                                                "value": true
+                                            }
+                                        },
+                                        "id": 7
+                                    },
+                                    "expectedModCount": {
+                                        "kind": "int",
+                                        "value": 1
+                                    }
+                                },
+                                "id": 6
+                            }
+                        },
+                        "id": 5
+                    }
+                ],
+                "returnValue": {
+                    "kind": "array",
+                    "isShallow": true,
+                    "size": 1,
+                    "elements": []
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [
+            {
+                "method": {
+                    "methodName": "trimToNull",
+                    "fullName": "liquibase.util.StringUtil.trimToNull(Ljava/lang/String;)Ljava/lang/String;",
+                    "argumentsSize": 1,
+                    "returnTypeName": "java.lang.String",
+                    "containingClass": "liquibase.util.StringUtil"
+                },
+                "calls": [
+                    {
+                        "result": {
+                            "kind": "null"
+                        },
+                        "args": []
+                    }
+                ]
+            },
+            {
+                "method": {
+                    "methodName": "trimToEmpty",
+                    "fullName": "liquibase.util.StringUtil.trimToEmpty(Ljava/lang/String;)Ljava/lang/String;",
+                    "argumentsSize": 1,
+                    "returnTypeName": "java.lang.String",
+                    "containingClass": "liquibase.util.StringUtil"
+                },
+                "calls": [
+                    {
+                        "result": {
+                            "kind": "string",
+                            "value": "CREATE SEQUENCE PUBLIC.seq_test AS int START WITH 1000 INCREMENT BY 2"
+                        },
+                        "args": []
+                    }
+                ]
+            }
+        ],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "generateSql",
+                    "fullName": "generateSql(CreateSequenceStatement, Database, SqlGeneratorChain)",
+                    "argumentsSize": 3,
+                    "returnTypeName": "Sql[]",
+                    "containingClass": "liquibase.sqlgenerator.core.CreateSequenceGenerator"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "liquibase.sqlgenerator.core.CreateSequenceGenerator",
+                    "fields": {},
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "object",
+                        "typeName": "liquibase.statement.core.CreateSequenceStatement",
+                        "fields": {
+                            "catalogName": {
+                                "kind": "null"
+                            },
+                            "sequenceName": {
+                                "kind": "string",
+                                "value": "seq_test"
+                            },
+                            "incrementBy": {
+                                "kind": "object",
+                                "typeName": "java.math.BigInteger",
+                                "fields": {
+                                    "signum": {
+                                        "kind": "int",
+                                        "value": 1
+                                    },
+                                    "mag": {
+                                        "kind": "array",
+                                        "isShallow": false,
+                                        "size": 1,
+                                        "elements": [
+                                            {
+                                                "kind": "int",
+                                                "value": 2
+                                            }
+                                        ]
+                                    }
+                                },
+                                "id": 2
+                            },
+                            "minValue": {
+                                "kind": "null"
+                            },
+                            "cycle": {
+                                "kind": "null"
+                            },
+                            "dataType": {
+                                "kind": "string",
+                                "value": "int"
+                            },
+                            "schemaName": {
+                                "kind": "null"
+                            },
+                            "startValue": {
+                                "kind": "object",
+                                "typeName": "java.math.BigInteger",
+                                "fields": {
+                                    "signum": {
+                                        "kind": "int",
+                                        "value": 1
+                                    },
+                                    "mag": {
+                                        "kind": "array",
+                                        "isShallow": false,
+                                        "size": 1,
+                                        "elements": [
+                                            {
+                                                "kind": "int",
+                                                "value": 1000
+                                            }
+                                        ]
+                                    }
+                                },
+                                "id": 3
+                            },
+                            "maxValue": {
+                                "kind": "null"
+                            },
+                            "ordered": {
+                                "kind": "null"
+                            },
+                            "cacheSize": {
+                                "kind": "null"
+                            },
+                            "continueOnError": {
+                                "kind": "boolean",
+                                "value": false
+                            }
+                        },
+                        "id": 1
+                    },
+                    {
+                        "kind": "mock",
+                        "typeName": "liquibase.database.core.H2Database",
+                        "methods": [
+                            {
+                                "method": {
+                                    "methodName": "escapeSequenceName",
+                                    "fullName": "liquibase.database.AbstractJdbcDatabase.escapeSequenceName(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;",
+                                    "argumentsSize": 3,
+                                    "returnTypeName": "java.lang.String",
+                                    "containingClass": "liquibase.database.AbstractJdbcDatabase"
+                                },
+                                "calls": [
+                                    {
+                                        "result": {
+                                            "kind": "string",
+                                            "value": "PUBLIC.seq_test"
+                                        },
+                                        "args": []
+                                    }
+                                ]
+                            },
+                            {
+                                "method": {
+                                    "methodName": "getDatabaseMajorVersion",
+                                    "fullName": "liquibase.database.AbstractJdbcDatabase.getDatabaseMajorVersion()I",
+                                    "argumentsSize": 0,
+                                    "returnTypeName": "int",
+                                    "containingClass": "liquibase.database.AbstractJdbcDatabase"
+                                },
+                                "calls": [
+                                    {
+                                        "result": {
+                                            "kind": "int",
+                                            "value": 2
+                                        },
+                                        "args": []
+                                    }
+                                ]
+                            }
+                        ],
+                        "isSpy": false,
+                        "id": 4
+                    },
+                    {
+                        "kind": "object",
+                        "typeName": "liquibase.sqlgenerator.SqlGeneratorChain",
+                        "fields": {
+                            "sqlGenerators": {
+                                "kind": "object",
+                                "typeName": "java.util.TreeMap$KeyIterator",
+                                "fields": {
+                                    "next": {
+                                        "kind": "null"
+                                    },
+                                    "lastReturned": {
+                                        "kind": "object",
+                                        "typeName": "java.util.TreeMap$Entry",
+                                        "fields": {
+                                            "key": {
+                                                "kind": "object",
+                                                "typeName": "liquibase.sqlgenerator.core.CreateSequenceGenerator",
+                                                "fields": {},
+                                                "id": 8
+                                            },
+                                            "value": {
+                                                "kind": "object",
+                                                "typeName": "java.lang.Object",
+                                                "fields": {},
+                                                "id": 9
+                                            },
+                                            "left": {
+                                                "kind": "null"
+                                            },
+                                            "right": {
+                                                "kind": "null"
+                                            },
+                                            "parent": {
+                                                "kind": "null"
+                                            },
+                                            "color": {
+                                                "kind": "boolean",
+                                                "value": true
+                                            }
+                                        },
+                                        "id": 7
+                                    },
+                                    "expectedModCount": {
+                                        "kind": "int",
+                                        "value": 1
+                                    }
+                                },
+                                "id": 6
+                            }
+                        },
+                        "id": 5
+                    }
+                ],
+                "returnValue": {
+                    "kind": "array",
+                    "isShallow": true,
+                    "size": 1,
+                    "elements": []
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [
+            {
+                "method": {
+                    "methodName": "trimToNull",
+                    "fullName": "liquibase.util.StringUtil.trimToNull(Ljava/lang/String;)Ljava/lang/String;",
+                    "argumentsSize": 1,
+                    "returnTypeName": "java.lang.String",
+                    "containingClass": "liquibase.util.StringUtil"
+                },
+                "calls": [
+                    {
+                        "result": {
+                            "kind": "null"
+                        },
+                        "args": []
+                    }
+                ]
+            },
+            {
+                "method": {
+                    "methodName": "trimToEmpty",
+                    "fullName": "liquibase.util.StringUtil.trimToEmpty(Ljava/lang/String;)Ljava/lang/String;",
+                    "argumentsSize": 1,
+                    "returnTypeName": "java.lang.String",
+                    "containingClass": "liquibase.util.StringUtil"
+                },
+                "calls": [
+                    {
+                        "result": {
+                            "kind": "string",
+                            "value": "CREATE SEQUENCE PUBLIC.seq_news"
+                        },
+                        "args": []
+                    }
+                ]
+            }
+        ],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "generateSql",
+                    "fullName": "generateSql(CreateSequenceStatement, Database, SqlGeneratorChain)",
+                    "argumentsSize": 3,
+                    "returnTypeName": "Sql[]",
+                    "containingClass": "liquibase.sqlgenerator.core.CreateSequenceGenerator"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "liquibase.sqlgenerator.core.CreateSequenceGenerator",
+                    "fields": {},
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "object",
+                        "typeName": "liquibase.statement.core.CreateSequenceStatement",
+                        "fields": {
+                            "catalogName": {
+                                "kind": "null"
+                            },
+                            "sequenceName": {
+                                "kind": "string",
+                                "value": "seq_news"
+                            },
+                            "incrementBy": {
+                                "kind": "null"
+                            },
+                            "minValue": {
+                                "kind": "null"
+                            },
+                            "cycle": {
+                                "kind": "null"
+                            },
+                            "dataType": {
+                                "kind": "null"
+                            },
+                            "schemaName": {
+                                "kind": "null"
+                            },
+                            "startValue": {
+                                "kind": "null"
+                            },
+                            "maxValue": {
+                                "kind": "null"
+                            },
+                            "ordered": {
+                                "kind": "null"
+                            },
+                            "cacheSize": {
+                                "kind": "null"
+                            },
+                            "continueOnError": {
+                                "kind": "boolean",
+                                "value": false
+                            }
+                        },
+                        "id": 1
+                    },
+                    {
+                        "kind": "mock",
+                        "typeName": "liquibase.database.core.H2Database",
+                        "methods": [
+                            {
+                                "method": {
+                                    "methodName": "escapeSequenceName",
+                                    "fullName": "liquibase.database.AbstractJdbcDatabase.escapeSequenceName(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;",
+                                    "argumentsSize": 3,
+                                    "returnTypeName": "java.lang.String",
+                                    "containingClass": "liquibase.database.AbstractJdbcDatabase"
+                                },
+                                "calls": [
+                                    {
+                                        "result": {
+                                            "kind": "string",
+                                            "value": "PUBLIC.seq_news"
+                                        },
+                                        "args": []
+                                    }
+                                ]
+                            }
+                        ],
+                        "isSpy": false,
+                        "id": 2
+                    },
+                    {
+                        "kind": "object",
+                        "typeName": "liquibase.sqlgenerator.SqlGeneratorChain",
+                        "fields": {
+                            "sqlGenerators": {
+                                "kind": "object",
+                                "typeName": "java.util.TreeMap$KeyIterator",
+                                "fields": {
+                                    "next": {
+                                        "kind": "null"
+                                    },
+                                    "lastReturned": {
+                                        "kind": "object",
+                                        "typeName": "java.util.TreeMap$Entry",
+                                        "fields": {
+                                            "key": {
+                                                "kind": "object",
+                                                "typeName": "liquibase.sqlgenerator.core.CreateSequenceGenerator",
+                                                "fields": {},
+                                                "id": 6
+                                            },
+                                            "value": {
+                                                "kind": "object",
+                                                "typeName": "java.lang.Object",
+                                                "fields": {},
+                                                "id": 7
+                                            },
+                                            "left": {
+                                                "kind": "null"
+                                            },
+                                            "right": {
+                                                "kind": "null"
+                                            },
+                                            "parent": {
+                                                "kind": "null"
+                                            },
+                                            "color": {
+                                                "kind": "boolean",
+                                                "value": true
+                                            }
+                                        },
+                                        "id": 5
+                                    },
+                                    "expectedModCount": {
+                                        "kind": "int",
+                                        "value": 1
+                                    }
+                                },
+                                "id": 4
+                            }
+                        },
+                        "id": 3
+                    }
+                ],
+                "returnValue": {
+                    "kind": "array",
+                    "isShallow": true,
+                    "size": 1,
+                    "elements": []
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [
+            {
+                "method": {
+                    "methodName": "trimToNull",
+                    "fullName": "liquibase.util.StringUtil.trimToNull(Ljava/lang/String;)Ljava/lang/String;",
+                    "argumentsSize": 1,
+                    "returnTypeName": "java.lang.String",
+                    "containingClass": "liquibase.util.StringUtil"
+                },
+                "calls": [
+                    {
+                        "result": {
+                            "kind": "null"
+                        },
+                        "args": []
+                    }
+                ]
+            },
+            {
+                "method": {
+                    "methodName": "trimToEmpty",
+                    "fullName": "liquibase.util.StringUtil.trimToEmpty(Ljava/lang/String;)Ljava/lang/String;",
+                    "argumentsSize": 1,
+                    "returnTypeName": "java.lang.String",
+                    "containingClass": "liquibase.util.StringUtil"
+                },
+                "calls": [
+                    {
+                        "result": {
+                            "kind": "string",
+                            "value": "CREATE SEQUENCE PUBLIC.seq_news"
+                        },
+                        "args": []
+                    }
+                ]
+            }
+        ],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "generateSql",
+                    "fullName": "generateSql(CreateSequenceStatement, Database, SqlGeneratorChain)",
+                    "argumentsSize": 3,
+                    "returnTypeName": "Sql[]",
+                    "containingClass": "liquibase.sqlgenerator.core.CreateSequenceGenerator"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "liquibase.sqlgenerator.core.CreateSequenceGenerator",
+                    "fields": {},
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "object",
+                        "typeName": "liquibase.statement.core.CreateSequenceStatement",
+                        "fields": {
+                            "catalogName": {
+                                "kind": "null"
+                            },
+                            "sequenceName": {
+                                "kind": "string",
+                                "value": "seq_news"
+                            },
+                            "incrementBy": {
+                                "kind": "null"
+                            },
+                            "minValue": {
+                                "kind": "null"
+                            },
+                            "cycle": {
+                                "kind": "null"
+                            },
+                            "dataType": {
+                                "kind": "null"
+                            },
+                            "schemaName": {
+                                "kind": "null"
+                            },
+                            "startValue": {
+                                "kind": "null"
+                            },
+                            "maxValue": {
+                                "kind": "null"
+                            },
+                            "ordered": {
+                                "kind": "null"
+                            },
+                            "cacheSize": {
+                                "kind": "null"
+                            },
+                            "continueOnError": {
+                                "kind": "boolean",
+                                "value": false
+                            }
+                        },
+                        "id": 1
+                    },
+                    {
+                        "kind": "mock",
+                        "typeName": "liquibase.database.core.H2Database",
+                        "methods": [
+                            {
+                                "method": {
+                                    "methodName": "escapeSequenceName",
+                                    "fullName": "liquibase.database.AbstractJdbcDatabase.escapeSequenceName(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;",
+                                    "argumentsSize": 3,
+                                    "returnTypeName": "java.lang.String",
+                                    "containingClass": "liquibase.database.AbstractJdbcDatabase"
+                                },
+                                "calls": [
+                                    {
+                                        "result": {
+                                            "kind": "string",
+                                            "value": "PUBLIC.seq_news"
+                                        },
+                                        "args": []
+                                    }
+                                ]
+                            }
+                        ],
+                        "isSpy": false,
+                        "id": 2
+                    },
+                    {
+                        "kind": "object",
+                        "typeName": "liquibase.sqlgenerator.SqlGeneratorChain",
+                        "fields": {
+                            "sqlGenerators": {
+                                "kind": "object",
+                                "typeName": "java.util.TreeMap$KeyIterator",
+                                "fields": {
+                                    "next": {
+                                        "kind": "null"
+                                    },
+                                    "lastReturned": {
+                                        "kind": "object",
+                                        "typeName": "java.util.TreeMap$Entry",
+                                        "fields": {
+                                            "key": {
+                                                "kind": "object",
+                                                "typeName": "liquibase.sqlgenerator.core.CreateSequenceGenerator",
+                                                "fields": {},
+                                                "id": 6
+                                            },
+                                            "value": {
+                                                "kind": "object",
+                                                "typeName": "java.lang.Object",
+                                                "fields": {},
+                                                "id": 7
+                                            },
+                                            "left": {
+                                                "kind": "null"
+                                            },
+                                            "right": {
+                                                "kind": "null"
+                                            },
+                                            "parent": {
+                                                "kind": "null"
+                                            },
+                                            "color": {
+                                                "kind": "boolean",
+                                                "value": true
+                                            }
+                                        },
+                                        "id": 5
+                                    },
+                                    "expectedModCount": {
+                                        "kind": "int",
+                                        "value": 1
+                                    }
+                                },
+                                "id": 4
+                            }
+                        },
+                        "id": 3
+                    }
+                ],
+                "returnValue": {
+                    "kind": "array",
+                    "isShallow": true,
+                    "size": 1,
+                    "elements": []
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [
+            {
+                "method": {
+                    "methodName": "trimToNull",
+                    "fullName": "liquibase.util.StringUtil.trimToNull(Ljava/lang/String;)Ljava/lang/String;",
+                    "argumentsSize": 1,
+                    "returnTypeName": "java.lang.String",
+                    "containingClass": "liquibase.util.StringUtil"
+                },
+                "calls": [
+                    {
+                        "result": {
+                            "kind": "null"
+                        },
+                        "args": []
+                    }
+                ]
+            },
+            {
+                "method": {
+                    "methodName": "trimToEmpty",
+                    "fullName": "liquibase.util.StringUtil.trimToEmpty(Ljava/lang/String;)Ljava/lang/String;",
+                    "argumentsSize": 1,
+                    "returnTypeName": "java.lang.String",
+                    "containingClass": "liquibase.util.StringUtil"
+                },
+                "calls": [
+                    {
+                        "result": {
+                            "kind": "string",
+                            "value": "CREATE SEQUENCE PUBLIC.seqtestonall"
+                        },
+                        "args": []
+                    }
+                ]
+            }
+        ],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "generateSql",
+                    "fullName": "generateSql(CreateSequenceStatement, Database, SqlGeneratorChain)",
+                    "argumentsSize": 3,
+                    "returnTypeName": "Sql[]",
+                    "containingClass": "liquibase.sqlgenerator.core.CreateSequenceGenerator"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "liquibase.sqlgenerator.core.CreateSequenceGenerator",
+                    "fields": {},
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "object",
+                        "typeName": "liquibase.statement.core.CreateSequenceStatement",
+                        "fields": {
+                            "catalogName": {
+                                "kind": "null"
+                            },
+                            "sequenceName": {
+                                "kind": "string",
+                                "value": "seqtestonall"
+                            },
+                            "incrementBy": {
+                                "kind": "null"
+                            },
+                            "minValue": {
+                                "kind": "null"
+                            },
+                            "cycle": {
+                                "kind": "null"
+                            },
+                            "dataType": {
+                                "kind": "null"
+                            },
+                            "schemaName": {
+                                "kind": "null"
+                            },
+                            "startValue": {
+                                "kind": "null"
+                            },
+                            "maxValue": {
+                                "kind": "null"
+                            },
+                            "ordered": {
+                                "kind": "null"
+                            },
+                            "cacheSize": {
+                                "kind": "null"
+                            },
+                            "continueOnError": {
+                                "kind": "boolean",
+                                "value": false
+                            }
+                        },
+                        "id": 1
+                    },
+                    {
+                        "kind": "mock",
+                        "typeName": "liquibase.database.core.H2Database",
+                        "methods": [
+                            {
+                                "method": {
+                                    "methodName": "escapeSequenceName",
+                                    "fullName": "liquibase.database.AbstractJdbcDatabase.escapeSequenceName(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;",
+                                    "argumentsSize": 3,
+                                    "returnTypeName": "java.lang.String",
+                                    "containingClass": "liquibase.database.AbstractJdbcDatabase"
+                                },
+                                "calls": [
+                                    {
+                                        "result": {
+                                            "kind": "string",
+                                            "value": "PUBLIC.seqtestonall"
+                                        },
+                                        "args": []
+                                    }
+                                ]
+                            }
+                        ],
+                        "isSpy": false,
+                        "id": 2
+                    },
+                    {
+                        "kind": "object",
+                        "typeName": "liquibase.sqlgenerator.SqlGeneratorChain",
+                        "fields": {
+                            "sqlGenerators": {
+                                "kind": "object",
+                                "typeName": "java.util.TreeMap$KeyIterator",
+                                "fields": {
+                                    "next": {
+                                        "kind": "null"
+                                    },
+                                    "lastReturned": {
+                                        "kind": "object",
+                                        "typeName": "java.util.TreeMap$Entry",
+                                        "fields": {
+                                            "key": {
+                                                "kind": "object",
+                                                "typeName": "liquibase.sqlgenerator.core.CreateSequenceGenerator",
+                                                "fields": {},
+                                                "id": 6
+                                            },
+                                            "value": {
+                                                "kind": "object",
+                                                "typeName": "java.lang.Object",
+                                                "fields": {},
+                                                "id": 7
+                                            },
+                                            "left": {
+                                                "kind": "null"
+                                            },
+                                            "right": {
+                                                "kind": "null"
+                                            },
+                                            "parent": {
+                                                "kind": "null"
+                                            },
+                                            "color": {
+                                                "kind": "boolean",
+                                                "value": true
+                                            }
+                                        },
+                                        "id": 5
+                                    },
+                                    "expectedModCount": {
+                                        "kind": "int",
+                                        "value": 1
+                                    }
+                                },
+                                "id": 4
+                            }
+                        },
+                        "id": 3
+                    }
+                ],
+                "returnValue": {
+                    "kind": "array",
+                    "isShallow": true,
+                    "size": 1,
+                    "elements": []
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [
+            {
+                "method": {
+                    "methodName": "trimToNull",
+                    "fullName": "liquibase.util.StringUtil.trimToNull(Ljava/lang/String;)Ljava/lang/String;",
+                    "argumentsSize": 1,
+                    "returnTypeName": "java.lang.String",
+                    "containingClass": "liquibase.util.StringUtil"
+                },
+                "calls": [
+                    {
+                        "result": {
+                            "kind": "null"
+                        },
+                        "args": []
+                    }
+                ]
+            },
+            {
+                "method": {
+                    "methodName": "trimToEmpty",
+                    "fullName": "liquibase.util.StringUtil.trimToEmpty(Ljava/lang/String;)Ljava/lang/String;",
+                    "argumentsSize": 1,
+                    "returnTypeName": "java.lang.String",
+                    "containingClass": "liquibase.util.StringUtil"
+                },
+                "calls": [
+                    {
+                        "result": {
+                            "kind": "string",
+                            "value": "CREATE SEQUENCE PUBLIC.seqtestonall"
+                        },
+                        "args": []
+                    }
+                ]
+            }
+        ],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "generateSql",
+                    "fullName": "generateSql(CreateSequenceStatement, Database, SqlGeneratorChain)",
+                    "argumentsSize": 3,
+                    "returnTypeName": "Sql[]",
+                    "containingClass": "liquibase.sqlgenerator.core.CreateSequenceGenerator"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "liquibase.sqlgenerator.core.CreateSequenceGenerator",
+                    "fields": {},
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "object",
+                        "typeName": "liquibase.statement.core.CreateSequenceStatement",
+                        "fields": {
+                            "catalogName": {
+                                "kind": "null"
+                            },
+                            "sequenceName": {
+                                "kind": "string",
+                                "value": "seqtestonall"
+                            },
+                            "incrementBy": {
+                                "kind": "null"
+                            },
+                            "minValue": {
+                                "kind": "null"
+                            },
+                            "cycle": {
+                                "kind": "null"
+                            },
+                            "dataType": {
+                                "kind": "null"
+                            },
+                            "schemaName": {
+                                "kind": "null"
+                            },
+                            "startValue": {
+                                "kind": "null"
+                            },
+                            "maxValue": {
+                                "kind": "null"
+                            },
+                            "ordered": {
+                                "kind": "null"
+                            },
+                            "cacheSize": {
+                                "kind": "null"
+                            },
+                            "continueOnError": {
+                                "kind": "boolean",
+                                "value": false
+                            }
+                        },
+                        "id": 1
+                    },
+                    {
+                        "kind": "mock",
+                        "typeName": "liquibase.database.core.H2Database",
+                        "methods": [
+                            {
+                                "method": {
+                                    "methodName": "escapeSequenceName",
+                                    "fullName": "liquibase.database.AbstractJdbcDatabase.escapeSequenceName(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;",
+                                    "argumentsSize": 3,
+                                    "returnTypeName": "java.lang.String",
+                                    "containingClass": "liquibase.database.AbstractJdbcDatabase"
+                                },
+                                "calls": [
+                                    {
+                                        "result": {
+                                            "kind": "string",
+                                            "value": "PUBLIC.seqtestonall"
+                                        },
+                                        "args": []
+                                    }
+                                ]
+                            }
+                        ],
+                        "isSpy": false,
+                        "id": 2
+                    },
+                    {
+                        "kind": "object",
+                        "typeName": "liquibase.sqlgenerator.SqlGeneratorChain",
+                        "fields": {
+                            "sqlGenerators": {
+                                "kind": "object",
+                                "typeName": "java.util.TreeMap$KeyIterator",
+                                "fields": {
+                                    "next": {
+                                        "kind": "null"
+                                    },
+                                    "lastReturned": {
+                                        "kind": "object",
+                                        "typeName": "java.util.TreeMap$Entry",
+                                        "fields": {
+                                            "key": {
+                                                "kind": "object",
+                                                "typeName": "liquibase.sqlgenerator.core.CreateSequenceGenerator",
+                                                "fields": {},
+                                                "id": 6
+                                            },
+                                            "value": {
+                                                "kind": "object",
+                                                "typeName": "java.lang.Object",
+                                                "fields": {},
+                                                "id": 7
+                                            },
+                                            "left": {
+                                                "kind": "null"
+                                            },
+                                            "right": {
+                                                "kind": "null"
+                                            },
+                                            "parent": {
+                                                "kind": "null"
+                                            },
+                                            "color": {
+                                                "kind": "boolean",
+                                                "value": true
+                                            }
+                                        },
+                                        "id": 5
+                                    },
+                                    "expectedModCount": {
+                                        "kind": "int",
+                                        "value": 1
+                                    }
+                                },
+                                "id": 4
+                            }
+                        },
+                        "id": 3
+                    }
+                ],
+                "returnValue": {
+                    "kind": "array",
+                    "isShallow": true,
+                    "size": 1,
+                    "elements": []
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [
+            {
+                "method": {
+                    "methodName": "trimToNull",
+                    "fullName": "liquibase.util.StringUtil.trimToNull(Ljava/lang/String;)Ljava/lang/String;",
+                    "argumentsSize": 1,
+                    "returnTypeName": "java.lang.String",
+                    "containingClass": "liquibase.util.StringUtil"
+                },
+                "calls": [
+                    {
+                        "result": {
+                            "kind": "null"
+                        },
+                        "args": []
+                    }
+                ]
+            },
+            {
+                "method": {
+                    "methodName": "trimToEmpty",
+                    "fullName": "liquibase.util.StringUtil.trimToEmpty(Ljava/lang/String;)Ljava/lang/String;",
+                    "argumentsSize": 1,
+                    "returnTypeName": "java.lang.String",
+                    "containingClass": "liquibase.util.StringUtil"
+                },
+                "calls": [
+                    {
+                        "result": {
+                            "kind": "string",
+                            "value": "CREATE SEQUENCE PUBLIC.seqtestdatatypeonall AS int"
+                        },
+                        "args": []
+                    }
+                ]
+            }
+        ],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "generateSql",
+                    "fullName": "generateSql(CreateSequenceStatement, Database, SqlGeneratorChain)",
+                    "argumentsSize": 3,
+                    "returnTypeName": "Sql[]",
+                    "containingClass": "liquibase.sqlgenerator.core.CreateSequenceGenerator"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "liquibase.sqlgenerator.core.CreateSequenceGenerator",
+                    "fields": {},
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "object",
+                        "typeName": "liquibase.statement.core.CreateSequenceStatement",
+                        "fields": {
+                            "catalogName": {
+                                "kind": "null"
+                            },
+                            "sequenceName": {
+                                "kind": "string",
+                                "value": "seqtestdatatypeonall"
+                            },
+                            "incrementBy": {
+                                "kind": "null"
+                            },
+                            "minValue": {
+                                "kind": "null"
+                            },
+                            "cycle": {
+                                "kind": "null"
+                            },
+                            "dataType": {
+                                "kind": "string",
+                                "value": "int"
+                            },
+                            "schemaName": {
+                                "kind": "null"
+                            },
+                            "startValue": {
+                                "kind": "null"
+                            },
+                            "maxValue": {
+                                "kind": "null"
+                            },
+                            "ordered": {
+                                "kind": "null"
+                            },
+                            "cacheSize": {
+                                "kind": "null"
+                            },
+                            "continueOnError": {
+                                "kind": "boolean",
+                                "value": false
+                            }
+                        },
+                        "id": 1
+                    },
+                    {
+                        "kind": "mock",
+                        "typeName": "liquibase.database.core.H2Database",
+                        "methods": [
+                            {
+                                "method": {
+                                    "methodName": "escapeSequenceName",
+                                    "fullName": "liquibase.database.AbstractJdbcDatabase.escapeSequenceName(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;",
+                                    "argumentsSize": 3,
+                                    "returnTypeName": "java.lang.String",
+                                    "containingClass": "liquibase.database.AbstractJdbcDatabase"
+                                },
+                                "calls": [
+                                    {
+                                        "result": {
+                                            "kind": "string",
+                                            "value": "PUBLIC.seqtestdatatypeonall"
+                                        },
+                                        "args": []
+                                    }
+                                ]
+                            },
+                            {
+                                "method": {
+                                    "methodName": "getDatabaseMajorVersion",
+                                    "fullName": "liquibase.database.AbstractJdbcDatabase.getDatabaseMajorVersion()I",
+                                    "argumentsSize": 0,
+                                    "returnTypeName": "int",
+                                    "containingClass": "liquibase.database.AbstractJdbcDatabase"
+                                },
+                                "calls": [
+                                    {
+                                        "result": {
+                                            "kind": "int",
+                                            "value": 2
+                                        },
+                                        "args": []
+                                    }
+                                ]
+                            }
+                        ],
+                        "isSpy": false,
+                        "id": 2
+                    },
+                    {
+                        "kind": "object",
+                        "typeName": "liquibase.sqlgenerator.SqlGeneratorChain",
+                        "fields": {
+                            "sqlGenerators": {
+                                "kind": "object",
+                                "typeName": "java.util.TreeMap$KeyIterator",
+                                "fields": {
+                                    "next": {
+                                        "kind": "null"
+                                    },
+                                    "lastReturned": {
+                                        "kind": "object",
+                                        "typeName": "java.util.TreeMap$Entry",
+                                        "fields": {
+                                            "key": {
+                                                "kind": "object",
+                                                "typeName": "liquibase.sqlgenerator.core.CreateSequenceGenerator",
+                                                "fields": {},
+                                                "id": 6
+                                            },
+                                            "value": {
+                                                "kind": "object",
+                                                "typeName": "java.lang.Object",
+                                                "fields": {},
+                                                "id": 7
+                                            },
+                                            "left": {
+                                                "kind": "null"
+                                            },
+                                            "right": {
+                                                "kind": "null"
+                                            },
+                                            "parent": {
+                                                "kind": "null"
+                                            },
+                                            "color": {
+                                                "kind": "boolean",
+                                                "value": true
+                                            }
+                                        },
+                                        "id": 5
+                                    },
+                                    "expectedModCount": {
+                                        "kind": "int",
+                                        "value": 1
+                                    }
+                                },
+                                "id": 4
+                            }
+                        },
+                        "id": 3
+                    }
+                ],
+                "returnValue": {
+                    "kind": "array",
+                    "isShallow": true,
+                    "size": 1,
+                    "elements": []
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [
+            {
+                "method": {
+                    "methodName": "trimToNull",
+                    "fullName": "liquibase.util.StringUtil.trimToNull(Ljava/lang/String;)Ljava/lang/String;",
+                    "argumentsSize": 1,
+                    "returnTypeName": "java.lang.String",
+                    "containingClass": "liquibase.util.StringUtil"
+                },
+                "calls": [
+                    {
+                        "result": {
+                            "kind": "null"
+                        },
+                        "args": []
+                    }
+                ]
+            },
+            {
+                "method": {
+                    "methodName": "trimToEmpty",
+                    "fullName": "liquibase.util.StringUtil.trimToEmpty(Ljava/lang/String;)Ljava/lang/String;",
+                    "argumentsSize": 1,
+                    "returnTypeName": "java.lang.String",
+                    "containingClass": "liquibase.util.StringUtil"
+                },
+                "calls": [
+                    {
+                        "result": {
+                            "kind": "string",
+                            "value": "CREATE SEQUENCE PUBLIC.seqtestdatatypeonall AS int"
+                        },
+                        "args": []
+                    }
+                ]
+            }
+        ],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "generateSql",
+                    "fullName": "generateSql(CreateSequenceStatement, Database, SqlGeneratorChain)",
+                    "argumentsSize": 3,
+                    "returnTypeName": "Sql[]",
+                    "containingClass": "liquibase.sqlgenerator.core.CreateSequenceGenerator"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "liquibase.sqlgenerator.core.CreateSequenceGenerator",
+                    "fields": {},
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "object",
+                        "typeName": "liquibase.statement.core.CreateSequenceStatement",
+                        "fields": {
+                            "catalogName": {
+                                "kind": "null"
+                            },
+                            "sequenceName": {
+                                "kind": "string",
+                                "value": "seqtestdatatypeonall"
+                            },
+                            "incrementBy": {
+                                "kind": "null"
+                            },
+                            "minValue": {
+                                "kind": "null"
+                            },
+                            "cycle": {
+                                "kind": "null"
+                            },
+                            "dataType": {
+                                "kind": "string",
+                                "value": "int"
+                            },
+                            "schemaName": {
+                                "kind": "null"
+                            },
+                            "startValue": {
+                                "kind": "null"
+                            },
+                            "maxValue": {
+                                "kind": "null"
+                            },
+                            "ordered": {
+                                "kind": "null"
+                            },
+                            "cacheSize": {
+                                "kind": "null"
+                            },
+                            "continueOnError": {
+                                "kind": "boolean",
+                                "value": false
+                            }
+                        },
+                        "id": 1
+                    },
+                    {
+                        "kind": "mock",
+                        "typeName": "liquibase.database.core.H2Database",
+                        "methods": [
+                            {
+                                "method": {
+                                    "methodName": "escapeSequenceName",
+                                    "fullName": "liquibase.database.AbstractJdbcDatabase.escapeSequenceName(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;",
+                                    "argumentsSize": 3,
+                                    "returnTypeName": "java.lang.String",
+                                    "containingClass": "liquibase.database.AbstractJdbcDatabase"
+                                },
+                                "calls": [
+                                    {
+                                        "result": {
+                                            "kind": "string",
+                                            "value": "PUBLIC.seqtestdatatypeonall"
+                                        },
+                                        "args": []
+                                    }
+                                ]
+                            },
+                            {
+                                "method": {
+                                    "methodName": "getDatabaseMajorVersion",
+                                    "fullName": "liquibase.database.AbstractJdbcDatabase.getDatabaseMajorVersion()I",
+                                    "argumentsSize": 0,
+                                    "returnTypeName": "int",
+                                    "containingClass": "liquibase.database.AbstractJdbcDatabase"
+                                },
+                                "calls": [
+                                    {
+                                        "result": {
+                                            "kind": "int",
+                                            "value": 2
+                                        },
+                                        "args": []
+                                    }
+                                ]
+                            }
+                        ],
+                        "isSpy": false,
+                        "id": 2
+                    },
+                    {
+                        "kind": "object",
+                        "typeName": "liquibase.sqlgenerator.SqlGeneratorChain",
+                        "fields": {
+                            "sqlGenerators": {
+                                "kind": "object",
+                                "typeName": "java.util.TreeMap$KeyIterator",
+                                "fields": {
+                                    "next": {
+                                        "kind": "null"
+                                    },
+                                    "lastReturned": {
+                                        "kind": "object",
+                                        "typeName": "java.util.TreeMap$Entry",
+                                        "fields": {
+                                            "key": {
+                                                "kind": "object",
+                                                "typeName": "liquibase.sqlgenerator.core.CreateSequenceGenerator",
+                                                "fields": {},
+                                                "id": 6
+                                            },
+                                            "value": {
+                                                "kind": "object",
+                                                "typeName": "java.lang.Object",
+                                                "fields": {},
+                                                "id": 7
+                                            },
+                                            "left": {
+                                                "kind": "null"
+                                            },
+                                            "right": {
+                                                "kind": "null"
+                                            },
+                                            "parent": {
+                                                "kind": "null"
+                                            },
+                                            "color": {
+                                                "kind": "boolean",
+                                                "value": true
+                                            }
+                                        },
+                                        "id": 5
+                                    },
+                                    "expectedModCount": {
+                                        "kind": "int",
+                                        "value": 1
+                                    }
+                                },
+                                "id": 4
+                            }
+                        },
+                        "id": 3
+                    }
+                ],
+                "returnValue": {
+                    "kind": "array",
+                    "isShallow": true,
+                    "size": 1,
+                    "elements": []
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [
+            {
+                "method": {
+                    "methodName": "trimToNull",
+                    "fullName": "liquibase.util.StringUtil.trimToNull(Ljava/lang/String;)Ljava/lang/String;",
+                    "argumentsSize": 1,
+                    "returnTypeName": "java.lang.String",
+                    "containingClass": "liquibase.util.StringUtil"
+                },
+                "calls": [
+                    {
+                        "result": {
+                            "kind": "null"
+                        },
+                        "args": []
+                    }
+                ]
+            },
+            {
+                "method": {
+                    "methodName": "trimToEmpty",
+                    "fullName": "liquibase.util.StringUtil.trimToEmpty(Ljava/lang/String;)Ljava/lang/String;",
+                    "argumentsSize": 1,
+                    "returnTypeName": "java.lang.String",
+                    "containingClass": "liquibase.util.StringUtil"
+                },
+                "calls": [
+                    {
+                        "result": {
+                            "kind": "string",
+                            "value": "CREATE SEQUENCE PUBLIC.insertTest_seq"
+                        },
+                        "args": []
+                    }
+                ]
+            }
+        ],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "generateSql",
+                    "fullName": "generateSql(CreateSequenceStatement, Database, SqlGeneratorChain)",
+                    "argumentsSize": 3,
+                    "returnTypeName": "Sql[]",
+                    "containingClass": "liquibase.sqlgenerator.core.CreateSequenceGenerator"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "liquibase.sqlgenerator.core.CreateSequenceGenerator",
+                    "fields": {},
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "object",
+                        "typeName": "liquibase.statement.core.CreateSequenceStatement",
+                        "fields": {
+                            "catalogName": {
+                                "kind": "null"
+                            },
+                            "sequenceName": {
+                                "kind": "string",
+                                "value": "insertTest_seq"
+                            },
+                            "incrementBy": {
+                                "kind": "null"
+                            },
+                            "minValue": {
+                                "kind": "null"
+                            },
+                            "cycle": {
+                                "kind": "null"
+                            },
+                            "dataType": {
+                                "kind": "null"
+                            },
+                            "schemaName": {
+                                "kind": "null"
+                            },
+                            "startValue": {
+                                "kind": "null"
+                            },
+                            "maxValue": {
+                                "kind": "null"
+                            },
+                            "ordered": {
+                                "kind": "null"
+                            },
+                            "cacheSize": {
+                                "kind": "null"
+                            },
+                            "continueOnError": {
+                                "kind": "boolean",
+                                "value": false
+                            }
+                        },
+                        "id": 1
+                    },
+                    {
+                        "kind": "mock",
+                        "typeName": "liquibase.database.core.H2Database",
+                        "methods": [
+                            {
+                                "method": {
+                                    "methodName": "escapeSequenceName",
+                                    "fullName": "liquibase.database.AbstractJdbcDatabase.escapeSequenceName(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;",
+                                    "argumentsSize": 3,
+                                    "returnTypeName": "java.lang.String",
+                                    "containingClass": "liquibase.database.AbstractJdbcDatabase"
+                                },
+                                "calls": [
+                                    {
+                                        "result": {
+                                            "kind": "string",
+                                            "value": "PUBLIC.insertTest_seq"
+                                        },
+                                        "args": []
+                                    }
+                                ]
+                            }
+                        ],
+                        "isSpy": false,
+                        "id": 2
+                    },
+                    {
+                        "kind": "object",
+                        "typeName": "liquibase.sqlgenerator.SqlGeneratorChain",
+                        "fields": {
+                            "sqlGenerators": {
+                                "kind": "object",
+                                "typeName": "java.util.TreeMap$KeyIterator",
+                                "fields": {
+                                    "next": {
+                                        "kind": "null"
+                                    },
+                                    "lastReturned": {
+                                        "kind": "object",
+                                        "typeName": "java.util.TreeMap$Entry",
+                                        "fields": {
+                                            "key": {
+                                                "kind": "object",
+                                                "typeName": "liquibase.sqlgenerator.core.CreateSequenceGenerator",
+                                                "fields": {},
+                                                "id": 6
+                                            },
+                                            "value": {
+                                                "kind": "object",
+                                                "typeName": "java.lang.Object",
+                                                "fields": {},
+                                                "id": 7
+                                            },
+                                            "left": {
+                                                "kind": "null"
+                                            },
+                                            "right": {
+                                                "kind": "null"
+                                            },
+                                            "parent": {
+                                                "kind": "null"
+                                            },
+                                            "color": {
+                                                "kind": "boolean",
+                                                "value": true
+                                            }
+                                        },
+                                        "id": 5
+                                    },
+                                    "expectedModCount": {
+                                        "kind": "int",
+                                        "value": 1
+                                    }
+                                },
+                                "id": 4
+                            }
+                        },
+                        "id": 3
+                    }
+                ],
+                "returnValue": {
+                    "kind": "array",
+                    "isShallow": true,
+                    "size": 1,
+                    "elements": []
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [
+            {
+                "method": {
+                    "methodName": "trimToNull",
+                    "fullName": "liquibase.util.StringUtil.trimToNull(Ljava/lang/String;)Ljava/lang/String;",
+                    "argumentsSize": 1,
+                    "returnTypeName": "java.lang.String",
+                    "containingClass": "liquibase.util.StringUtil"
+                },
+                "calls": [
+                    {
+                        "result": {
+                            "kind": "null"
+                        },
+                        "args": []
+                    }
+                ]
+            },
+            {
+                "method": {
+                    "methodName": "trimToEmpty",
+                    "fullName": "liquibase.util.StringUtil.trimToEmpty(Ljava/lang/String;)Ljava/lang/String;",
+                    "argumentsSize": 1,
+                    "returnTypeName": "java.lang.String",
+                    "containingClass": "liquibase.util.StringUtil"
+                },
+                "calls": [
+                    {
+                        "result": {
+                            "kind": "string",
+                            "value": "CREATE SEQUENCE PUBLIC.insertTest_seq"
+                        },
+                        "args": []
+                    }
+                ]
+            }
+        ],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "generateSql",
+                    "fullName": "generateSql(CreateSequenceStatement, Database, SqlGeneratorChain)",
+                    "argumentsSize": 3,
+                    "returnTypeName": "Sql[]",
+                    "containingClass": "liquibase.sqlgenerator.core.CreateSequenceGenerator"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "liquibase.sqlgenerator.core.CreateSequenceGenerator",
+                    "fields": {},
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "object",
+                        "typeName": "liquibase.statement.core.CreateSequenceStatement",
+                        "fields": {
+                            "catalogName": {
+                                "kind": "null"
+                            },
+                            "sequenceName": {
+                                "kind": "string",
+                                "value": "insertTest_seq"
+                            },
+                            "incrementBy": {
+                                "kind": "null"
+                            },
+                            "minValue": {
+                                "kind": "null"
+                            },
+                            "cycle": {
+                                "kind": "null"
+                            },
+                            "dataType": {
+                                "kind": "null"
+                            },
+                            "schemaName": {
+                                "kind": "null"
+                            },
+                            "startValue": {
+                                "kind": "null"
+                            },
+                            "maxValue": {
+                                "kind": "null"
+                            },
+                            "ordered": {
+                                "kind": "null"
+                            },
+                            "cacheSize": {
+                                "kind": "null"
+                            },
+                            "continueOnError": {
+                                "kind": "boolean",
+                                "value": false
+                            }
+                        },
+                        "id": 1
+                    },
+                    {
+                        "kind": "mock",
+                        "typeName": "liquibase.database.core.H2Database",
+                        "methods": [
+                            {
+                                "method": {
+                                    "methodName": "escapeSequenceName",
+                                    "fullName": "liquibase.database.AbstractJdbcDatabase.escapeSequenceName(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;",
+                                    "argumentsSize": 3,
+                                    "returnTypeName": "java.lang.String",
+                                    "containingClass": "liquibase.database.AbstractJdbcDatabase"
+                                },
+                                "calls": [
+                                    {
+                                        "result": {
+                                            "kind": "string",
+                                            "value": "PUBLIC.insertTest_seq"
+                                        },
+                                        "args": []
+                                    }
+                                ]
+                            }
+                        ],
+                        "isSpy": false,
+                        "id": 2
+                    },
+                    {
+                        "kind": "object",
+                        "typeName": "liquibase.sqlgenerator.SqlGeneratorChain",
+                        "fields": {
+                            "sqlGenerators": {
+                                "kind": "object",
+                                "typeName": "java.util.TreeMap$KeyIterator",
+                                "fields": {
+                                    "next": {
+                                        "kind": "null"
+                                    },
+                                    "lastReturned": {
+                                        "kind": "object",
+                                        "typeName": "java.util.TreeMap$Entry",
+                                        "fields": {
+                                            "key": {
+                                                "kind": "object",
+                                                "typeName": "liquibase.sqlgenerator.core.CreateSequenceGenerator",
+                                                "fields": {},
+                                                "id": 6
+                                            },
+                                            "value": {
+                                                "kind": "object",
+                                                "typeName": "java.lang.Object",
+                                                "fields": {},
+                                                "id": 7
+                                            },
+                                            "left": {
+                                                "kind": "null"
+                                            },
+                                            "right": {
+                                                "kind": "null"
+                                            },
+                                            "parent": {
+                                                "kind": "null"
+                                            },
+                                            "color": {
+                                                "kind": "boolean",
+                                                "value": true
+                                            }
+                                        },
+                                        "id": 5
+                                    },
+                                    "expectedModCount": {
+                                        "kind": "int",
+                                        "value": 1
+                                    }
+                                },
+                                "id": 4
+                            }
+                        },
+                        "id": 3
+                    }
+                ],
+                "returnValue": {
+                    "kind": "array",
+                    "isShallow": true,
+                    "size": 1,
+                    "elements": []
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [
+            {
+                "method": {
+                    "methodName": "trimToNull",
+                    "fullName": "liquibase.util.StringUtil.trimToNull(Ljava/lang/String;)Ljava/lang/String;",
+                    "argumentsSize": 1,
+                    "returnTypeName": "java.lang.String",
+                    "containingClass": "liquibase.util.StringUtil"
+                },
+                "calls": [
+                    {
+                        "result": {
+                            "kind": "null"
+                        },
+                        "args": []
+                    }
+                ]
+            },
+            {
+                "method": {
+                    "methodName": "trimToEmpty",
+                    "fullName": "liquibase.util.StringUtil.trimToEmpty(Ljava/lang/String;)Ljava/lang/String;",
+                    "argumentsSize": 1,
+                    "returnTypeName": "java.lang.String",
+                    "containingClass": "liquibase.util.StringUtil"
+                },
+                "calls": [
+                    {
+                        "result": {
+                            "kind": "string",
+                            "value": "CREATE SEQUENCE PUBLIC.updateTest_seq"
+                        },
+                        "args": []
+                    }
+                ]
+            }
+        ],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "generateSql",
+                    "fullName": "generateSql(CreateSequenceStatement, Database, SqlGeneratorChain)",
+                    "argumentsSize": 3,
+                    "returnTypeName": "Sql[]",
+                    "containingClass": "liquibase.sqlgenerator.core.CreateSequenceGenerator"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "liquibase.sqlgenerator.core.CreateSequenceGenerator",
+                    "fields": {},
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "object",
+                        "typeName": "liquibase.statement.core.CreateSequenceStatement",
+                        "fields": {
+                            "catalogName": {
+                                "kind": "null"
+                            },
+                            "sequenceName": {
+                                "kind": "string",
+                                "value": "updateTest_seq"
+                            },
+                            "incrementBy": {
+                                "kind": "null"
+                            },
+                            "minValue": {
+                                "kind": "null"
+                            },
+                            "cycle": {
+                                "kind": "null"
+                            },
+                            "dataType": {
+                                "kind": "null"
+                            },
+                            "schemaName": {
+                                "kind": "null"
+                            },
+                            "startValue": {
+                                "kind": "null"
+                            },
+                            "maxValue": {
+                                "kind": "null"
+                            },
+                            "ordered": {
+                                "kind": "null"
+                            },
+                            "cacheSize": {
+                                "kind": "null"
+                            },
+                            "continueOnError": {
+                                "kind": "boolean",
+                                "value": false
+                            }
+                        },
+                        "id": 1
+                    },
+                    {
+                        "kind": "mock",
+                        "typeName": "liquibase.database.core.H2Database",
+                        "methods": [
+                            {
+                                "method": {
+                                    "methodName": "escapeSequenceName",
+                                    "fullName": "liquibase.database.AbstractJdbcDatabase.escapeSequenceName(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;",
+                                    "argumentsSize": 3,
+                                    "returnTypeName": "java.lang.String",
+                                    "containingClass": "liquibase.database.AbstractJdbcDatabase"
+                                },
+                                "calls": [
+                                    {
+                                        "result": {
+                                            "kind": "string",
+                                            "value": "PUBLIC.updateTest_seq"
+                                        },
+                                        "args": []
+                                    }
+                                ]
+                            }
+                        ],
+                        "isSpy": false,
+                        "id": 2
+                    },
+                    {
+                        "kind": "object",
+                        "typeName": "liquibase.sqlgenerator.SqlGeneratorChain",
+                        "fields": {
+                            "sqlGenerators": {
+                                "kind": "object",
+                                "typeName": "java.util.TreeMap$KeyIterator",
+                                "fields": {
+                                    "next": {
+                                        "kind": "null"
+                                    },
+                                    "lastReturned": {
+                                        "kind": "object",
+                                        "typeName": "java.util.TreeMap$Entry",
+                                        "fields": {
+                                            "key": {
+                                                "kind": "object",
+                                                "typeName": "liquibase.sqlgenerator.core.CreateSequenceGenerator",
+                                                "fields": {},
+                                                "id": 6
+                                            },
+                                            "value": {
+                                                "kind": "object",
+                                                "typeName": "java.lang.Object",
+                                                "fields": {},
+                                                "id": 7
+                                            },
+                                            "left": {
+                                                "kind": "null"
+                                            },
+                                            "right": {
+                                                "kind": "null"
+                                            },
+                                            "parent": {
+                                                "kind": "null"
+                                            },
+                                            "color": {
+                                                "kind": "boolean",
+                                                "value": true
+                                            }
+                                        },
+                                        "id": 5
+                                    },
+                                    "expectedModCount": {
+                                        "kind": "int",
+                                        "value": 1
+                                    }
+                                },
+                                "id": 4
+                            }
+                        },
+                        "id": 3
+                    }
+                ],
+                "returnValue": {
+                    "kind": "array",
+                    "isShallow": true,
+                    "size": 1,
+                    "elements": []
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [
+            {
+                "method": {
+                    "methodName": "trimToNull",
+                    "fullName": "liquibase.util.StringUtil.trimToNull(Ljava/lang/String;)Ljava/lang/String;",
+                    "argumentsSize": 1,
+                    "returnTypeName": "java.lang.String",
+                    "containingClass": "liquibase.util.StringUtil"
+                },
+                "calls": [
+                    {
+                        "result": {
+                            "kind": "null"
+                        },
+                        "args": []
+                    }
+                ]
+            },
+            {
+                "method": {
+                    "methodName": "trimToEmpty",
+                    "fullName": "liquibase.util.StringUtil.trimToEmpty(Ljava/lang/String;)Ljava/lang/String;",
+                    "argumentsSize": 1,
+                    "returnTypeName": "java.lang.String",
+                    "containingClass": "liquibase.util.StringUtil"
+                },
+                "calls": [
+                    {
+                        "result": {
+                            "kind": "string",
+                            "value": "CREATE SEQUENCE PUBLIC.updateTest_seq"
+                        },
+                        "args": []
+                    }
+                ]
+            }
+        ],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "generateSql",
+                    "fullName": "generateSql(CreateSequenceStatement, Database, SqlGeneratorChain)",
+                    "argumentsSize": 3,
+                    "returnTypeName": "Sql[]",
+                    "containingClass": "liquibase.sqlgenerator.core.CreateSequenceGenerator"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "liquibase.sqlgenerator.core.CreateSequenceGenerator",
+                    "fields": {},
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "object",
+                        "typeName": "liquibase.statement.core.CreateSequenceStatement",
+                        "fields": {
+                            "catalogName": {
+                                "kind": "null"
+                            },
+                            "sequenceName": {
+                                "kind": "string",
+                                "value": "updateTest_seq"
+                            },
+                            "incrementBy": {
+                                "kind": "null"
+                            },
+                            "minValue": {
+                                "kind": "null"
+                            },
+                            "cycle": {
+                                "kind": "null"
+                            },
+                            "dataType": {
+                                "kind": "null"
+                            },
+                            "schemaName": {
+                                "kind": "null"
+                            },
+                            "startValue": {
+                                "kind": "null"
+                            },
+                            "maxValue": {
+                                "kind": "null"
+                            },
+                            "ordered": {
+                                "kind": "null"
+                            },
+                            "cacheSize": {
+                                "kind": "null"
+                            },
+                            "continueOnError": {
+                                "kind": "boolean",
+                                "value": false
+                            }
+                        },
+                        "id": 1
+                    },
+                    {
+                        "kind": "mock",
+                        "typeName": "liquibase.database.core.H2Database",
+                        "methods": [
+                            {
+                                "method": {
+                                    "methodName": "escapeSequenceName",
+                                    "fullName": "liquibase.database.AbstractJdbcDatabase.escapeSequenceName(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;",
+                                    "argumentsSize": 3,
+                                    "returnTypeName": "java.lang.String",
+                                    "containingClass": "liquibase.database.AbstractJdbcDatabase"
+                                },
+                                "calls": [
+                                    {
+                                        "result": {
+                                            "kind": "string",
+                                            "value": "PUBLIC.updateTest_seq"
+                                        },
+                                        "args": []
+                                    }
+                                ]
+                            }
+                        ],
+                        "isSpy": false,
+                        "id": 2
+                    },
+                    {
+                        "kind": "object",
+                        "typeName": "liquibase.sqlgenerator.SqlGeneratorChain",
+                        "fields": {
+                            "sqlGenerators": {
+                                "kind": "object",
+                                "typeName": "java.util.TreeMap$KeyIterator",
+                                "fields": {
+                                    "next": {
+                                        "kind": "null"
+                                    },
+                                    "lastReturned": {
+                                        "kind": "object",
+                                        "typeName": "java.util.TreeMap$Entry",
+                                        "fields": {
+                                            "key": {
+                                                "kind": "object",
+                                                "typeName": "liquibase.sqlgenerator.core.CreateSequenceGenerator",
+                                                "fields": {},
+                                                "id": 6
+                                            },
+                                            "value": {
+                                                "kind": "object",
+                                                "typeName": "java.lang.Object",
+                                                "fields": {},
+                                                "id": 7
+                                            },
+                                            "left": {
+                                                "kind": "null"
+                                            },
+                                            "right": {
+                                                "kind": "null"
+                                            },
+                                            "parent": {
+                                                "kind": "null"
+                                            },
+                                            "color": {
+                                                "kind": "boolean",
+                                                "value": true
+                                            }
+                                        },
+                                        "id": 5
+                                    },
+                                    "expectedModCount": {
+                                        "kind": "int",
+                                        "value": 1
+                                    }
+                                },
+                                "id": 4
+                            }
+                        },
+                        "id": 3
+                    }
+                ],
+                "returnValue": {
+                    "kind": "array",
+                    "isShallow": true,
+                    "size": 1,
+                    "elements": []
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [
+            {
+                "method": {
+                    "methodName": "trimToNull",
+                    "fullName": "liquibase.util.StringUtil.trimToNull(Ljava/lang/String;)Ljava/lang/String;",
+                    "argumentsSize": 1,
+                    "returnTypeName": "java.lang.String",
+                    "containingClass": "liquibase.util.StringUtil"
+                },
+                "calls": [
+                    {
+                        "result": {
+                            "kind": "null"
+                        },
+                        "args": []
+                    }
+                ]
+            },
+            {
+                "method": {
+                    "methodName": "trimToEmpty",
+                    "fullName": "liquibase.util.StringUtil.trimToEmpty(Ljava/lang/String;)Ljava/lang/String;",
+                    "argumentsSize": 1,
+                    "returnTypeName": "java.lang.String",
+                    "containingClass": "liquibase.util.StringUtil"
+                },
+                "calls": [
+                    {
+                        "result": {
+                            "kind": "string",
+                            "value": "CREATE SEQUENCE PUBLIC.tableDefault_seq"
+                        },
+                        "args": []
+                    }
+                ]
+            }
+        ],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "generateSql",
+                    "fullName": "generateSql(CreateSequenceStatement, Database, SqlGeneratorChain)",
+                    "argumentsSize": 3,
+                    "returnTypeName": "Sql[]",
+                    "containingClass": "liquibase.sqlgenerator.core.CreateSequenceGenerator"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "liquibase.sqlgenerator.core.CreateSequenceGenerator",
+                    "fields": {},
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "object",
+                        "typeName": "liquibase.statement.core.CreateSequenceStatement",
+                        "fields": {
+                            "catalogName": {
+                                "kind": "null"
+                            },
+                            "sequenceName": {
+                                "kind": "string",
+                                "value": "tableDefault_seq"
+                            },
+                            "incrementBy": {
+                                "kind": "null"
+                            },
+                            "minValue": {
+                                "kind": "null"
+                            },
+                            "cycle": {
+                                "kind": "null"
+                            },
+                            "dataType": {
+                                "kind": "null"
+                            },
+                            "schemaName": {
+                                "kind": "null"
+                            },
+                            "startValue": {
+                                "kind": "null"
+                            },
+                            "maxValue": {
+                                "kind": "null"
+                            },
+                            "ordered": {
+                                "kind": "null"
+                            },
+                            "cacheSize": {
+                                "kind": "null"
+                            },
+                            "continueOnError": {
+                                "kind": "boolean",
+                                "value": false
+                            }
+                        },
+                        "id": 1
+                    },
+                    {
+                        "kind": "mock",
+                        "typeName": "liquibase.database.core.H2Database",
+                        "methods": [
+                            {
+                                "method": {
+                                    "methodName": "escapeSequenceName",
+                                    "fullName": "liquibase.database.AbstractJdbcDatabase.escapeSequenceName(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;",
+                                    "argumentsSize": 3,
+                                    "returnTypeName": "java.lang.String",
+                                    "containingClass": "liquibase.database.AbstractJdbcDatabase"
+                                },
+                                "calls": [
+                                    {
+                                        "result": {
+                                            "kind": "string",
+                                            "value": "PUBLIC.tableDefault_seq"
+                                        },
+                                        "args": []
+                                    }
+                                ]
+                            }
+                        ],
+                        "isSpy": false,
+                        "id": 2
+                    },
+                    {
+                        "kind": "object",
+                        "typeName": "liquibase.sqlgenerator.SqlGeneratorChain",
+                        "fields": {
+                            "sqlGenerators": {
+                                "kind": "object",
+                                "typeName": "java.util.TreeMap$KeyIterator",
+                                "fields": {
+                                    "next": {
+                                        "kind": "null"
+                                    },
+                                    "lastReturned": {
+                                        "kind": "object",
+                                        "typeName": "java.util.TreeMap$Entry",
+                                        "fields": {
+                                            "key": {
+                                                "kind": "object",
+                                                "typeName": "liquibase.sqlgenerator.core.CreateSequenceGenerator",
+                                                "fields": {},
+                                                "id": 6
+                                            },
+                                            "value": {
+                                                "kind": "object",
+                                                "typeName": "java.lang.Object",
+                                                "fields": {},
+                                                "id": 7
+                                            },
+                                            "left": {
+                                                "kind": "null"
+                                            },
+                                            "right": {
+                                                "kind": "null"
+                                            },
+                                            "parent": {
+                                                "kind": "null"
+                                            },
+                                            "color": {
+                                                "kind": "boolean",
+                                                "value": true
+                                            }
+                                        },
+                                        "id": 5
+                                    },
+                                    "expectedModCount": {
+                                        "kind": "int",
+                                        "value": 1
+                                    }
+                                },
+                                "id": 4
+                            }
+                        },
+                        "id": 3
+                    }
+                ],
+                "returnValue": {
+                    "kind": "array",
+                    "isShallow": true,
+                    "size": 1,
+                    "elements": []
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [
+            {
+                "method": {
+                    "methodName": "trimToNull",
+                    "fullName": "liquibase.util.StringUtil.trimToNull(Ljava/lang/String;)Ljava/lang/String;",
+                    "argumentsSize": 1,
+                    "returnTypeName": "java.lang.String",
+                    "containingClass": "liquibase.util.StringUtil"
+                },
+                "calls": [
+                    {
+                        "result": {
+                            "kind": "null"
+                        },
+                        "args": []
+                    }
+                ]
+            },
+            {
+                "method": {
+                    "methodName": "trimToEmpty",
+                    "fullName": "liquibase.util.StringUtil.trimToEmpty(Ljava/lang/String;)Ljava/lang/String;",
+                    "argumentsSize": 1,
+                    "returnTypeName": "java.lang.String",
+                    "containingClass": "liquibase.util.StringUtil"
+                },
+                "calls": [
+                    {
+                        "result": {
+                            "kind": "string",
+                            "value": "CREATE SEQUENCE PUBLIC.tableDefault_seq"
+                        },
+                        "args": []
+                    }
+                ]
+            }
+        ],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "generateSql",
+                    "fullName": "generateSql(CreateSequenceStatement, Database, SqlGeneratorChain)",
+                    "argumentsSize": 3,
+                    "returnTypeName": "Sql[]",
+                    "containingClass": "liquibase.sqlgenerator.core.CreateSequenceGenerator"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "liquibase.sqlgenerator.core.CreateSequenceGenerator",
+                    "fields": {},
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "object",
+                        "typeName": "liquibase.statement.core.CreateSequenceStatement",
+                        "fields": {
+                            "catalogName": {
+                                "kind": "null"
+                            },
+                            "sequenceName": {
+                                "kind": "string",
+                                "value": "tableDefault_seq"
+                            },
+                            "incrementBy": {
+                                "kind": "null"
+                            },
+                            "minValue": {
+                                "kind": "null"
+                            },
+                            "cycle": {
+                                "kind": "null"
+                            },
+                            "dataType": {
+                                "kind": "null"
+                            },
+                            "schemaName": {
+                                "kind": "null"
+                            },
+                            "startValue": {
+                                "kind": "null"
+                            },
+                            "maxValue": {
+                                "kind": "null"
+                            },
+                            "ordered": {
+                                "kind": "null"
+                            },
+                            "cacheSize": {
+                                "kind": "null"
+                            },
+                            "continueOnError": {
+                                "kind": "boolean",
+                                "value": false
+                            }
+                        },
+                        "id": 1
+                    },
+                    {
+                        "kind": "mock",
+                        "typeName": "liquibase.database.core.H2Database",
+                        "methods": [
+                            {
+                                "method": {
+                                    "methodName": "escapeSequenceName",
+                                    "fullName": "liquibase.database.AbstractJdbcDatabase.escapeSequenceName(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;",
+                                    "argumentsSize": 3,
+                                    "returnTypeName": "java.lang.String",
+                                    "containingClass": "liquibase.database.AbstractJdbcDatabase"
+                                },
+                                "calls": [
+                                    {
+                                        "result": {
+                                            "kind": "string",
+                                            "value": "PUBLIC.tableDefault_seq"
+                                        },
+                                        "args": []
+                                    }
+                                ]
+                            }
+                        ],
+                        "isSpy": false,
+                        "id": 2
+                    },
+                    {
+                        "kind": "object",
+                        "typeName": "liquibase.sqlgenerator.SqlGeneratorChain",
+                        "fields": {
+                            "sqlGenerators": {
+                                "kind": "object",
+                                "typeName": "java.util.TreeMap$KeyIterator",
+                                "fields": {
+                                    "next": {
+                                        "kind": "null"
+                                    },
+                                    "lastReturned": {
+                                        "kind": "object",
+                                        "typeName": "java.util.TreeMap$Entry",
+                                        "fields": {
+                                            "key": {
+                                                "kind": "object",
+                                                "typeName": "liquibase.sqlgenerator.core.CreateSequenceGenerator",
+                                                "fields": {},
+                                                "id": 6
+                                            },
+                                            "value": {
+                                                "kind": "object",
+                                                "typeName": "java.lang.Object",
+                                                "fields": {},
+                                                "id": 7
+                                            },
+                                            "left": {
+                                                "kind": "null"
+                                            },
+                                            "right": {
+                                                "kind": "null"
+                                            },
+                                            "parent": {
+                                                "kind": "null"
+                                            },
+                                            "color": {
+                                                "kind": "boolean",
+                                                "value": true
+                                            }
+                                        },
+                                        "id": 5
+                                    },
+                                    "expectedModCount": {
+                                        "kind": "int",
+                                        "value": 1
+                                    }
+                                },
+                                "id": 4
+                            }
+                        },
+                        "id": 3
+                    }
+                ],
+                "returnValue": {
+                    "kind": "array",
+                    "isShallow": true,
+                    "size": 1,
+                    "elements": []
+                }
+            }
+        ]
+    }
+]

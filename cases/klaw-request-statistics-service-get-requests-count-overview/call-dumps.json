@@ -1,0 +1,727 @@
+[
+    {
+        "staticMethodMocks": [
+            {
+                "method": {
+                    "methodName": "of",
+                    "fullName": "io.aiven.klaw.model.enums.RequestStatus.of(Ljava/lang/String;)Lio/aiven/klaw/model/enums/RequestStatus;",
+                    "argumentsSize": 1,
+                    "returnTypeName": "io.aiven.klaw.model.enums.RequestStatus",
+                    "containingClass": "io.aiven.klaw.model.enums.RequestStatus"
+                },
+                "calls": [
+                    {
+                        "result": {
+                            "kind": "enum",
+                            "typeName": "io.aiven.klaw.model.enums.RequestStatus",
+                            "value": "APPROVED"
+                        },
+                        "args": []
+                    },
+                    {
+                        "result": {
+                            "kind": "enum",
+                            "typeName": "io.aiven.klaw.model.enums.RequestStatus",
+                            "value": "CREATED"
+                        },
+                        "args": []
+                    },
+                    {
+                        "result": {
+                            "kind": "enum",
+                            "typeName": "io.aiven.klaw.model.enums.RequestStatus",
+                            "value": "APPROVED"
+                        },
+                        "args": []
+                    },
+                    {
+                        "result": {
+                            "kind": "enum",
+                            "typeName": "io.aiven.klaw.model.enums.RequestStatus",
+                            "value": "CREATED"
+                        },
+                        "args": []
+                    },
+                    {
+                        "result": {
+                            "kind": "enum",
+                            "typeName": "io.aiven.klaw.model.enums.RequestStatus",
+                            "value": "APPROVED"
+                        },
+                        "args": []
+                    },
+                    {
+                        "result": {
+                            "kind": "enum",
+                            "typeName": "io.aiven.klaw.model.enums.RequestStatus",
+                            "value": "CREATED"
+                        },
+                        "args": []
+                    },
+                    {
+                        "result": {
+                            "kind": "enum",
+                            "typeName": "io.aiven.klaw.model.enums.RequestStatus",
+                            "value": "APPROVED"
+                        },
+                        "args": []
+                    },
+                    {
+                        "result": {
+                            "kind": "enum",
+                            "typeName": "io.aiven.klaw.model.enums.RequestStatus",
+                            "value": "CREATED"
+                        },
+                        "args": []
+                    }
+                ]
+            },
+            {
+                "method": {
+                    "methodName": "of",
+                    "fullName": "io.aiven.klaw.model.enums.RequestOperationType.of(Ljava/lang/String;)Lio/aiven/klaw/model/enums/RequestOperationType;",
+                    "argumentsSize": 1,
+                    "returnTypeName": "io.aiven.klaw.model.enums.RequestOperationType",
+                    "containingClass": "io.aiven.klaw.model.enums.RequestOperationType"
+                },
+                "calls": [
+                    {
+                        "result": {
+                            "kind": "enum",
+                            "typeName": "io.aiven.klaw.model.enums.RequestOperationType",
+                            "value": "DELETE"
+                        },
+                        "args": []
+                    },
+                    {
+                        "result": {
+                            "kind": "enum",
+                            "typeName": "io.aiven.klaw.model.enums.RequestOperationType",
+                            "value": "CREATE"
+                        },
+                        "args": []
+                    },
+                    {
+                        "result": {
+                            "kind": "enum",
+                            "typeName": "io.aiven.klaw.model.enums.RequestOperationType",
+                            "value": "DELETE"
+                        },
+                        "args": []
+                    },
+                    {
+                        "result": {
+                            "kind": "enum",
+                            "typeName": "io.aiven.klaw.model.enums.RequestOperationType",
+                            "value": "CREATE"
+                        },
+                        "args": []
+                    },
+                    {
+                        "result": {
+                            "kind": "enum",
+                            "typeName": "io.aiven.klaw.model.enums.RequestOperationType",
+                            "value": "DELETE"
+                        },
+                        "args": []
+                    },
+                    {
+                        "result": {
+                            "kind": "enum",
+                            "typeName": "io.aiven.klaw.model.enums.RequestOperationType",
+                            "value": "CREATE"
+                        },
+                        "args": []
+                    },
+                    {
+                        "result": {
+                            "kind": "enum",
+                            "typeName": "io.aiven.klaw.model.enums.RequestOperationType",
+                            "value": "DELETE"
+                        },
+                        "args": []
+                    },
+                    {
+                        "result": {
+                            "kind": "enum",
+                            "typeName": "io.aiven.klaw.model.enums.RequestOperationType",
+                            "value": "CREATE"
+                        },
+                        "args": []
+                    }
+                ]
+            }
+        ],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "getRequestsCountOverview",
+                    "fullName": "getRequestsCountOverview(RequestMode)",
+                    "argumentsSize": 1,
+                    "returnTypeName": "RequestsCountOverview",
+                    "containingClass": "io.aiven.klaw.service.RequestStatisticsService"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "io.aiven.klaw.service.RequestStatisticsService",
+                    "fields": {
+                        "manageDatabase": {
+                            "kind": "mock",
+                            "typeName": "io.aiven.klaw.config.ManageDatabase",
+                            "methods": [
+                                {
+                                    "method": {
+                                        "methodName": "getHandleDbRequests",
+                                        "fullName": "io.aiven.klaw.config.ManageDatabase.getHandleDbRequests()Lio/aiven/klaw/helpers/db/rdbms/HandleDbRequestsJdbc;",
+                                        "argumentsSize": 0,
+                                        "returnTypeName": "io.aiven.klaw.helpers.db.rdbms.HandleDbRequestsJdbc",
+                                        "containingClass": "io.aiven.klaw.config.ManageDatabase"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "mock",
+                                                "typeName": "io.aiven.klaw.helpers.db.rdbms.HandleDbRequestsJdbc",
+                                                "methods": [
+                                                    {
+                                                        "method": {
+                                                            "methodName": "getTopicRequestsCounts",
+                                                            "fullName": "io.aiven.klaw.helpers.db.rdbms.HandleDbRequestsJdbc.getTopicRequestsCounts(ILio/aiven/klaw/model/enums/RequestMode;ILjava/lang/String;)Ljava/util/Map;",
+                                                            "argumentsSize": 4,
+                                                            "returnTypeName": "java.util.Map",
+                                                            "containingClass": "io.aiven.klaw.helpers.db.rdbms.HandleDbRequestsJdbc"
+                                                        },
+                                                        "calls": [
+                                                            {
+                                                                "result": {
+                                                                    "kind": "map",
+                                                                    "isShallow": false,
+                                                                    "size": 2,
+                                                                    "elements": [
+                                                                        {
+                                                                            "key": {
+                                                                                "kind": "string",
+                                                                                "value": "STATUS_COUNTS"
+                                                                            },
+                                                                            "value": {
+                                                                                "kind": "map",
+                                                                                "isShallow": false,
+                                                                                "size": 2,
+                                                                                "elements": [
+                                                                                    {
+                                                                                        "key": {
+                                                                                            "kind": "string",
+                                                                                            "value": "approved"
+                                                                                        },
+                                                                                        "value": {
+                                                                                            "kind": "long",
+                                                                                            "value": 3
+                                                                                        }
+                                                                                    },
+                                                                                    {
+                                                                                        "key": {
+                                                                                            "kind": "string",
+                                                                                            "value": "created"
+                                                                                        },
+                                                                                        "value": {
+                                                                                            "kind": "long",
+                                                                                            "value": 5
+                                                                                        }
+                                                                                    }
+                                                                                ]
+                                                                            }
+                                                                        },
+                                                                        {
+                                                                            "key": {
+                                                                                "kind": "string",
+                                                                                "value": "OPERATION_TYPE_COUNTS"
+                                                                            },
+                                                                            "value": {
+                                                                                "kind": "map",
+                                                                                "isShallow": false,
+                                                                                "size": 2,
+                                                                                "elements": [
+                                                                                    {
+                                                                                        "key": {
+                                                                                            "kind": "string",
+                                                                                            "value": "Delete"
+                                                                                        },
+                                                                                        "value": {
+                                                                                            "kind": "long",
+                                                                                            "value": 2
+                                                                                        }
+                                                                                    },
+                                                                                    {
+                                                                                        "key": {
+                                                                                            "kind": "string",
+                                                                                            "value": "Create"
+                                                                                        },
+                                                                                        "value": {
+                                                                                            "kind": "long",
+                                                                                            "value": 4
+                                                                                        }
+                                                                                    }
+                                                                                ]
+                                                                            }
+                                                                        }
+                                                                    ]
+                                                                },
+                                                                "args": []
+                                                            }
+                                                        ]
+                                                    },
+                                                    {
+                                                        "method": {
+                                                            "methodName": "getAclRequestsCounts",
+                                                            "fullName": "io.aiven.klaw.helpers.db.rdbms.HandleDbRequestsJdbc.getAclRequestsCounts(ILio/aiven/klaw/model/enums/RequestMode;ILjava/lang/String;)Ljava/util/Map;",
+                                                            "argumentsSize": 4,
+                                                            "returnTypeName": "java.util.Map",
+                                                            "containingClass": "io.aiven.klaw.helpers.db.rdbms.HandleDbRequestsJdbc"
+                                                        },
+                                                        "calls": [
+                                                            {
+                                                                "result": {
+                                                                    "kind": "map",
+                                                                    "isShallow": false,
+                                                                    "size": 2,
+                                                                    "elements": [
+                                                                        {
+                                                                            "key": {
+                                                                                "kind": "string",
+                                                                                "value": "STATUS_COUNTS"
+                                                                            },
+                                                                            "value": {
+                                                                                "kind": "map",
+                                                                                "isShallow": false,
+                                                                                "size": 2,
+                                                                                "elements": [
+                                                                                    {
+                                                                                        "key": {
+                                                                                            "kind": "string",
+                                                                                            "value": "approved"
+                                                                                        },
+                                                                                        "value": {
+                                                                                            "kind": "long",
+                                                                                            "value": 3
+                                                                                        }
+                                                                                    },
+                                                                                    {
+                                                                                        "key": {
+                                                                                            "kind": "string",
+                                                                                            "value": "created"
+                                                                                        },
+                                                                                        "value": {
+                                                                                            "kind": "long",
+                                                                                            "value": 5
+                                                                                        }
+                                                                                    }
+                                                                                ]
+                                                                            }
+                                                                        },
+                                                                        {
+                                                                            "key": {
+                                                                                "kind": "string",
+                                                                                "value": "OPERATION_TYPE_COUNTS"
+                                                                            },
+                                                                            "value": {
+                                                                                "kind": "map",
+                                                                                "isShallow": false,
+                                                                                "size": 2,
+                                                                                "elements": [
+                                                                                    {
+                                                                                        "key": {
+                                                                                            "kind": "string",
+                                                                                            "value": "Delete"
+                                                                                        },
+                                                                                        "value": {
+                                                                                            "kind": "long",
+                                                                                            "value": 2
+                                                                                        }
+                                                                                    },
+                                                                                    {
+                                                                                        "key": {
+                                                                                            "kind": "string",
+                                                                                            "value": "Create"
+                                                                                        },
+                                                                                        "value": {
+                                                                                            "kind": "long",
+                                                                                            "value": 4
+                                                                                        }
+                                                                                    }
+                                                                                ]
+                                                                            }
+                                                                        }
+                                                                    ]
+                                                                },
+                                                                "args": []
+                                                            }
+                                                        ]
+                                                    },
+                                                    {
+                                                        "method": {
+                                                            "methodName": "getSchemaRequestsCounts",
+                                                            "fullName": "io.aiven.klaw.helpers.db.rdbms.HandleDbRequestsJdbc.getSchemaRequestsCounts(ILio/aiven/klaw/model/enums/RequestMode;ILjava/lang/String;)Ljava/util/Map;",
+                                                            "argumentsSize": 4,
+                                                            "returnTypeName": "java.util.Map",
+                                                            "containingClass": "io.aiven.klaw.helpers.db.rdbms.HandleDbRequestsJdbc"
+                                                        },
+                                                        "calls": [
+                                                            {
+                                                                "result": {
+                                                                    "kind": "map",
+                                                                    "isShallow": false,
+                                                                    "size": 2,
+                                                                    "elements": [
+                                                                        {
+                                                                            "key": {
+                                                                                "kind": "string",
+                                                                                "value": "STATUS_COUNTS"
+                                                                            },
+                                                                            "value": {
+                                                                                "kind": "map",
+                                                                                "isShallow": false,
+                                                                                "size": 2,
+                                                                                "elements": [
+                                                                                    {
+                                                                                        "key": {
+                                                                                            "kind": "string",
+                                                                                            "value": "approved"
+                                                                                        },
+                                                                                        "value": {
+                                                                                            "kind": "long",
+                                                                                            "value": 3
+                                                                                        }
+                                                                                    },
+                                                                                    {
+                                                                                        "key": {
+                                                                                            "kind": "string",
+                                                                                            "value": "created"
+                                                                                        },
+                                                                                        "value": {
+                                                                                            "kind": "long",
+                                                                                            "value": 5
+                                                                                        }
+                                                                                    }
+                                                                                ]
+                                                                            }
+                                                                        },
+                                                                        {
+                                                                            "key": {
+                                                                                "kind": "string",
+                                                                                "value": "OPERATION_TYPE_COUNTS"
+                                                                            },
+                                                                            "value": {
+                                                                                "kind": "map",
+                                                                                "isShallow": false,
+                                                                                "size": 2,
+                                                                                "elements": [
+                                                                                    {
+                                                                                        "key": {
+                                                                                            "kind": "string",
+                                                                                            "value": "Delete"
+                                                                                        },
+                                                                                        "value": {
+                                                                                            "kind": "long",
+                                                                                            "value": 2
+                                                                                        }
+                                                                                    },
+                                                                                    {
+                                                                                        "key": {
+                                                                                            "kind": "string",
+                                                                                            "value": "Create"
+                                                                                        },
+                                                                                        "value": {
+                                                                                            "kind": "long",
+                                                                                            "value": 4
+                                                                                        }
+                                                                                    }
+                                                                                ]
+                                                                            }
+                                                                        }
+                                                                    ]
+                                                                },
+                                                                "args": []
+                                                            }
+                                                        ]
+                                                    },
+                                                    {
+                                                        "method": {
+                                                            "methodName": "getConnectorRequestsCounts",
+                                                            "fullName": "io.aiven.klaw.helpers.db.rdbms.HandleDbRequestsJdbc.getConnectorRequestsCounts(ILio/aiven/klaw/model/enums/RequestMode;ILjava/lang/String;)Ljava/util/Map;",
+                                                            "argumentsSize": 4,
+                                                            "returnTypeName": "java.util.Map",
+                                                            "containingClass": "io.aiven.klaw.helpers.db.rdbms.HandleDbRequestsJdbc"
+                                                        },
+                                                        "calls": [
+                                                            {
+                                                                "result": {
+                                                                    "kind": "map",
+                                                                    "isShallow": false,
+                                                                    "size": 2,
+                                                                    "elements": [
+                                                                        {
+                                                                            "key": {
+                                                                                "kind": "string",
+                                                                                "value": "STATUS_COUNTS"
+                                                                            },
+                                                                            "value": {
+                                                                                "kind": "map",
+                                                                                "isShallow": false,
+                                                                                "size": 2,
+                                                                                "elements": [
+                                                                                    {
+                                                                                        "key": {
+                                                                                            "kind": "string",
+                                                                                            "value": "approved"
+                                                                                        },
+                                                                                        "value": {
+                                                                                            "kind": "long",
+                                                                                            "value": 3
+                                                                                        }
+                                                                                    },
+                                                                                    {
+                                                                                        "key": {
+                                                                                            "kind": "string",
+                                                                                            "value": "created"
+                                                                                        },
+                                                                                        "value": {
+                                                                                            "kind": "long",
+                                                                                            "value": 5
+                                                                                        }
+                                                                                    }
+                                                                                ]
+                                                                            }
+                                                                        },
+                                                                        {
+                                                                            "key": {
+                                                                                "kind": "string",
+                                                                                "value": "OPERATION_TYPE_COUNTS"
+                                                                            },
+                                                                            "value": {
+                                                                                "kind": "map",
+                                                                                "isShallow": false,
+                                                                                "size": 2,
+                                                                                "elements": [
+                                                                                    {
+                                                                                        "key": {
+                                                                                            "kind": "string",
+                                                                                            "value": "Delete"
+                                                                                        },
+                                                                                        "value": {
+                                                                                            "kind": "long",
+                                                                                            "value": 2
+                                                                                        }
+                                                                                    },
+                                                                                    {
+                                                                                        "key": {
+                                                                                            "kind": "string",
+                                                                                            "value": "Create"
+                                                                                        },
+                                                                                        "value": {
+                                                                                            "kind": "long",
+                                                                                            "value": 4
+                                                                                        }
+                                                                                    }
+                                                                                ]
+                                                                            }
+                                                                        }
+                                                                    ]
+                                                                },
+                                                                "args": []
+                                                            }
+                                                        ]
+                                                    }
+                                                ],
+                                                "isSpy": false,
+                                                "id": 2
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "ref",
+                                                "typeName": "io.aiven.klaw.helpers.db.rdbms.HandleDbRequestsJdbc",
+                                                "refId": 2
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "ref",
+                                                "typeName": "io.aiven.klaw.helpers.db.rdbms.HandleDbRequestsJdbc",
+                                                "refId": 2
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "ref",
+                                                "typeName": "io.aiven.klaw.helpers.db.rdbms.HandleDbRequestsJdbc",
+                                                "refId": 2
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                }
+                            ],
+                            "isSpy": false,
+                            "id": 1
+                        },
+                        "commonUtilsService": {
+                            "kind": "mock",
+                            "typeName": "io.aiven.klaw.service.CommonUtilsService",
+                            "methods": [
+                                {
+                                    "method": {
+                                        "methodName": "getPrincipal",
+                                        "fullName": "io.aiven.klaw.service.CommonUtilsService.getPrincipal()Ljava/lang/Object;",
+                                        "argumentsSize": 0,
+                                        "returnTypeName": "java.lang.Object",
+                                        "containingClass": "io.aiven.klaw.service.CommonUtilsService"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "mock",
+                                                "typeName": "org.springframework.security.core.userdetails.UserDetails",
+                                                "methods": [],
+                                                "isSpy": false,
+                                                "id": 4
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "method": {
+                                        "methodName": "getTeamId",
+                                        "fullName": "io.aiven.klaw.service.CommonUtilsService.getTeamId(Ljava/lang/String;)Ljava/lang/Integer;",
+                                        "argumentsSize": 1,
+                                        "returnTypeName": "java.lang.Integer",
+                                        "containingClass": "io.aiven.klaw.service.CommonUtilsService"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "int",
+                                                "value": 0
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "int",
+                                                "value": 0
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "int",
+                                                "value": 0
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "int",
+                                                "value": 0
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "method": {
+                                        "methodName": "getTenantId",
+                                        "fullName": "io.aiven.klaw.service.CommonUtilsService.getTenantId(Ljava/lang/String;)I",
+                                        "argumentsSize": 1,
+                                        "returnTypeName": "int",
+                                        "containingClass": "io.aiven.klaw.service.CommonUtilsService"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "int",
+                                                "value": 0
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "int",
+                                                "value": 0
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "int",
+                                                "value": 0
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "int",
+                                                "value": 0
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                }
+                            ],
+                            "isSpy": false,
+                            "id": 3
+                        },
+                        "mailService": {
+                            "kind": "mock",
+                            "typeName": "io.aiven.klaw.service.MailUtils",
+                            "methods": [
+                                {
+                                    "method": {
+                                        "methodName": "getUserName",
+                                        "fullName": "io.aiven.klaw.service.MailUtils.getUserName(Ljava/lang/Object;)Ljava/lang/String;",
+                                        "argumentsSize": 1,
+                                        "returnTypeName": "java.lang.String",
+                                        "containingClass": "io.aiven.klaw.service.MailUtils"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "string",
+                                                "value": "kwusera"
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                }
+                            ],
+                            "isSpy": false,
+                            "id": 5
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "enum",
+                        "typeName": "io.aiven.klaw.model.enums.RequestMode",
+                        "value": "MY_REQUESTS"
+                    }
+                ],
+                "returnValue": {
+                    "kind": "object",
+                    "typeName": "io.aiven.klaw.model.response.RequestsCountOverview",
+                    "fields": {
+                        "requestEntityStatistics": {
+                            "kind": "unknown"
+                        }
+                    },
+                    "id": 6
+                }
+            }
+        ]
+    }
+]

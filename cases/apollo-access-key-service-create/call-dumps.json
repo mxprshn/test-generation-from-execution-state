@@ -1,0 +1,1350 @@
+[
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "create",
+                    "fullName": "create(String, AccessKey)",
+                    "argumentsSize": 2,
+                    "returnTypeName": "AccessKey",
+                    "containingClass": "com.ctrip.framework.apollo.biz.service.AccessKeyService"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "com.ctrip.framework.apollo.biz.service.AccessKeyService",
+                    "fields": {
+                        "accessKeyRepository": {
+                            "kind": "mock",
+                            "typeName": "com.ctrip.framework.apollo.biz.repository.AccessKeyRepository",
+                            "methods": [
+                                {
+                                    "method": {
+                                        "methodName": "countByAppId",
+                                        "fullName": "com.ctrip.framework.apollo.biz.repository.AccessKeyRepository.countByAppId(Ljava/lang/String;)J",
+                                        "argumentsSize": 1,
+                                        "returnTypeName": "long",
+                                        "containingClass": "com.ctrip.framework.apollo.biz.repository.AccessKeyRepository"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "long",
+                                                "value": 0
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "method": {
+                                        "methodName": "save",
+                                        "fullName": "com.ctrip.framework.apollo.biz.repository.AccessKeyRepository.save(Ljava/lang/Object;)Ljava/lang/Object;",
+                                        "argumentsSize": 1,
+                                        "returnTypeName": "java.lang.Object",
+                                        "containingClass": "com.ctrip.framework.apollo.biz.repository.AccessKeyRepository"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "object",
+                                                "typeName": "com.ctrip.framework.apollo.biz.entity.AccessKey",
+                                                "fields": {
+                                                    "secret": {
+                                                        "kind": "string",
+                                                        "value": "someSecret"
+                                                    },
+                                                    "mode": {
+                                                        "kind": "int",
+                                                        "value": 0
+                                                    },
+                                                    "id": {
+                                                        "kind": "long",
+                                                        "value": 0
+                                                    },
+                                                    "deletedAt": {
+                                                        "kind": "long",
+                                                        "value": 0
+                                                    },
+                                                    "dataChangeCreatedBy": {
+                                                        "kind": "null"
+                                                    },
+                                                    "dataChangeLastModifiedBy": {
+                                                        "kind": "null"
+                                                    },
+                                                    "appId": {
+                                                        "kind": "string",
+                                                        "value": "someAppId"
+                                                    },
+                                                    "isDeleted": {
+                                                        "kind": "boolean",
+                                                        "value": false
+                                                    },
+                                                    "dataChangeCreatedTime": {
+                                                        "kind": "null"
+                                                    },
+                                                    "dataChangeLastModifiedTime": {
+                                                        "kind": "null"
+                                                    },
+                                                    "enabled": {
+                                                        "kind": "boolean",
+                                                        "value": false
+                                                    }
+                                                },
+                                                "id": 2
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                }
+                            ],
+                            "isSpy": false,
+                            "id": 1
+                        },
+                        "auditService": {
+                            "kind": "mock",
+                            "typeName": "com.ctrip.framework.apollo.biz.service.AuditService",
+                            "methods": [],
+                            "isSpy": false,
+                            "id": 3
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "string",
+                        "value": "someAppId"
+                    },
+                    {
+                        "kind": "ref",
+                        "typeName": "com.ctrip.framework.apollo.biz.entity.AccessKey",
+                        "refId": 2
+                    }
+                ],
+                "returnValue": {
+                    "kind": "object",
+                    "typeName": "com.ctrip.framework.apollo.biz.entity.AccessKey",
+                    "fields": {
+                        "secret": {
+                            "kind": "string",
+                            "value": "someSecret"
+                        },
+                        "mode": {
+                            "kind": "int",
+                            "value": 0
+                        },
+                        "id": {
+                            "kind": "long",
+                            "value": 1
+                        },
+                        "deletedAt": {
+                            "kind": "long",
+                            "value": 0
+                        },
+                        "dataChangeCreatedBy": {
+                            "kind": "unknown"
+                        },
+                        "dataChangeLastModifiedBy": {
+                            "kind": "unknown"
+                        },
+                        "appId": {
+                            "kind": "string",
+                            "value": "someAppId"
+                        },
+                        "isDeleted": {
+                            "kind": "boolean",
+                            "value": false
+                        },
+                        "dataChangeCreatedTime": {
+                            "kind": "object",
+                            "typeName": "java.util.Date",
+                            "fields": {
+                                "fastTime": {
+                                    "kind": "unknown"
+                                },
+                                "cdate": {
+                                    "kind": "unknown"
+                                },
+                                "jcal": {
+                                    "kind": "unknown"
+                                },
+                                "defaultCenturyStart": {
+                                    "kind": "unknown"
+                                }
+                            },
+                            "id": 5
+                        },
+                        "dataChangeLastModifiedTime": {
+                            "kind": "object",
+                            "typeName": "java.util.Date",
+                            "fields": {
+                                "fastTime": {
+                                    "kind": "unknown"
+                                },
+                                "cdate": {
+                                    "kind": "unknown"
+                                },
+                                "jcal": {
+                                    "kind": "unknown"
+                                },
+                                "defaultCenturyStart": {
+                                    "kind": "unknown"
+                                }
+                            },
+                            "id": 6
+                        },
+                        "enabled": {
+                            "kind": "boolean",
+                            "value": false
+                        }
+                    },
+                    "id": 4
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "create",
+                    "fullName": "create(String, AccessKey)",
+                    "argumentsSize": 2,
+                    "returnTypeName": "AccessKey",
+                    "containingClass": "com.ctrip.framework.apollo.biz.service.AccessKeyService"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "com.ctrip.framework.apollo.biz.service.AccessKeyService",
+                    "fields": {
+                        "accessKeyRepository": {
+                            "kind": "mock",
+                            "typeName": "com.ctrip.framework.apollo.biz.repository.AccessKeyRepository",
+                            "methods": [
+                                {
+                                    "method": {
+                                        "methodName": "countByAppId",
+                                        "fullName": "com.ctrip.framework.apollo.biz.repository.AccessKeyRepository.countByAppId(Ljava/lang/String;)J",
+                                        "argumentsSize": 1,
+                                        "returnTypeName": "long",
+                                        "containingClass": "com.ctrip.framework.apollo.biz.repository.AccessKeyRepository"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "long",
+                                                "value": 1
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "method": {
+                                        "methodName": "save",
+                                        "fullName": "com.ctrip.framework.apollo.biz.repository.AccessKeyRepository.save(Ljava/lang/Object;)Ljava/lang/Object;",
+                                        "argumentsSize": 1,
+                                        "returnTypeName": "java.lang.Object",
+                                        "containingClass": "com.ctrip.framework.apollo.biz.repository.AccessKeyRepository"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "object",
+                                                "typeName": "com.ctrip.framework.apollo.biz.entity.AccessKey",
+                                                "fields": {
+                                                    "secret": {
+                                                        "kind": "string",
+                                                        "value": "someSecret"
+                                                    },
+                                                    "mode": {
+                                                        "kind": "int",
+                                                        "value": 0
+                                                    },
+                                                    "id": {
+                                                        "kind": "long",
+                                                        "value": 0
+                                                    },
+                                                    "deletedAt": {
+                                                        "kind": "long",
+                                                        "value": 0
+                                                    },
+                                                    "dataChangeCreatedBy": {
+                                                        "kind": "null"
+                                                    },
+                                                    "dataChangeLastModifiedBy": {
+                                                        "kind": "null"
+                                                    },
+                                                    "appId": {
+                                                        "kind": "string",
+                                                        "value": "someAppId"
+                                                    },
+                                                    "isDeleted": {
+                                                        "kind": "boolean",
+                                                        "value": false
+                                                    },
+                                                    "dataChangeCreatedTime": {
+                                                        "kind": "null"
+                                                    },
+                                                    "dataChangeLastModifiedTime": {
+                                                        "kind": "null"
+                                                    },
+                                                    "enabled": {
+                                                        "kind": "boolean",
+                                                        "value": false
+                                                    }
+                                                },
+                                                "id": 2
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                }
+                            ],
+                            "isSpy": false,
+                            "id": 1
+                        },
+                        "auditService": {
+                            "kind": "mock",
+                            "typeName": "com.ctrip.framework.apollo.biz.service.AuditService",
+                            "methods": [],
+                            "isSpy": false,
+                            "id": 3
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "string",
+                        "value": "someAppId"
+                    },
+                    {
+                        "kind": "ref",
+                        "typeName": "com.ctrip.framework.apollo.biz.entity.AccessKey",
+                        "refId": 2
+                    }
+                ],
+                "returnValue": {
+                    "kind": "object",
+                    "typeName": "com.ctrip.framework.apollo.biz.entity.AccessKey",
+                    "fields": {
+                        "secret": {
+                            "kind": "string",
+                            "value": "someSecret"
+                        },
+                        "mode": {
+                            "kind": "int",
+                            "value": 0
+                        },
+                        "id": {
+                            "kind": "long",
+                            "value": 2
+                        },
+                        "deletedAt": {
+                            "kind": "long",
+                            "value": 0
+                        },
+                        "dataChangeCreatedBy": {
+                            "kind": "unknown"
+                        },
+                        "dataChangeLastModifiedBy": {
+                            "kind": "unknown"
+                        },
+                        "appId": {
+                            "kind": "string",
+                            "value": "someAppId"
+                        },
+                        "isDeleted": {
+                            "kind": "boolean",
+                            "value": false
+                        },
+                        "dataChangeCreatedTime": {
+                            "kind": "object",
+                            "typeName": "java.util.Date",
+                            "fields": {
+                                "fastTime": {
+                                    "kind": "unknown"
+                                },
+                                "cdate": {
+                                    "kind": "unknown"
+                                },
+                                "jcal": {
+                                    "kind": "unknown"
+                                },
+                                "defaultCenturyStart": {
+                                    "kind": "unknown"
+                                }
+                            },
+                            "id": 5
+                        },
+                        "dataChangeLastModifiedTime": {
+                            "kind": "object",
+                            "typeName": "java.util.Date",
+                            "fields": {
+                                "fastTime": {
+                                    "kind": "unknown"
+                                },
+                                "cdate": {
+                                    "kind": "unknown"
+                                },
+                                "jcal": {
+                                    "kind": "unknown"
+                                },
+                                "defaultCenturyStart": {
+                                    "kind": "unknown"
+                                }
+                            },
+                            "id": 6
+                        },
+                        "enabled": {
+                            "kind": "boolean",
+                            "value": false
+                        }
+                    },
+                    "id": 4
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "create",
+                    "fullName": "create(String, AccessKey)",
+                    "argumentsSize": 2,
+                    "returnTypeName": "AccessKey",
+                    "containingClass": "com.ctrip.framework.apollo.biz.service.AccessKeyService"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "com.ctrip.framework.apollo.biz.service.AccessKeyService",
+                    "fields": {
+                        "accessKeyRepository": {
+                            "kind": "mock",
+                            "typeName": "com.ctrip.framework.apollo.biz.repository.AccessKeyRepository",
+                            "methods": [
+                                {
+                                    "method": {
+                                        "methodName": "countByAppId",
+                                        "fullName": "com.ctrip.framework.apollo.biz.repository.AccessKeyRepository.countByAppId(Ljava/lang/String;)J",
+                                        "argumentsSize": 1,
+                                        "returnTypeName": "long",
+                                        "containingClass": "com.ctrip.framework.apollo.biz.repository.AccessKeyRepository"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "long",
+                                                "value": 2
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "method": {
+                                        "methodName": "save",
+                                        "fullName": "com.ctrip.framework.apollo.biz.repository.AccessKeyRepository.save(Ljava/lang/Object;)Ljava/lang/Object;",
+                                        "argumentsSize": 1,
+                                        "returnTypeName": "java.lang.Object",
+                                        "containingClass": "com.ctrip.framework.apollo.biz.repository.AccessKeyRepository"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "object",
+                                                "typeName": "com.ctrip.framework.apollo.biz.entity.AccessKey",
+                                                "fields": {
+                                                    "secret": {
+                                                        "kind": "string",
+                                                        "value": "someSecret"
+                                                    },
+                                                    "mode": {
+                                                        "kind": "int",
+                                                        "value": 0
+                                                    },
+                                                    "id": {
+                                                        "kind": "long",
+                                                        "value": 0
+                                                    },
+                                                    "deletedAt": {
+                                                        "kind": "long",
+                                                        "value": 0
+                                                    },
+                                                    "dataChangeCreatedBy": {
+                                                        "kind": "null"
+                                                    },
+                                                    "dataChangeLastModifiedBy": {
+                                                        "kind": "null"
+                                                    },
+                                                    "appId": {
+                                                        "kind": "string",
+                                                        "value": "someAppId"
+                                                    },
+                                                    "isDeleted": {
+                                                        "kind": "boolean",
+                                                        "value": false
+                                                    },
+                                                    "dataChangeCreatedTime": {
+                                                        "kind": "null"
+                                                    },
+                                                    "dataChangeLastModifiedTime": {
+                                                        "kind": "null"
+                                                    },
+                                                    "enabled": {
+                                                        "kind": "boolean",
+                                                        "value": false
+                                                    }
+                                                },
+                                                "id": 2
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                }
+                            ],
+                            "isSpy": false,
+                            "id": 1
+                        },
+                        "auditService": {
+                            "kind": "mock",
+                            "typeName": "com.ctrip.framework.apollo.biz.service.AuditService",
+                            "methods": [],
+                            "isSpy": false,
+                            "id": 3
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "string",
+                        "value": "someAppId"
+                    },
+                    {
+                        "kind": "ref",
+                        "typeName": "com.ctrip.framework.apollo.biz.entity.AccessKey",
+                        "refId": 2
+                    }
+                ],
+                "returnValue": {
+                    "kind": "object",
+                    "typeName": "com.ctrip.framework.apollo.biz.entity.AccessKey",
+                    "fields": {
+                        "secret": {
+                            "kind": "string",
+                            "value": "someSecret"
+                        },
+                        "mode": {
+                            "kind": "int",
+                            "value": 0
+                        },
+                        "id": {
+                            "kind": "long",
+                            "value": 3
+                        },
+                        "deletedAt": {
+                            "kind": "long",
+                            "value": 0
+                        },
+                        "dataChangeCreatedBy": {
+                            "kind": "unknown"
+                        },
+                        "dataChangeLastModifiedBy": {
+                            "kind": "unknown"
+                        },
+                        "appId": {
+                            "kind": "string",
+                            "value": "someAppId"
+                        },
+                        "isDeleted": {
+                            "kind": "boolean",
+                            "value": false
+                        },
+                        "dataChangeCreatedTime": {
+                            "kind": "object",
+                            "typeName": "java.util.Date",
+                            "fields": {
+                                "fastTime": {
+                                    "kind": "unknown"
+                                },
+                                "cdate": {
+                                    "kind": "unknown"
+                                },
+                                "jcal": {
+                                    "kind": "unknown"
+                                },
+                                "defaultCenturyStart": {
+                                    "kind": "unknown"
+                                }
+                            },
+                            "id": 5
+                        },
+                        "dataChangeLastModifiedTime": {
+                            "kind": "object",
+                            "typeName": "java.util.Date",
+                            "fields": {
+                                "fastTime": {
+                                    "kind": "unknown"
+                                },
+                                "cdate": {
+                                    "kind": "unknown"
+                                },
+                                "jcal": {
+                                    "kind": "unknown"
+                                },
+                                "defaultCenturyStart": {
+                                    "kind": "unknown"
+                                }
+                            },
+                            "id": 6
+                        },
+                        "enabled": {
+                            "kind": "boolean",
+                            "value": false
+                        }
+                    },
+                    "id": 4
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "create",
+                    "fullName": "create(String, AccessKey)",
+                    "argumentsSize": 2,
+                    "returnTypeName": "AccessKey",
+                    "containingClass": "com.ctrip.framework.apollo.biz.service.AccessKeyService"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "com.ctrip.framework.apollo.biz.service.AccessKeyService",
+                    "fields": {
+                        "accessKeyRepository": {
+                            "kind": "mock",
+                            "typeName": "com.ctrip.framework.apollo.biz.repository.AccessKeyRepository",
+                            "methods": [
+                                {
+                                    "method": {
+                                        "methodName": "countByAppId",
+                                        "fullName": "com.ctrip.framework.apollo.biz.repository.AccessKeyRepository.countByAppId(Ljava/lang/String;)J",
+                                        "argumentsSize": 1,
+                                        "returnTypeName": "long",
+                                        "containingClass": "com.ctrip.framework.apollo.biz.repository.AccessKeyRepository"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "long",
+                                                "value": 3
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "method": {
+                                        "methodName": "save",
+                                        "fullName": "com.ctrip.framework.apollo.biz.repository.AccessKeyRepository.save(Ljava/lang/Object;)Ljava/lang/Object;",
+                                        "argumentsSize": 1,
+                                        "returnTypeName": "java.lang.Object",
+                                        "containingClass": "com.ctrip.framework.apollo.biz.repository.AccessKeyRepository"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "object",
+                                                "typeName": "com.ctrip.framework.apollo.biz.entity.AccessKey",
+                                                "fields": {
+                                                    "secret": {
+                                                        "kind": "string",
+                                                        "value": "someSecret"
+                                                    },
+                                                    "mode": {
+                                                        "kind": "int",
+                                                        "value": 0
+                                                    },
+                                                    "id": {
+                                                        "kind": "long",
+                                                        "value": 0
+                                                    },
+                                                    "deletedAt": {
+                                                        "kind": "long",
+                                                        "value": 0
+                                                    },
+                                                    "dataChangeCreatedBy": {
+                                                        "kind": "null"
+                                                    },
+                                                    "dataChangeLastModifiedBy": {
+                                                        "kind": "null"
+                                                    },
+                                                    "appId": {
+                                                        "kind": "string",
+                                                        "value": "someAppId"
+                                                    },
+                                                    "isDeleted": {
+                                                        "kind": "boolean",
+                                                        "value": false
+                                                    },
+                                                    "dataChangeCreatedTime": {
+                                                        "kind": "null"
+                                                    },
+                                                    "dataChangeLastModifiedTime": {
+                                                        "kind": "null"
+                                                    },
+                                                    "enabled": {
+                                                        "kind": "boolean",
+                                                        "value": false
+                                                    }
+                                                },
+                                                "id": 2
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                }
+                            ],
+                            "isSpy": false,
+                            "id": 1
+                        },
+                        "auditService": {
+                            "kind": "mock",
+                            "typeName": "com.ctrip.framework.apollo.biz.service.AuditService",
+                            "methods": [],
+                            "isSpy": false,
+                            "id": 3
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "string",
+                        "value": "someAppId"
+                    },
+                    {
+                        "kind": "ref",
+                        "typeName": "com.ctrip.framework.apollo.biz.entity.AccessKey",
+                        "refId": 2
+                    }
+                ],
+                "returnValue": {
+                    "kind": "object",
+                    "typeName": "com.ctrip.framework.apollo.biz.entity.AccessKey",
+                    "fields": {
+                        "secret": {
+                            "kind": "string",
+                            "value": "someSecret"
+                        },
+                        "mode": {
+                            "kind": "int",
+                            "value": 0
+                        },
+                        "id": {
+                            "kind": "long",
+                            "value": 4
+                        },
+                        "deletedAt": {
+                            "kind": "long",
+                            "value": 0
+                        },
+                        "dataChangeCreatedBy": {
+                            "kind": "unknown"
+                        },
+                        "dataChangeLastModifiedBy": {
+                            "kind": "unknown"
+                        },
+                        "appId": {
+                            "kind": "string",
+                            "value": "someAppId"
+                        },
+                        "isDeleted": {
+                            "kind": "boolean",
+                            "value": false
+                        },
+                        "dataChangeCreatedTime": {
+                            "kind": "object",
+                            "typeName": "java.util.Date",
+                            "fields": {
+                                "fastTime": {
+                                    "kind": "unknown"
+                                },
+                                "cdate": {
+                                    "kind": "unknown"
+                                },
+                                "jcal": {
+                                    "kind": "unknown"
+                                },
+                                "defaultCenturyStart": {
+                                    "kind": "unknown"
+                                }
+                            },
+                            "id": 5
+                        },
+                        "dataChangeLastModifiedTime": {
+                            "kind": "object",
+                            "typeName": "java.util.Date",
+                            "fields": {
+                                "fastTime": {
+                                    "kind": "unknown"
+                                },
+                                "cdate": {
+                                    "kind": "unknown"
+                                },
+                                "jcal": {
+                                    "kind": "unknown"
+                                },
+                                "defaultCenturyStart": {
+                                    "kind": "unknown"
+                                }
+                            },
+                            "id": 6
+                        },
+                        "enabled": {
+                            "kind": "boolean",
+                            "value": false
+                        }
+                    },
+                    "id": 4
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "create",
+                    "fullName": "create(String, AccessKey)",
+                    "argumentsSize": 2,
+                    "returnTypeName": "AccessKey",
+                    "containingClass": "com.ctrip.framework.apollo.biz.service.AccessKeyService"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "com.ctrip.framework.apollo.biz.service.AccessKeyService",
+                    "fields": {
+                        "accessKeyRepository": {
+                            "kind": "mock",
+                            "typeName": "com.ctrip.framework.apollo.biz.repository.AccessKeyRepository",
+                            "methods": [
+                                {
+                                    "method": {
+                                        "methodName": "countByAppId",
+                                        "fullName": "com.ctrip.framework.apollo.biz.repository.AccessKeyRepository.countByAppId(Ljava/lang/String;)J",
+                                        "argumentsSize": 1,
+                                        "returnTypeName": "long",
+                                        "containingClass": "com.ctrip.framework.apollo.biz.repository.AccessKeyRepository"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "long",
+                                                "value": 4
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "method": {
+                                        "methodName": "save",
+                                        "fullName": "com.ctrip.framework.apollo.biz.repository.AccessKeyRepository.save(Ljava/lang/Object;)Ljava/lang/Object;",
+                                        "argumentsSize": 1,
+                                        "returnTypeName": "java.lang.Object",
+                                        "containingClass": "com.ctrip.framework.apollo.biz.repository.AccessKeyRepository"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "object",
+                                                "typeName": "com.ctrip.framework.apollo.biz.entity.AccessKey",
+                                                "fields": {
+                                                    "secret": {
+                                                        "kind": "string",
+                                                        "value": "someSecret"
+                                                    },
+                                                    "mode": {
+                                                        "kind": "int",
+                                                        "value": 0
+                                                    },
+                                                    "id": {
+                                                        "kind": "long",
+                                                        "value": 0
+                                                    },
+                                                    "deletedAt": {
+                                                        "kind": "long",
+                                                        "value": 0
+                                                    },
+                                                    "dataChangeCreatedBy": {
+                                                        "kind": "null"
+                                                    },
+                                                    "dataChangeLastModifiedBy": {
+                                                        "kind": "null"
+                                                    },
+                                                    "appId": {
+                                                        "kind": "string",
+                                                        "value": "someAppId"
+                                                    },
+                                                    "isDeleted": {
+                                                        "kind": "boolean",
+                                                        "value": false
+                                                    },
+                                                    "dataChangeCreatedTime": {
+                                                        "kind": "null"
+                                                    },
+                                                    "dataChangeLastModifiedTime": {
+                                                        "kind": "null"
+                                                    },
+                                                    "enabled": {
+                                                        "kind": "boolean",
+                                                        "value": false
+                                                    }
+                                                },
+                                                "id": 2
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                }
+                            ],
+                            "isSpy": false,
+                            "id": 1
+                        },
+                        "auditService": {
+                            "kind": "mock",
+                            "typeName": "com.ctrip.framework.apollo.biz.service.AuditService",
+                            "methods": [],
+                            "isSpy": false,
+                            "id": 3
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "string",
+                        "value": "someAppId"
+                    },
+                    {
+                        "kind": "ref",
+                        "typeName": "com.ctrip.framework.apollo.biz.entity.AccessKey",
+                        "refId": 2
+                    }
+                ],
+                "returnValue": {
+                    "kind": "object",
+                    "typeName": "com.ctrip.framework.apollo.biz.entity.AccessKey",
+                    "fields": {
+                        "secret": {
+                            "kind": "string",
+                            "value": "someSecret"
+                        },
+                        "mode": {
+                            "kind": "int",
+                            "value": 0
+                        },
+                        "id": {
+                            "kind": "long",
+                            "value": 5
+                        },
+                        "deletedAt": {
+                            "kind": "long",
+                            "value": 0
+                        },
+                        "dataChangeCreatedBy": {
+                            "kind": "unknown"
+                        },
+                        "dataChangeLastModifiedBy": {
+                            "kind": "unknown"
+                        },
+                        "appId": {
+                            "kind": "string",
+                            "value": "someAppId"
+                        },
+                        "isDeleted": {
+                            "kind": "boolean",
+                            "value": false
+                        },
+                        "dataChangeCreatedTime": {
+                            "kind": "object",
+                            "typeName": "java.util.Date",
+                            "fields": {
+                                "fastTime": {
+                                    "kind": "unknown"
+                                },
+                                "cdate": {
+                                    "kind": "unknown"
+                                },
+                                "jcal": {
+                                    "kind": "unknown"
+                                },
+                                "defaultCenturyStart": {
+                                    "kind": "unknown"
+                                }
+                            },
+                            "id": 5
+                        },
+                        "dataChangeLastModifiedTime": {
+                            "kind": "object",
+                            "typeName": "java.util.Date",
+                            "fields": {
+                                "fastTime": {
+                                    "kind": "unknown"
+                                },
+                                "cdate": {
+                                    "kind": "unknown"
+                                },
+                                "jcal": {
+                                    "kind": "unknown"
+                                },
+                                "defaultCenturyStart": {
+                                    "kind": "unknown"
+                                }
+                            },
+                            "id": 6
+                        },
+                        "enabled": {
+                            "kind": "boolean",
+                            "value": false
+                        }
+                    },
+                    "id": 4
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "create",
+                    "fullName": "create(String, AccessKey)",
+                    "argumentsSize": 2,
+                    "returnTypeName": "AccessKey",
+                    "containingClass": "com.ctrip.framework.apollo.biz.service.AccessKeyService"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "com.ctrip.framework.apollo.biz.service.AccessKeyService",
+                    "fields": {
+                        "accessKeyRepository": {
+                            "kind": "mock",
+                            "typeName": "com.ctrip.framework.apollo.biz.repository.AccessKeyRepository",
+                            "methods": [
+                                {
+                                    "method": {
+                                        "methodName": "countByAppId",
+                                        "fullName": "com.ctrip.framework.apollo.biz.repository.AccessKeyRepository.countByAppId(Ljava/lang/String;)J",
+                                        "argumentsSize": 1,
+                                        "returnTypeName": "long",
+                                        "containingClass": "com.ctrip.framework.apollo.biz.repository.AccessKeyRepository"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "long",
+                                                "value": 5
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                }
+                            ],
+                            "isSpy": false,
+                            "id": 1
+                        },
+                        "auditService": {
+                            "kind": "mock",
+                            "typeName": "com.ctrip.framework.apollo.biz.service.AuditService",
+                            "methods": [],
+                            "isSpy": false,
+                            "id": 2
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "string",
+                        "value": "someAppId"
+                    },
+                    {
+                        "kind": "object",
+                        "typeName": "com.ctrip.framework.apollo.biz.entity.AccessKey",
+                        "fields": {
+                            "secret": {
+                                "kind": "string",
+                                "value": "someSecret"
+                            },
+                            "mode": {
+                                "kind": "int",
+                                "value": 0
+                            },
+                            "id": {
+                                "kind": "long",
+                                "value": 0
+                            },
+                            "deletedAt": {
+                                "kind": "long",
+                                "value": 0
+                            },
+                            "dataChangeCreatedBy": {
+                                "kind": "null"
+                            },
+                            "dataChangeLastModifiedBy": {
+                                "kind": "null"
+                            },
+                            "appId": {
+                                "kind": "string",
+                                "value": "someAppId"
+                            },
+                            "isDeleted": {
+                                "kind": "boolean",
+                                "value": false
+                            },
+                            "dataChangeCreatedTime": {
+                                "kind": "null"
+                            },
+                            "dataChangeLastModifiedTime": {
+                                "kind": "null"
+                            },
+                            "enabled": {
+                                "kind": "boolean",
+                                "value": false
+                            }
+                        },
+                        "id": 3
+                    }
+                ],
+                "returnValue": {
+                    "kind": "exception",
+                    "typeName": "com.ctrip.framework.apollo.common.exception.BadRequestException"
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "create",
+                    "fullName": "create(String, AccessKey)",
+                    "argumentsSize": 2,
+                    "returnTypeName": "AccessKey",
+                    "containingClass": "com.ctrip.framework.apollo.biz.service.AccessKeyService"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "com.ctrip.framework.apollo.biz.service.AccessKeyService",
+                    "fields": {
+                        "accessKeyRepository": {
+                            "kind": "mock",
+                            "typeName": "com.ctrip.framework.apollo.biz.repository.AccessKeyRepository",
+                            "methods": [
+                                {
+                                    "method": {
+                                        "methodName": "countByAppId",
+                                        "fullName": "com.ctrip.framework.apollo.biz.repository.AccessKeyRepository.countByAppId(Ljava/lang/String;)J",
+                                        "argumentsSize": 1,
+                                        "returnTypeName": "long",
+                                        "containingClass": "com.ctrip.framework.apollo.biz.repository.AccessKeyRepository"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "long",
+                                                "value": 0
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "method": {
+                                        "methodName": "save",
+                                        "fullName": "com.ctrip.framework.apollo.biz.repository.AccessKeyRepository.save(Ljava/lang/Object;)Ljava/lang/Object;",
+                                        "argumentsSize": 1,
+                                        "returnTypeName": "java.lang.Object",
+                                        "containingClass": "com.ctrip.framework.apollo.biz.repository.AccessKeyRepository"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "object",
+                                                "typeName": "com.ctrip.framework.apollo.biz.entity.AccessKey",
+                                                "fields": {
+                                                    "secret": {
+                                                        "kind": "string",
+                                                        "value": "someSecret"
+                                                    },
+                                                    "mode": {
+                                                        "kind": "int",
+                                                        "value": 0
+                                                    },
+                                                    "id": {
+                                                        "kind": "long",
+                                                        "value": 0
+                                                    },
+                                                    "deletedAt": {
+                                                        "kind": "long",
+                                                        "value": 0
+                                                    },
+                                                    "dataChangeCreatedBy": {
+                                                        "kind": "null"
+                                                    },
+                                                    "dataChangeLastModifiedBy": {
+                                                        "kind": "null"
+                                                    },
+                                                    "appId": {
+                                                        "kind": "string",
+                                                        "value": "someAppId"
+                                                    },
+                                                    "isDeleted": {
+                                                        "kind": "boolean",
+                                                        "value": false
+                                                    },
+                                                    "dataChangeCreatedTime": {
+                                                        "kind": "null"
+                                                    },
+                                                    "dataChangeLastModifiedTime": {
+                                                        "kind": "null"
+                                                    },
+                                                    "enabled": {
+                                                        "kind": "boolean",
+                                                        "value": false
+                                                    }
+                                                },
+                                                "id": 2
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                }
+                            ],
+                            "isSpy": false,
+                            "id": 1
+                        },
+                        "auditService": {
+                            "kind": "mock",
+                            "typeName": "com.ctrip.framework.apollo.biz.service.AuditService",
+                            "methods": [],
+                            "isSpy": false,
+                            "id": 3
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "string",
+                        "value": "someAppId"
+                    },
+                    {
+                        "kind": "ref",
+                        "typeName": "com.ctrip.framework.apollo.biz.entity.AccessKey",
+                        "refId": 2
+                    }
+                ],
+                "returnValue": {
+                    "kind": "object",
+                    "typeName": "com.ctrip.framework.apollo.biz.entity.AccessKey",
+                    "fields": {
+                        "secret": {
+                            "kind": "string",
+                            "value": "someSecret"
+                        },
+                        "mode": {
+                            "kind": "int",
+                            "value": 0
+                        },
+                        "id": {
+                            "kind": "long",
+                            "value": 6
+                        },
+                        "deletedAt": {
+                            "kind": "long",
+                            "value": 0
+                        },
+                        "dataChangeCreatedBy": {
+                            "kind": "unknown"
+                        },
+                        "dataChangeLastModifiedBy": {
+                            "kind": "unknown"
+                        },
+                        "appId": {
+                            "kind": "string",
+                            "value": "someAppId"
+                        },
+                        "isDeleted": {
+                            "kind": "boolean",
+                            "value": false
+                        },
+                        "dataChangeCreatedTime": {
+                            "kind": "object",
+                            "typeName": "java.util.Date",
+                            "fields": {
+                                "fastTime": {
+                                    "kind": "unknown"
+                                },
+                                "cdate": {
+                                    "kind": "unknown"
+                                },
+                                "jcal": {
+                                    "kind": "unknown"
+                                },
+                                "defaultCenturyStart": {
+                                    "kind": "unknown"
+                                }
+                            },
+                            "id": 5
+                        },
+                        "dataChangeLastModifiedTime": {
+                            "kind": "object",
+                            "typeName": "java.util.Date",
+                            "fields": {
+                                "fastTime": {
+                                    "kind": "unknown"
+                                },
+                                "cdate": {
+                                    "kind": "unknown"
+                                },
+                                "jcal": {
+                                    "kind": "unknown"
+                                },
+                                "defaultCenturyStart": {
+                                    "kind": "unknown"
+                                }
+                            },
+                            "id": 6
+                        },
+                        "enabled": {
+                            "kind": "boolean",
+                            "value": false
+                        }
+                    },
+                    "id": 4
+                }
+            }
+        ]
+    }
+]
