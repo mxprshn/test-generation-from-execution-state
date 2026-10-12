@@ -184,7 +184,8 @@ class Runner:
             self.log(case_id, f"{mode}/{run_id}: {s['status']} {s.get('seconds')}s {s.get('error') or ''}")
         return json.loads(summary_file.read_text())
 
-    def process(self, case_id: str) -> None:
+    def process(self, case_id: str) -> bool:
+        """Run one case; False if it stopped on an error (e.g. a stale result)."""
         cells = cells_of(self.cfg, case_id)
         self.status(case_id, stage="start", total=len(cells), generated=0, evaluated=0, errors=0, flagged=0)
         errors = flagged = 0
@@ -237,17 +238,20 @@ class Runner:
                     self.log(case_id, f"{mode}/{run_id}: evaluation error: {type(exc).__name__}: {exc}")
                 self.status(case_id, evaluated=evaluated, errors=errors)
             self.status(case_id, stage="done", errors=errors)
+            return True
         except Exception as exc:  # keep the other cases going
             self.log(case_id, f"error: {type(exc).__name__}: {exc}\n{traceback.format_exc()}")
             self.status(case_id, stage=f"error: {type(exc).__name__}: {str(exc)[:120]}", errors=errors + 1)
+            return False
 
-    def run(self, cases: list[str]) -> None:
+    def run(self, cases: list[str]) -> bool:
+        """Process the cases; False if any case stopped on an error."""
         stamp = time.strftime("%Y%m%dT%H%M%S")
         shutil.copy2(self.cfg.path, self.cfg.results_dir / f"config-{stamp}.yaml")
         (self.cfg.results_dir / f"start-{stamp}.json").write_text(
             json.dumps({"cases": cases, **self.meta, "started": G.now()}, indent=1))
         with ThreadPoolExecutor(max_workers=self.cfg.parallel_cases) as pool:
-            list(pool.map(self.process, cases))
+            return all(list(pool.map(self.process, cases)))
 
 
 def print_status(cfg: Config, cases: list[str]) -> None:
@@ -286,8 +290,7 @@ def main(argv: list[str] | None = None) -> int:
         n = sum(len(cells_of(cfg, c)) for c in cases)
         print(f"{len(cases)} cases, {n} cells, rounds {cfg.rounds}, modes {cfg.modes} + {cfg.once_modes} once; "
               f"results in {cfg.results_dir}")
-    Runner(cfg, a.dry_run).run(cases)
-    return 0
+    return 0 if Runner(cfg, a.dry_run).run(cases) else 1
 
 
 if __name__ == "__main__":
