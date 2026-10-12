@@ -220,6 +220,24 @@ def _generate(cfg: Config, case: Case, mode: str, checkout: Path, commit: str, c
 # ---------------------------------------------------------------------------------------------
 
 INFRA_ERROR_MARKERS = ("driving scenario does not run", "WorkspaceError", "AgentError", "not a git checkout")
+# Pi stderr when the provider could not be reached before the first model turn (pi/provider.ts, Node fetch)
+PROVIDER_FAILURE_MARKERS = ("failed to fetch models", "model list unavailable", "Unknown provider",
+                            "fetch failed", "ECONNRESET", "ECONNREFUSED", "ETIMEDOUT", "ENOTFOUND", "EAI_AGAIN",
+                            "socket hang up")
+
+
+def provider_unreachable(summary: dict[str, Any], cell: Path) -> bool:
+    """Pi exited before any model turn and its stderr names a provider or network failure. A refusal or a
+    failure of the model has at least one turn, so it is never taken for this."""
+    if summary.get("agent_exit_code") in (0, None) or summary.get("tool_calls"):
+        return False
+    if ((summary.get("usage") or {}).get("turns") or 0) > 0:
+        return False
+    try:
+        stderr = (cell / "artifacts" / "pi-stderr.txt").read_text(encoding="utf-8", errors="replace")
+    except OSError:
+        return False
+    return any(m in stderr for m in PROVIDER_FAILURE_MARKERS)
 
 
 def is_infra_failure(summary: dict[str, Any], cell: Path) -> bool:
@@ -236,6 +254,8 @@ def is_infra_failure(summary: dict[str, Any], cell: Path) -> bool:
     if summary.get("phase") in ("preparation", "scenario-check"):
         return True
     if any(m in str(summary.get("error") or "") for m in INFRA_ERROR_MARKERS):
+        return True
+    if provider_unreachable(summary, cell):  # whatever phase the summary was saved in
         return True
     # Pi died before doing anything (provider unreachable, bad configuration)
     return summary.get("phase") == "agent" and not summary.get("tool_calls") and summary.get("agent_exit_code") != 0
