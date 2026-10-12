@@ -3,12 +3,16 @@
 For every project of projects.yaml: clone into <projects>/<repository name> (or reuse an existing
 checkout of the same commit), then run, online, the distinct `build` and `scenario` commands of the
 project's cases (Maven fills the local repository with everything the offline commands need).
+A project whose commands all succeeded at this commit is not rebuilt: a marker file next to the
+checkout records the commit and the commands (--rebuild ignores it).
 
-    python3 scripts/prepare_projects.py --config config.yaml [--projects jsoup ...] [--skip-build]
+    python3 scripts/prepare_projects.py --config config.yaml [--projects jsoup ...] [--skip-build] [--rebuild]
 """
 from __future__ import annotations
 
 import argparse
+import hashlib
+import json
 import subprocess
 import sys
 import time
@@ -41,6 +45,7 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--config", default="config.yaml")
     ap.add_argument("--projects", nargs="*")
     ap.add_argument("--skip-build", action="store_true")
+    ap.add_argument("--rebuild", action="store_true", help="build even if the marker says it is done")
     a = ap.parse_args(argv)
     cfg = load_config(a.config)
     env = cfg.command_env()
@@ -53,6 +58,7 @@ def main(argv: list[str] | None = None) -> int:
         print(f"{name}: {dest} at {project.commit[:12]}", flush=True)
         if a.skip_build:
             continue
+        plan: list[tuple[str, str, list[str]]] = []
         seen: set[tuple[str, ...]] = set()
         for row in case_rows(cfg.cases_dir):
             if row["project"] != name:
@@ -64,12 +70,24 @@ def main(argv: list[str] | None = None) -> int:
                 if key in seen:
                     continue
                 seen.add(key)
-                started = time.time()
-                r = run(resolve_argv(argv_, dest), dest, env, 7200, kind)
-                print(f"  {row['id']} {kind}: exit {r.exit_code} in {time.time() - started:.0f}s", flush=True)
-                if not r.ok:
-                    failed += 1
-                    print("\n".join((r.stdout + r.stderr).splitlines()[-25:]), flush=True)
+                plan.append((row["id"], kind, argv_))
+        marker = dest.parent / f".{dest.name}.prepared.json"
+        digest = hashlib.sha256(json.dumps([project.commit, [p[2] for p in plan]]).encode()).hexdigest()
+        if not a.rebuild and marker.is_file() and json.loads(marker.read_text()).get("sha256") == digest:
+            print(f"  already built at this commit with these commands ({marker.name})", flush=True)
+            continue
+        marker.unlink(missing_ok=True)
+        project_failed = 0
+        for case_id, kind, argv_ in plan:
+            started = time.time()
+            r = run(resolve_argv(argv_, dest), dest, env, 7200, kind)
+            print(f"  {case_id} {kind}: exit {r.exit_code} in {time.time() - started:.0f}s", flush=True)
+            if not r.ok:
+                project_failed += 1
+                print("\n".join((r.stdout + r.stderr).splitlines()[-25:]), flush=True)
+        failed += project_failed
+        if not project_failed:
+            marker.write_text(json.dumps({"commit": project.commit, "sha256": digest}) + "\n")
     return 1 if failed else 0
 
 

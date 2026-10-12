@@ -260,7 +260,11 @@ class PiExtensionsTest(unittest.TestCase):
     @staticmethod
     def pi_package() -> Path | None:
         import shutil
+        import os
         candidates = [ROOT / ".tools" / "pi" / "lib" / "node_modules" / "@earendil-works" / "pi-coding-agent"]
+        if os.environ.get("TESTGEN_TOOLS"):  # paths.tools of a config outside the repository
+            candidates.insert(0, Path(os.environ["TESTGEN_TOOLS"]) / "pi" / "lib" / "node_modules"
+                              / "@earendil-works" / "pi-coding-agent")
         pi = shutil.which("pi")
         if pi:
             p = Path(pi).resolve()

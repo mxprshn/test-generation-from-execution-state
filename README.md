@@ -31,7 +31,7 @@ Data provenance: the raw execution data (`call-dumps.json`, `preliminary-test.ja
 
 ## Requirements
 
-- Linux or macOS, 8+ cores and 16 GB RAM recommended, ~40 GB disk for the projects and the Maven repository;
+- Linux or macOS, 8+ cores and 16 GB RAM recommended, ~5 GB disk for the tools, the projects and the Maven repository, plus space for results;
 - JDK 21, Maven 3.9, git, Python 3.10+ with PyYAML, curl, network access for the setup;
 - an API key of an OpenAI-compatible provider.
 
@@ -43,7 +43,8 @@ Data provenance: the raw execution data (`call-dumps.json`, `preliminary-test.ja
 cp config.example.yaml config.yaml      # set provider.base_url, provider.api_key_env, model, paths
 export TESTGEN_API_KEY=...               # the variable named in provider.api_key_env
 
-scripts/setup.sh config.yaml             # tools + projects (about an hour, mostly Maven downloads)
+scripts/setup.sh config.yaml             # tools + projects (about 30 min on 8 cores, mostly Maven;
+                                         # rerun it after an interruption, --rebuild to rebuild projects)
 
 # smoke test: one case, all modes and rounds of the config, with evaluation (~10 min per round)
 python3 scripts/run.py --config config.yaml --cases jsoup-normalise-whitespace
