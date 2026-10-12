@@ -1,0 +1,382 @@
+[
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "execute",
+                    "fullName": "execute(SqlSession, Object[])",
+                    "argumentsSize": 2,
+                    "returnTypeName": "Object",
+                    "containingClass": "org.apache.ibatis.binding.MapperMethod"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "org.apache.ibatis.binding.MapperMethod",
+                    "fields": {
+                        "command": {
+                            "kind": "mock",
+                            "typeName": "org.apache.ibatis.binding.MapperMethod$SqlCommand",
+                            "methods": [
+                                {
+                                    "method": {
+                                        "methodName": "getType",
+                                        "fullName": "org.apache.ibatis.binding.MapperMethod$SqlCommand.getType()Lorg/apache/ibatis/mapping/SqlCommandType;",
+                                        "argumentsSize": 0,
+                                        "returnTypeName": "org.apache.ibatis.mapping.SqlCommandType",
+                                        "containingClass": "org.apache.ibatis.binding.MapperMethod$SqlCommand"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "enum",
+                                                "typeName": "org.apache.ibatis.mapping.SqlCommandType",
+                                                "value": "SELECT"
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "method": {
+                                        "methodName": "getName",
+                                        "fullName": "org.apache.ibatis.binding.MapperMethod$SqlCommand.getName()Ljava/lang/String;",
+                                        "argumentsSize": 0,
+                                        "returnTypeName": "java.lang.String",
+                                        "containingClass": "org.apache.ibatis.binding.MapperMethod$SqlCommand"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "string",
+                                                "value": "org.apache.ibatis.submitted.association_nested.FolderMapper.findWithSubFolders"
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                }
+                            ],
+                            "isSpy": false,
+                            "id": 1
+                        },
+                        "method": {
+                            "kind": "mock",
+                            "typeName": "org.apache.ibatis.binding.MapperMethod$MethodSignature",
+                            "methods": [
+                                {
+                                    "method": {
+                                        "methodName": "returnsVoid",
+                                        "fullName": "org.apache.ibatis.binding.MapperMethod$MethodSignature.returnsVoid()Z",
+                                        "argumentsSize": 0,
+                                        "returnTypeName": "boolean",
+                                        "containingClass": "org.apache.ibatis.binding.MapperMethod$MethodSignature"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "method": {
+                                        "methodName": "returnsMany",
+                                        "fullName": "org.apache.ibatis.binding.MapperMethod$MethodSignature.returnsMany()Z",
+                                        "argumentsSize": 0,
+                                        "returnTypeName": "boolean",
+                                        "containingClass": "org.apache.ibatis.binding.MapperMethod$MethodSignature"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": true
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "method": {
+                                        "methodName": "convertArgsToSqlCommandParam",
+                                        "fullName": "org.apache.ibatis.binding.MapperMethod$MethodSignature.convertArgsToSqlCommandParam([Ljava/lang/Object;)Ljava/lang/Object;",
+                                        "argumentsSize": 1,
+                                        "returnTypeName": "java.lang.Object",
+                                        "containingClass": "org.apache.ibatis.binding.MapperMethod$MethodSignature"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "map",
+                                                "isShallow": false,
+                                                "size": 2,
+                                                "elements": [
+                                                    {
+                                                        "key": {
+                                                            "kind": "string",
+                                                            "value": "name"
+                                                        },
+                                                        "value": {
+                                                            "kind": "string",
+                                                            "value": "Root"
+                                                        }
+                                                    },
+                                                    {
+                                                        "key": {
+                                                            "kind": "string",
+                                                            "value": "param1"
+                                                        },
+                                                        "value": {
+                                                            "kind": "string",
+                                                            "value": "Root"
+                                                        }
+                                                    }
+                                                ]
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "method": {
+                                        "methodName": "hasRowBounds",
+                                        "fullName": "org.apache.ibatis.binding.MapperMethod$MethodSignature.hasRowBounds()Z",
+                                        "argumentsSize": 0,
+                                        "returnTypeName": "boolean",
+                                        "containingClass": "org.apache.ibatis.binding.MapperMethod$MethodSignature"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "method": {
+                                        "methodName": "getReturnType",
+                                        "fullName": "org.apache.ibatis.binding.MapperMethod$MethodSignature.getReturnType()Ljava/lang/Class;",
+                                        "argumentsSize": 0,
+                                        "returnTypeName": "java.lang.Class",
+                                        "containingClass": "org.apache.ibatis.binding.MapperMethod$MethodSignature"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "class",
+                                                "typeName": "java.util.List"
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                }
+                            ],
+                            "isSpy": false,
+                            "id": 2
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "mock",
+                        "typeName": "org.apache.ibatis.session.defaults.DefaultSqlSession",
+                        "methods": [
+                            {
+                                "method": {
+                                    "methodName": "selectList",
+                                    "fullName": "org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(Ljava/lang/String;Ljava/lang/Object;)Ljava/util/List;",
+                                    "argumentsSize": 2,
+                                    "returnTypeName": "java.util.List",
+                                    "containingClass": "org.apache.ibatis.session.defaults.DefaultSqlSession"
+                                },
+                                "calls": [
+                                    {
+                                        "result": {
+                                            "kind": "list",
+                                            "isShallow": false,
+                                            "size": 3,
+                                            "elements": [
+                                                {
+                                                    "kind": "object",
+                                                    "typeName": "org.apache.ibatis.submitted.association_nested.FolderFlatTree",
+                                                    "fields": {
+                                                        "root": {
+                                                            "kind": "object",
+                                                            "typeName": "org.apache.ibatis.submitted.association_nested.Folder",
+                                                            "fields": {
+                                                                "id": {
+                                                                    "kind": "long",
+                                                                    "value": 1
+                                                                },
+                                                                "name": {
+                                                                    "kind": "string",
+                                                                    "value": "Root"
+                                                                }
+                                                            },
+                                                            "id": 5
+                                                        },
+                                                        "level1": {
+                                                            "kind": "object",
+                                                            "typeName": "org.apache.ibatis.submitted.association_nested.Folder",
+                                                            "fields": {
+                                                                "id": {
+                                                                    "kind": "long",
+                                                                    "value": 2
+                                                                },
+                                                                "name": {
+                                                                    "kind": "string",
+                                                                    "value": "Folder 1"
+                                                                }
+                                                            },
+                                                            "id": 6
+                                                        },
+                                                        "level2": {
+                                                            "kind": "null"
+                                                        }
+                                                    },
+                                                    "id": 4
+                                                },
+                                                {
+                                                    "kind": "object",
+                                                    "typeName": "org.apache.ibatis.submitted.association_nested.FolderFlatTree",
+                                                    "fields": {
+                                                        "root": {
+                                                            "kind": "object",
+                                                            "typeName": "org.apache.ibatis.submitted.association_nested.Folder",
+                                                            "fields": {
+                                                                "id": {
+                                                                    "kind": "long",
+                                                                    "value": 1
+                                                                },
+                                                                "name": {
+                                                                    "kind": "string",
+                                                                    "value": "Root"
+                                                                }
+                                                            },
+                                                            "id": 8
+                                                        },
+                                                        "level1": {
+                                                            "kind": "object",
+                                                            "typeName": "org.apache.ibatis.submitted.association_nested.Folder",
+                                                            "fields": {
+                                                                "id": {
+                                                                    "kind": "long",
+                                                                    "value": 3
+                                                                },
+                                                                "name": {
+                                                                    "kind": "string",
+                                                                    "value": "Folder 2"
+                                                                }
+                                                            },
+                                                            "id": 9
+                                                        },
+                                                        "level2": {
+                                                            "kind": "object",
+                                                            "typeName": "org.apache.ibatis.submitted.association_nested.Folder",
+                                                            "fields": {
+                                                                "id": {
+                                                                    "kind": "long",
+                                                                    "value": 4
+                                                                },
+                                                                "name": {
+                                                                    "kind": "string",
+                                                                    "value": "Folder 2_1"
+                                                                }
+                                                            },
+                                                            "id": 10
+                                                        }
+                                                    },
+                                                    "id": 7
+                                                },
+                                                {
+                                                    "kind": "object",
+                                                    "typeName": "org.apache.ibatis.submitted.association_nested.FolderFlatTree",
+                                                    "fields": {
+                                                        "root": {
+                                                            "kind": "object",
+                                                            "typeName": "org.apache.ibatis.submitted.association_nested.Folder",
+                                                            "fields": {
+                                                                "id": {
+                                                                    "kind": "long",
+                                                                    "value": 1
+                                                                },
+                                                                "name": {
+                                                                    "kind": "string",
+                                                                    "value": "Root"
+                                                                }
+                                                            },
+                                                            "id": 12
+                                                        },
+                                                        "level1": {
+                                                            "kind": "object",
+                                                            "typeName": "org.apache.ibatis.submitted.association_nested.Folder",
+                                                            "fields": {
+                                                                "id": {
+                                                                    "kind": "long",
+                                                                    "value": 3
+                                                                },
+                                                                "name": {
+                                                                    "kind": "string",
+                                                                    "value": "Folder 2"
+                                                                }
+                                                            },
+                                                            "id": 13
+                                                        },
+                                                        "level2": {
+                                                            "kind": "object",
+                                                            "typeName": "org.apache.ibatis.submitted.association_nested.Folder",
+                                                            "fields": {
+                                                                "id": {
+                                                                    "kind": "long",
+                                                                    "value": 5
+                                                                },
+                                                                "name": {
+                                                                    "kind": "string",
+                                                                    "value": "Folder 2_2"
+                                                                }
+                                                            },
+                                                            "id": 14
+                                                        }
+                                                    },
+                                                    "id": 11
+                                                }
+                                            ]
+                                        },
+                                        "args": []
+                                    }
+                                ]
+                            }
+                        ],
+                        "isSpy": false,
+                        "id": 3
+                    },
+                    {
+                        "kind": "array",
+                        "isShallow": false,
+                        "size": 1,
+                        "elements": [
+                            {
+                                "kind": "string",
+                                "value": "Root"
+                            }
+                        ]
+                    }
+                ],
+                "returnValue": {
+                    "kind": "list",
+                    "isShallow": true,
+                    "size": 3,
+                    "elements": []
+                }
+            }
+        ]
+    }
+]

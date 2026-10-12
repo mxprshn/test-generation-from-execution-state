@@ -1,0 +1,786 @@
+[
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "getBoundSql",
+                    "fullName": "getBoundSql(Object)",
+                    "argumentsSize": 1,
+                    "returnTypeName": "BoundSql",
+                    "containingClass": "org.apache.ibatis.scripting.xmltags.DynamicSqlSource"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "org.apache.ibatis.scripting.xmltags.DynamicSqlSource",
+                    "fields": {
+                        "configuration": {
+                            "kind": "mock",
+                            "typeName": "org.apache.ibatis.session.Configuration",
+                            "methods": [
+                                {
+                                    "method": {
+                                        "methodName": "getDatabaseId",
+                                        "fullName": "org.apache.ibatis.session.Configuration.getDatabaseId()Ljava/lang/String;",
+                                        "argumentsSize": 0,
+                                        "returnTypeName": "java.lang.String",
+                                        "containingClass": "org.apache.ibatis.session.Configuration"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "null"
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "method": {
+                                        "methodName": "getTypeAliasRegistry",
+                                        "fullName": "org.apache.ibatis.session.Configuration.getTypeAliasRegistry()Lorg/apache/ibatis/type/TypeAliasRegistry;",
+                                        "argumentsSize": 0,
+                                        "returnTypeName": "org.apache.ibatis.type.TypeAliasRegistry",
+                                        "containingClass": "org.apache.ibatis.session.Configuration"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "object",
+                                                "typeName": "org.apache.ibatis.type.TypeAliasRegistry",
+                                                "fields": {
+                                                    "typeAliases": {
+                                                        "kind": "map",
+                                                        "isShallow": false,
+                                                        "size": 50,
+                                                        "elements": [
+                                                            {
+                                                                "key": {
+                                                                    "kind": "string",
+                                                                    "value": "date"
+                                                                },
+                                                                "value": {
+                                                                    "kind": "class",
+                                                                    "typeName": "java.util.Date"
+                                                                }
+                                                            },
+                                                            {
+                                                                "key": {
+                                                                    "kind": "string",
+                                                                    "value": "_boolean"
+                                                                },
+                                                                "value": {
+                                                                    "kind": "class",
+                                                                    "typeName": "boolean"
+                                                                }
+                                                            },
+                                                            {
+                                                                "key": {
+                                                                    "kind": "string",
+                                                                    "value": "cglib"
+                                                                },
+                                                                "value": {
+                                                                    "kind": "class",
+                                                                    "typeName": "org.apache.ibatis.executor.loader.cglib.CglibProxyFactory"
+                                                                }
+                                                            },
+                                                            {
+                                                                "key": {
+                                                                    "kind": "string",
+                                                                    "value": "_byte[]"
+                                                                },
+                                                                "value": {
+                                                                    "kind": "class",
+                                                                    "typeName": "byte[]"
+                                                                }
+                                                            },
+                                                            {
+                                                                "key": {
+                                                                    "kind": "string",
+                                                                    "value": "_int[]"
+                                                                },
+                                                                "value": {
+                                                                    "kind": "class",
+                                                                    "typeName": "int[]"
+                                                                }
+                                                            },
+                                                            {
+                                                                "key": {
+                                                                    "kind": "string",
+                                                                    "value": "object[]"
+                                                                },
+                                                                "value": {
+                                                                    "kind": "class",
+                                                                    "typeName": "java.lang.Object[]"
+                                                                }
+                                                            },
+                                                            {
+                                                                "key": {
+                                                                    "kind": "string",
+                                                                    "value": "decimal[]"
+                                                                },
+                                                                "value": {
+                                                                    "kind": "class",
+                                                                    "typeName": "java.math.BigDecimal[]"
+                                                                }
+                                                            },
+                                                            {
+                                                                "key": {
+                                                                    "kind": "string",
+                                                                    "value": "integer"
+                                                                },
+                                                                "value": {
+                                                                    "kind": "class",
+                                                                    "typeName": "java.lang.Integer"
+                                                                }
+                                                            },
+                                                            {
+                                                                "key": {
+                                                                    "kind": "string",
+                                                                    "value": "float"
+                                                                },
+                                                                "value": {
+                                                                    "kind": "class",
+                                                                    "typeName": "java.lang.Float"
+                                                                }
+                                                            },
+                                                            {
+                                                                "key": {
+                                                                    "kind": "string",
+                                                                    "value": "perpetual"
+                                                                },
+                                                                "value": {
+                                                                    "kind": "class",
+                                                                    "typeName": "org.apache.ibatis.cache.impl.PerpetualCache"
+                                                                }
+                                                            },
+                                                            {
+                                                                "key": {
+                                                                    "kind": "string",
+                                                                    "value": "_byte"
+                                                                },
+                                                                "value": {
+                                                                    "kind": "class",
+                                                                    "typeName": "byte"
+                                                                }
+                                                            },
+                                                            {
+                                                                "key": {
+                                                                    "kind": "string",
+                                                                    "value": "_char[]"
+                                                                },
+                                                                "value": {
+                                                                    "kind": "class",
+                                                                    "typeName": "char[]"
+                                                                }
+                                                            },
+                                                            {
+                                                                "key": {
+                                                                    "kind": "string",
+                                                                    "value": "character"
+                                                                },
+                                                                "value": {
+                                                                    "kind": "class",
+                                                                    "typeName": "java.lang.Character"
+                                                                }
+                                                            },
+                                                            {
+                                                                "key": {
+                                                                    "kind": "string",
+                                                                    "value": "iterator"
+                                                                },
+                                                                "value": {
+                                                                    "kind": "class",
+                                                                    "typeName": "java.util.Iterator"
+                                                                }
+                                                            },
+                                                            {
+                                                                "key": {
+                                                                    "kind": "string",
+                                                                    "value": "biginteger[]"
+                                                                },
+                                                                "value": {
+                                                                    "kind": "class",
+                                                                    "typeName": "java.math.BigInteger[]"
+                                                                }
+                                                            },
+                                                            {
+                                                                "key": {
+                                                                    "kind": "string",
+                                                                    "value": "xml"
+                                                                },
+                                                                "value": {
+                                                                    "kind": "class",
+                                                                    "typeName": "org.apache.ibatis.scripting.xmltags.XMLLanguageDriver"
+                                                                }
+                                                            },
+                                                            {
+                                                                "key": {
+                                                                    "kind": "string",
+                                                                    "value": "_double"
+                                                                },
+                                                                "value": {
+                                                                    "kind": "class",
+                                                                    "typeName": "double"
+                                                                }
+                                                            },
+                                                            {
+                                                                "key": {
+                                                                    "kind": "string",
+                                                                    "value": "_int"
+                                                                },
+                                                                "value": {
+                                                                    "kind": "class",
+                                                                    "typeName": "int"
+                                                                }
+                                                            },
+                                                            {
+                                                                "key": {
+                                                                    "kind": "string",
+                                                                    "value": "hashmap"
+                                                                },
+                                                                "value": {
+                                                                    "kind": "class",
+                                                                    "typeName": "java.util.HashMap"
+                                                                }
+                                                            },
+                                                            {
+                                                                "key": {
+                                                                    "kind": "string",
+                                                                    "value": "_float[]"
+                                                                },
+                                                                "value": {
+                                                                    "kind": "class",
+                                                                    "typeName": "float[]"
+                                                                }
+                                                            },
+                                                            {
+                                                                "key": {
+                                                                    "kind": "string",
+                                                                    "value": "soft"
+                                                                },
+                                                                "value": {
+                                                                    "kind": "class",
+                                                                    "typeName": "org.apache.ibatis.cache.decorators.SoftCache"
+                                                                }
+                                                            },
+                                                            {
+                                                                "key": {
+                                                                    "kind": "string",
+                                                                    "value": "javassist"
+                                                                },
+                                                                "value": {
+                                                                    "kind": "class",
+                                                                    "typeName": "org.apache.ibatis.executor.loader.javassist.JavassistProxyFactory"
+                                                                }
+                                                            },
+                                                            {
+                                                                "key": {
+                                                                    "kind": "string",
+                                                                    "value": "date[]"
+                                                                },
+                                                                "value": {
+                                                                    "kind": "class",
+                                                                    "typeName": "java.util.Date[]"
+                                                                }
+                                                            },
+                                                            {
+                                                                "key": {
+                                                                    "kind": "string",
+                                                                    "value": "bigdecimal[]"
+                                                                },
+                                                                "value": {
+                                                                    "kind": "class",
+                                                                    "typeName": "java.math.BigDecimal[]"
+                                                                }
+                                                            },
+                                                            {
+                                                                "key": {
+                                                                    "kind": "string",
+                                                                    "value": "slf4j"
+                                                                },
+                                                                "value": {
+                                                                    "kind": "class",
+                                                                    "typeName": "org.apache.ibatis.logging.slf4j.Slf4jImpl"
+                                                                }
+                                                            },
+                                                            {
+                                                                "key": {
+                                                                    "kind": "string",
+                                                                    "value": "byte"
+                                                                },
+                                                                "value": {
+                                                                    "kind": "class",
+                                                                    "typeName": "java.lang.Byte"
+                                                                }
+                                                            },
+                                                            {
+                                                                "key": {
+                                                                    "kind": "string",
+                                                                    "value": "double"
+                                                                },
+                                                                "value": {
+                                                                    "kind": "class",
+                                                                    "typeName": "java.lang.Double"
+                                                                }
+                                                            },
+                                                            {
+                                                                "key": {
+                                                                    "kind": "string",
+                                                                    "value": "_character[]"
+                                                                },
+                                                                "value": {
+                                                                    "kind": "class",
+                                                                    "typeName": "char[]"
+                                                                }
+                                                            },
+                                                            {
+                                                                "key": {
+                                                                    "kind": "string",
+                                                                    "value": "resultset"
+                                                                },
+                                                                "value": {
+                                                                    "kind": "class",
+                                                                    "typeName": "java.sql.ResultSet"
+                                                                }
+                                                            },
+                                                            {
+                                                                "key": {
+                                                                    "kind": "string",
+                                                                    "value": "raw"
+                                                                },
+                                                                "value": {
+                                                                    "kind": "class",
+                                                                    "typeName": "org.apache.ibatis.scripting.defaults.RawLanguageDriver"
+                                                                }
+                                                            },
+                                                            {
+                                                                "key": {
+                                                                    "kind": "string",
+                                                                    "value": "collection"
+                                                                },
+                                                                "value": {
+                                                                    "kind": "class",
+                                                                    "typeName": "java.util.Collection"
+                                                                }
+                                                            },
+                                                            {
+                                                                "key": {
+                                                                    "kind": "string",
+                                                                    "value": "list"
+                                                                },
+                                                                "value": {
+                                                                    "kind": "class",
+                                                                    "typeName": "java.util.List"
+                                                                }
+                                                            },
+                                                            {
+                                                                "key": {
+                                                                    "kind": "string",
+                                                                    "value": "lru"
+                                                                },
+                                                                "value": {
+                                                                    "kind": "class",
+                                                                    "typeName": "org.apache.ibatis.cache.decorators.LruCache"
+                                                                }
+                                                            },
+                                                            {
+                                                                "key": {
+                                                                    "kind": "string",
+                                                                    "value": "_float"
+                                                                },
+                                                                "value": {
+                                                                    "kind": "class",
+                                                                    "typeName": "float"
+                                                                }
+                                                            },
+                                                            {
+                                                                "key": {
+                                                                    "kind": "string",
+                                                                    "value": "_long"
+                                                                },
+                                                                "value": {
+                                                                    "kind": "class",
+                                                                    "typeName": "long"
+                                                                }
+                                                            },
+                                                            {
+                                                                "key": {
+                                                                    "kind": "string",
+                                                                    "value": "_integer"
+                                                                },
+                                                                "value": {
+                                                                    "kind": "class",
+                                                                    "typeName": "int"
+                                                                }
+                                                            },
+                                                            {
+                                                                "key": {
+                                                                    "kind": "string",
+                                                                    "value": "_integer[]"
+                                                                },
+                                                                "value": {
+                                                                    "kind": "class",
+                                                                    "typeName": "int[]"
+                                                                }
+                                                            },
+                                                            {
+                                                                "key": {
+                                                                    "kind": "string",
+                                                                    "value": "boolean[]"
+                                                                },
+                                                                "value": {
+                                                                    "kind": "class",
+                                                                    "typeName": "java.lang.Boolean[]"
+                                                                }
+                                                            },
+                                                            {
+                                                                "key": {
+                                                                    "kind": "string",
+                                                                    "value": "decimal"
+                                                                },
+                                                                "value": {
+                                                                    "kind": "class",
+                                                                    "typeName": "java.math.BigDecimal"
+                                                                }
+                                                            },
+                                                            {
+                                                                "key": {
+                                                                    "kind": "string",
+                                                                    "value": "_double[]"
+                                                                },
+                                                                "value": {
+                                                                    "kind": "class",
+                                                                    "typeName": "double[]"
+                                                                }
+                                                            },
+                                                            {
+                                                                "key": {
+                                                                    "kind": "string",
+                                                                    "value": "object"
+                                                                },
+                                                                "value": {
+                                                                    "kind": "class",
+                                                                    "typeName": "java.lang.Object"
+                                                                }
+                                                            },
+                                                            {
+                                                                "key": {
+                                                                    "kind": "string",
+                                                                    "value": "biginteger"
+                                                                },
+                                                                "value": {
+                                                                    "kind": "class",
+                                                                    "typeName": "java.math.BigInteger"
+                                                                }
+                                                            },
+                                                            {
+                                                                "key": {
+                                                                    "kind": "string",
+                                                                    "value": "string"
+                                                                },
+                                                                "value": {
+                                                                    "kind": "class",
+                                                                    "typeName": "java.lang.String"
+                                                                }
+                                                            },
+                                                            {
+                                                                "key": {
+                                                                    "kind": "string",
+                                                                    "value": "long[]"
+                                                                },
+                                                                "value": {
+                                                                    "kind": "class",
+                                                                    "typeName": "java.lang.Long[]"
+                                                                }
+                                                            },
+                                                            {
+                                                                "key": {
+                                                                    "kind": "string",
+                                                                    "value": "jdbc"
+                                                                },
+                                                                "value": {
+                                                                    "kind": "class",
+                                                                    "typeName": "org.apache.ibatis.transaction.jdbc.JdbcTransactionFactory"
+                                                                }
+                                                            },
+                                                            {
+                                                                "key": {
+                                                                    "kind": "string",
+                                                                    "value": "long"
+                                                                },
+                                                                "value": {
+                                                                    "kind": "class",
+                                                                    "typeName": "java.lang.Long"
+                                                                }
+                                                            },
+                                                            {
+                                                                "key": {
+                                                                    "kind": "string",
+                                                                    "value": "weak"
+                                                                },
+                                                                "value": {
+                                                                    "kind": "class",
+                                                                    "typeName": "org.apache.ibatis.cache.decorators.WeakCache"
+                                                                }
+                                                            },
+                                                            {
+                                                                "key": {
+                                                                    "kind": "string",
+                                                                    "value": "no_logging"
+                                                                },
+                                                                "value": {
+                                                                    "kind": "class",
+                                                                    "typeName": "org.apache.ibatis.logging.nologging.NoLoggingImpl"
+                                                                }
+                                                            },
+                                                            {
+                                                                "key": {
+                                                                    "kind": "string",
+                                                                    "value": "unpooled"
+                                                                },
+                                                                "value": {
+                                                                    "kind": "class",
+                                                                    "typeName": "org.apache.ibatis.datasource.unpooled.UnpooledDataSourceFactory"
+                                                                }
+                                                            },
+                                                            {
+                                                                "key": {
+                                                                    "kind": "string",
+                                                                    "value": "pooled"
+                                                                },
+                                                                "value": {
+                                                                    "kind": "class",
+                                                                    "typeName": "org.apache.ibatis.datasource.pooled.PooledDataSourceFactory"
+                                                                }
+                                                            }
+                                                        ]
+                                                    }
+                                                },
+                                                "id": 2
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "method": {
+                                        "methodName": "getTypeHandlerRegistry",
+                                        "fullName": "org.apache.ibatis.session.Configuration.getTypeHandlerRegistry()Lorg/apache/ibatis/type/TypeHandlerRegistry;",
+                                        "argumentsSize": 0,
+                                        "returnTypeName": "org.apache.ibatis.type.TypeHandlerRegistry",
+                                        "containingClass": "org.apache.ibatis.session.Configuration"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "mock",
+                                                "typeName": "org.apache.ibatis.type.TypeHandlerRegistry",
+                                                "methods": [],
+                                                "isSpy": false,
+                                                "id": 3
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "method": {
+                                        "methodName": "newMetaObject",
+                                        "fullName": "org.apache.ibatis.session.Configuration.newMetaObject(Ljava/lang/Object;)Lorg/apache/ibatis/reflection/MetaObject;",
+                                        "argumentsSize": 1,
+                                        "returnTypeName": "org.apache.ibatis.reflection.MetaObject",
+                                        "containingClass": "org.apache.ibatis.session.Configuration"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "mock",
+                                                "typeName": "org.apache.ibatis.reflection.MetaObject",
+                                                "methods": [],
+                                                "isSpy": false,
+                                                "id": 4
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "mock",
+                                                "typeName": "org.apache.ibatis.reflection.MetaObject",
+                                                "methods": [],
+                                                "isSpy": false,
+                                                "id": 5
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "method": {
+                                        "methodName": "isShrinkWhitespacesInSql",
+                                        "fullName": "org.apache.ibatis.session.Configuration.isShrinkWhitespacesInSql()Z",
+                                        "argumentsSize": 0,
+                                        "returnTypeName": "boolean",
+                                        "containingClass": "org.apache.ibatis.session.Configuration"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                }
+                            ],
+                            "isSpy": false,
+                            "id": 1
+                        },
+                        "rootSqlNode": {
+                            "kind": "object",
+                            "typeName": "org.apache.ibatis.scripting.xmltags.MixedSqlNode",
+                            "fields": {
+                                "contents": {
+                                    "kind": "list",
+                                    "isShallow": false,
+                                    "size": 3,
+                                    "elements": [
+                                        {
+                                            "kind": "object",
+                                            "typeName": "org.apache.ibatis.scripting.xmltags.StaticTextSqlNode",
+                                            "fields": {
+                                                "text": {
+                                                    "kind": "string",
+                                                    "value": "\n    SELECT * FROM users\n    "
+                                                }
+                                            },
+                                            "id": 7
+                                        },
+                                        {
+                                            "kind": "mock",
+                                            "typeName": "org.apache.ibatis.scripting.xmltags.WhereSqlNode",
+                                            "methods": [
+                                                {
+                                                    "method": {
+                                                        "methodName": "apply",
+                                                        "fullName": "org.apache.ibatis.scripting.xmltags.TrimSqlNode.apply(Lorg/apache/ibatis/scripting/xmltags/DynamicContext;)Z",
+                                                        "argumentsSize": 1,
+                                                        "returnTypeName": "boolean",
+                                                        "containingClass": "org.apache.ibatis.scripting.xmltags.TrimSqlNode"
+                                                    },
+                                                    "calls": [
+                                                        {
+                                                            "result": {
+                                                                "kind": "boolean",
+                                                                "value": true
+                                                            },
+                                                            "args": []
+                                                        }
+                                                    ]
+                                                }
+                                            ],
+                                            "isSpy": false,
+                                            "id": 8
+                                        },
+                                        {
+                                            "kind": "mock",
+                                            "typeName": "org.apache.ibatis.scripting.xmltags.XMLScriptBuilder$EmptySqlNode",
+                                            "methods": [
+                                                {
+                                                    "method": {
+                                                        "methodName": "apply",
+                                                        "fullName": "org.apache.ibatis.scripting.xmltags.XMLScriptBuilder$EmptySqlNode.apply(Lorg/apache/ibatis/scripting/xmltags/DynamicContext;)Z",
+                                                        "argumentsSize": 1,
+                                                        "returnTypeName": "boolean",
+                                                        "containingClass": "org.apache.ibatis.scripting.xmltags.XMLScriptBuilder$EmptySqlNode"
+                                                    },
+                                                    "calls": [
+                                                        {
+                                                            "result": {
+                                                                "kind": "boolean",
+                                                                "value": true
+                                                            },
+                                                            "args": []
+                                                        }
+                                                    ]
+                                                }
+                                            ],
+                                            "isSpy": false,
+                                            "id": 9
+                                        }
+                                    ]
+                                }
+                            },
+                            "id": 6
+                        },
+                        "paramNameResolver": {
+                            "kind": "null"
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "map",
+                        "isShallow": false,
+                        "size": 0,
+                        "elements": []
+                    }
+                ],
+                "returnValue": {
+                    "kind": "object",
+                    "typeName": "org.apache.ibatis.mapping.BoundSql",
+                    "fields": {
+                        "sql": {
+                            "kind": "string",
+                            "value": "SELECT * FROM users\n     WHERE  status = 'ACTIVE'"
+                        },
+                        "parameterMappings": {
+                            "kind": "list",
+                            "isShallow": true,
+                            "size": 0,
+                            "elements": []
+                        },
+                        "parameterObject": {
+                            "kind": "map",
+                            "isShallow": true,
+                            "size": 0,
+                            "elements": []
+                        },
+                        "additionalParameters": {
+                            "kind": "map",
+                            "isShallow": true,
+                            "size": 2,
+                            "elements": []
+                        },
+                        "metaParameters": {
+                            "kind": "object",
+                            "typeName": "org.apache.ibatis.reflection.MetaObject",
+                            "fields": {
+                                "originalObject": {
+                                    "kind": "unknown"
+                                },
+                                "objectWrapper": {
+                                    "kind": "unknown"
+                                },
+                                "objectFactory": {
+                                    "kind": "unknown"
+                                },
+                                "objectWrapperFactory": {
+                                    "kind": "unknown"
+                                },
+                                "reflectorFactory": {
+                                    "kind": "unknown"
+                                }
+                            },
+                            "id": 11
+                        }
+                    },
+                    "id": 10
+                }
+            }
+        ]
+    }
+]

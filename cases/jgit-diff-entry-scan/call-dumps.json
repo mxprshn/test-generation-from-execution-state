@@ -1,0 +1,612 @@
+[
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "scan",
+                    "fullName": "scan(TreeWalk, boolean, TreeFilter[])",
+                    "argumentsSize": 3,
+                    "returnTypeName": "List<DiffEntry>",
+                    "containingClass": "org.eclipse.jgit.diff.DiffEntry"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "unknown",
+                    "fields": {},
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "mock",
+                        "typeName": "org.eclipse.jgit.treewalk.TreeWalk",
+                        "methods": [
+                            {
+                                "method": {
+                                    "methodName": "getTreeCount",
+                                    "fullName": "org.eclipse.jgit.treewalk.TreeWalk.getTreeCount()I",
+                                    "argumentsSize": 0,
+                                    "returnTypeName": "int",
+                                    "containingClass": "org.eclipse.jgit.treewalk.TreeWalk"
+                                },
+                                "calls": [
+                                    {
+                                        "result": {
+                                            "kind": "int",
+                                            "value": 2
+                                        },
+                                        "args": []
+                                    }
+                                ]
+                            },
+                            {
+                                "method": {
+                                    "methodName": "next",
+                                    "fullName": "org.eclipse.jgit.treewalk.TreeWalk.next()Z",
+                                    "argumentsSize": 0,
+                                    "returnTypeName": "boolean",
+                                    "containingClass": "org.eclipse.jgit.treewalk.TreeWalk"
+                                },
+                                "calls": [
+                                    {
+                                        "result": {
+                                            "kind": "boolean",
+                                            "value": true
+                                        },
+                                        "args": []
+                                    },
+                                    {
+                                        "result": {
+                                            "kind": "boolean",
+                                            "value": false
+                                        },
+                                        "args": []
+                                    }
+                                ]
+                            },
+                            {
+                                "method": {
+                                    "methodName": "getFileMode",
+                                    "fullName": "org.eclipse.jgit.treewalk.TreeWalk.getFileMode(I)Lorg/eclipse/jgit/lib/FileMode;",
+                                    "argumentsSize": 1,
+                                    "returnTypeName": "org.eclipse.jgit.lib.FileMode",
+                                    "containingClass": "org.eclipse.jgit.treewalk.TreeWalk"
+                                },
+                                "calls": [
+                                    {
+                                        "result": {
+                                            "kind": "mock",
+                                            "typeName": "org.eclipse.jgit.lib.FileMode",
+                                            "methods": [
+                                                {
+                                                    "method": {
+                                                        "methodName": "getBits",
+                                                        "fullName": "org.eclipse.jgit.lib.FileMode.getBits()I",
+                                                        "argumentsSize": 0,
+                                                        "returnTypeName": "int",
+                                                        "containingClass": "org.eclipse.jgit.lib.FileMode"
+                                                    },
+                                                    "calls": [
+                                                        {
+                                                            "result": {
+                                                                "kind": "int",
+                                                                "value": 33188
+                                                            },
+                                                            "args": []
+                                                        },
+                                                        {
+                                                            "result": {
+                                                                "kind": "int",
+                                                                "value": 33188
+                                                            },
+                                                            "args": []
+                                                        }
+                                                    ]
+                                                }
+                                            ],
+                                            "isSpy": false,
+                                            "id": 2
+                                        },
+                                        "args": []
+                                    },
+                                    {
+                                        "result": {
+                                            "kind": "ref",
+                                            "typeName": "org.eclipse.jgit.lib.FileMode",
+                                            "refId": 2
+                                        },
+                                        "args": []
+                                    }
+                                ]
+                            },
+                            {
+                                "method": {
+                                    "methodName": "getPathString",
+                                    "fullName": "org.eclipse.jgit.treewalk.TreeWalk.getPathString()Ljava/lang/String;",
+                                    "argumentsSize": 0,
+                                    "returnTypeName": "java.lang.String",
+                                    "containingClass": "org.eclipse.jgit.treewalk.TreeWalk"
+                                },
+                                "calls": [
+                                    {
+                                        "result": {
+                                            "kind": "string",
+                                            "value": "folder/folder.txt"
+                                        },
+                                        "args": []
+                                    }
+                                ]
+                            },
+                            {
+                                "method": {
+                                    "methodName": "getAttributesNodeProvider",
+                                    "fullName": "org.eclipse.jgit.treewalk.TreeWalk.getAttributesNodeProvider()Lorg/eclipse/jgit/attributes/AttributesNodeProvider;",
+                                    "argumentsSize": 0,
+                                    "returnTypeName": "org.eclipse.jgit.attributes.AttributesNodeProvider",
+                                    "containingClass": "org.eclipse.jgit.treewalk.TreeWalk"
+                                },
+                                "calls": [
+                                    {
+                                        "result": {
+                                            "kind": "mock",
+                                            "typeName": "org.eclipse.jgit.internal.storage.file.FileRepository$AttributesNodeProviderImpl",
+                                            "methods": [],
+                                            "isSpy": false,
+                                            "id": 3
+                                        },
+                                        "args": []
+                                    }
+                                ]
+                            },
+                            {
+                                "method": {
+                                    "methodName": "getAttributes",
+                                    "fullName": "org.eclipse.jgit.treewalk.TreeWalk.getAttributes()Lorg/eclipse/jgit/attributes/Attributes;",
+                                    "argumentsSize": 0,
+                                    "returnTypeName": "org.eclipse.jgit.attributes.Attributes",
+                                    "containingClass": "org.eclipse.jgit.treewalk.TreeWalk"
+                                },
+                                "calls": [
+                                    {
+                                        "result": {
+                                            "kind": "object",
+                                            "typeName": "org.eclipse.jgit.attributes.Attributes",
+                                            "fields": {
+                                                "map": {
+                                                    "kind": "map",
+                                                    "isShallow": false,
+                                                    "size": 0,
+                                                    "elements": []
+                                                }
+                                            },
+                                            "id": 4
+                                        },
+                                        "args": []
+                                    }
+                                ]
+                            }
+                        ],
+                        "isSpy": false,
+                        "id": 1
+                    },
+                    {
+                        "kind": "boolean",
+                        "value": false
+                    },
+                    {
+                        "kind": "null"
+                    }
+                ],
+                "returnValue": {
+                    "kind": "list",
+                    "isShallow": true,
+                    "size": 1,
+                    "elements": []
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [
+            {
+                "method": {
+                    "methodName": "sameType",
+                    "fullName": "org.eclipse.jgit.diff.RenameDetector.sameType(Lorg/eclipse/jgit/lib/FileMode;Lorg/eclipse/jgit/lib/FileMode;)Z",
+                    "argumentsSize": 2,
+                    "returnTypeName": "boolean",
+                    "containingClass": "org.eclipse.jgit.diff.RenameDetector"
+                },
+                "calls": [
+                    {
+                        "result": {
+                            "kind": "boolean",
+                            "value": true
+                        },
+                        "args": []
+                    }
+                ]
+            }
+        ],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "scan",
+                    "fullName": "scan(TreeWalk, boolean, TreeFilter[])",
+                    "argumentsSize": 3,
+                    "returnTypeName": "List<DiffEntry>",
+                    "containingClass": "org.eclipse.jgit.diff.DiffEntry"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "unknown",
+                    "fields": {},
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "mock",
+                        "typeName": "org.eclipse.jgit.treewalk.TreeWalk",
+                        "methods": [
+                            {
+                                "method": {
+                                    "methodName": "getTreeCount",
+                                    "fullName": "org.eclipse.jgit.treewalk.TreeWalk.getTreeCount()I",
+                                    "argumentsSize": 0,
+                                    "returnTypeName": "int",
+                                    "containingClass": "org.eclipse.jgit.treewalk.TreeWalk"
+                                },
+                                "calls": [
+                                    {
+                                        "result": {
+                                            "kind": "int",
+                                            "value": 2
+                                        },
+                                        "args": []
+                                    }
+                                ]
+                            },
+                            {
+                                "method": {
+                                    "methodName": "next",
+                                    "fullName": "org.eclipse.jgit.treewalk.TreeWalk.next()Z",
+                                    "argumentsSize": 0,
+                                    "returnTypeName": "boolean",
+                                    "containingClass": "org.eclipse.jgit.treewalk.TreeWalk"
+                                },
+                                "calls": [
+                                    {
+                                        "result": {
+                                            "kind": "boolean",
+                                            "value": true
+                                        },
+                                        "args": []
+                                    },
+                                    {
+                                        "result": {
+                                            "kind": "boolean",
+                                            "value": false
+                                        },
+                                        "args": []
+                                    }
+                                ]
+                            },
+                            {
+                                "method": {
+                                    "methodName": "getFileMode",
+                                    "fullName": "org.eclipse.jgit.treewalk.TreeWalk.getFileMode(I)Lorg/eclipse/jgit/lib/FileMode;",
+                                    "argumentsSize": 1,
+                                    "returnTypeName": "org.eclipse.jgit.lib.FileMode",
+                                    "containingClass": "org.eclipse.jgit.treewalk.TreeWalk"
+                                },
+                                "calls": [
+                                    {
+                                        "result": {
+                                            "kind": "mock",
+                                            "typeName": "org.eclipse.jgit.lib.FileMode",
+                                            "methods": [],
+                                            "isSpy": false,
+                                            "id": 2
+                                        },
+                                        "args": []
+                                    },
+                                    {
+                                        "result": {
+                                            "kind": "ref",
+                                            "typeName": "org.eclipse.jgit.lib.FileMode",
+                                            "refId": 2
+                                        },
+                                        "args": []
+                                    }
+                                ]
+                            },
+                            {
+                                "method": {
+                                    "methodName": "getPathString",
+                                    "fullName": "org.eclipse.jgit.treewalk.TreeWalk.getPathString()Ljava/lang/String;",
+                                    "argumentsSize": 0,
+                                    "returnTypeName": "java.lang.String",
+                                    "containingClass": "org.eclipse.jgit.treewalk.TreeWalk"
+                                },
+                                "calls": [
+                                    {
+                                        "result": {
+                                            "kind": "string",
+                                            "value": "folder/folder.txt"
+                                        },
+                                        "args": []
+                                    }
+                                ]
+                            },
+                            {
+                                "method": {
+                                    "methodName": "getAttributesNodeProvider",
+                                    "fullName": "org.eclipse.jgit.treewalk.TreeWalk.getAttributesNodeProvider()Lorg/eclipse/jgit/attributes/AttributesNodeProvider;",
+                                    "argumentsSize": 0,
+                                    "returnTypeName": "org.eclipse.jgit.attributes.AttributesNodeProvider",
+                                    "containingClass": "org.eclipse.jgit.treewalk.TreeWalk"
+                                },
+                                "calls": [
+                                    {
+                                        "result": {
+                                            "kind": "mock",
+                                            "typeName": "org.eclipse.jgit.internal.storage.file.FileRepository$AttributesNodeProviderImpl",
+                                            "methods": [],
+                                            "isSpy": false,
+                                            "id": 3
+                                        },
+                                        "args": []
+                                    }
+                                ]
+                            },
+                            {
+                                "method": {
+                                    "methodName": "getAttributes",
+                                    "fullName": "org.eclipse.jgit.treewalk.TreeWalk.getAttributes()Lorg/eclipse/jgit/attributes/Attributes;",
+                                    "argumentsSize": 0,
+                                    "returnTypeName": "org.eclipse.jgit.attributes.Attributes",
+                                    "containingClass": "org.eclipse.jgit.treewalk.TreeWalk"
+                                },
+                                "calls": [
+                                    {
+                                        "result": {
+                                            "kind": "object",
+                                            "typeName": "org.eclipse.jgit.attributes.Attributes",
+                                            "fields": {
+                                                "map": {
+                                                    "kind": "map",
+                                                    "isShallow": false,
+                                                    "size": 0,
+                                                    "elements": []
+                                                }
+                                            },
+                                            "id": 4
+                                        },
+                                        "args": []
+                                    }
+                                ]
+                            }
+                        ],
+                        "isSpy": false,
+                        "id": 1
+                    },
+                    {
+                        "kind": "boolean",
+                        "value": false
+                    },
+                    {
+                        "kind": "null"
+                    }
+                ],
+                "returnValue": {
+                    "kind": "list",
+                    "isShallow": true,
+                    "size": 1,
+                    "elements": []
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [
+            {
+                "method": {
+                    "methodName": "sameType",
+                    "fullName": "org.eclipse.jgit.diff.RenameDetector.sameType(Lorg/eclipse/jgit/lib/FileMode;Lorg/eclipse/jgit/lib/FileMode;)Z",
+                    "argumentsSize": 2,
+                    "returnTypeName": "boolean",
+                    "containingClass": "org.eclipse.jgit.diff.RenameDetector"
+                },
+                "calls": [
+                    {
+                        "result": {
+                            "kind": "boolean",
+                            "value": true
+                        },
+                        "args": []
+                    }
+                ]
+            }
+        ],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "scan",
+                    "fullName": "scan(TreeWalk, boolean, TreeFilter[])",
+                    "argumentsSize": 3,
+                    "returnTypeName": "List<DiffEntry>",
+                    "containingClass": "org.eclipse.jgit.diff.DiffEntry"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "unknown",
+                    "fields": {},
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "mock",
+                        "typeName": "org.eclipse.jgit.treewalk.TreeWalk",
+                        "methods": [
+                            {
+                                "method": {
+                                    "methodName": "getTreeCount",
+                                    "fullName": "org.eclipse.jgit.treewalk.TreeWalk.getTreeCount()I",
+                                    "argumentsSize": 0,
+                                    "returnTypeName": "int",
+                                    "containingClass": "org.eclipse.jgit.treewalk.TreeWalk"
+                                },
+                                "calls": [
+                                    {
+                                        "result": {
+                                            "kind": "int",
+                                            "value": 2
+                                        },
+                                        "args": []
+                                    }
+                                ]
+                            },
+                            {
+                                "method": {
+                                    "methodName": "next",
+                                    "fullName": "org.eclipse.jgit.treewalk.TreeWalk.next()Z",
+                                    "argumentsSize": 0,
+                                    "returnTypeName": "boolean",
+                                    "containingClass": "org.eclipse.jgit.treewalk.TreeWalk"
+                                },
+                                "calls": [
+                                    {
+                                        "result": {
+                                            "kind": "boolean",
+                                            "value": true
+                                        },
+                                        "args": []
+                                    },
+                                    {
+                                        "result": {
+                                            "kind": "boolean",
+                                            "value": false
+                                        },
+                                        "args": []
+                                    }
+                                ]
+                            },
+                            {
+                                "method": {
+                                    "methodName": "getFileMode",
+                                    "fullName": "org.eclipse.jgit.treewalk.TreeWalk.getFileMode(I)Lorg/eclipse/jgit/lib/FileMode;",
+                                    "argumentsSize": 1,
+                                    "returnTypeName": "org.eclipse.jgit.lib.FileMode",
+                                    "containingClass": "org.eclipse.jgit.treewalk.TreeWalk"
+                                },
+                                "calls": [
+                                    {
+                                        "result": {
+                                            "kind": "mock",
+                                            "typeName": "org.eclipse.jgit.lib.FileMode",
+                                            "methods": [],
+                                            "isSpy": false,
+                                            "id": 2
+                                        },
+                                        "args": []
+                                    },
+                                    {
+                                        "result": {
+                                            "kind": "ref",
+                                            "typeName": "org.eclipse.jgit.lib.FileMode",
+                                            "refId": 2
+                                        },
+                                        "args": []
+                                    }
+                                ]
+                            },
+                            {
+                                "method": {
+                                    "methodName": "getPathString",
+                                    "fullName": "org.eclipse.jgit.treewalk.TreeWalk.getPathString()Ljava/lang/String;",
+                                    "argumentsSize": 0,
+                                    "returnTypeName": "java.lang.String",
+                                    "containingClass": "org.eclipse.jgit.treewalk.TreeWalk"
+                                },
+                                "calls": [
+                                    {
+                                        "result": {
+                                            "kind": "string",
+                                            "value": "folder/folder.txt"
+                                        },
+                                        "args": []
+                                    }
+                                ]
+                            },
+                            {
+                                "method": {
+                                    "methodName": "getAttributesNodeProvider",
+                                    "fullName": "org.eclipse.jgit.treewalk.TreeWalk.getAttributesNodeProvider()Lorg/eclipse/jgit/attributes/AttributesNodeProvider;",
+                                    "argumentsSize": 0,
+                                    "returnTypeName": "org.eclipse.jgit.attributes.AttributesNodeProvider",
+                                    "containingClass": "org.eclipse.jgit.treewalk.TreeWalk"
+                                },
+                                "calls": [
+                                    {
+                                        "result": {
+                                            "kind": "mock",
+                                            "typeName": "org.eclipse.jgit.internal.storage.file.FileRepository$AttributesNodeProviderImpl",
+                                            "methods": [],
+                                            "isSpy": false,
+                                            "id": 3
+                                        },
+                                        "args": []
+                                    }
+                                ]
+                            },
+                            {
+                                "method": {
+                                    "methodName": "getAttributes",
+                                    "fullName": "org.eclipse.jgit.treewalk.TreeWalk.getAttributes()Lorg/eclipse/jgit/attributes/Attributes;",
+                                    "argumentsSize": 0,
+                                    "returnTypeName": "org.eclipse.jgit.attributes.Attributes",
+                                    "containingClass": "org.eclipse.jgit.treewalk.TreeWalk"
+                                },
+                                "calls": [
+                                    {
+                                        "result": {
+                                            "kind": "object",
+                                            "typeName": "org.eclipse.jgit.attributes.Attributes",
+                                            "fields": {
+                                                "map": {
+                                                    "kind": "map",
+                                                    "isShallow": false,
+                                                    "size": 0,
+                                                    "elements": []
+                                                }
+                                            },
+                                            "id": 4
+                                        },
+                                        "args": []
+                                    }
+                                ]
+                            }
+                        ],
+                        "isSpy": false,
+                        "id": 1
+                    },
+                    {
+                        "kind": "boolean",
+                        "value": false
+                    },
+                    {
+                        "kind": "null"
+                    }
+                ],
+                "returnValue": {
+                    "kind": "list",
+                    "isShallow": true,
+                    "size": 1,
+                    "elements": []
+                }
+            }
+        ]
+    }
+]

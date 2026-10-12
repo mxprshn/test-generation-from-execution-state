@@ -1,0 +1,86 @@
+[
+  {
+    "staticMethodMocks": [],
+    "calls": [
+      {
+        "type": "commonCall",
+        "methodDump": {
+          "methodName": "isBinary",
+          "fullName": "isBinary(byte[], int, boolean)",
+          "argumentsSize": 3,
+          "returnTypeName": "boolean",
+          "containingClass": "org.eclipse.jgit.diff.RawText"
+        },
+        "thisDump": {
+          "kind": "object",
+          "typeName": "unknown",
+          "fields": {},
+          "id": -1
+        },
+        "args": [
+          {
+            "kind": "converted",
+            "isResource": true,
+            "typeName": "byte",
+            "resourcePath": "rawTextReproducedTests/byte.array",
+            "content": "\u0000\u0000\u00049public class Greeting {\n    public String getGreeting(String name) {\n        String msg = \"Hello, \" + name + \"!\";\n        return msg;\n    }\n\n    public String getFarewell(String name) {\n        String msg = \"Goodbye, \" + name + \". Have a great day!\";\n        return msg;\n    }\n\n    public String getPersonalizedGreeting(String name, String timeOfDay) {\n        String msg;\n        switch (timeOfDay.toLowerCase()) {\n        case \"morning\":\n            msg = \"Good morning, \" + name;\n            break;\n        case \"afternoon\":\n            msg = \"Good afternoon, \" + name;\n            break;\n        case \"evening\":\n            msg = \"Good evening, \" + name;\n            break;\n        default:\n            msg = \"Good day, \" + name;\n            break;\n        }\n        return msg;\n    }\n\n    public static void main(String[] args) {\n        Greeting greeting = new Greeting();\n        System.out.println(greeting.getGreeting(\"foo\"));\n        System.out.println(greeting.getFarewell(\"bar\"));\n        System.out.println(greeting.getPersonalizedGreeting(\"baz\", \"morning\"));\n    }\n}\n"
+          },
+          {
+            "kind": "int",
+            "value": 1081
+          },
+          {
+            "kind": "boolean",
+            "value": true
+          }
+        ],
+        "returnValue": {
+          "kind": "boolean",
+          "value": false
+        }
+      }
+    ]
+  },
+  {
+    "staticMethodMocks": [],
+    "calls": [
+      {
+        "type": "commonCall",
+        "methodDump": {
+          "methodName": "isBinary",
+          "fullName": "isBinary(byte[], int, boolean)",
+          "argumentsSize": 3,
+          "returnTypeName": "boolean",
+          "containingClass": "org.eclipse.jgit.diff.RawText"
+        },
+        "thisDump": {
+          "kind": "object",
+          "typeName": "unknown",
+          "fields": {},
+          "id": -1
+        },
+        "args": [
+          {
+            "kind": "converted",
+            "isResource": true,
+            "typeName": "byte",
+            "resourcePath": "rawTextReproducedTests/byte_1.array",
+            "content": "\u0000\u0000\u0004:public class Greeting {\n    public String getGreeting(String name) {\n        String msg = \"Hello, \" + name + \"!\";\n        return msg;\n    }\n\n    public String getFarewell(String name) {\n        String msg = \"Goodbye, \" + name + \". Have a great day!\";\n        return msg;\n    }\n\n    public String getPersonalizedGreeting(String name, String timeOfDay) {\n        String msg;\n        switch (timeOfDay.toLowerCase()) {\n        case \"morning\":\n            msg = \"Good morning, \" + name;\n            break;\n        case \"afternoon\":\n            msg = \"Good afternoon, \" + name;\n            break;\n        case \"evening\":\n            msg = \"Good evening, \" + name;\n            break;\n        default:\n            msg = \"Greetings, \" + name;\n            break;\n        }\n        return msg;\n    }\n\n    public static void main(String[] args) {\n        Greeting greeting = new Greeting();\n        System.out.println(greeting.getGreeting(\"foo\"));\n        System.out.println(greeting.getFarewell(\"bar\"));\n        System.out.println(greeting.getPersonalizedGreeting(\"qux\", \"morning\"));\n    }\n}\n"
+          },
+          {
+            "kind": "int",
+            "value": 1082
+          },
+          {
+            "kind": "boolean",
+            "value": true
+          }
+        ],
+        "returnValue": {
+          "kind": "boolean",
+          "value": false
+        }
+      }
+    ]
+  }
+]

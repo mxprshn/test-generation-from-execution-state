@@ -1,0 +1,93 @@
+package com.ctrip.framework.apollo.biz.service;
+
+import org.junit.jupiter.api.Test;
+import com.ctrip.framework.apollo.biz.entity.Namespace;
+import com.ctrip.framework.apollo.biz.entity.Cluster;
+import org.mockito.Mockito;
+import com.ctrip.framework.apollo.biz.service.ReleaseHistoryService;
+import com.ctrip.framework.apollo.biz.repository.NamespaceRepository;
+import java.util.List;
+import java.util.Collection;
+import java.util.ArrayList;
+import org.mockito.invocation.InvocationOnMock;
+import com.ctrip.framework.apollo.biz.service.AuditService;
+import com.ctrip.framework.apollo.biz.service.AppNamespaceService;
+import com.ctrip.framework.apollo.biz.message.MessageSender;
+import com.ctrip.framework.apollo.biz.service.ItemService;
+import com.ctrip.framework.apollo.biz.service.CommitService;
+import com.ctrip.framework.apollo.biz.service.ReleaseService;
+import com.ctrip.framework.apollo.biz.service.ClusterService;
+import com.ctrip.framework.apollo.biz.service.NamespaceBranchService;
+import com.ctrip.framework.apollo.biz.service.NamespaceLockService;
+import com.ctrip.framework.apollo.biz.service.InstanceService;
+import com.ctrip.framework.apollo.biz.config.BizConfig;
+import com.ctrip.framework.apollo.biz.service.NamespaceService;
+import org.springframework.test.util.ReflectionTestUtils;
+import org.junit.jupiter.api.Assertions;
+import java.lang.*;
+
+class NamespaceServiceReproducedTests {
+
+    @Test
+    void findChildNamespaceReproducedTest() {
+        Namespace v = new Namespace();
+        v.setAppId("test");
+        v.setNamespaceName("application");
+        v.setId(1L);
+        v.setDataChangeCreatedBy("apollo");
+        v.setDataChangeLastModifiedBy("apollo");
+        v.setClusterName("default");
+        Namespace v1 = new Namespace();
+        v1.setAppId("test");
+        v1.setNamespaceName("application");
+        v1.setId(2L);
+        v1.setDataChangeCreatedBy("apollo");
+        v1.setDataChangeLastModifiedBy("apollo");
+        v1.setClusterName("child-cluster");
+        Cluster v2 = new Cluster();
+        v2.setName("child-cluster");
+        v2.setParentClusterId(1L);
+        v2.setId(2L);
+        v2.setDataChangeCreatedBy("default");
+        v2.setDataChangeLastModifiedBy("default");
+        v2.setAppId("test");
+        ReleaseHistoryService v3 = Mockito.mock(ReleaseHistoryService.class);
+        NamespaceRepository mocked = Mockito.mock(NamespaceRepository.class);
+        Mockito.when(mocked.findByAppIdAndNamespaceNameOrderByIdAsc(Mockito.<String>any(), Mockito.<String>any())).thenReturn((List<Namespace>) (Object) new ArrayList<Object>((Collection<Object>) (Object) List.of(v, v1)));
+        AuditService v4 = Mockito.mock(AuditService.class);
+        AppNamespaceService v5 = Mockito.mock(AppNamespaceService.class);
+        MessageSender v6 = Mockito.mock(MessageSender.class);
+        ItemService v7 = Mockito.mock(ItemService.class);
+        CommitService v8 = Mockito.mock(CommitService.class);
+        ReleaseService v9 = Mockito.mock(ReleaseService.class);
+        ClusterService mocked1 = Mockito.mock(ClusterService.class);
+        Mockito.when(mocked1.findChildClusters(Mockito.<String>any(), Mockito.<String>any())).thenReturn((List<Cluster>) (Object) new ArrayList<Object>((Collection<Object>) (Object) List.of(v2)));
+        NamespaceBranchService v10 = Mockito.mock(NamespaceBranchService.class);
+        NamespaceLockService v11 = Mockito.mock(NamespaceLockService.class);
+        InstanceService v12 = Mockito.mock(InstanceService.class);
+        BizConfig v13 = Mockito.mock(BizConfig.class);
+        NamespaceService v14 = new NamespaceService(v3, mocked, v4, v5, v6, v7, v8, v9, mocked1, v10, v11, v12, v13);
+        ReflectionTestUtils.setField(v14, "namespaceRepository", mocked);
+        ReflectionTestUtils.setField(v14, "auditService", v4);
+        ReflectionTestUtils.setField(v14, "appNamespaceService", v5);
+        ReflectionTestUtils.setField(v14, "itemService", v7);
+        ReflectionTestUtils.setField(v14, "commitService", v8);
+        ReflectionTestUtils.setField(v14, "releaseService", v9);
+        ReflectionTestUtils.setField(v14, "clusterService", mocked1);
+        ReflectionTestUtils.setField(v14, "namespaceBranchService", v10);
+        ReflectionTestUtils.setField(v14, "releaseHistoryService", v3);
+        ReflectionTestUtils.setField(v14, "namespaceLockService", v11);
+        ReflectionTestUtils.setField(v14, "instanceService", v12);
+        ReflectionTestUtils.setField(v14, "messageSender", v6);
+        ReflectionTestUtils.setField(v14, "bizConfig", v13);
+        Namespace v15 = v14.findChildNamespace("test", "default", "application");
+        Assertions.assertNotNull(v15);
+        Assertions.assertEquals("test", v15.getAppId());
+        Assertions.assertEquals("application", v15.getNamespaceName());
+        Assertions.assertEquals(0L, v15.getDeletedAt());
+        Assertions.assertEquals("apollo", v15.getDataChangeCreatedBy());
+        Assertions.assertEquals("apollo", v15.getDataChangeLastModifiedBy());
+        Assertions.assertEquals("child-cluster", v15.getClusterName());
+        Assertions.assertFalse(v15.isDeleted());
+    }
+}

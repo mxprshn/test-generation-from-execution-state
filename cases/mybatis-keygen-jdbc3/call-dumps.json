@@ -1,0 +1,413 @@
+[
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "processBatch",
+                    "fullName": "processBatch(MappedStatement, Statement, Object)",
+                    "argumentsSize": 3,
+                    "returnTypeName": "void",
+                    "containingClass": "org.apache.ibatis.executor.keygen.Jdbc3KeyGenerator"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "org.apache.ibatis.executor.keygen.Jdbc3KeyGenerator",
+                    "fields": {},
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "mock",
+                        "typeName": "org.apache.ibatis.mapping.MappedStatement",
+                        "methods": [
+                            {
+                                "method": {
+                                    "methodName": "getKeyProperties",
+                                    "fullName": "org.apache.ibatis.mapping.MappedStatement.getKeyProperties()[Ljava/lang/String;",
+                                    "argumentsSize": 0,
+                                    "returnTypeName": "java.lang.String[]",
+                                    "containingClass": "org.apache.ibatis.mapping.MappedStatement"
+                                },
+                                "calls": [
+                                    {
+                                        "result": {
+                                            "kind": "array",
+                                            "isShallow": false,
+                                            "size": 1,
+                                            "elements": [
+                                                {
+                                                    "kind": "string",
+                                                    "value": "id"
+                                                }
+                                            ]
+                                        },
+                                        "args": []
+                                    }
+                                ]
+                            },
+                            {
+                                "method": {
+                                    "methodName": "getConfiguration",
+                                    "fullName": "org.apache.ibatis.mapping.MappedStatement.getConfiguration()Lorg/apache/ibatis/session/Configuration;",
+                                    "argumentsSize": 0,
+                                    "returnTypeName": "org.apache.ibatis.session.Configuration",
+                                    "containingClass": "org.apache.ibatis.mapping.MappedStatement"
+                                },
+                                "calls": [
+                                    {
+                                        "result": {
+                                            "kind": "mock",
+                                            "typeName": "org.apache.ibatis.session.Configuration",
+                                            "methods": [
+                                                {
+                                                    "method": {
+                                                        "methodName": "getTypeHandlerRegistry",
+                                                        "fullName": "org.apache.ibatis.session.Configuration.getTypeHandlerRegistry()Lorg/apache/ibatis/type/TypeHandlerRegistry;",
+                                                        "argumentsSize": 0,
+                                                        "returnTypeName": "org.apache.ibatis.type.TypeHandlerRegistry",
+                                                        "containingClass": "org.apache.ibatis.session.Configuration"
+                                                    },
+                                                    "calls": [
+                                                        {
+                                                            "result": {
+                                                                "kind": "mock",
+                                                                "typeName": "org.apache.ibatis.type.TypeHandlerRegistry",
+                                                                "methods": [
+                                                                    {
+                                                                        "method": {
+                                                                            "methodName": "getTypeHandler",
+                                                                            "fullName": "org.apache.ibatis.type.TypeHandlerRegistry.getTypeHandler(Ljava/lang/reflect/Type;Lorg/apache/ibatis/type/JdbcType;)Lorg/apache/ibatis/type/TypeHandler;",
+                                                                            "argumentsSize": 2,
+                                                                            "returnTypeName": "org.apache.ibatis.type.TypeHandler",
+                                                                            "containingClass": "org.apache.ibatis.type.TypeHandlerRegistry"
+                                                                        },
+                                                                        "calls": [
+                                                                            {
+                                                                                "result": {
+                                                                                    "kind": "mock",
+                                                                                    "typeName": "org.apache.ibatis.type.IntegerTypeHandler",
+                                                                                    "methods": [
+                                                                                        {
+                                                                                            "method": {
+                                                                                                "methodName": "getResult",
+                                                                                                "fullName": "org.apache.ibatis.type.BaseTypeHandler.getResult(Ljava/sql/ResultSet;I)Ljava/lang/Object;",
+                                                                                                "argumentsSize": 2,
+                                                                                                "returnTypeName": "java.lang.Object",
+                                                                                                "containingClass": "org.apache.ibatis.type.BaseTypeHandler"
+                                                                                            },
+                                                                                            "calls": [
+                                                                                                {
+                                                                                                    "result": {
+                                                                                                        "kind": "int",
+                                                                                                        "value": 0
+                                                                                                    },
+                                                                                                    "args": []
+                                                                                                }
+                                                                                            ]
+                                                                                        }
+                                                                                    ],
+                                                                                    "isSpy": false,
+                                                                                    "id": 4
+                                                                                },
+                                                                                "args": []
+                                                                            }
+                                                                        ]
+                                                                    }
+                                                                ],
+                                                                "isSpy": false,
+                                                                "id": 3
+                                                            },
+                                                            "args": []
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "method": {
+                                                        "methodName": "newMetaObject",
+                                                        "fullName": "org.apache.ibatis.session.Configuration.newMetaObject(Ljava/lang/Object;)Lorg/apache/ibatis/reflection/MetaObject;",
+                                                        "argumentsSize": 1,
+                                                        "returnTypeName": "org.apache.ibatis.reflection.MetaObject",
+                                                        "containingClass": "org.apache.ibatis.session.Configuration"
+                                                    },
+                                                    "calls": [
+                                                        {
+                                                            "result": {
+                                                                "kind": "mock",
+                                                                "typeName": "org.apache.ibatis.reflection.MetaObject",
+                                                                "methods": [
+                                                                    {
+                                                                        "method": {
+                                                                            "methodName": "hasSetter",
+                                                                            "fullName": "org.apache.ibatis.reflection.MetaObject.hasSetter(Ljava/lang/String;)Z",
+                                                                            "argumentsSize": 1,
+                                                                            "returnTypeName": "boolean",
+                                                                            "containingClass": "org.apache.ibatis.reflection.MetaObject"
+                                                                        },
+                                                                        "calls": [
+                                                                            {
+                                                                                "result": {
+                                                                                    "kind": "boolean",
+                                                                                    "value": true
+                                                                                },
+                                                                                "args": []
+                                                                            }
+                                                                        ]
+                                                                    },
+                                                                    {
+                                                                        "method": {
+                                                                            "methodName": "getGenericSetterType",
+                                                                            "fullName": "org.apache.ibatis.reflection.MetaObject.getGenericSetterType(Ljava/lang/String;)Ljava/util/Map$Entry;",
+                                                                            "argumentsSize": 1,
+                                                                            "returnTypeName": "java.util.Map$Entry",
+                                                                            "containingClass": "org.apache.ibatis.reflection.MetaObject"
+                                                                        },
+                                                                        "calls": [
+                                                                            {
+                                                                                "result": {
+                                                                                    "kind": "object",
+                                                                                    "typeName": "java.util.KeyValueHolder",
+                                                                                    "fields": {
+                                                                                        "key": {
+                                                                                            "kind": "class",
+                                                                                            "typeName": "java.lang.Integer"
+                                                                                        },
+                                                                                        "value": {
+                                                                                            "kind": "class",
+                                                                                            "typeName": "java.lang.Integer"
+                                                                                        }
+                                                                                    },
+                                                                                    "id": 6
+                                                                                },
+                                                                                "args": []
+                                                                            }
+                                                                        ]
+                                                                    }
+                                                                ],
+                                                                "isSpy": false,
+                                                                "id": 5
+                                                            },
+                                                            "args": []
+                                                        }
+                                                    ]
+                                                }
+                                            ],
+                                            "isSpy": false,
+                                            "id": 2
+                                        },
+                                        "args": []
+                                    }
+                                ]
+                            }
+                        ],
+                        "isSpy": false,
+                        "id": 1
+                    },
+                    {
+                        "kind": "mock",
+                        "typeName": "org.hsqldb.jdbc.JDBCPreparedStatement",
+                        "methods": [
+                            {
+                                "method": {
+                                    "methodName": "getGeneratedKeys",
+                                    "fullName": "org.hsqldb.jdbc.JDBCPreparedStatement.getGeneratedKeys()Ljava/sql/ResultSet;",
+                                    "argumentsSize": 0,
+                                    "returnTypeName": "java.sql.ResultSet",
+                                    "containingClass": "org.hsqldb.jdbc.JDBCPreparedStatement"
+                                },
+                                "calls": [
+                                    {
+                                        "result": {
+                                            "kind": "mock",
+                                            "typeName": "org.hsqldb.jdbc.JDBCResultSet",
+                                            "methods": [
+                                                {
+                                                    "method": {
+                                                        "methodName": "getMetaData",
+                                                        "fullName": "org.hsqldb.jdbc.JDBCResultSet.getMetaData()Ljava/sql/ResultSetMetaData;",
+                                                        "argumentsSize": 0,
+                                                        "returnTypeName": "java.sql.ResultSetMetaData",
+                                                        "containingClass": "org.hsqldb.jdbc.JDBCResultSet"
+                                                    },
+                                                    "calls": [
+                                                        {
+                                                            "result": {
+                                                                "kind": "object",
+                                                                "typeName": "org.hsqldb.jdbc.JDBCResultSetMetaData",
+                                                                "fields": {
+                                                                    "resultMetaData": {
+                                                                        "kind": "object",
+                                                                        "typeName": "org.hsqldb.result.ResultMetaData",
+                                                                        "fields": {
+                                                                            "columnLabels": {
+                                                                                "kind": "array",
+                                                                                "isShallow": false,
+                                                                                "size": 1,
+                                                                                "elements": [
+                                                                                    {
+                                                                                        "kind": "null"
+                                                                                    }
+                                                                                ]
+                                                                            },
+                                                                            "columnCount": {
+                                                                                "kind": "int",
+                                                                                "value": 1
+                                                                            },
+                                                                            "colIndexes": {
+                                                                                "kind": "null"
+                                                                            },
+                                                                            "paramModes": {
+                                                                                "kind": "null"
+                                                                            },
+                                                                            "type": {
+                                                                                "kind": "int",
+                                                                                "value": 1
+                                                                            },
+                                                                            "columnTypes": {
+                                                                                "kind": "array",
+                                                                                "isShallow": false,
+                                                                                "size": 1,
+                                                                                "elements": [
+                                                                                    {
+                                                                                        "kind": "object",
+                                                                                        "typeName": "org.hsqldb.types.NumberType",
+                                                                                        "fields": {
+                                                                                            "typeWidth": {
+                                                                                                "kind": "int",
+                                                                                                "value": 32
+                                                                                            },
+                                                                                            "typeComparisonGroup": {
+                                                                                                "kind": "int",
+                                                                                                "value": 2
+                                                                                            },
+                                                                                            "typeDataGroup": {
+                                                                                                "kind": "int",
+                                                                                                "value": 4
+                                                                                            },
+                                                                                            "typeCode": {
+                                                                                                "kind": "int",
+                                                                                                "value": 4
+                                                                                            },
+                                                                                            "precision": {
+                                                                                                "kind": "long",
+                                                                                                "value": 10
+                                                                                            },
+                                                                                            "scale": {
+                                                                                                "kind": "int",
+                                                                                                "value": 0
+                                                                                            },
+                                                                                            "userTypeModifier": {
+                                                                                                "kind": "null"
+                                                                                            }
+                                                                                        },
+                                                                                        "id": 11
+                                                                                    }
+                                                                                ]
+                                                                            },
+                                                                            "extendedColumnCount": {
+                                                                                "kind": "int",
+                                                                                "value": 1
+                                                                            },
+                                                                            "columns": {
+                                                                                "kind": "array",
+                                                                                "isShallow": false,
+                                                                                "size": 1,
+                                                                                "elements": [
+                                                                                    {
+                                                                                        "kind": "mock",
+                                                                                        "typeName": "org.hsqldb.ColumnSchema",
+                                                                                        "methods": [],
+                                                                                        "isSpy": false,
+                                                                                        "id": 12
+                                                                                    }
+                                                                                ]
+                                                                            },
+                                                                            "paramNullable": {
+                                                                                "kind": "null"
+                                                                            }
+                                                                        },
+                                                                        "id": 10
+                                                                    },
+                                                                    "useColumnName": {
+                                                                        "kind": "boolean",
+                                                                        "value": true
+                                                                    },
+                                                                    "columnCount": {
+                                                                        "kind": "int",
+                                                                        "value": 1
+                                                                    },
+                                                                    "translateTTIType": {
+                                                                        "kind": "boolean",
+                                                                        "value": true
+                                                                    }
+                                                                },
+                                                                "id": 9
+                                                            },
+                                                            "args": []
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "method": {
+                                                        "methodName": "next",
+                                                        "fullName": "org.hsqldb.jdbc.JDBCResultSet.next()Z",
+                                                        "argumentsSize": 0,
+                                                        "returnTypeName": "boolean",
+                                                        "containingClass": "org.hsqldb.jdbc.JDBCResultSet"
+                                                    },
+                                                    "calls": [
+                                                        {
+                                                            "result": {
+                                                                "kind": "boolean",
+                                                                "value": true
+                                                            },
+                                                            "args": []
+                                                        },
+                                                        {
+                                                            "result": {
+                                                                "kind": "boolean",
+                                                                "value": false
+                                                            },
+                                                            "args": []
+                                                        }
+                                                    ]
+                                                }
+                                            ],
+                                            "isSpy": false,
+                                            "id": 8
+                                        },
+                                        "args": []
+                                    }
+                                ]
+                            }
+                        ],
+                        "isSpy": false,
+                        "id": 7
+                    },
+                    {
+                        "kind": "object",
+                        "typeName": "org.apache.ibatis.submitted.keygen.Country",
+                        "fields": {
+                            "id": {
+                                "kind": "null"
+                            },
+                            "countryname": {
+                                "kind": "string",
+                                "value": "China"
+                            },
+                            "countrycode": {
+                                "kind": "string",
+                                "value": "CN"
+                            }
+                        },
+                        "id": 13
+                    }
+                ],
+                "returnValue": {
+                    "kind": "unknown"
+                }
+            }
+        ]
+    }
+]

@@ -1,0 +1,1465 @@
+[
+  {
+    "staticMethodMocks": [
+      {
+        "method": {
+          "methodName": "isValidRefName",
+          "fullName": "org.eclipse.jgit.lib.Repository.isValidRefName(Ljava/lang/String;)Z",
+          "argumentsSize": 1,
+          "returnTypeName": "boolean",
+          "containingClass": "org.eclipse.jgit.lib.Repository"
+        },
+        "calls": [
+          {
+            "result": {
+              "kind": "boolean",
+              "value": true
+            },
+            "args": []
+          }
+        ]
+      },
+      {
+        "method": {
+          "methodName": "shortenRefName",
+          "fullName": "org.eclipse.jgit.lib.Repository.shortenRefName(Ljava/lang/String;)Ljava/lang/String;",
+          "argumentsSize": 1,
+          "returnTypeName": "java.lang.String",
+          "containingClass": "org.eclipse.jgit.lib.Repository"
+        },
+        "calls": [
+          {
+            "result": {
+              "kind": "string",
+              "value": "master"
+            },
+            "args": []
+          },
+          {
+            "result": {
+              "kind": "string",
+              "value": "branch_1"
+            },
+            "args": []
+          }
+        ]
+      },
+      {
+        "method": {
+          "methodName": "getInstance",
+          "fullName": "org.eclipse.jgit.util.SystemReader.getInstance()Lorg/eclipse/jgit/util/SystemReader;",
+          "argumentsSize": 0,
+          "returnTypeName": "org.eclipse.jgit.util.SystemReader",
+          "containingClass": "org.eclipse.jgit.util.SystemReader"
+        },
+        "calls": [
+          {
+            "result": {
+              "kind": "mock",
+              "typeName": "org.eclipse.jgit.junit.MockSystemReader",
+              "methods": [
+                {
+                  "method": {
+                    "methodName": "getProperty",
+                    "fullName": "org.eclipse.jgit.junit.MockSystemReader.getProperty(Ljava/lang/String;)Ljava/lang/String;",
+                    "argumentsSize": 1,
+                    "returnTypeName": "java.lang.String",
+                    "containingClass": "org.eclipse.jgit.junit.MockSystemReader"
+                  },
+                  "calls": [
+                    {
+                      "result": {
+                        "kind": "null"
+                      },
+                      "args": []
+                    }
+                  ]
+                },
+                {
+                  "method": {
+                    "methodName": "isMacOS",
+                    "fullName": "org.eclipse.jgit.util.SystemReader.isMacOS()Z",
+                    "argumentsSize": 0,
+                    "returnTypeName": "boolean",
+                    "containingClass": "org.eclipse.jgit.util.SystemReader"
+                  },
+                  "calls": [
+                    {
+                      "result": {
+                        "kind": "boolean",
+                        "value": true
+                      },
+                      "args": []
+                    },
+                    {
+                      "result": {
+                        "kind": "boolean",
+                        "value": true
+                      },
+                      "args": []
+                    },
+                    {
+                      "result": {
+                        "kind": "boolean",
+                        "value": true
+                      },
+                      "args": []
+                    },
+                    {
+                      "result": {
+                        "kind": "boolean",
+                        "value": true
+                      },
+                      "args": []
+                    }
+                  ]
+                },
+                {
+                  "method": {
+                    "methodName": "isWindows",
+                    "fullName": "org.eclipse.jgit.util.SystemReader.isWindows()Z",
+                    "argumentsSize": 0,
+                    "returnTypeName": "boolean",
+                    "containingClass": "org.eclipse.jgit.util.SystemReader"
+                  },
+                  "calls": [
+                    {
+                      "result": {
+                        "kind": "boolean",
+                        "value": false
+                      },
+                      "args": []
+                    }
+                  ]
+                }
+              ],
+              "isSpy": false,
+              "id": 30
+            },
+            "args": []
+          },
+          {
+            "result": {
+              "kind": "ref",
+              "typeName": "org.eclipse.jgit.junit.MockSystemReader",
+              "refId": 30
+            },
+            "args": []
+          },
+          {
+            "result": {
+              "kind": "ref",
+              "typeName": "org.eclipse.jgit.junit.MockSystemReader",
+              "refId": 30
+            },
+            "args": []
+          },
+          {
+            "result": {
+              "kind": "ref",
+              "typeName": "org.eclipse.jgit.junit.MockSystemReader",
+              "refId": 30
+            },
+            "args": []
+          },
+          {
+            "result": {
+              "kind": "ref",
+              "typeName": "org.eclipse.jgit.junit.MockSystemReader",
+              "refId": 30
+            },
+            "args": []
+          },
+          {
+            "result": {
+              "kind": "ref",
+              "typeName": "org.eclipse.jgit.junit.MockSystemReader",
+              "refId": 30
+            },
+            "args": []
+          }
+        ]
+      },
+      {
+        "method": {
+          "methodName": "encode",
+          "fullName": "org.eclipse.jgit.lib.Constants.encode(Ljava/lang/String;)[B",
+          "argumentsSize": 1,
+          "returnTypeName": "byte[]",
+          "containingClass": "org.eclipse.jgit.lib.Constants"
+        },
+        "calls": [
+          {
+            "result": {
+              "kind": "array",
+              "isShallow": false,
+              "size": 14,
+              "elements": [
+                {
+                  "kind": "byte",
+                  "value": 46
+                },
+                {
+                  "kind": "byte",
+                  "value": 103
+                },
+                {
+                  "kind": "byte",
+                  "value": 105
+                },
+                {
+                  "kind": "byte",
+                  "value": 116
+                },
+                {
+                  "kind": "byte",
+                  "value": 97
+                },
+                {
+                  "kind": "byte",
+                  "value": 116
+                },
+                {
+                  "kind": "byte",
+                  "value": 116
+                },
+                {
+                  "kind": "byte",
+                  "value": 114
+                },
+                {
+                  "kind": "byte",
+                  "value": 105
+                },
+                {
+                  "kind": "byte",
+                  "value": 98
+                },
+                {
+                  "kind": "byte",
+                  "value": 117
+                },
+                {
+                  "kind": "byte",
+                  "value": 116
+                },
+                {
+                  "kind": "byte",
+                  "value": 101
+                },
+                {
+                  "kind": "byte",
+                  "value": 115
+                }
+              ]
+            },
+            "args": []
+          }
+        ]
+      }
+    ],
+    "calls": [
+      {
+        "type": "commonCall",
+        "methodDump": {
+          "methodName": "call",
+          "fullName": "call()",
+          "argumentsSize": 0,
+          "returnTypeName": "Ref",
+          "containingClass": "org.eclipse.jgit.api.CheckoutCommand"
+        },
+        "thisDump": {
+          "kind": "object",
+          "typeName": "org.eclipse.jgit.api.CheckoutCommand",
+          "fields": {
+            "name": {
+              "kind": "string",
+              "value": "refs/heads/branch_1"
+            },
+            "forceRefUpdate": {
+              "kind": "boolean",
+              "value": false
+            },
+            "forced": {
+              "kind": "boolean",
+              "value": false
+            },
+            "createBranch": {
+              "kind": "boolean",
+              "value": false
+            },
+            "orphan": {
+              "kind": "boolean",
+              "value": false
+            },
+            "upstreamMode": {
+              "kind": "null"
+            },
+            "startPoint": {
+              "kind": "null"
+            },
+            "startCommit": {
+              "kind": "null"
+            },
+            "checkoutStage": {
+              "kind": "null"
+            },
+            "status": {
+              "kind": "null"
+            },
+            "paths": {
+              "kind": "list",
+              "isShallow": false,
+              "size": 0,
+              "elements": []
+            },
+            "checkoutAllPaths": {
+              "kind": "boolean",
+              "value": false
+            },
+            "actuallyModifiedPaths": {
+              "kind": "null"
+            },
+            "monitor": {
+              "kind": "object",
+              "typeName": "org.eclipse.jgit.lib.NullProgressMonitor",
+              "fields": {},
+              "id": 1
+            },
+            "repo": {
+              "kind": "mock",
+              "typeName": "org.eclipse.jgit.internal.storage.file.FileRepository",
+              "methods": [
+                {
+                  "method": {
+                    "methodName": "exactRef",
+                    "fullName": "org.eclipse.jgit.lib.Repository.exactRef(Ljava/lang/String;)Lorg/eclipse/jgit/lib/Ref;",
+                    "argumentsSize": 1,
+                    "returnTypeName": "org.eclipse.jgit.lib.Ref",
+                    "containingClass": "org.eclipse.jgit.lib.Repository"
+                  },
+                  "calls": [
+                    {
+                      "result": {
+                        "kind": "mock",
+                        "typeName": "org.eclipse.jgit.lib.SymbolicRef",
+                        "methods": [
+                          {
+                            "method": {
+                              "methodName": "isSymbolic",
+                              "fullName": "org.eclipse.jgit.lib.SymbolicRef.isSymbolic()Z",
+                              "argumentsSize": 0,
+                              "returnTypeName": "boolean",
+                              "containingClass": "org.eclipse.jgit.lib.SymbolicRef"
+                            },
+                            "calls": [
+                              {
+                                "result": {
+                                  "kind": "boolean",
+                                  "value": true
+                                },
+                                "args": []
+                              }
+                            ]
+                          },
+                          {
+                            "method": {
+                              "methodName": "getTarget",
+                              "fullName": "org.eclipse.jgit.lib.SymbolicRef.getTarget()Lorg/eclipse/jgit/lib/Ref;",
+                              "argumentsSize": 0,
+                              "returnTypeName": "org.eclipse.jgit.lib.Ref",
+                              "containingClass": "org.eclipse.jgit.lib.SymbolicRef"
+                            },
+                            "calls": [
+                              {
+                                "result": {
+                                  "kind": "mock",
+                                  "typeName": "org.eclipse.jgit.lib.Ref",
+                                  "methods": [
+                                    {
+                                      "method": {
+                                        "methodName": "getName",
+                                        "fullName": "org.eclipse.jgit.lib.ObjectIdRef.getName()Ljava/lang/String;",
+                                        "argumentsSize": 0,
+                                        "returnTypeName": "java.lang.String",
+                                        "containingClass": "org.eclipse.jgit.lib.ObjectIdRef"
+                                      },
+                                      "calls": [
+                                        {
+                                          "result": {
+                                            "kind": "string",
+                                            "value": "refs/heads/master"
+                                          },
+                                          "args": []
+                                        }
+                                      ]
+                                    }
+                                  ],
+                                  "isSpy": false,
+                                  "id": 4
+                                },
+                                "args": []
+                              }
+                            ]
+                          },
+                          {
+                            "method": {
+                              "methodName": "getObjectId",
+                              "fullName": "org.eclipse.jgit.lib.SymbolicRef.getObjectId()Lorg/eclipse/jgit/lib/ObjectId;",
+                              "argumentsSize": 0,
+                              "returnTypeName": "org.eclipse.jgit.lib.ObjectId",
+                              "containingClass": "org.eclipse.jgit.lib.SymbolicRef"
+                            },
+                            "calls": [
+                              {
+                                "result": {
+                                  "kind": "object",
+                                  "typeName": "org.eclipse.jgit.lib.ObjectId",
+                                  "fields": {
+                                    "w1": {
+                                      "kind": "int",
+                                      "value": 1967487771
+                                    },
+                                    "w2": {
+                                      "kind": "int",
+                                      "value": 1005947443
+                                    },
+                                    "w3": {
+                                      "kind": "int",
+                                      "value": 1231982172
+                                    },
+                                    "w4": {
+                                      "kind": "int",
+                                      "value": 1227000118
+                                    },
+                                    "w5": {
+                                      "kind": "int",
+                                      "value": 1699904586
+                                    }
+                                  },
+                                  "id": 5
+                                },
+                                "args": []
+                              }
+                            ]
+                          }
+                        ],
+                        "isSpy": false,
+                        "id": 3
+                      },
+                      "args": []
+                    }
+                  ]
+                },
+                {
+                  "method": {
+                    "methodName": "resolve",
+                    "fullName": "org.eclipse.jgit.lib.Repository.resolve(Ljava/lang/String;)Lorg/eclipse/jgit/lib/ObjectId;",
+                    "argumentsSize": 1,
+                    "returnTypeName": "org.eclipse.jgit.lib.ObjectId",
+                    "containingClass": "org.eclipse.jgit.lib.Repository"
+                  },
+                  "calls": [
+                    {
+                      "result": {
+                        "kind": "object",
+                        "typeName": "org.eclipse.jgit.lib.ObjectId",
+                        "fields": {
+                          "w1": {
+                            "kind": "int",
+                            "value": -835650671
+                          },
+                          "w2": {
+                            "kind": "int",
+                            "value": -102869400
+                          },
+                          "w3": {
+                            "kind": "int",
+                            "value": 413606736
+                          },
+                          "w4": {
+                            "kind": "int",
+                            "value": -444164550
+                          },
+                          "w5": {
+                            "kind": "int",
+                            "value": 2109107553
+                          }
+                        },
+                        "id": 6
+                      },
+                      "args": []
+                    }
+                  ]
+                },
+                {
+                  "method": {
+                    "methodName": "newObjectReader",
+                    "fullName": "org.eclipse.jgit.lib.Repository.newObjectReader()Lorg/eclipse/jgit/lib/ObjectReader;",
+                    "argumentsSize": 0,
+                    "returnTypeName": "org.eclipse.jgit.lib.ObjectReader",
+                    "containingClass": "org.eclipse.jgit.lib.Repository"
+                  },
+                  "calls": [
+                    {
+                      "result": {
+                        "kind": "mock",
+                        "typeName": "org.eclipse.jgit.internal.storage.file.WindowCursor",
+                        "methods": [
+                          {
+                            "method": {
+                              "methodName": "open",
+                              "fullName": "org.eclipse.jgit.lib.ObjectReader.open(Lorg/eclipse/jgit/lib/AnyObjectId;)Lorg/eclipse/jgit/lib/ObjectLoader;",
+                              "argumentsSize": 1,
+                              "returnTypeName": "org.eclipse.jgit.lib.ObjectLoader",
+                              "containingClass": "org.eclipse.jgit.lib.ObjectReader"
+                            },
+                            "calls": [
+                              {
+                                "result": {
+                                  "kind": "object",
+                                  "typeName": "org.eclipse.jgit.lib.ObjectLoader$SmallObject",
+                                  "fields": {
+                                    "type": {
+                                      "kind": "int",
+                                      "value": 1
+                                    },
+                                    "data": {
+                                      "kind": "converted",
+                                      "isResource": true,
+                                      "typeName": "byte",
+                                      "resourcePath": "checkoutCommandReproducedTests/byte.array",
+                                      "contentBase64": "AAAA8XRyZWUgYzczOTFhZGRiYTQyZDg3ZmU3ODAzYjNiNjMyNDk0ZmI4MjgxY2EwMwpwYXJlbnQgY2UzMGZiOTFmOWRlNTY2ODE4YTcyMzUwZTU4Njk2M2E3ZGI2NmQ2MQphdXRob3IgR0lUX0NPTU1JVFRFUl9OQU1FIDxHSVRfQ09NTUlUVEVSX0VNQUlMPiAxMjUwMzc5Nzc4IC0wMzMwCmNvbW1pdHRlciBHSVRfQ09NTUlUVEVSX05BTUUgPEdJVF9DT01NSVRURVJfRU1BSUw+IDEyNTAzNzk3NzggLTAzMzAKCmFkZCBzeW1saW5rIGE="
+                                    }
+                                  },
+                                  "id": 8
+                                },
+                                "args": []
+                              }
+                            ]
+                          },
+                          {
+                            "method": {
+                              "methodName": "getCommitGraph",
+                              "fullName": "org.eclipse.jgit.internal.storage.file.WindowCursor.getCommitGraph()Ljava/util/Optional;",
+                              "argumentsSize": 0,
+                              "returnTypeName": "java.util.Optional",
+                              "containingClass": "org.eclipse.jgit.internal.storage.file.WindowCursor"
+                            },
+                            "calls": [
+                              {
+                                "result": {
+                                  "kind": "object",
+                                  "typeName": "java.util.Optional",
+                                  "fields": {
+                                    "value": {
+                                      "kind": "null"
+                                    }
+                                  },
+                                  "id": 9
+                                },
+                                "args": []
+                              }
+                            ]
+                          },
+                          {
+                            "method": {
+                              "methodName": "getShallowCommits",
+                              "fullName": "org.eclipse.jgit.internal.storage.file.WindowCursor.getShallowCommits()Ljava/util/Set;",
+                              "argumentsSize": 0,
+                              "returnTypeName": "java.util.Set",
+                              "containingClass": "org.eclipse.jgit.internal.storage.file.WindowCursor"
+                            },
+                            "calls": [
+                              {
+                                "result": {
+                                  "kind": "set",
+                                  "isShallow": false,
+                                  "size": 0,
+                                  "elements": []
+                                },
+                                "args": []
+                              }
+                            ]
+                          },
+                          {
+                            "method": {
+                              "methodName": "open",
+                              "fullName": "org.eclipse.jgit.internal.storage.file.WindowCursor.open(Lorg/eclipse/jgit/lib/AnyObjectId;I)Lorg/eclipse/jgit/lib/ObjectLoader;",
+                              "argumentsSize": 2,
+                              "returnTypeName": "org.eclipse.jgit.lib.ObjectLoader",
+                              "containingClass": "org.eclipse.jgit.internal.storage.file.WindowCursor"
+                            },
+                            "calls": [
+                              {
+                                "result": {
+                                  "kind": "object",
+                                  "typeName": "org.eclipse.jgit.lib.ObjectLoader$SmallObject",
+                                  "fields": {
+                                    "type": {
+                                      "kind": "int",
+                                      "value": 1
+                                    },
+                                    "data": {
+                                      "kind": "converted",
+                                      "isResource": true,
+                                      "typeName": "byte",
+                                      "resourcePath": "checkoutCommandReproducedTests/byte_1.array",
+                                      "contentBase64": "AAAAvnRyZWUgZDM2OWNiMmFmMGM4YjMwZGU4NjZhNjcyNjE1NTljYjYyOTAzZGNjMgphdXRob3IgR0lUX0NPTU1JVFRFUl9OQU1FIDxHSVRfQ09NTUlUVEVSX0VNQUlMPiAxMjUwMzc5Nzc4IC0wMzMwCmNvbW1pdHRlciBHSVRfQ09NTUlUVEVSX05BTUUgPEdJVF9DT01NSVRURVJfRU1BSUw+IDEyNTAzNzk3NzggLTAzMzAKCmFkZCBmaWxlIGI="
+                                    }
+                                  },
+                                  "id": 10
+                                },
+                                "args": []
+                              }
+                            ]
+                          }
+                        ],
+                        "isSpy": false,
+                        "id": 7
+                      },
+                      "args": []
+                    },
+                    {
+                      "result": {
+                        "kind": "mock",
+                        "typeName": "org.eclipse.jgit.internal.storage.file.WindowCursor",
+                        "methods": [
+                          {
+                            "method": {
+                              "methodName": "open",
+                              "fullName": "org.eclipse.jgit.internal.storage.file.WindowCursor.open(Lorg/eclipse/jgit/lib/AnyObjectId;I)Lorg/eclipse/jgit/lib/ObjectLoader;",
+                              "argumentsSize": 2,
+                              "returnTypeName": "org.eclipse.jgit.lib.ObjectLoader",
+                              "containingClass": "org.eclipse.jgit.internal.storage.file.WindowCursor"
+                            },
+                            "calls": [
+                              {
+                                "result": {
+                                  "kind": "object",
+                                  "typeName": "org.eclipse.jgit.lib.ObjectLoader$SmallObject",
+                                  "fields": {
+                                    "type": {
+                                      "kind": "int",
+                                      "value": 2
+                                    },
+                                    "data": {
+                                      "kind": "converted",
+                                      "isResource": true,
+                                      "typeName": "byte",
+                                      "resourcePath": "checkoutCommandReproducedTests/byte_2.array",
+                                      "contentBase64": "AAAAOjEyMDAwMCBhAGPY29QMI1QudAZZpxaKDOMTjqdIMTAwNjQ0IGIArlxTZM4lVeWBh5F86kmxsz+s1zc="
+                                    }
+                                  },
+                                  "id": 12
+                                },
+                                "args": []
+                              },
+                              {
+                                "result": {
+                                  "kind": "object",
+                                  "typeName": "org.eclipse.jgit.lib.ObjectLoader$SmallObject",
+                                  "fields": {
+                                    "type": {
+                                      "kind": "int",
+                                      "value": 2
+                                    },
+                                    "data": {
+                                      "kind": "array",
+                                      "isShallow": false,
+                                      "size": 29,
+                                      "elements": [
+                                        {
+                                          "kind": "byte",
+                                          "value": 49
+                                        },
+                                        {
+                                          "kind": "byte",
+                                          "value": 48
+                                        },
+                                        {
+                                          "kind": "byte",
+                                          "value": 48
+                                        },
+                                        {
+                                          "kind": "byte",
+                                          "value": 54
+                                        },
+                                        {
+                                          "kind": "byte",
+                                          "value": 52
+                                        },
+                                        {
+                                          "kind": "byte",
+                                          "value": 52
+                                        },
+                                        {
+                                          "kind": "byte",
+                                          "value": 32
+                                        },
+                                        {
+                                          "kind": "byte",
+                                          "value": 98
+                                        },
+                                        {
+                                          "kind": "byte",
+                                          "value": 0
+                                        },
+                                        {
+                                          "kind": "byte",
+                                          "value": -82
+                                        },
+                                        {
+                                          "kind": "byte",
+                                          "value": 92
+                                        },
+                                        {
+                                          "kind": "byte",
+                                          "value": 83
+                                        },
+                                        {
+                                          "kind": "byte",
+                                          "value": 100
+                                        },
+                                        {
+                                          "kind": "byte",
+                                          "value": -50
+                                        },
+                                        {
+                                          "kind": "byte",
+                                          "value": 37
+                                        },
+                                        {
+                                          "kind": "byte",
+                                          "value": 85
+                                        },
+                                        {
+                                          "kind": "byte",
+                                          "value": -27
+                                        },
+                                        {
+                                          "kind": "byte",
+                                          "value": -127
+                                        },
+                                        {
+                                          "kind": "byte",
+                                          "value": -121
+                                        },
+                                        {
+                                          "kind": "byte",
+                                          "value": -111
+                                        },
+                                        {
+                                          "kind": "byte",
+                                          "value": 124
+                                        },
+                                        {
+                                          "kind": "byte",
+                                          "value": -22
+                                        },
+                                        {
+                                          "kind": "byte",
+                                          "value": 73
+                                        },
+                                        {
+                                          "kind": "byte",
+                                          "value": -79
+                                        },
+                                        {
+                                          "kind": "byte",
+                                          "value": -77
+                                        },
+                                        {
+                                          "kind": "byte",
+                                          "value": 63
+                                        },
+                                        {
+                                          "kind": "byte",
+                                          "value": -84
+                                        },
+                                        {
+                                          "kind": "byte",
+                                          "value": -41
+                                        },
+                                        {
+                                          "kind": "byte",
+                                          "value": 55
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "id": 13
+                                },
+                                "args": []
+                              }
+                            ]
+                          }
+                        ],
+                        "isSpy": false,
+                        "id": 11
+                      },
+                      "args": []
+                    }
+                  ]
+                },
+                {
+                  "method": {
+                    "methodName": "lockDirCache",
+                    "fullName": "org.eclipse.jgit.lib.Repository.lockDirCache()Lorg/eclipse/jgit/dircache/DirCache;",
+                    "argumentsSize": 0,
+                    "returnTypeName": "org.eclipse.jgit.dircache.DirCache",
+                    "containingClass": "org.eclipse.jgit.lib.Repository"
+                  },
+                  "calls": [
+                    {
+                      "result": {
+                        "kind": "mock",
+                        "typeName": "org.eclipse.jgit.dircache.DirCache",
+                        "methods": [
+                          {
+                            "method": {
+                              "methodName": "builder",
+                              "fullName": "org.eclipse.jgit.dircache.DirCache.builder()Lorg/eclipse/jgit/dircache/DirCacheBuilder;",
+                              "argumentsSize": 0,
+                              "returnTypeName": "org.eclipse.jgit.dircache.DirCacheBuilder",
+                              "containingClass": "org.eclipse.jgit.dircache.DirCache"
+                            },
+                            "calls": [
+                              {
+                                "result": {
+                                  "kind": "mock",
+                                  "typeName": "org.eclipse.jgit.dircache.DirCacheBuilder",
+                                  "methods": [
+                                    {
+                                      "method": {
+                                        "methodName": "getDirCache",
+                                        "fullName": "org.eclipse.jgit.dircache.DirCacheBuilder.getDirCache()Lorg/eclipse/jgit/dircache/DirCache;",
+                                        "argumentsSize": 0,
+                                        "returnTypeName": "org.eclipse.jgit.dircache.DirCache",
+                                        "containingClass": "org.eclipse.jgit.dircache.DirCacheBuilder"
+                                      },
+                                      "calls": [
+                                        {
+                                          "result": {
+                                            "kind": "ref",
+                                            "typeName": "org.eclipse.jgit.dircache.DirCache",
+                                            "refId": 14
+                                          },
+                                          "args": []
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "method": {
+                                        "methodName": "commit",
+                                        "fullName": "org.eclipse.jgit.dircache.DirCacheBuilder.commit()Z",
+                                        "argumentsSize": 0,
+                                        "returnTypeName": "boolean",
+                                        "containingClass": "org.eclipse.jgit.dircache.DirCacheBuilder"
+                                      },
+                                      "calls": [
+                                        {
+                                          "result": {
+                                            "kind": "boolean",
+                                            "value": true
+                                          },
+                                          "args": []
+                                        }
+                                      ]
+                                    }
+                                  ],
+                                  "isSpy": false,
+                                  "id": 15
+                                },
+                                "args": []
+                              }
+                            ]
+                          },
+                          {
+                            "method": {
+                              "methodName": "getCacheTree",
+                              "fullName": "org.eclipse.jgit.dircache.DirCache.getCacheTree(Z)Lorg/eclipse/jgit/dircache/DirCacheTree;",
+                              "argumentsSize": 1,
+                              "returnTypeName": "org.eclipse.jgit.dircache.DirCacheTree",
+                              "containingClass": "org.eclipse.jgit.dircache.DirCache"
+                            },
+                            "calls": [
+                              {
+                                "result": {
+                                  "kind": "object",
+                                  "typeName": "org.eclipse.jgit.dircache.DirCacheTree",
+                                  "fields": {
+                                    "parent": {
+                                      "kind": "null"
+                                    },
+                                    "encodedName": {
+                                      "kind": "array",
+                                      "isShallow": false,
+                                      "size": 0,
+                                      "elements": []
+                                    },
+                                    "entrySpan": {
+                                      "kind": "int",
+                                      "value": 2
+                                    },
+                                    "id": {
+                                      "kind": "null"
+                                    },
+                                    "children": {
+                                      "kind": "array",
+                                      "isShallow": false,
+                                      "size": 0,
+                                      "elements": []
+                                    },
+                                    "childCnt": {
+                                      "kind": "int",
+                                      "value": 0
+                                    }
+                                  },
+                                  "id": 16
+                                },
+                                "args": []
+                              }
+                            ]
+                          },
+                          {
+                            "method": {
+                              "methodName": "getEntry",
+                              "fullName": "org.eclipse.jgit.dircache.DirCache.getEntry(I)Lorg/eclipse/jgit/dircache/DirCacheEntry;",
+                              "argumentsSize": 1,
+                              "returnTypeName": "org.eclipse.jgit.dircache.DirCacheEntry",
+                              "containingClass": "org.eclipse.jgit.dircache.DirCache"
+                            },
+                            "calls": [
+                              {
+                                "result": {
+                                  "kind": "object",
+                                  "typeName": "org.eclipse.jgit.dircache.DirCacheEntry",
+                                  "fields": {
+                                    "info": {
+                                      "kind": "converted",
+                                      "isResource": true,
+                                      "typeName": "byte",
+                                      "resourcePath": "checkoutCommandReproducedTests/byte_3.array",
+                                      "contentBase64": "AAAAgAAAAAAAAAAAasv6FgKRJzkAAAAAAAAAAAAAoAAAAAAAAAAAAAAAAAFj2NvUDCNULnQGWacWigzjE46nSAABAAAAAAAAAABqy/oVOMikPAAAAAAAAAAAAACBpAAAAAAAAAAAAAAADa5cU2TOJVXlgYeRfOpJsbM/rNc3AAEAAAAA"
+                                    },
+                                    "infoOffset": {
+                                      "kind": "int",
+                                      "value": 0
+                                    },
+                                    "path": {
+                                      "kind": "array",
+                                      "isShallow": false,
+                                      "size": 1,
+                                      "elements": [
+                                        {
+                                          "kind": "byte",
+                                          "value": 97
+                                        }
+                                      ]
+                                    },
+                                    "inCoreFlags": {
+                                      "kind": "byte",
+                                      "value": 0
+                                    }
+                                  },
+                                  "id": 17
+                                },
+                                "args": []
+                              },
+                              {
+                                "result": {
+                                  "kind": "object",
+                                  "typeName": "org.eclipse.jgit.dircache.DirCacheEntry",
+                                  "fields": {
+                                    "info": {
+                                      "kind": "converted",
+                                      "isResource": true,
+                                      "typeName": "byte",
+                                      "resourcePath": "checkoutCommandReproducedTests/byte_3.array",
+                                      "contentBase64": "AAAAgAAAAAAAAAAAasv6FgKRJzkAAAAAAAAAAAAAoAAAAAAAAAAAAAAAAAFj2NvUDCNULnQGWacWigzjE46nSAABAAAAAAAAAABqy/oVOMikPAAAAAAAAAAAAACBpAAAAAAAAAAAAAAADa5cU2TOJVXlgYeRfOpJsbM/rNc3AAEAAAAA"
+                                    },
+                                    "infoOffset": {
+                                      "kind": "int",
+                                      "value": 62
+                                    },
+                                    "path": {
+                                      "kind": "array",
+                                      "isShallow": false,
+                                      "size": 1,
+                                      "elements": [
+                                        {
+                                          "kind": "byte",
+                                          "value": 98
+                                        }
+                                      ]
+                                    },
+                                    "inCoreFlags": {
+                                      "kind": "byte",
+                                      "value": 0
+                                    }
+                                  },
+                                  "id": 18
+                                },
+                                "args": []
+                              }
+                            ]
+                          }
+                        ],
+                        "isSpy": false,
+                        "id": 14
+                      },
+                      "args": []
+                    }
+                  ]
+                },
+                {
+                  "method": {
+                    "methodName": "getConfig",
+                    "fullName": "org.eclipse.jgit.internal.storage.file.FileRepository.getConfig()Lorg/eclipse/jgit/lib/StoredConfig;",
+                    "argumentsSize": 0,
+                    "returnTypeName": "org.eclipse.jgit.lib.StoredConfig",
+                    "containingClass": "org.eclipse.jgit.internal.storage.file.FileRepository"
+                  },
+                  "calls": [
+                    {
+                      "result": {
+                        "kind": "mock",
+                        "typeName": "org.eclipse.jgit.storage.file.FileBasedConfig",
+                        "methods": [
+                          {
+                            "method": {
+                              "methodName": "get",
+                              "fullName": "org.eclipse.jgit.lib.Config.get(Lorg/eclipse/jgit/lib/Config$SectionParser;)Ljava/lang/Object;",
+                              "argumentsSize": 1,
+                              "returnTypeName": "java.lang.Object",
+                              "containingClass": "org.eclipse.jgit.lib.Config"
+                            },
+                            "calls": [
+                              {
+                                "result": {
+                                  "kind": "object",
+                                  "typeName": "org.eclipse.jgit.treewalk.WorkingTreeOptions",
+                                  "fields": {
+                                    "fileMode": {
+                                      "kind": "boolean",
+                                      "value": true
+                                    },
+                                    "autoCRLF": {
+                                      "kind": "enum",
+                                      "typeName": "org.eclipse.jgit.lib.CoreConfig$AutoCRLF",
+                                      "value": "FALSE"
+                                    },
+                                    "eol": {
+                                      "kind": "enum",
+                                      "typeName": "org.eclipse.jgit.lib.CoreConfig$EOL",
+                                      "value": "NATIVE"
+                                    },
+                                    "checkStat": {
+                                      "kind": "enum",
+                                      "typeName": "org.eclipse.jgit.lib.CoreConfig$CheckStat",
+                                      "value": "DEFAULT"
+                                    },
+                                    "symlinks": {
+                                      "kind": "enum",
+                                      "typeName": "org.eclipse.jgit.lib.CoreConfig$SymLinks",
+                                      "value": "TRUE"
+                                    },
+                                    "hideDotFiles": {
+                                      "kind": "enum",
+                                      "typeName": "org.eclipse.jgit.lib.CoreConfig$HideDotFiles",
+                                      "value": "DOTGITONLY"
+                                    },
+                                    "dirNoGitLinks": {
+                                      "kind": "boolean",
+                                      "value": false
+                                    }
+                                  },
+                                  "id": 20
+                                },
+                                "args": []
+                              },
+                              {
+                                "result": {
+                                  "kind": "ref",
+                                  "typeName": "org.eclipse.jgit.treewalk.WorkingTreeOptions",
+                                  "refId": 20
+                                },
+                                "args": []
+                              },
+                              {
+                                "result": {
+                                  "kind": "ref",
+                                  "typeName": "org.eclipse.jgit.treewalk.WorkingTreeOptions",
+                                  "refId": 20
+                                },
+                                "args": []
+                              }
+                            ]
+                          }
+                        ],
+                        "isSpy": false,
+                        "id": 19
+                      },
+                      "args": []
+                    },
+                    {
+                      "result": {
+                        "kind": "ref",
+                        "typeName": "org.eclipse.jgit.storage.file.FileBasedConfig",
+                        "refId": 19
+                      },
+                      "args": []
+                    },
+                    {
+                      "result": {
+                        "kind": "ref",
+                        "typeName": "org.eclipse.jgit.storage.file.FileBasedConfig",
+                        "refId": 19
+                      },
+                      "args": []
+                    },
+                    {
+                      "result": {
+                        "kind": "ref",
+                        "typeName": "org.eclipse.jgit.storage.file.FileBasedConfig",
+                        "refId": 19
+                      },
+                      "args": []
+                    }
+                  ]
+                },
+                {
+                  "method": {
+                    "methodName": "getWorkTree",
+                    "fullName": "org.eclipse.jgit.lib.Repository.getWorkTree()Ljava/io/File;",
+                    "argumentsSize": 0,
+                    "returnTypeName": "java.io.File",
+                    "containingClass": "org.eclipse.jgit.lib.Repository"
+                  },
+                  "calls": [
+                    {
+                      "result": {
+                        "kind": "converted",
+                        "isResource": true,
+                        "typeName": "java.io.File",
+                        "resourcePath": "checkoutCommandReproducedTests/java.io.File.error",
+                        "content": "Error reading file: Failed to read file bytes"
+                      },
+                      "args": []
+                    },
+                    {
+                      "result": {
+                        "kind": "converted",
+                        "isResource": true,
+                        "typeName": "java.io.File",
+                        "resourcePath": "checkoutCommandReproducedTests/java.io.File.error",
+                        "content": "Error reading file: Failed to read file bytes"
+                      },
+                      "args": []
+                    },
+                    {
+                      "result": {
+                        "kind": "converted",
+                        "isResource": true,
+                        "typeName": "java.io.File",
+                        "resourcePath": "checkoutCommandReproducedTests/java.io.File.error",
+                        "content": "Error reading file: Failed to read file bytes"
+                      },
+                      "args": []
+                    }
+                  ]
+                },
+                {
+                  "method": {
+                    "methodName": "getFS",
+                    "fullName": "org.eclipse.jgit.lib.Repository.getFS()Lorg/eclipse/jgit/util/FS;",
+                    "argumentsSize": 0,
+                    "returnTypeName": "org.eclipse.jgit.util.FS",
+                    "containingClass": "org.eclipse.jgit.lib.Repository"
+                  },
+                  "calls": [
+                    {
+                      "result": {
+                        "kind": "object",
+                        "typeName": "org.eclipse.jgit.util.FS_POSIX",
+                        "fields": {
+                          "umask": {
+                            "kind": "int",
+                            "value": 18
+                          },
+                          "supportsAtomicFileCreation": {
+                            "kind": "enum",
+                            "typeName": "org.eclipse.jgit.util.FS_POSIX$AtomicFileCreation",
+                            "value": "SUPPORTED"
+                          },
+                          "supportSymlinks": {
+                            "kind": "boolean",
+                            "value": true
+                          },
+                          "userHome": {
+                            "kind": "mock",
+                            "typeName": "java.lang.Object",
+                            "methods": [],
+                            "isSpy": false,
+                            "id": 22
+                          },
+                          "gitSystemConfig": {
+                            "kind": "null"
+                          },
+                          "factory": {
+                            "kind": "mock",
+                            "typeName": "org.eclipse.jgit.util.FS$FSFactory",
+                            "methods": [],
+                            "isSpy": false,
+                            "id": 23
+                          }
+                        },
+                        "id": 21
+                      },
+                      "args": []
+                    }
+                  ]
+                },
+                {
+                  "method": {
+                    "methodName": "isBare",
+                    "fullName": "org.eclipse.jgit.lib.Repository.isBare()Z",
+                    "argumentsSize": 0,
+                    "returnTypeName": "boolean",
+                    "containingClass": "org.eclipse.jgit.lib.Repository"
+                  },
+                  "calls": [
+                    {
+                      "result": {
+                        "kind": "boolean",
+                        "value": false
+                      },
+                      "args": []
+                    },
+                    {
+                      "result": {
+                        "kind": "boolean",
+                        "value": false
+                      },
+                      "args": []
+                    }
+                  ]
+                },
+                {
+                  "method": {
+                    "methodName": "getIndexFile",
+                    "fullName": "org.eclipse.jgit.lib.Repository.getIndexFile()Ljava/io/File;",
+                    "argumentsSize": 0,
+                    "returnTypeName": "java.io.File",
+                    "containingClass": "org.eclipse.jgit.lib.Repository"
+                  },
+                  "calls": [
+                    {
+                      "result": {
+                        "kind": "converted",
+                        "isResource": true,
+                        "typeName": "java.io.File",
+                        "resourcePath": "checkoutCommandReproducedTests/java.io.File_1.bin",
+                        "contentBase64": "RElSQwAAAAMAAAACAAAAAAAAAABqy/oWApEnOQAAAAAAAAAAAACgAAAAAAAAAAAAAAAAAWPY29QMI1QudAZZpxaKDOMTjqdIAAFhAAAAAAAAAAAAasv6FTjIpDwAAAAAAAAAAAAAgaQAAAAAAAAAAAAAAA2uXFNkziVV5YGHkXzqSbGzP6zXNwABYgBE/KPpap8kFgsie4Y7ekV80yGbPQ=="
+                      },
+                      "args": []
+                    }
+                  ]
+                },
+                {
+                  "method": {
+                    "methodName": "isWorkTreeCaseInsensitive",
+                    "fullName": "org.eclipse.jgit.lib.Repository.isWorkTreeCaseInsensitive()Z",
+                    "argumentsSize": 0,
+                    "returnTypeName": "boolean",
+                    "containingClass": "org.eclipse.jgit.lib.Repository"
+                  },
+                  "calls": [
+                    {
+                      "result": {
+                        "kind": "boolean",
+                        "value": true
+                      },
+                      "args": []
+                    }
+                  ]
+                },
+                {
+                  "method": {
+                    "methodName": "getObjectDatabase",
+                    "fullName": "org.eclipse.jgit.internal.storage.file.FileRepository.getObjectDatabase()Lorg/eclipse/jgit/lib/ObjectDatabase;",
+                    "argumentsSize": 0,
+                    "returnTypeName": "org.eclipse.jgit.lib.ObjectDatabase",
+                    "containingClass": "org.eclipse.jgit.internal.storage.file.FileRepository"
+                  },
+                  "calls": [
+                    {
+                      "result": {
+                        "kind": "mock",
+                        "typeName": "org.eclipse.jgit.internal.storage.file.ObjectDirectory",
+                        "methods": [
+                          {
+                            "method": {
+                              "methodName": "newReader",
+                              "fullName": "org.eclipse.jgit.internal.storage.file.ObjectDirectory.newReader()Lorg/eclipse/jgit/lib/ObjectReader;",
+                              "argumentsSize": 0,
+                              "returnTypeName": "org.eclipse.jgit.lib.ObjectReader",
+                              "containingClass": "org.eclipse.jgit.internal.storage.file.ObjectDirectory"
+                            },
+                            "calls": [
+                              {
+                                "result": {
+                                  "kind": "mock",
+                                  "typeName": "org.eclipse.jgit.internal.storage.file.WindowCursor",
+                                  "methods": [],
+                                  "isSpy": false,
+                                  "id": 25
+                                },
+                                "args": []
+                              }
+                            ]
+                          }
+                        ],
+                        "isSpy": false,
+                        "id": 24
+                      },
+                      "args": []
+                    }
+                  ]
+                },
+                {
+                  "method": {
+                    "methodName": "createAttributesNodeProvider",
+                    "fullName": "org.eclipse.jgit.internal.storage.file.FileRepository.createAttributesNodeProvider()Lorg/eclipse/jgit/attributes/AttributesNodeProvider;",
+                    "argumentsSize": 0,
+                    "returnTypeName": "org.eclipse.jgit.attributes.AttributesNodeProvider",
+                    "containingClass": "org.eclipse.jgit.internal.storage.file.FileRepository"
+                  },
+                  "calls": [
+                    {
+                      "result": {
+                        "kind": "mock",
+                        "typeName": "org.eclipse.jgit.internal.storage.file.FileRepository$AttributesNodeProviderImpl",
+                        "methods": [],
+                        "isSpy": false,
+                        "id": 26
+                      },
+                      "args": []
+                    }
+                  ]
+                },
+                {
+                  "method": {
+                    "methodName": "findRef",
+                    "fullName": "org.eclipse.jgit.lib.Repository.findRef(Ljava/lang/String;)Lorg/eclipse/jgit/lib/Ref;",
+                    "argumentsSize": 1,
+                    "returnTypeName": "org.eclipse.jgit.lib.Ref",
+                    "containingClass": "org.eclipse.jgit.lib.Repository"
+                  },
+                  "calls": [
+                    {
+                      "result": {
+                        "kind": "mock",
+                        "typeName": "org.eclipse.jgit.lib.Ref",
+                        "methods": [
+                          {
+                            "method": {
+                              "methodName": "getName",
+                              "fullName": "org.eclipse.jgit.lib.ObjectIdRef.getName()Ljava/lang/String;",
+                              "argumentsSize": 0,
+                              "returnTypeName": "java.lang.String",
+                              "containingClass": "org.eclipse.jgit.lib.ObjectIdRef"
+                            },
+                            "calls": [
+                              {
+                                "result": {
+                                  "kind": "string",
+                                  "value": "refs/heads/branch_1"
+                                },
+                                "args": []
+                              },
+                              {
+                                "result": {
+                                  "kind": "string",
+                                  "value": "refs/heads/branch_1"
+                                },
+                                "args": []
+                              }
+                            ]
+                          }
+                        ],
+                        "isSpy": false,
+                        "id": 27
+                      },
+                      "args": []
+                    }
+                  ]
+                },
+                {
+                  "method": {
+                    "methodName": "updateRef",
+                    "fullName": "org.eclipse.jgit.lib.Repository.updateRef(Ljava/lang/String;Z)Lorg/eclipse/jgit/lib/RefUpdate;",
+                    "argumentsSize": 2,
+                    "returnTypeName": "org.eclipse.jgit.lib.RefUpdate",
+                    "containingClass": "org.eclipse.jgit.lib.Repository"
+                  },
+                  "calls": [
+                    {
+                      "result": {
+                        "kind": "mock",
+                        "typeName": "org.eclipse.jgit.internal.storage.file.RefDirectoryUpdate",
+                        "methods": [
+                          {
+                            "method": {
+                              "methodName": "link",
+                              "fullName": "org.eclipse.jgit.lib.RefUpdate.link(Ljava/lang/String;)Lorg/eclipse/jgit/lib/RefUpdate$Result;",
+                              "argumentsSize": 1,
+                              "returnTypeName": "org.eclipse.jgit.lib.RefUpdate$Result",
+                              "containingClass": "org.eclipse.jgit.lib.RefUpdate"
+                            },
+                            "calls": [
+                              {
+                                "result": {
+                                  "kind": "enum",
+                                  "typeName": "org.eclipse.jgit.lib.RefUpdate$Result",
+                                  "value": "FORCED"
+                                },
+                                "args": []
+                              }
+                            ]
+                          }
+                        ],
+                        "isSpy": false,
+                        "id": 28
+                      },
+                      "args": []
+                    }
+                  ]
+                }
+              ],
+              "isSpy": false,
+              "id": 2
+            },
+            "callable": {
+              "kind": "object",
+              "typeName": "java.util.concurrent.atomic.AtomicBoolean",
+              "fields": {
+                "value": {
+                  "kind": "int",
+                  "value": 1
+                }
+              },
+              "id": 29
+            }
+          },
+          "id": -1
+        },
+        "args": [],
+        "returnValue": {
+          "kind": "unknown"
+        }
+      }
+    ]
+  }
+]

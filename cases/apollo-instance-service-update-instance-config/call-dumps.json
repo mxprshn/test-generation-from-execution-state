@@ -1,0 +1,204 @@
+[
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "updateInstanceConfig",
+                    "fullName": "updateInstanceConfig(InstanceConfig)",
+                    "argumentsSize": 1,
+                    "returnTypeName": "InstanceConfig",
+                    "containingClass": "com.ctrip.framework.apollo.biz.service.InstanceService"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "com.ctrip.framework.apollo.biz.service.InstanceService",
+                    "fields": {
+                        "instanceRepository": {
+                            "kind": "mock",
+                            "typeName": "com.ctrip.framework.apollo.biz.repository.InstanceRepository",
+                            "methods": [],
+                            "isSpy": false,
+                            "id": 1
+                        },
+                        "instanceConfigRepository": {
+                            "kind": "mock",
+                            "typeName": "com.ctrip.framework.apollo.biz.repository.InstanceConfigRepository",
+                            "methods": [
+                                {
+                                    "method": {
+                                        "methodName": "findById",
+                                        "fullName": "com.ctrip.framework.apollo.biz.repository.InstanceConfigRepository.findById(Ljava/lang/Object;)Ljava/util/Optional;",
+                                        "argumentsSize": 1,
+                                        "returnTypeName": "java.util.Optional",
+                                        "containingClass": "com.ctrip.framework.apollo.biz.repository.InstanceConfigRepository"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "object",
+                                                "typeName": "java.util.Optional",
+                                                "fields": {
+                                                    "value": {
+                                                        "kind": "object",
+                                                        "typeName": "com.ctrip.framework.apollo.biz.entity.InstanceConfig",
+                                                        "fields": {
+                                                            "id": {
+                                                                "kind": "long",
+                                                                "value": 8
+                                                            },
+                                                            "instanceId": {
+                                                                "kind": "long",
+                                                                "value": 1
+                                                            },
+                                                            "configClusterName": {
+                                                                "kind": "string",
+                                                                "value": "someConfigClusterName"
+                                                            },
+                                                            "releaseKey": {
+                                                                "kind": "string",
+                                                                "value": "anotherReleaseKey"
+                                                            },
+                                                            "dataChangeCreatedTime": {
+                                                                "kind": "object",
+                                                                "typeName": "java.util.Date",
+                                                                "fields": {
+                                                                    "fastTime": {
+                                                                        "kind": "long",
+                                                                        "value": 1791727201772
+                                                                    },
+                                                                    "cdate": {
+                                                                        "kind": "null"
+                                                                    },
+                                                                    "jcal": {
+                                                                        "kind": "null"
+                                                                    },
+                                                                    "defaultCenturyStart": {
+                                                                        "kind": "int",
+                                                                        "value": 0
+                                                                    }
+                                                                },
+                                                                "id": 5
+                                                            },
+                                                            "configAppId": {
+                                                                "kind": "string",
+                                                                "value": "someConfigAppId"
+                                                            },
+                                                            "configNamespaceName": {
+                                                                "kind": "string",
+                                                                "value": "someConfigNamespaceName"
+                                                            },
+                                                            "releaseDeliveryTime": {
+                                                                "kind": "null"
+                                                            },
+                                                            "dataChangeLastModifiedTime": {
+                                                                "kind": "ref",
+                                                                "typeName": "java.util.Date",
+                                                                "refId": 5
+                                                            }
+                                                        },
+                                                        "id": 4
+                                                    }
+                                                },
+                                                "id": 3
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "method": {
+                                        "methodName": "save",
+                                        "fullName": "com.ctrip.framework.apollo.biz.repository.InstanceConfigRepository.save(Ljava/lang/Object;)Ljava/lang/Object;",
+                                        "argumentsSize": 1,
+                                        "returnTypeName": "java.lang.Object",
+                                        "containingClass": "com.ctrip.framework.apollo.biz.repository.InstanceConfigRepository"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "ref",
+                                                "typeName": "com.ctrip.framework.apollo.biz.entity.InstanceConfig",
+                                                "refId": 4
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                }
+                            ],
+                            "isSpy": false,
+                            "id": 2
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "ref",
+                        "typeName": "com.ctrip.framework.apollo.biz.entity.InstanceConfig",
+                        "refId": 4
+                    }
+                ],
+                "returnValue": {
+                    "kind": "object",
+                    "typeName": "com.ctrip.framework.apollo.biz.entity.InstanceConfig",
+                    "fields": {
+                        "id": {
+                            "kind": "long",
+                            "value": 8
+                        },
+                        "instanceId": {
+                            "kind": "long",
+                            "value": 1
+                        },
+                        "configClusterName": {
+                            "kind": "string",
+                            "value": "someConfigClusterName"
+                        },
+                        "releaseKey": {
+                            "kind": "string",
+                            "value": "anotherReleaseKey"
+                        },
+                        "dataChangeCreatedTime": {
+                            "kind": "object",
+                            "typeName": "java.util.Date",
+                            "fields": {
+                                "fastTime": {
+                                    "kind": "unknown"
+                                },
+                                "cdate": {
+                                    "kind": "unknown"
+                                },
+                                "jcal": {
+                                    "kind": "unknown"
+                                },
+                                "defaultCenturyStart": {
+                                    "kind": "unknown"
+                                }
+                            },
+                            "id": 7
+                        },
+                        "configAppId": {
+                            "kind": "string",
+                            "value": "someConfigAppId"
+                        },
+                        "configNamespaceName": {
+                            "kind": "string",
+                            "value": "someConfigNamespaceName"
+                        },
+                        "releaseDeliveryTime": {
+                            "kind": "unknown"
+                        },
+                        "dataChangeLastModifiedTime": {
+                            "kind": "ref",
+                            "typeName": "java.util.Date",
+                            "refId": 7
+                        }
+                    },
+                    "id": 6
+                }
+            }
+        ]
+    }
+]

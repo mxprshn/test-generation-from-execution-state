@@ -1,0 +1,1699 @@
+[
+  {
+    "staticMethodMocks": [
+      {
+        "method": {
+          "methodName": "save",
+          "fullName": "org.eclipse.jgit.internal.storage.file.FileSnapshot.save(Ljava/io/File;)Lorg/eclipse/jgit/internal/storage/file/FileSnapshot;",
+          "argumentsSize": 1,
+          "returnTypeName": "org.eclipse.jgit.internal.storage.file.FileSnapshot",
+          "containingClass": "org.eclipse.jgit.internal.storage.file.FileSnapshot"
+        },
+        "calls": [
+          {
+            "result": {
+              "kind": "object",
+              "typeName": "org.eclipse.jgit.internal.storage.file.FileSnapshot",
+              "fields": {
+                "lastRead": {
+                  "kind": "object",
+                  "typeName": "java.time.Instant",
+                  "fields": {
+                    "seconds": {
+                      "kind": "long",
+                      "value": 1791752759
+                    },
+                    "nanos": {
+                      "kind": "int",
+                      "value": 328889000
+                    }
+                  },
+                  "id": 2
+                },
+                "size": {
+                  "kind": "long",
+                  "value": 0
+                },
+                "useConfig": {
+                  "kind": "boolean",
+                  "value": true
+                },
+                "fileKey": {
+                  "kind": "object",
+                  "typeName": "java.lang.Object",
+                  "fields": {},
+                  "id": 3
+                },
+                "delta": {
+                  "kind": "long",
+                  "value": 0
+                },
+                "racyThreshold": {
+                  "kind": "long",
+                  "value": 0
+                },
+                "sizeChanged": {
+                  "kind": "boolean",
+                  "value": false
+                },
+                "lastModified": {
+                  "kind": "object",
+                  "typeName": "java.time.Instant",
+                  "fields": {
+                    "seconds": {
+                      "kind": "long",
+                      "value": 0
+                    },
+                    "nanos": {
+                      "kind": "int",
+                      "value": 0
+                    }
+                  },
+                  "id": 4
+                },
+                "cannotBeRacilyClean": {
+                  "kind": "boolean",
+                  "value": false
+                },
+                "fileStoreAttributeCache": {
+                  "kind": "null"
+                },
+                "file": {
+                  "kind": "converted",
+                  "isResource": true,
+                  "typeName": "java.io.File",
+                  "resourcePath": "stashCreateCommandReproducedTests/java.io.File.error",
+                  "content": "Error reading file: Failed to read file bytes"
+                },
+                "lastModifiedChanged": {
+                  "kind": "boolean",
+                  "value": false
+                },
+                "wasRacyClean": {
+                  "kind": "boolean",
+                  "value": false
+                },
+                "fileKeyChanged": {
+                  "kind": "boolean",
+                  "value": false
+                }
+              },
+              "id": 1
+            },
+            "args": []
+          },
+          {
+            "result": {
+              "kind": "object",
+              "typeName": "org.eclipse.jgit.internal.storage.file.FileSnapshot",
+              "fields": {
+                "lastRead": {
+                  "kind": "object",
+                  "typeName": "java.time.Instant",
+                  "fields": {
+                    "seconds": {
+                      "kind": "long",
+                      "value": 1791752759
+                    },
+                    "nanos": {
+                      "kind": "int",
+                      "value": 358089000
+                    }
+                  },
+                  "id": 6
+                },
+                "size": {
+                  "kind": "long",
+                  "value": 0
+                },
+                "useConfig": {
+                  "kind": "boolean",
+                  "value": true
+                },
+                "fileKey": {
+                  "kind": "ref",
+                  "typeName": "java.lang.Object",
+                  "refId": 3
+                },
+                "delta": {
+                  "kind": "long",
+                  "value": 0
+                },
+                "racyThreshold": {
+                  "kind": "long",
+                  "value": 0
+                },
+                "sizeChanged": {
+                  "kind": "boolean",
+                  "value": false
+                },
+                "lastModified": {
+                  "kind": "ref",
+                  "typeName": "java.time.Instant",
+                  "refId": 4
+                },
+                "cannotBeRacilyClean": {
+                  "kind": "boolean",
+                  "value": false
+                },
+                "fileStoreAttributeCache": {
+                  "kind": "null"
+                },
+                "file": {
+                  "kind": "converted",
+                  "isResource": true,
+                  "typeName": "java.io.File",
+                  "resourcePath": "stashCreateCommandReproducedTests/java.io.File.error",
+                  "content": "Error reading file: Failed to read file bytes"
+                },
+                "lastModifiedChanged": {
+                  "kind": "boolean",
+                  "value": false
+                },
+                "wasRacyClean": {
+                  "kind": "boolean",
+                  "value": false
+                },
+                "fileKeyChanged": {
+                  "kind": "boolean",
+                  "value": false
+                }
+              },
+              "id": 5
+            },
+            "args": []
+          },
+          {
+            "result": {
+              "kind": "object",
+              "typeName": "org.eclipse.jgit.internal.storage.file.FileSnapshot",
+              "fields": {
+                "lastRead": {
+                  "kind": "object",
+                  "typeName": "java.time.Instant",
+                  "fields": {
+                    "seconds": {
+                      "kind": "long",
+                      "value": 1791752759
+                    },
+                    "nanos": {
+                      "kind": "int",
+                      "value": 706409000
+                    }
+                  },
+                  "id": 8
+                },
+                "size": {
+                  "kind": "long",
+                  "value": 0
+                },
+                "useConfig": {
+                  "kind": "boolean",
+                  "value": true
+                },
+                "fileKey": {
+                  "kind": "ref",
+                  "typeName": "java.lang.Object",
+                  "refId": 3
+                },
+                "delta": {
+                  "kind": "long",
+                  "value": 0
+                },
+                "racyThreshold": {
+                  "kind": "long",
+                  "value": 0
+                },
+                "sizeChanged": {
+                  "kind": "boolean",
+                  "value": false
+                },
+                "lastModified": {
+                  "kind": "ref",
+                  "typeName": "java.time.Instant",
+                  "refId": 4
+                },
+                "cannotBeRacilyClean": {
+                  "kind": "boolean",
+                  "value": false
+                },
+                "fileStoreAttributeCache": {
+                  "kind": "null"
+                },
+                "file": {
+                  "kind": "converted",
+                  "isResource": true,
+                  "typeName": "java.io.File",
+                  "resourcePath": "stashCreateCommandReproducedTests/java.io.File.error",
+                  "content": "Error reading file: Failed to read file bytes"
+                },
+                "lastModifiedChanged": {
+                  "kind": "boolean",
+                  "value": false
+                },
+                "wasRacyClean": {
+                  "kind": "boolean",
+                  "value": false
+                },
+                "fileKeyChanged": {
+                  "kind": "boolean",
+                  "value": false
+                }
+              },
+              "id": 7
+            },
+            "args": []
+          },
+          {
+            "result": {
+              "kind": "object",
+              "typeName": "org.eclipse.jgit.internal.storage.file.FileSnapshot",
+              "fields": {
+                "lastRead": {
+                  "kind": "object",
+                  "typeName": "java.time.Instant",
+                  "fields": {
+                    "seconds": {
+                      "kind": "long",
+                      "value": 1791752759
+                    },
+                    "nanos": {
+                      "kind": "int",
+                      "value": 721476000
+                    }
+                  },
+                  "id": 10
+                },
+                "size": {
+                  "kind": "long",
+                  "value": 0
+                },
+                "useConfig": {
+                  "kind": "boolean",
+                  "value": true
+                },
+                "fileKey": {
+                  "kind": "ref",
+                  "typeName": "java.lang.Object",
+                  "refId": 3
+                },
+                "delta": {
+                  "kind": "long",
+                  "value": 0
+                },
+                "racyThreshold": {
+                  "kind": "long",
+                  "value": 0
+                },
+                "sizeChanged": {
+                  "kind": "boolean",
+                  "value": false
+                },
+                "lastModified": {
+                  "kind": "ref",
+                  "typeName": "java.time.Instant",
+                  "refId": 4
+                },
+                "cannotBeRacilyClean": {
+                  "kind": "boolean",
+                  "value": false
+                },
+                "fileStoreAttributeCache": {
+                  "kind": "null"
+                },
+                "file": {
+                  "kind": "converted",
+                  "isResource": true,
+                  "typeName": "java.io.File",
+                  "resourcePath": "stashCreateCommandReproducedTests/java.io.File.error",
+                  "content": "Error reading file: Failed to read file bytes"
+                },
+                "lastModifiedChanged": {
+                  "kind": "boolean",
+                  "value": false
+                },
+                "wasRacyClean": {
+                  "kind": "boolean",
+                  "value": false
+                },
+                "fileKeyChanged": {
+                  "kind": "boolean",
+                  "value": false
+                }
+              },
+              "id": 9
+            },
+            "args": []
+          },
+          {
+            "result": {
+              "kind": "object",
+              "typeName": "org.eclipse.jgit.internal.storage.file.FileSnapshot",
+              "fields": {
+                "lastRead": {
+                  "kind": "object",
+                  "typeName": "java.time.Instant",
+                  "fields": {
+                    "seconds": {
+                      "kind": "long",
+                      "value": 1791752759
+                    },
+                    "nanos": {
+                      "kind": "int",
+                      "value": 736493000
+                    }
+                  },
+                  "id": 12
+                },
+                "size": {
+                  "kind": "long",
+                  "value": 0
+                },
+                "useConfig": {
+                  "kind": "boolean",
+                  "value": true
+                },
+                "fileKey": {
+                  "kind": "ref",
+                  "typeName": "java.lang.Object",
+                  "refId": 3
+                },
+                "delta": {
+                  "kind": "long",
+                  "value": 0
+                },
+                "racyThreshold": {
+                  "kind": "long",
+                  "value": 0
+                },
+                "sizeChanged": {
+                  "kind": "boolean",
+                  "value": false
+                },
+                "lastModified": {
+                  "kind": "ref",
+                  "typeName": "java.time.Instant",
+                  "refId": 4
+                },
+                "cannotBeRacilyClean": {
+                  "kind": "boolean",
+                  "value": false
+                },
+                "fileStoreAttributeCache": {
+                  "kind": "null"
+                },
+                "file": {
+                  "kind": "converted",
+                  "isResource": true,
+                  "typeName": "java.io.File",
+                  "resourcePath": "stashCreateCommandReproducedTests/java.io.File.error",
+                  "content": "Error reading file: Failed to read file bytes"
+                },
+                "lastModifiedChanged": {
+                  "kind": "boolean",
+                  "value": false
+                },
+                "wasRacyClean": {
+                  "kind": "boolean",
+                  "value": false
+                },
+                "fileKeyChanged": {
+                  "kind": "boolean",
+                  "value": false
+                }
+              },
+              "id": 11
+            },
+            "args": []
+          },
+          {
+            "result": {
+              "kind": "object",
+              "typeName": "org.eclipse.jgit.internal.storage.file.FileSnapshot",
+              "fields": {
+                "lastRead": {
+                  "kind": "object",
+                  "typeName": "java.time.Instant",
+                  "fields": {
+                    "seconds": {
+                      "kind": "long",
+                      "value": 1791752759
+                    },
+                    "nanos": {
+                      "kind": "int",
+                      "value": 758688000
+                    }
+                  },
+                  "id": 14
+                },
+                "size": {
+                  "kind": "long",
+                  "value": 0
+                },
+                "useConfig": {
+                  "kind": "boolean",
+                  "value": true
+                },
+                "fileKey": {
+                  "kind": "ref",
+                  "typeName": "java.lang.Object",
+                  "refId": 3
+                },
+                "delta": {
+                  "kind": "long",
+                  "value": 0
+                },
+                "racyThreshold": {
+                  "kind": "long",
+                  "value": 0
+                },
+                "sizeChanged": {
+                  "kind": "boolean",
+                  "value": false
+                },
+                "lastModified": {
+                  "kind": "ref",
+                  "typeName": "java.time.Instant",
+                  "refId": 4
+                },
+                "cannotBeRacilyClean": {
+                  "kind": "boolean",
+                  "value": false
+                },
+                "fileStoreAttributeCache": {
+                  "kind": "null"
+                },
+                "file": {
+                  "kind": "converted",
+                  "isResource": true,
+                  "typeName": "java.io.File",
+                  "resourcePath": "stashCreateCommandReproducedTests/java.io.File.error",
+                  "content": "Error reading file: Failed to read file bytes"
+                },
+                "lastModifiedChanged": {
+                  "kind": "boolean",
+                  "value": false
+                },
+                "wasRacyClean": {
+                  "kind": "boolean",
+                  "value": false
+                },
+                "fileKeyChanged": {
+                  "kind": "boolean",
+                  "value": false
+                }
+              },
+              "id": 13
+            },
+            "args": []
+          },
+          {
+            "result": {
+              "kind": "object",
+              "typeName": "org.eclipse.jgit.internal.storage.file.FileSnapshot",
+              "fields": {
+                "lastRead": {
+                  "kind": "object",
+                  "typeName": "java.time.Instant",
+                  "fields": {
+                    "seconds": {
+                      "kind": "long",
+                      "value": 1791752759
+                    },
+                    "nanos": {
+                      "kind": "int",
+                      "value": 782214000
+                    }
+                  },
+                  "id": 16
+                },
+                "size": {
+                  "kind": "long",
+                  "value": 0
+                },
+                "useConfig": {
+                  "kind": "boolean",
+                  "value": true
+                },
+                "fileKey": {
+                  "kind": "ref",
+                  "typeName": "java.lang.Object",
+                  "refId": 3
+                },
+                "delta": {
+                  "kind": "long",
+                  "value": 0
+                },
+                "racyThreshold": {
+                  "kind": "long",
+                  "value": 0
+                },
+                "sizeChanged": {
+                  "kind": "boolean",
+                  "value": false
+                },
+                "lastModified": {
+                  "kind": "ref",
+                  "typeName": "java.time.Instant",
+                  "refId": 4
+                },
+                "cannotBeRacilyClean": {
+                  "kind": "boolean",
+                  "value": false
+                },
+                "fileStoreAttributeCache": {
+                  "kind": "null"
+                },
+                "file": {
+                  "kind": "converted",
+                  "isResource": true,
+                  "typeName": "java.io.File",
+                  "resourcePath": "stashCreateCommandReproducedTests/java.io.File.error",
+                  "content": "Error reading file: Failed to read file bytes"
+                },
+                "lastModifiedChanged": {
+                  "kind": "boolean",
+                  "value": false
+                },
+                "wasRacyClean": {
+                  "kind": "boolean",
+                  "value": false
+                },
+                "fileKeyChanged": {
+                  "kind": "boolean",
+                  "value": false
+                }
+              },
+              "id": 15
+            },
+            "args": []
+          },
+          {
+            "result": {
+              "kind": "object",
+              "typeName": "org.eclipse.jgit.internal.storage.file.FileSnapshot",
+              "fields": {
+                "lastRead": {
+                  "kind": "object",
+                  "typeName": "java.time.Instant",
+                  "fields": {
+                    "seconds": {
+                      "kind": "long",
+                      "value": 1791752759
+                    },
+                    "nanos": {
+                      "kind": "int",
+                      "value": 809633000
+                    }
+                  },
+                  "id": 18
+                },
+                "size": {
+                  "kind": "long",
+                  "value": 0
+                },
+                "useConfig": {
+                  "kind": "boolean",
+                  "value": true
+                },
+                "fileKey": {
+                  "kind": "ref",
+                  "typeName": "java.lang.Object",
+                  "refId": 3
+                },
+                "delta": {
+                  "kind": "long",
+                  "value": 0
+                },
+                "racyThreshold": {
+                  "kind": "long",
+                  "value": 0
+                },
+                "sizeChanged": {
+                  "kind": "boolean",
+                  "value": false
+                },
+                "lastModified": {
+                  "kind": "ref",
+                  "typeName": "java.time.Instant",
+                  "refId": 4
+                },
+                "cannotBeRacilyClean": {
+                  "kind": "boolean",
+                  "value": false
+                },
+                "fileStoreAttributeCache": {
+                  "kind": "null"
+                },
+                "file": {
+                  "kind": "converted",
+                  "isResource": true,
+                  "typeName": "java.io.File",
+                  "resourcePath": "stashCreateCommandReproducedTests/java.io.File.error",
+                  "content": "Error reading file: Failed to read file bytes"
+                },
+                "lastModifiedChanged": {
+                  "kind": "boolean",
+                  "value": false
+                },
+                "wasRacyClean": {
+                  "kind": "boolean",
+                  "value": false
+                },
+                "fileKeyChanged": {
+                  "kind": "boolean",
+                  "value": false
+                }
+              },
+              "id": 17
+            },
+            "args": []
+          },
+          {
+            "result": {
+              "kind": "object",
+              "typeName": "org.eclipse.jgit.internal.storage.file.FileSnapshot",
+              "fields": {
+                "lastRead": {
+                  "kind": "object",
+                  "typeName": "java.time.Instant",
+                  "fields": {
+                    "seconds": {
+                      "kind": "long",
+                      "value": 1791752759
+                    },
+                    "nanos": {
+                      "kind": "int",
+                      "value": 840217000
+                    }
+                  },
+                  "id": 20
+                },
+                "size": {
+                  "kind": "long",
+                  "value": 0
+                },
+                "useConfig": {
+                  "kind": "boolean",
+                  "value": true
+                },
+                "fileKey": {
+                  "kind": "ref",
+                  "typeName": "java.lang.Object",
+                  "refId": 3
+                },
+                "delta": {
+                  "kind": "long",
+                  "value": 0
+                },
+                "racyThreshold": {
+                  "kind": "long",
+                  "value": 0
+                },
+                "sizeChanged": {
+                  "kind": "boolean",
+                  "value": false
+                },
+                "lastModified": {
+                  "kind": "ref",
+                  "typeName": "java.time.Instant",
+                  "refId": 4
+                },
+                "cannotBeRacilyClean": {
+                  "kind": "boolean",
+                  "value": false
+                },
+                "fileStoreAttributeCache": {
+                  "kind": "null"
+                },
+                "file": {
+                  "kind": "converted",
+                  "isResource": true,
+                  "typeName": "java.io.File",
+                  "resourcePath": "stashCreateCommandReproducedTests/java.io.File.error",
+                  "content": "Error reading file: Failed to read file bytes"
+                },
+                "lastModifiedChanged": {
+                  "kind": "boolean",
+                  "value": false
+                },
+                "wasRacyClean": {
+                  "kind": "boolean",
+                  "value": false
+                },
+                "fileKeyChanged": {
+                  "kind": "boolean",
+                  "value": false
+                }
+              },
+              "id": 19
+            },
+            "args": []
+          },
+          {
+            "result": {
+              "kind": "object",
+              "typeName": "org.eclipse.jgit.internal.storage.file.FileSnapshot",
+              "fields": {
+                "lastRead": {
+                  "kind": "object",
+                  "typeName": "java.time.Instant",
+                  "fields": {
+                    "seconds": {
+                      "kind": "long",
+                      "value": 1791752759
+                    },
+                    "nanos": {
+                      "kind": "int",
+                      "value": 865153000
+                    }
+                  },
+                  "id": 22
+                },
+                "size": {
+                  "kind": "long",
+                  "value": 0
+                },
+                "useConfig": {
+                  "kind": "boolean",
+                  "value": true
+                },
+                "fileKey": {
+                  "kind": "ref",
+                  "typeName": "java.lang.Object",
+                  "refId": 3
+                },
+                "delta": {
+                  "kind": "long",
+                  "value": 0
+                },
+                "racyThreshold": {
+                  "kind": "long",
+                  "value": 0
+                },
+                "sizeChanged": {
+                  "kind": "boolean",
+                  "value": false
+                },
+                "lastModified": {
+                  "kind": "ref",
+                  "typeName": "java.time.Instant",
+                  "refId": 4
+                },
+                "cannotBeRacilyClean": {
+                  "kind": "boolean",
+                  "value": false
+                },
+                "fileStoreAttributeCache": {
+                  "kind": "null"
+                },
+                "file": {
+                  "kind": "converted",
+                  "isResource": true,
+                  "typeName": "java.io.File",
+                  "resourcePath": "stashCreateCommandReproducedTests/java.io.File.error",
+                  "content": "Error reading file: Failed to read file bytes"
+                },
+                "lastModifiedChanged": {
+                  "kind": "boolean",
+                  "value": false
+                },
+                "wasRacyClean": {
+                  "kind": "boolean",
+                  "value": false
+                },
+                "fileKeyChanged": {
+                  "kind": "boolean",
+                  "value": false
+                }
+              },
+              "id": 21
+            },
+            "args": []
+          }
+        ]
+      },
+      {
+        "method": {
+          "methodName": "lock",
+          "fullName": "org.eclipse.jgit.dircache.DirCache.lock(Lorg/eclipse/jgit/lib/Repository;Lorg/eclipse/jgit/events/IndexChangedListener;)Lorg/eclipse/jgit/dircache/DirCache;",
+          "argumentsSize": 2,
+          "returnTypeName": "org.eclipse.jgit.dircache.DirCache",
+          "containingClass": "org.eclipse.jgit.dircache.DirCache"
+        },
+        "calls": [
+          {
+            "result": {
+              "kind": "mock",
+              "typeName": "org.eclipse.jgit.dircache.DirCache",
+              "methods": [
+                {
+                  "method": {
+                    "methodName": "getCacheTree",
+                    "fullName": "org.eclipse.jgit.dircache.DirCache.getCacheTree(Z)Lorg/eclipse/jgit/dircache/DirCacheTree;",
+                    "argumentsSize": 1,
+                    "returnTypeName": "org.eclipse.jgit.dircache.DirCacheTree",
+                    "containingClass": "org.eclipse.jgit.dircache.DirCache"
+                  },
+                  "calls": [
+                    {
+                      "result": {
+                        "kind": "object",
+                        "typeName": "org.eclipse.jgit.dircache.DirCacheTree",
+                        "fields": {
+                          "parent": {
+                            "kind": "null"
+                          },
+                          "encodedName": {
+                            "kind": "array",
+                            "isShallow": false,
+                            "size": 0,
+                            "elements": []
+                          },
+                          "entrySpan": {
+                            "kind": "int",
+                            "value": 1
+                          },
+                          "id": {
+                            "kind": "null"
+                          },
+                          "children": {
+                            "kind": "array",
+                            "isShallow": false,
+                            "size": 0,
+                            "elements": []
+                          },
+                          "childCnt": {
+                            "kind": "int",
+                            "value": 0
+                          }
+                        },
+                        "id": 24
+                      },
+                      "args": []
+                    }
+                  ]
+                },
+                {
+                  "method": {
+                    "methodName": "getEntry",
+                    "fullName": "org.eclipse.jgit.dircache.DirCache.getEntry(I)Lorg/eclipse/jgit/dircache/DirCacheEntry;",
+                    "argumentsSize": 1,
+                    "returnTypeName": "org.eclipse.jgit.dircache.DirCacheEntry",
+                    "containingClass": "org.eclipse.jgit.dircache.DirCache"
+                  },
+                  "calls": [
+                    {
+                      "result": {
+                        "kind": "object",
+                        "typeName": "org.eclipse.jgit.dircache.DirCacheEntry",
+                        "fields": {
+                          "info": {
+                            "kind": "converted",
+                            "isResource": true,
+                            "typeName": "byte",
+                            "resourcePath": "stashCreateCommandReproducedTests/byte.array",
+                            "contentBase64": "AAAAQAAAAAAAAAAAasv6Ngdd7NYAAAAAAAAAAAAAgaQAAAAAAAAAAAAAAAdrWE6OzlYuv/wV04gIzWuY/D2X6gAIAAA="
+                          },
+                          "infoOffset": {
+                            "kind": "int",
+                            "value": 0
+                          },
+                          "path": {
+                            "kind": "array",
+                            "isShallow": false,
+                            "size": 8,
+                            "elements": [
+                              {
+                                "kind": "byte",
+                                "value": 102
+                              },
+                              {
+                                "kind": "byte",
+                                "value": 105
+                              },
+                              {
+                                "kind": "byte",
+                                "value": 108
+                              },
+                              {
+                                "kind": "byte",
+                                "value": 101
+                              },
+                              {
+                                "kind": "byte",
+                                "value": 46
+                              },
+                              {
+                                "kind": "byte",
+                                "value": 116
+                              },
+                              {
+                                "kind": "byte",
+                                "value": 120
+                              },
+                              {
+                                "kind": "byte",
+                                "value": 116
+                              }
+                            ]
+                          },
+                          "inCoreFlags": {
+                            "kind": "byte",
+                            "value": 0
+                          }
+                        },
+                        "id": 25
+                      },
+                      "args": []
+                    }
+                  ]
+                },
+                {
+                  "method": {
+                    "methodName": "writeTree",
+                    "fullName": "org.eclipse.jgit.dircache.DirCache.writeTree(Lorg/eclipse/jgit/lib/ObjectInserter;)Lorg/eclipse/jgit/lib/ObjectId;",
+                    "argumentsSize": 1,
+                    "returnTypeName": "org.eclipse.jgit.lib.ObjectId",
+                    "containingClass": "org.eclipse.jgit.dircache.DirCache"
+                  },
+                  "calls": [
+                    {
+                      "result": {
+                        "kind": "object",
+                        "typeName": "org.eclipse.jgit.lib.ObjectId",
+                        "fields": {
+                          "w1": {
+                            "kind": "int",
+                            "value": 1410683101
+                          },
+                          "w2": {
+                            "kind": "int",
+                            "value": -813028932
+                          },
+                          "w3": {
+                            "kind": "int",
+                            "value": -670365696
+                          },
+                          "w4": {
+                            "kind": "int",
+                            "value": -1589467180
+                          },
+                          "w5": {
+                            "kind": "int",
+                            "value": 2022756310
+                          }
+                        },
+                        "id": 26
+                      },
+                      "args": []
+                    },
+                    {
+                      "result": {
+                        "kind": "object",
+                        "typeName": "org.eclipse.jgit.lib.ObjectId",
+                        "fields": {
+                          "w1": {
+                            "kind": "int",
+                            "value": 521191161
+                          },
+                          "w2": {
+                            "kind": "int",
+                            "value": 826926870
+                          },
+                          "w3": {
+                            "kind": "int",
+                            "value": 2047778639
+                          },
+                          "w4": {
+                            "kind": "int",
+                            "value": 1429556021
+                          },
+                          "w5": {
+                            "kind": "int",
+                            "value": -548989233
+                          }
+                        },
+                        "id": 27
+                      },
+                      "args": []
+                    }
+                  ]
+                },
+                {
+                  "method": {
+                    "methodName": "editor",
+                    "fullName": "org.eclipse.jgit.dircache.DirCache.editor()Lorg/eclipse/jgit/dircache/DirCacheEditor;",
+                    "argumentsSize": 0,
+                    "returnTypeName": "org.eclipse.jgit.dircache.DirCacheEditor",
+                    "containingClass": "org.eclipse.jgit.dircache.DirCache"
+                  },
+                  "calls": [
+                    {
+                      "result": {
+                        "kind": "mock",
+                        "typeName": "org.eclipse.jgit.dircache.DirCacheEditor",
+                        "methods": [],
+                        "isSpy": false,
+                        "id": 28
+                      },
+                      "args": []
+                    }
+                  ]
+                }
+              ],
+              "isSpy": false,
+              "id": 23
+            },
+            "args": []
+          },
+          {
+            "result": {
+              "kind": "mock",
+              "typeName": "org.eclipse.jgit.dircache.DirCache",
+              "methods": [
+                {
+                  "method": {
+                    "methodName": "builder",
+                    "fullName": "org.eclipse.jgit.dircache.DirCache.builder()Lorg/eclipse/jgit/dircache/DirCacheBuilder;",
+                    "argumentsSize": 0,
+                    "returnTypeName": "org.eclipse.jgit.dircache.DirCacheBuilder",
+                    "containingClass": "org.eclipse.jgit.dircache.DirCache"
+                  },
+                  "calls": [
+                    {
+                      "result": {
+                        "kind": "mock",
+                        "typeName": "org.eclipse.jgit.dircache.DirCacheBuilder",
+                        "methods": [
+                          {
+                            "method": {
+                              "methodName": "getDirCache",
+                              "fullName": "org.eclipse.jgit.dircache.DirCacheBuilder.getDirCache()Lorg/eclipse/jgit/dircache/DirCache;",
+                              "argumentsSize": 0,
+                              "returnTypeName": "org.eclipse.jgit.dircache.DirCache",
+                              "containingClass": "org.eclipse.jgit.dircache.DirCacheBuilder"
+                            },
+                            "calls": [
+                              {
+                                "result": {
+                                  "kind": "ref",
+                                  "typeName": "org.eclipse.jgit.dircache.DirCache",
+                                  "refId": 29
+                                },
+                                "args": []
+                              }
+                            ]
+                          },
+                          {
+                            "method": {
+                              "methodName": "commit",
+                              "fullName": "org.eclipse.jgit.dircache.DirCacheBuilder.commit()Z",
+                              "argumentsSize": 0,
+                              "returnTypeName": "boolean",
+                              "containingClass": "org.eclipse.jgit.dircache.DirCacheBuilder"
+                            },
+                            "calls": [
+                              {
+                                "result": {
+                                  "kind": "boolean",
+                                  "value": true
+                                },
+                                "args": []
+                              }
+                            ]
+                          }
+                        ],
+                        "isSpy": false,
+                        "id": 30
+                      },
+                      "args": []
+                    }
+                  ]
+                },
+                {
+                  "method": {
+                    "methodName": "getCacheTree",
+                    "fullName": "org.eclipse.jgit.dircache.DirCache.getCacheTree(Z)Lorg/eclipse/jgit/dircache/DirCacheTree;",
+                    "argumentsSize": 1,
+                    "returnTypeName": "org.eclipse.jgit.dircache.DirCacheTree",
+                    "containingClass": "org.eclipse.jgit.dircache.DirCache"
+                  },
+                  "calls": [
+                    {
+                      "result": {
+                        "kind": "object",
+                        "typeName": "org.eclipse.jgit.dircache.DirCacheTree",
+                        "fields": {
+                          "parent": {
+                            "kind": "null"
+                          },
+                          "encodedName": {
+                            "kind": "array",
+                            "isShallow": false,
+                            "size": 0,
+                            "elements": []
+                          },
+                          "entrySpan": {
+                            "kind": "int",
+                            "value": 1
+                          },
+                          "id": {
+                            "kind": "null"
+                          },
+                          "children": {
+                            "kind": "array",
+                            "isShallow": false,
+                            "size": 0,
+                            "elements": []
+                          },
+                          "childCnt": {
+                            "kind": "int",
+                            "value": 0
+                          }
+                        },
+                        "id": 31
+                      },
+                      "args": []
+                    }
+                  ]
+                },
+                {
+                  "method": {
+                    "methodName": "getEntry",
+                    "fullName": "org.eclipse.jgit.dircache.DirCache.getEntry(I)Lorg/eclipse/jgit/dircache/DirCacheEntry;",
+                    "argumentsSize": 1,
+                    "returnTypeName": "org.eclipse.jgit.dircache.DirCacheEntry",
+                    "containingClass": "org.eclipse.jgit.dircache.DirCache"
+                  },
+                  "calls": [
+                    {
+                      "result": {
+                        "kind": "object",
+                        "typeName": "org.eclipse.jgit.dircache.DirCacheEntry",
+                        "fields": {
+                          "info": {
+                            "kind": "converted",
+                            "isResource": true,
+                            "typeName": "byte",
+                            "resourcePath": "stashCreateCommandReproducedTests/byte.array",
+                            "contentBase64": "AAAAQAAAAAAAAAAAasv6Ngdd7NYAAAAAAAAAAAAAgaQAAAAAAAAAAAAAAAdrWE6OzlYuv/wV04gIzWuY/D2X6gAIAAA="
+                          },
+                          "infoOffset": {
+                            "kind": "int",
+                            "value": 0
+                          },
+                          "path": {
+                            "kind": "array",
+                            "isShallow": false,
+                            "size": 8,
+                            "elements": [
+                              {
+                                "kind": "byte",
+                                "value": 102
+                              },
+                              {
+                                "kind": "byte",
+                                "value": 105
+                              },
+                              {
+                                "kind": "byte",
+                                "value": 108
+                              },
+                              {
+                                "kind": "byte",
+                                "value": 101
+                              },
+                              {
+                                "kind": "byte",
+                                "value": 46
+                              },
+                              {
+                                "kind": "byte",
+                                "value": 116
+                              },
+                              {
+                                "kind": "byte",
+                                "value": 120
+                              },
+                              {
+                                "kind": "byte",
+                                "value": 116
+                              }
+                            ]
+                          },
+                          "inCoreFlags": {
+                            "kind": "byte",
+                            "value": 0
+                          }
+                        },
+                        "id": 32
+                      },
+                      "args": []
+                    }
+                  ]
+                },
+                {
+                  "method": {
+                    "methodName": "getEntry",
+                    "fullName": "org.eclipse.jgit.dircache.DirCache.getEntry(Ljava/lang/String;)Lorg/eclipse/jgit/dircache/DirCacheEntry;",
+                    "argumentsSize": 1,
+                    "returnTypeName": "org.eclipse.jgit.dircache.DirCacheEntry",
+                    "containingClass": "org.eclipse.jgit.dircache.DirCache"
+                  },
+                  "calls": [
+                    {
+                      "result": {
+                        "kind": "object",
+                        "typeName": "org.eclipse.jgit.dircache.DirCacheEntry",
+                        "fields": {
+                          "info": {
+                            "kind": "converted",
+                            "isResource": true,
+                            "typeName": "byte",
+                            "resourcePath": "stashCreateCommandReproducedTests/byte_2.array",
+                            "contentBase64": "AAAAPgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgaQAAAAAAAAAAAAAAABrWE6OzlYuv/wV04gIzWuY/D2X6gAI"
+                          },
+                          "infoOffset": {
+                            "kind": "int",
+                            "value": 0
+                          },
+                          "path": {
+                            "kind": "array",
+                            "isShallow": false,
+                            "size": 8,
+                            "elements": [
+                              {
+                                "kind": "byte",
+                                "value": 102
+                              },
+                              {
+                                "kind": "byte",
+                                "value": 105
+                              },
+                              {
+                                "kind": "byte",
+                                "value": 108
+                              },
+                              {
+                                "kind": "byte",
+                                "value": 101
+                              },
+                              {
+                                "kind": "byte",
+                                "value": 46
+                              },
+                              {
+                                "kind": "byte",
+                                "value": 116
+                              },
+                              {
+                                "kind": "byte",
+                                "value": 120
+                              },
+                              {
+                                "kind": "byte",
+                                "value": 116
+                              }
+                            ]
+                          },
+                          "inCoreFlags": {
+                            "kind": "byte",
+                            "value": 0
+                          }
+                        },
+                        "id": 33
+                      },
+                      "args": []
+                    }
+                  ]
+                }
+              ],
+              "isSpy": false,
+              "id": 29
+            },
+            "args": []
+          }
+        ]
+      },
+      {
+        "method": {
+          "methodName": "encode",
+          "fullName": "org.eclipse.jgit.lib.Constants.encode(Ljava/lang/String;)[B",
+          "argumentsSize": 1,
+          "returnTypeName": "byte[]",
+          "containingClass": "org.eclipse.jgit.lib.Constants"
+        },
+        "calls": [
+          {
+            "result": {
+              "kind": "array",
+              "isShallow": false,
+              "size": 14,
+              "elements": [
+                {
+                  "kind": "byte",
+                  "value": 46
+                },
+                {
+                  "kind": "byte",
+                  "value": 103
+                },
+                {
+                  "kind": "byte",
+                  "value": 105
+                },
+                {
+                  "kind": "byte",
+                  "value": 116
+                },
+                {
+                  "kind": "byte",
+                  "value": 97
+                },
+                {
+                  "kind": "byte",
+                  "value": 116
+                },
+                {
+                  "kind": "byte",
+                  "value": 116
+                },
+                {
+                  "kind": "byte",
+                  "value": 114
+                },
+                {
+                  "kind": "byte",
+                  "value": 105
+                },
+                {
+                  "kind": "byte",
+                  "value": 98
+                },
+                {
+                  "kind": "byte",
+                  "value": 117
+                },
+                {
+                  "kind": "byte",
+                  "value": 116
+                },
+                {
+                  "kind": "byte",
+                  "value": 101
+                },
+                {
+                  "kind": "byte",
+                  "value": 115
+                }
+              ]
+            },
+            "args": []
+          },
+          {
+            "result": {
+              "kind": "converted",
+              "isResource": true,
+              "typeName": "byte",
+              "resourcePath": "stashCreateCommandReproducedTests/byte_1.array",
+              "contentBase64": "AAAArDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAgY2NmZTNlNzUyNjYzMmY2Mjk0ZjFjYWFjMTQ5MmI3OGY1MWM0ZTk1OSBHSVRfQ09NTUlUVEVSX05BTUUgPEdJVF9DT01NSVRURVJfRU1BSUw+IDEyNTAzNzk3NzggLTAzMzAJV0lQIG9uIG1hc3RlcjogYzFiNmY2NyBhZGQgZmlsZQo="
+            },
+            "args": []
+          },
+          {
+            "result": {
+              "kind": "array",
+              "isShallow": false,
+              "size": 6,
+              "elements": [
+                {
+                  "kind": "byte",
+                  "value": 120
+                },
+                {
+                  "kind": "byte",
+                  "value": 47
+                },
+                {
+                  "kind": "byte",
+                  "value": 72
+                },
+                {
+                  "kind": "byte",
+                  "value": 69
+                },
+                {
+                  "kind": "byte",
+                  "value": 65
+                },
+                {
+                  "kind": "byte",
+                  "value": 68
+                }
+              ]
+            },
+            "args": []
+          },
+          {
+            "result": {
+              "kind": "array",
+              "isShallow": false,
+              "size": 8,
+              "elements": [
+                {
+                  "kind": "byte",
+                  "value": 102
+                },
+                {
+                  "kind": "byte",
+                  "value": 105
+                },
+                {
+                  "kind": "byte",
+                  "value": 108
+                },
+                {
+                  "kind": "byte",
+                  "value": 101
+                },
+                {
+                  "kind": "byte",
+                  "value": 46
+                },
+                {
+                  "kind": "byte",
+                  "value": 116
+                },
+                {
+                  "kind": "byte",
+                  "value": 120
+                },
+                {
+                  "kind": "byte",
+                  "value": 116
+                }
+              ]
+            },
+            "args": []
+          },
+          {
+            "result": {
+              "kind": "array",
+              "isShallow": false,
+              "size": 6,
+              "elements": [
+                {
+                  "kind": "byte",
+                  "value": 120
+                },
+                {
+                  "kind": "byte",
+                  "value": 47
+                },
+                {
+                  "kind": "byte",
+                  "value": 72
+                },
+                {
+                  "kind": "byte",
+                  "value": 69
+                },
+                {
+                  "kind": "byte",
+                  "value": 65
+                },
+                {
+                  "kind": "byte",
+                  "value": 68
+                }
+              ]
+            },
+            "args": []
+          }
+        ]
+      },
+      {
+        "method": {
+          "methodName": "fromBits",
+          "fullName": "org.eclipse.jgit.lib.FileMode.fromBits(I)Lorg/eclipse/jgit/lib/FileMode;",
+          "argumentsSize": 1,
+          "returnTypeName": "org.eclipse.jgit.lib.FileMode",
+          "containingClass": "org.eclipse.jgit.lib.FileMode"
+        },
+        "calls": [
+          {
+            "result": {
+              "kind": "mock",
+              "typeName": "org.eclipse.jgit.lib.FileMode",
+              "methods": [
+                {
+                  "method": {
+                    "methodName": "getBits",
+                    "fullName": "org.eclipse.jgit.lib.FileMode.getBits()I",
+                    "argumentsSize": 0,
+                    "returnTypeName": "int",
+                    "containingClass": "org.eclipse.jgit.lib.FileMode"
+                  },
+                  "calls": [
+                    {
+                      "result": {
+                        "kind": "int",
+                        "value": 33188
+                      },
+                      "args": []
+                    },
+                    {
+                      "result": {
+                        "kind": "int",
+                        "value": 33188
+                      },
+                      "args": []
+                    },
+                    {
+                      "result": {
+                        "kind": "int",
+                        "value": 33188
+                      },
+                      "args": []
+                    },
+                    {
+                      "result": {
+                        "kind": "int",
+                        "value": 33188
+                      },
+                      "args": []
+                    },
+                    {
+                      "result": {
+                        "kind": "int",
+                        "value": 33188
+                      },
+                      "args": []
+                    }
+                  ]
+                }
+              ],
+              "isSpy": false,
+              "id": 34
+            },
+            "args": []
+          },
+          {
+            "result": {
+              "kind": "ref",
+              "typeName": "org.eclipse.jgit.lib.FileMode",
+              "refId": 34
+            },
+            "args": []
+          },
+          {
+            "result": {
+              "kind": "ref",
+              "typeName": "org.eclipse.jgit.lib.FileMode",
+              "refId": 34
+            },
+            "args": []
+          },
+          {
+            "result": {
+              "kind": "ref",
+              "typeName": "org.eclipse.jgit.lib.FileMode",
+              "refId": 34
+            },
+            "args": []
+          },
+          {
+            "result": {
+              "kind": "ref",
+              "typeName": "org.eclipse.jgit.lib.FileMode",
+              "refId": 34
+            },
+            "args": []
+          }
+        ]
+      },
+      {
+        "method": {
+          "methodName": "shortenRefName",
+          "fullName": "org.eclipse.jgit.lib.Repository.shortenRefName(Ljava/lang/String;)Ljava/lang/String;",
+          "argumentsSize": 1,
+          "returnTypeName": "java.lang.String",
+          "containingClass": "org.eclipse.jgit.lib.Repository"
+        },
+        "calls": [
+          {
+            "result": {
+              "kind": "string",
+              "value": "master"
+            },
+            "args": []
+          },
+          {
+            "result": {
+              "kind": "string",
+              "value": "HEAD"
+            },
+            "args": []
+          }
+        ]
+      }
+    ],
+    "calls": [
+      {
+        "type": "commonCall",
+        "methodDump": {
+          "methodName": "call",
+          "fullName": "call()",
+          "argumentsSize": 0,
+          "returnTypeName": "RevCommit",
+          "containingClass": "org.eclipse.jgit.api.StashCreateCommand"
+        },
+        "thisDump": {
+          "kind": "object",
+          "typeName": "org.eclipse.jgit.api.StashCreateCommand",
+          "fields": {
+            "indexMessage": {
+              "kind": "string",
+              "value": "index on {0}: {1} {2}"
+            },
+            "workingDirectoryMessage": {
+              "kind": "string",
+              "value": "WIP on {0}: {1} {2}"
+            },
+            "ref": {
+              "kind": "string",
+              "value": "refs/stash"
+            }
+          },
+          "id": -1
+        },
+        "args": [],
+        "returnValue": {
+          "kind": "exception",
+          "typeName": "sun.nio.fs.UnixException"
+        }
+      }
+    ]
+  }
+]

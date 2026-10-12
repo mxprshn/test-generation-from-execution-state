@@ -1,0 +1,45 @@
+# Copy to config.yaml and edit. Relative paths are resolved against the repository root.
+
+# OpenAI-compatible model provider. Pi reaches it through pi/provider.ts.
+provider:
+  name: custom                         # provider name passed to `pi --provider`
+  base_url: https://api.example.com/v1
+  api_key_env: TESTGEN_API_KEY         # the key is read from this environment variable, never stored
+  fallback_api_key_env: null           # optional: key used to retry a cell after a gateway error
+  models: []                           # empty: fetched from <base_url>/models; or a list of model ids
+
+model: gpt-6.1-sol                     # model id at the provider (the paper: OpenAI/gpt-6.1-sol)
+thinking: medium                       # off | minimal | low | medium | high | xhigh
+timeout: 600                           # agent limit per cell, wall-clock seconds
+command_timeout: 900                   # limit of one build or test command, seconds
+
+modes: [baseline, dump, rendered]      # agent modes, run in every round
+once_modes: [rendered-raw]             # the preliminary test without an agent: first round only
+rounds: [1, 2]
+run_id_format: "r{round}"
+cases: []                              # empty: all cases of cases/cases.csv
+
+parallel_cases: 2                      # cases processed at the same time
+min_free_disk_gb: 15                   # stop below this
+min_free_mem_gb: 3                     # wait before starting a cell below this
+
+paths:
+  projects: ../projects                # checkouts of the subject projects (scripts/setup.sh)
+  results: ../results/v2               # cells, references, evaluation records, logs, report
+  work: null                           # scratch space (workspaces, traces, PIT); outside results and
+                                       # the repository; null: a fresh directory in the system temp dir
+  tools: .tools                        # Node.js, Pi, BTrace (scripts/setup.sh)
+  java_home: null                      # JDK 21; null: $JAVA_HOME
+  maven_repository: ~/.m2/repository   # also where setup.sh puts PIT
+  pi: null                             # null: <tools>/pi/bin/pi, then pi on PATH
+
+evaluation:
+  steps: [verify, rq1, rq2, quality]
+  reference_runs: 2                    # reference traces per case (nondeterminism audit)
+  trace_depth: 5                       # depth of the field graphs in traces
+
+# Build and test commands get only an allowlist of the runner's environment (PATH, HOME, locale,
+# TMPDIR, MAVEN_*, GRADLE_*; runner/config.py) plus these variables, e.g. a Maven repository outside $HOME:
+# env:
+#   MAVEN_OPTS: "-Dmaven.repo.local=/data/m2"
+env: {}

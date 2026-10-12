@@ -1,0 +1,2741 @@
+[
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "isSafeAttribute",
+                    "fullName": "isSafeAttribute(String, Element, Attribute)",
+                    "argumentsSize": 3,
+                    "returnTypeName": "boolean",
+                    "containingClass": "org.jsoup.safety.Safelist"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "org.jsoup.safety.Safelist",
+                    "fields": {
+                        "tagNames": {
+                            "kind": "set",
+                            "isShallow": false,
+                            "size": 25,
+                            "elements": [
+                                {
+                                    "kind": "object",
+                                    "typeName": "org.jsoup.safety.Safelist$TagName",
+                                    "fields": {
+                                        "value": {
+                                            "kind": "string",
+                                            "value": "dd"
+                                        }
+                                    },
+                                    "id": 1
+                                },
+                                {
+                                    "kind": "object",
+                                    "typeName": "org.jsoup.safety.Safelist$TagName",
+                                    "fields": {
+                                        "value": {
+                                            "kind": "string",
+                                            "value": "small"
+                                        }
+                                    },
+                                    "id": 2
+                                },
+                                {
+                                    "kind": "object",
+                                    "typeName": "org.jsoup.safety.Safelist$TagName",
+                                    "fields": {
+                                        "value": {
+                                            "kind": "string",
+                                            "value": "sub"
+                                        }
+                                    },
+                                    "id": 3
+                                },
+                                {
+                                    "kind": "object",
+                                    "typeName": "org.jsoup.safety.Safelist$TagName",
+                                    "fields": {
+                                        "value": {
+                                            "kind": "string",
+                                            "value": "strong"
+                                        }
+                                    },
+                                    "id": 4
+                                },
+                                {
+                                    "kind": "object",
+                                    "typeName": "org.jsoup.safety.Safelist$TagName",
+                                    "fields": {
+                                        "value": {
+                                            "kind": "string",
+                                            "value": "img"
+                                        }
+                                    },
+                                    "id": 5
+                                },
+                                {
+                                    "kind": "object",
+                                    "typeName": "org.jsoup.safety.Safelist$TagName",
+                                    "fields": {
+                                        "value": {
+                                            "kind": "string",
+                                            "value": "code"
+                                        }
+                                    },
+                                    "id": 6
+                                },
+                                {
+                                    "kind": "object",
+                                    "typeName": "org.jsoup.safety.Safelist$TagName",
+                                    "fields": {
+                                        "value": {
+                                            "kind": "string",
+                                            "value": "dl"
+                                        }
+                                    },
+                                    "id": 7
+                                },
+                                {
+                                    "kind": "object",
+                                    "typeName": "org.jsoup.safety.Safelist$TagName",
+                                    "fields": {
+                                        "value": {
+                                            "kind": "string",
+                                            "value": "sup"
+                                        }
+                                    },
+                                    "id": 8
+                                },
+                                {
+                                    "kind": "object",
+                                    "typeName": "org.jsoup.safety.Safelist$TagName",
+                                    "fields": {
+                                        "value": {
+                                            "kind": "string",
+                                            "value": "br"
+                                        }
+                                    },
+                                    "id": 9
+                                },
+                                {
+                                    "kind": "object",
+                                    "typeName": "org.jsoup.safety.Safelist$TagName",
+                                    "fields": {
+                                        "value": {
+                                            "kind": "string",
+                                            "value": "dt"
+                                        }
+                                    },
+                                    "id": 10
+                                },
+                                {
+                                    "kind": "object",
+                                    "typeName": "org.jsoup.safety.Safelist$TagName",
+                                    "fields": {
+                                        "value": {
+                                            "kind": "string",
+                                            "value": "ul"
+                                        }
+                                    },
+                                    "id": 11
+                                },
+                                {
+                                    "kind": "object",
+                                    "typeName": "org.jsoup.safety.Safelist$TagName",
+                                    "fields": {
+                                        "value": {
+                                            "kind": "string",
+                                            "value": "ol"
+                                        }
+                                    },
+                                    "id": 12
+                                },
+                                {
+                                    "kind": "object",
+                                    "typeName": "org.jsoup.safety.Safelist$TagName",
+                                    "fields": {
+                                        "value": {
+                                            "kind": "string",
+                                            "value": "a"
+                                        }
+                                    },
+                                    "id": 13
+                                },
+                                {
+                                    "kind": "object",
+                                    "typeName": "org.jsoup.safety.Safelist$TagName",
+                                    "fields": {
+                                        "value": {
+                                            "kind": "string",
+                                            "value": "b"
+                                        }
+                                    },
+                                    "id": 14
+                                },
+                                {
+                                    "kind": "object",
+                                    "typeName": "org.jsoup.safety.Safelist$TagName",
+                                    "fields": {
+                                        "value": {
+                                            "kind": "string",
+                                            "value": "blockquote"
+                                        }
+                                    },
+                                    "id": 15
+                                },
+                                {
+                                    "kind": "object",
+                                    "typeName": "org.jsoup.safety.Safelist$TagName",
+                                    "fields": {
+                                        "value": {
+                                            "kind": "string",
+                                            "value": "pre"
+                                        }
+                                    },
+                                    "id": 16
+                                },
+                                {
+                                    "kind": "object",
+                                    "typeName": "org.jsoup.safety.Safelist$TagName",
+                                    "fields": {
+                                        "value": {
+                                            "kind": "string",
+                                            "value": "strike"
+                                        }
+                                    },
+                                    "id": 17
+                                },
+                                {
+                                    "kind": "object",
+                                    "typeName": "org.jsoup.safety.Safelist$TagName",
+                                    "fields": {
+                                        "value": {
+                                            "kind": "string",
+                                            "value": "em"
+                                        }
+                                    },
+                                    "id": 18
+                                },
+                                {
+                                    "kind": "object",
+                                    "typeName": "org.jsoup.safety.Safelist$TagName",
+                                    "fields": {
+                                        "value": {
+                                            "kind": "string",
+                                            "value": "i"
+                                        }
+                                    },
+                                    "id": 19
+                                },
+                                {
+                                    "kind": "object",
+                                    "typeName": "org.jsoup.safety.Safelist$TagName",
+                                    "fields": {
+                                        "value": {
+                                            "kind": "string",
+                                            "value": "p"
+                                        }
+                                    },
+                                    "id": 20
+                                },
+                                {
+                                    "kind": "object",
+                                    "typeName": "org.jsoup.safety.Safelist$TagName",
+                                    "fields": {
+                                        "value": {
+                                            "kind": "string",
+                                            "value": "q"
+                                        }
+                                    },
+                                    "id": 21
+                                },
+                                {
+                                    "kind": "object",
+                                    "typeName": "org.jsoup.safety.Safelist$TagName",
+                                    "fields": {
+                                        "value": {
+                                            "kind": "string",
+                                            "value": "u"
+                                        }
+                                    },
+                                    "id": 22
+                                },
+                                {
+                                    "kind": "object",
+                                    "typeName": "org.jsoup.safety.Safelist$TagName",
+                                    "fields": {
+                                        "value": {
+                                            "kind": "string",
+                                            "value": "cite"
+                                        }
+                                    },
+                                    "id": 23
+                                },
+                                {
+                                    "kind": "object",
+                                    "typeName": "org.jsoup.safety.Safelist$TagName",
+                                    "fields": {
+                                        "value": {
+                                            "kind": "string",
+                                            "value": "li"
+                                        }
+                                    },
+                                    "id": 24
+                                },
+                                {
+                                    "kind": "object",
+                                    "typeName": "org.jsoup.safety.Safelist$TagName",
+                                    "fields": {
+                                        "value": {
+                                            "kind": "string",
+                                            "value": "span"
+                                        }
+                                    },
+                                    "id": 25
+                                }
+                            ]
+                        },
+                        "attributes": {
+                            "kind": "map",
+                            "isShallow": false,
+                            "size": 4,
+                            "elements": [
+                                {
+                                    "key": {
+                                        "kind": "object",
+                                        "typeName": "org.jsoup.safety.Safelist$TagName",
+                                        "fields": {
+                                            "value": {
+                                                "kind": "string",
+                                                "value": "q"
+                                            }
+                                        },
+                                        "id": 26
+                                    },
+                                    "value": {
+                                        "kind": "set",
+                                        "isShallow": false,
+                                        "size": 1,
+                                        "elements": [
+                                            {
+                                                "kind": "object",
+                                                "typeName": "org.jsoup.safety.Safelist$AttributeKey",
+                                                "fields": {
+                                                    "value": {
+                                                        "kind": "string",
+                                                        "value": "cite"
+                                                    }
+                                                },
+                                                "id": 27
+                                            }
+                                        ]
+                                    }
+                                },
+                                {
+                                    "key": {
+                                        "kind": "object",
+                                        "typeName": "org.jsoup.safety.Safelist$TagName",
+                                        "fields": {
+                                            "value": {
+                                                "kind": "string",
+                                                "value": "a"
+                                            }
+                                        },
+                                        "id": 28
+                                    },
+                                    "value": {
+                                        "kind": "set",
+                                        "isShallow": false,
+                                        "size": 1,
+                                        "elements": [
+                                            {
+                                                "kind": "object",
+                                                "typeName": "org.jsoup.safety.Safelist$AttributeKey",
+                                                "fields": {
+                                                    "value": {
+                                                        "kind": "string",
+                                                        "value": "href"
+                                                    }
+                                                },
+                                                "id": 29
+                                            }
+                                        ]
+                                    }
+                                },
+                                {
+                                    "key": {
+                                        "kind": "object",
+                                        "typeName": "org.jsoup.safety.Safelist$TagName",
+                                        "fields": {
+                                            "value": {
+                                                "kind": "string",
+                                                "value": "img"
+                                            }
+                                        },
+                                        "id": 30
+                                    },
+                                    "value": {
+                                        "kind": "set",
+                                        "isShallow": false,
+                                        "size": 6,
+                                        "elements": [
+                                            {
+                                                "kind": "object",
+                                                "typeName": "org.jsoup.safety.Safelist$AttributeKey",
+                                                "fields": {
+                                                    "value": {
+                                                        "kind": "string",
+                                                        "value": "src"
+                                                    }
+                                                },
+                                                "id": 31
+                                            },
+                                            {
+                                                "kind": "object",
+                                                "typeName": "org.jsoup.safety.Safelist$AttributeKey",
+                                                "fields": {
+                                                    "value": {
+                                                        "kind": "string",
+                                                        "value": "alt"
+                                                    }
+                                                },
+                                                "id": 32
+                                            },
+                                            {
+                                                "kind": "object",
+                                                "typeName": "org.jsoup.safety.Safelist$AttributeKey",
+                                                "fields": {
+                                                    "value": {
+                                                        "kind": "string",
+                                                        "value": "width"
+                                                    }
+                                                },
+                                                "id": 33
+                                            },
+                                            {
+                                                "kind": "object",
+                                                "typeName": "org.jsoup.safety.Safelist$AttributeKey",
+                                                "fields": {
+                                                    "value": {
+                                                        "kind": "string",
+                                                        "value": "align"
+                                                    }
+                                                },
+                                                "id": 34
+                                            },
+                                            {
+                                                "kind": "object",
+                                                "typeName": "org.jsoup.safety.Safelist$AttributeKey",
+                                                "fields": {
+                                                    "value": {
+                                                        "kind": "string",
+                                                        "value": "title"
+                                                    }
+                                                },
+                                                "id": 35
+                                            },
+                                            {
+                                                "kind": "object",
+                                                "typeName": "org.jsoup.safety.Safelist$AttributeKey",
+                                                "fields": {
+                                                    "value": {
+                                                        "kind": "string",
+                                                        "value": "height"
+                                                    }
+                                                },
+                                                "id": 36
+                                            }
+                                        ]
+                                    }
+                                },
+                                {
+                                    "key": {
+                                        "kind": "object",
+                                        "typeName": "org.jsoup.safety.Safelist$TagName",
+                                        "fields": {
+                                            "value": {
+                                                "kind": "string",
+                                                "value": "blockquote"
+                                            }
+                                        },
+                                        "id": 37
+                                    },
+                                    "value": {
+                                        "kind": "set",
+                                        "isShallow": false,
+                                        "size": 1,
+                                        "elements": [
+                                            {
+                                                "kind": "object",
+                                                "typeName": "org.jsoup.safety.Safelist$AttributeKey",
+                                                "fields": {
+                                                    "value": {
+                                                        "kind": "string",
+                                                        "value": "cite"
+                                                    }
+                                                },
+                                                "id": 38
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        },
+                        "enforcedAttributes": {
+                            "kind": "map",
+                            "isShallow": false,
+                            "size": 1,
+                            "elements": [
+                                {
+                                    "key": {
+                                        "kind": "object",
+                                        "typeName": "org.jsoup.safety.Safelist$TagName",
+                                        "fields": {
+                                            "value": {
+                                                "kind": "string",
+                                                "value": "a"
+                                            }
+                                        },
+                                        "id": 39
+                                    },
+                                    "value": {
+                                        "kind": "map",
+                                        "isShallow": false,
+                                        "size": 1,
+                                        "elements": [
+                                            {
+                                                "key": {
+                                                    "kind": "object",
+                                                    "typeName": "org.jsoup.safety.Safelist$AttributeKey",
+                                                    "fields": {
+                                                        "value": {
+                                                            "kind": "string",
+                                                            "value": "rel"
+                                                        }
+                                                    },
+                                                    "id": 40
+                                                },
+                                                "value": {
+                                                    "kind": "object",
+                                                    "typeName": "org.jsoup.safety.Safelist$AttributeValue",
+                                                    "fields": {
+                                                        "value": {
+                                                            "kind": "string",
+                                                            "value": "nofollow"
+                                                        }
+                                                    },
+                                                    "id": 41
+                                                }
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        },
+                        "protocols": {
+                            "kind": "map",
+                            "isShallow": false,
+                            "size": 4,
+                            "elements": [
+                                {
+                                    "key": {
+                                        "kind": "object",
+                                        "typeName": "org.jsoup.safety.Safelist$TagName",
+                                        "fields": {
+                                            "value": {
+                                                "kind": "string",
+                                                "value": "a"
+                                            }
+                                        },
+                                        "id": 42
+                                    },
+                                    "value": {
+                                        "kind": "map",
+                                        "isShallow": false,
+                                        "size": 1,
+                                        "elements": [
+                                            {
+                                                "key": {
+                                                    "kind": "object",
+                                                    "typeName": "org.jsoup.safety.Safelist$AttributeKey",
+                                                    "fields": {
+                                                        "value": {
+                                                            "kind": "string",
+                                                            "value": "href"
+                                                        }
+                                                    },
+                                                    "id": 43
+                                                },
+                                                "value": {
+                                                    "kind": "set",
+                                                    "isShallow": false,
+                                                    "size": 4,
+                                                    "elements": [
+                                                        {
+                                                            "kind": "object",
+                                                            "typeName": "org.jsoup.safety.Safelist$Protocol",
+                                                            "fields": {
+                                                                "value": {
+                                                                    "kind": "string",
+                                                                    "value": "ftp"
+                                                                }
+                                                            },
+                                                            "id": 44
+                                                        },
+                                                        {
+                                                            "kind": "object",
+                                                            "typeName": "org.jsoup.safety.Safelist$Protocol",
+                                                            "fields": {
+                                                                "value": {
+                                                                    "kind": "string",
+                                                                    "value": "http"
+                                                                }
+                                                            },
+                                                            "id": 45
+                                                        },
+                                                        {
+                                                            "kind": "object",
+                                                            "typeName": "org.jsoup.safety.Safelist$Protocol",
+                                                            "fields": {
+                                                                "value": {
+                                                                    "kind": "string",
+                                                                    "value": "mailto"
+                                                                }
+                                                            },
+                                                            "id": 46
+                                                        },
+                                                        {
+                                                            "kind": "object",
+                                                            "typeName": "org.jsoup.safety.Safelist$Protocol",
+                                                            "fields": {
+                                                                "value": {
+                                                                    "kind": "string",
+                                                                    "value": "https"
+                                                                }
+                                                            },
+                                                            "id": 47
+                                                        }
+                                                    ]
+                                                }
+                                            }
+                                        ]
+                                    }
+                                },
+                                {
+                                    "key": {
+                                        "kind": "object",
+                                        "typeName": "org.jsoup.safety.Safelist$TagName",
+                                        "fields": {
+                                            "value": {
+                                                "kind": "string",
+                                                "value": "img"
+                                            }
+                                        },
+                                        "id": 48
+                                    },
+                                    "value": {
+                                        "kind": "map",
+                                        "isShallow": false,
+                                        "size": 1,
+                                        "elements": [
+                                            {
+                                                "key": {
+                                                    "kind": "object",
+                                                    "typeName": "org.jsoup.safety.Safelist$AttributeKey",
+                                                    "fields": {
+                                                        "value": {
+                                                            "kind": "string",
+                                                            "value": "src"
+                                                        }
+                                                    },
+                                                    "id": 49
+                                                },
+                                                "value": {
+                                                    "kind": "set",
+                                                    "isShallow": false,
+                                                    "size": 2,
+                                                    "elements": [
+                                                        {
+                                                            "kind": "object",
+                                                            "typeName": "org.jsoup.safety.Safelist$Protocol",
+                                                            "fields": {
+                                                                "value": {
+                                                                    "kind": "string",
+                                                                    "value": "http"
+                                                                }
+                                                            },
+                                                            "id": 50
+                                                        },
+                                                        {
+                                                            "kind": "object",
+                                                            "typeName": "org.jsoup.safety.Safelist$Protocol",
+                                                            "fields": {
+                                                                "value": {
+                                                                    "kind": "string",
+                                                                    "value": "https"
+                                                                }
+                                                            },
+                                                            "id": 51
+                                                        }
+                                                    ]
+                                                }
+                                            }
+                                        ]
+                                    }
+                                },
+                                {
+                                    "key": {
+                                        "kind": "object",
+                                        "typeName": "org.jsoup.safety.Safelist$TagName",
+                                        "fields": {
+                                            "value": {
+                                                "kind": "string",
+                                                "value": "blockquote"
+                                            }
+                                        },
+                                        "id": 52
+                                    },
+                                    "value": {
+                                        "kind": "map",
+                                        "isShallow": false,
+                                        "size": 1,
+                                        "elements": [
+                                            {
+                                                "key": {
+                                                    "kind": "object",
+                                                    "typeName": "org.jsoup.safety.Safelist$AttributeKey",
+                                                    "fields": {
+                                                        "value": {
+                                                            "kind": "string",
+                                                            "value": "cite"
+                                                        }
+                                                    },
+                                                    "id": 53
+                                                },
+                                                "value": {
+                                                    "kind": "set",
+                                                    "isShallow": false,
+                                                    "size": 2,
+                                                    "elements": [
+                                                        {
+                                                            "kind": "object",
+                                                            "typeName": "org.jsoup.safety.Safelist$Protocol",
+                                                            "fields": {
+                                                                "value": {
+                                                                    "kind": "string",
+                                                                    "value": "http"
+                                                                }
+                                                            },
+                                                            "id": 54
+                                                        },
+                                                        {
+                                                            "kind": "object",
+                                                            "typeName": "org.jsoup.safety.Safelist$Protocol",
+                                                            "fields": {
+                                                                "value": {
+                                                                    "kind": "string",
+                                                                    "value": "https"
+                                                                }
+                                                            },
+                                                            "id": 55
+                                                        }
+                                                    ]
+                                                }
+                                            }
+                                        ]
+                                    }
+                                },
+                                {
+                                    "key": {
+                                        "kind": "object",
+                                        "typeName": "org.jsoup.safety.Safelist$TagName",
+                                        "fields": {
+                                            "value": {
+                                                "kind": "string",
+                                                "value": "cite"
+                                            }
+                                        },
+                                        "id": 56
+                                    },
+                                    "value": {
+                                        "kind": "map",
+                                        "isShallow": false,
+                                        "size": 1,
+                                        "elements": [
+                                            {
+                                                "key": {
+                                                    "kind": "object",
+                                                    "typeName": "org.jsoup.safety.Safelist$AttributeKey",
+                                                    "fields": {
+                                                        "value": {
+                                                            "kind": "string",
+                                                            "value": "cite"
+                                                        }
+                                                    },
+                                                    "id": 57
+                                                },
+                                                "value": {
+                                                    "kind": "set",
+                                                    "isShallow": false,
+                                                    "size": 2,
+                                                    "elements": [
+                                                        {
+                                                            "kind": "object",
+                                                            "typeName": "org.jsoup.safety.Safelist$Protocol",
+                                                            "fields": {
+                                                                "value": {
+                                                                    "kind": "string",
+                                                                    "value": "http"
+                                                                }
+                                                            },
+                                                            "id": 58
+                                                        },
+                                                        {
+                                                            "kind": "object",
+                                                            "typeName": "org.jsoup.safety.Safelist$Protocol",
+                                                            "fields": {
+                                                                "value": {
+                                                                    "kind": "string",
+                                                                    "value": "https"
+                                                                }
+                                                            },
+                                                            "id": 59
+                                                        }
+                                                    ]
+                                                }
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        },
+                        "preserveRelativeLinks": {
+                            "kind": "boolean",
+                            "value": false
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "string",
+                        "value": "img"
+                    },
+                    {
+                        "kind": "mock",
+                        "typeName": "org.jsoup.nodes.Element",
+                        "methods": [
+                            {
+                                "method": {
+                                    "methodName": "absUrl",
+                                    "fullName": "org.jsoup.nodes.Node.absUrl(Ljava/lang/String;)Ljava/lang/String;",
+                                    "argumentsSize": 1,
+                                    "returnTypeName": "java.lang.String",
+                                    "containingClass": "org.jsoup.nodes.Node"
+                                },
+                                "calls": [
+                                    {
+                                        "result": {
+                                            "kind": "string",
+                                            "value": "http://example.com/"
+                                        },
+                                        "args": []
+                                    }
+                                ]
+                            }
+                        ],
+                        "isSpy": false,
+                        "id": 60
+                    },
+                    {
+                        "kind": "object",
+                        "typeName": "org.jsoup.nodes.Attribute",
+                        "fields": {
+                            "key": {
+                                "kind": "string",
+                                "value": "src"
+                            },
+                            "val": {
+                                "kind": "string",
+                                "value": "http://example.com/"
+                            },
+                            "parent": {
+                                "kind": "object",
+                                "typeName": "org.jsoup.nodes.Attributes",
+                                "fields": {
+                                    "size": {
+                                        "kind": "int",
+                                        "value": 2
+                                    },
+                                    "keys": {
+                                        "kind": "array",
+                                        "isShallow": false,
+                                        "size": 3,
+                                        "elements": [
+                                            {
+                                                "kind": "string",
+                                                "value": "src"
+                                            },
+                                            {
+                                                "kind": "string",
+                                                "value": "alt"
+                                            },
+                                            {
+                                                "kind": "null"
+                                            }
+                                        ]
+                                    },
+                                    "vals": {
+                                        "kind": "array",
+                                        "isShallow": false,
+                                        "size": 3,
+                                        "elements": [
+                                            {
+                                                "kind": "string",
+                                                "value": "http://example.com/"
+                                            },
+                                            {
+                                                "kind": "string",
+                                                "value": "Image"
+                                            },
+                                            {
+                                                "kind": "null"
+                                            }
+                                        ]
+                                    }
+                                },
+                                "id": 62
+                            }
+                        },
+                        "id": 61
+                    }
+                ],
+                "returnValue": {
+                    "kind": "boolean",
+                    "value": true
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "isSafeAttribute",
+                    "fullName": "isSafeAttribute(String, Element, Attribute)",
+                    "argumentsSize": 3,
+                    "returnTypeName": "boolean",
+                    "containingClass": "org.jsoup.safety.Safelist"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "org.jsoup.safety.Safelist",
+                    "fields": {
+                        "tagNames": {
+                            "kind": "set",
+                            "isShallow": false,
+                            "size": 25,
+                            "elements": [
+                                {
+                                    "kind": "object",
+                                    "typeName": "org.jsoup.safety.Safelist$TagName",
+                                    "fields": {
+                                        "value": {
+                                            "kind": "string",
+                                            "value": "dd"
+                                        }
+                                    },
+                                    "id": 1
+                                },
+                                {
+                                    "kind": "object",
+                                    "typeName": "org.jsoup.safety.Safelist$TagName",
+                                    "fields": {
+                                        "value": {
+                                            "kind": "string",
+                                            "value": "small"
+                                        }
+                                    },
+                                    "id": 2
+                                },
+                                {
+                                    "kind": "object",
+                                    "typeName": "org.jsoup.safety.Safelist$TagName",
+                                    "fields": {
+                                        "value": {
+                                            "kind": "string",
+                                            "value": "sub"
+                                        }
+                                    },
+                                    "id": 3
+                                },
+                                {
+                                    "kind": "object",
+                                    "typeName": "org.jsoup.safety.Safelist$TagName",
+                                    "fields": {
+                                        "value": {
+                                            "kind": "string",
+                                            "value": "strong"
+                                        }
+                                    },
+                                    "id": 4
+                                },
+                                {
+                                    "kind": "object",
+                                    "typeName": "org.jsoup.safety.Safelist$TagName",
+                                    "fields": {
+                                        "value": {
+                                            "kind": "string",
+                                            "value": "img"
+                                        }
+                                    },
+                                    "id": 5
+                                },
+                                {
+                                    "kind": "object",
+                                    "typeName": "org.jsoup.safety.Safelist$TagName",
+                                    "fields": {
+                                        "value": {
+                                            "kind": "string",
+                                            "value": "code"
+                                        }
+                                    },
+                                    "id": 6
+                                },
+                                {
+                                    "kind": "object",
+                                    "typeName": "org.jsoup.safety.Safelist$TagName",
+                                    "fields": {
+                                        "value": {
+                                            "kind": "string",
+                                            "value": "dl"
+                                        }
+                                    },
+                                    "id": 7
+                                },
+                                {
+                                    "kind": "object",
+                                    "typeName": "org.jsoup.safety.Safelist$TagName",
+                                    "fields": {
+                                        "value": {
+                                            "kind": "string",
+                                            "value": "sup"
+                                        }
+                                    },
+                                    "id": 8
+                                },
+                                {
+                                    "kind": "object",
+                                    "typeName": "org.jsoup.safety.Safelist$TagName",
+                                    "fields": {
+                                        "value": {
+                                            "kind": "string",
+                                            "value": "br"
+                                        }
+                                    },
+                                    "id": 9
+                                },
+                                {
+                                    "kind": "object",
+                                    "typeName": "org.jsoup.safety.Safelist$TagName",
+                                    "fields": {
+                                        "value": {
+                                            "kind": "string",
+                                            "value": "dt"
+                                        }
+                                    },
+                                    "id": 10
+                                },
+                                {
+                                    "kind": "object",
+                                    "typeName": "org.jsoup.safety.Safelist$TagName",
+                                    "fields": {
+                                        "value": {
+                                            "kind": "string",
+                                            "value": "ul"
+                                        }
+                                    },
+                                    "id": 11
+                                },
+                                {
+                                    "kind": "object",
+                                    "typeName": "org.jsoup.safety.Safelist$TagName",
+                                    "fields": {
+                                        "value": {
+                                            "kind": "string",
+                                            "value": "ol"
+                                        }
+                                    },
+                                    "id": 12
+                                },
+                                {
+                                    "kind": "object",
+                                    "typeName": "org.jsoup.safety.Safelist$TagName",
+                                    "fields": {
+                                        "value": {
+                                            "kind": "string",
+                                            "value": "a"
+                                        }
+                                    },
+                                    "id": 13
+                                },
+                                {
+                                    "kind": "object",
+                                    "typeName": "org.jsoup.safety.Safelist$TagName",
+                                    "fields": {
+                                        "value": {
+                                            "kind": "string",
+                                            "value": "b"
+                                        }
+                                    },
+                                    "id": 14
+                                },
+                                {
+                                    "kind": "object",
+                                    "typeName": "org.jsoup.safety.Safelist$TagName",
+                                    "fields": {
+                                        "value": {
+                                            "kind": "string",
+                                            "value": "blockquote"
+                                        }
+                                    },
+                                    "id": 15
+                                },
+                                {
+                                    "kind": "object",
+                                    "typeName": "org.jsoup.safety.Safelist$TagName",
+                                    "fields": {
+                                        "value": {
+                                            "kind": "string",
+                                            "value": "pre"
+                                        }
+                                    },
+                                    "id": 16
+                                },
+                                {
+                                    "kind": "object",
+                                    "typeName": "org.jsoup.safety.Safelist$TagName",
+                                    "fields": {
+                                        "value": {
+                                            "kind": "string",
+                                            "value": "strike"
+                                        }
+                                    },
+                                    "id": 17
+                                },
+                                {
+                                    "kind": "object",
+                                    "typeName": "org.jsoup.safety.Safelist$TagName",
+                                    "fields": {
+                                        "value": {
+                                            "kind": "string",
+                                            "value": "em"
+                                        }
+                                    },
+                                    "id": 18
+                                },
+                                {
+                                    "kind": "object",
+                                    "typeName": "org.jsoup.safety.Safelist$TagName",
+                                    "fields": {
+                                        "value": {
+                                            "kind": "string",
+                                            "value": "i"
+                                        }
+                                    },
+                                    "id": 19
+                                },
+                                {
+                                    "kind": "object",
+                                    "typeName": "org.jsoup.safety.Safelist$TagName",
+                                    "fields": {
+                                        "value": {
+                                            "kind": "string",
+                                            "value": "p"
+                                        }
+                                    },
+                                    "id": 20
+                                },
+                                {
+                                    "kind": "object",
+                                    "typeName": "org.jsoup.safety.Safelist$TagName",
+                                    "fields": {
+                                        "value": {
+                                            "kind": "string",
+                                            "value": "q"
+                                        }
+                                    },
+                                    "id": 21
+                                },
+                                {
+                                    "kind": "object",
+                                    "typeName": "org.jsoup.safety.Safelist$TagName",
+                                    "fields": {
+                                        "value": {
+                                            "kind": "string",
+                                            "value": "u"
+                                        }
+                                    },
+                                    "id": 22
+                                },
+                                {
+                                    "kind": "object",
+                                    "typeName": "org.jsoup.safety.Safelist$TagName",
+                                    "fields": {
+                                        "value": {
+                                            "kind": "string",
+                                            "value": "cite"
+                                        }
+                                    },
+                                    "id": 23
+                                },
+                                {
+                                    "kind": "object",
+                                    "typeName": "org.jsoup.safety.Safelist$TagName",
+                                    "fields": {
+                                        "value": {
+                                            "kind": "string",
+                                            "value": "li"
+                                        }
+                                    },
+                                    "id": 24
+                                },
+                                {
+                                    "kind": "object",
+                                    "typeName": "org.jsoup.safety.Safelist$TagName",
+                                    "fields": {
+                                        "value": {
+                                            "kind": "string",
+                                            "value": "span"
+                                        }
+                                    },
+                                    "id": 25
+                                }
+                            ]
+                        },
+                        "attributes": {
+                            "kind": "map",
+                            "isShallow": false,
+                            "size": 4,
+                            "elements": [
+                                {
+                                    "key": {
+                                        "kind": "object",
+                                        "typeName": "org.jsoup.safety.Safelist$TagName",
+                                        "fields": {
+                                            "value": {
+                                                "kind": "string",
+                                                "value": "q"
+                                            }
+                                        },
+                                        "id": 26
+                                    },
+                                    "value": {
+                                        "kind": "set",
+                                        "isShallow": false,
+                                        "size": 1,
+                                        "elements": [
+                                            {
+                                                "kind": "object",
+                                                "typeName": "org.jsoup.safety.Safelist$AttributeKey",
+                                                "fields": {
+                                                    "value": {
+                                                        "kind": "string",
+                                                        "value": "cite"
+                                                    }
+                                                },
+                                                "id": 27
+                                            }
+                                        ]
+                                    }
+                                },
+                                {
+                                    "key": {
+                                        "kind": "object",
+                                        "typeName": "org.jsoup.safety.Safelist$TagName",
+                                        "fields": {
+                                            "value": {
+                                                "kind": "string",
+                                                "value": "a"
+                                            }
+                                        },
+                                        "id": 28
+                                    },
+                                    "value": {
+                                        "kind": "set",
+                                        "isShallow": false,
+                                        "size": 1,
+                                        "elements": [
+                                            {
+                                                "kind": "object",
+                                                "typeName": "org.jsoup.safety.Safelist$AttributeKey",
+                                                "fields": {
+                                                    "value": {
+                                                        "kind": "string",
+                                                        "value": "href"
+                                                    }
+                                                },
+                                                "id": 29
+                                            }
+                                        ]
+                                    }
+                                },
+                                {
+                                    "key": {
+                                        "kind": "object",
+                                        "typeName": "org.jsoup.safety.Safelist$TagName",
+                                        "fields": {
+                                            "value": {
+                                                "kind": "string",
+                                                "value": "img"
+                                            }
+                                        },
+                                        "id": 30
+                                    },
+                                    "value": {
+                                        "kind": "set",
+                                        "isShallow": false,
+                                        "size": 6,
+                                        "elements": [
+                                            {
+                                                "kind": "object",
+                                                "typeName": "org.jsoup.safety.Safelist$AttributeKey",
+                                                "fields": {
+                                                    "value": {
+                                                        "kind": "string",
+                                                        "value": "src"
+                                                    }
+                                                },
+                                                "id": 31
+                                            },
+                                            {
+                                                "kind": "object",
+                                                "typeName": "org.jsoup.safety.Safelist$AttributeKey",
+                                                "fields": {
+                                                    "value": {
+                                                        "kind": "string",
+                                                        "value": "alt"
+                                                    }
+                                                },
+                                                "id": 32
+                                            },
+                                            {
+                                                "kind": "object",
+                                                "typeName": "org.jsoup.safety.Safelist$AttributeKey",
+                                                "fields": {
+                                                    "value": {
+                                                        "kind": "string",
+                                                        "value": "width"
+                                                    }
+                                                },
+                                                "id": 33
+                                            },
+                                            {
+                                                "kind": "object",
+                                                "typeName": "org.jsoup.safety.Safelist$AttributeKey",
+                                                "fields": {
+                                                    "value": {
+                                                        "kind": "string",
+                                                        "value": "align"
+                                                    }
+                                                },
+                                                "id": 34
+                                            },
+                                            {
+                                                "kind": "object",
+                                                "typeName": "org.jsoup.safety.Safelist$AttributeKey",
+                                                "fields": {
+                                                    "value": {
+                                                        "kind": "string",
+                                                        "value": "title"
+                                                    }
+                                                },
+                                                "id": 35
+                                            },
+                                            {
+                                                "kind": "object",
+                                                "typeName": "org.jsoup.safety.Safelist$AttributeKey",
+                                                "fields": {
+                                                    "value": {
+                                                        "kind": "string",
+                                                        "value": "height"
+                                                    }
+                                                },
+                                                "id": 36
+                                            }
+                                        ]
+                                    }
+                                },
+                                {
+                                    "key": {
+                                        "kind": "object",
+                                        "typeName": "org.jsoup.safety.Safelist$TagName",
+                                        "fields": {
+                                            "value": {
+                                                "kind": "string",
+                                                "value": "blockquote"
+                                            }
+                                        },
+                                        "id": 37
+                                    },
+                                    "value": {
+                                        "kind": "set",
+                                        "isShallow": false,
+                                        "size": 1,
+                                        "elements": [
+                                            {
+                                                "kind": "object",
+                                                "typeName": "org.jsoup.safety.Safelist$AttributeKey",
+                                                "fields": {
+                                                    "value": {
+                                                        "kind": "string",
+                                                        "value": "cite"
+                                                    }
+                                                },
+                                                "id": 38
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        },
+                        "enforcedAttributes": {
+                            "kind": "map",
+                            "isShallow": false,
+                            "size": 1,
+                            "elements": [
+                                {
+                                    "key": {
+                                        "kind": "object",
+                                        "typeName": "org.jsoup.safety.Safelist$TagName",
+                                        "fields": {
+                                            "value": {
+                                                "kind": "string",
+                                                "value": "a"
+                                            }
+                                        },
+                                        "id": 39
+                                    },
+                                    "value": {
+                                        "kind": "map",
+                                        "isShallow": false,
+                                        "size": 1,
+                                        "elements": [
+                                            {
+                                                "key": {
+                                                    "kind": "object",
+                                                    "typeName": "org.jsoup.safety.Safelist$AttributeKey",
+                                                    "fields": {
+                                                        "value": {
+                                                            "kind": "string",
+                                                            "value": "rel"
+                                                        }
+                                                    },
+                                                    "id": 40
+                                                },
+                                                "value": {
+                                                    "kind": "object",
+                                                    "typeName": "org.jsoup.safety.Safelist$AttributeValue",
+                                                    "fields": {
+                                                        "value": {
+                                                            "kind": "string",
+                                                            "value": "nofollow"
+                                                        }
+                                                    },
+                                                    "id": 41
+                                                }
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        },
+                        "protocols": {
+                            "kind": "map",
+                            "isShallow": false,
+                            "size": 4,
+                            "elements": [
+                                {
+                                    "key": {
+                                        "kind": "object",
+                                        "typeName": "org.jsoup.safety.Safelist$TagName",
+                                        "fields": {
+                                            "value": {
+                                                "kind": "string",
+                                                "value": "a"
+                                            }
+                                        },
+                                        "id": 42
+                                    },
+                                    "value": {
+                                        "kind": "map",
+                                        "isShallow": false,
+                                        "size": 1,
+                                        "elements": [
+                                            {
+                                                "key": {
+                                                    "kind": "object",
+                                                    "typeName": "org.jsoup.safety.Safelist$AttributeKey",
+                                                    "fields": {
+                                                        "value": {
+                                                            "kind": "string",
+                                                            "value": "href"
+                                                        }
+                                                    },
+                                                    "id": 43
+                                                },
+                                                "value": {
+                                                    "kind": "set",
+                                                    "isShallow": false,
+                                                    "size": 4,
+                                                    "elements": [
+                                                        {
+                                                            "kind": "object",
+                                                            "typeName": "org.jsoup.safety.Safelist$Protocol",
+                                                            "fields": {
+                                                                "value": {
+                                                                    "kind": "string",
+                                                                    "value": "ftp"
+                                                                }
+                                                            },
+                                                            "id": 44
+                                                        },
+                                                        {
+                                                            "kind": "object",
+                                                            "typeName": "org.jsoup.safety.Safelist$Protocol",
+                                                            "fields": {
+                                                                "value": {
+                                                                    "kind": "string",
+                                                                    "value": "http"
+                                                                }
+                                                            },
+                                                            "id": 45
+                                                        },
+                                                        {
+                                                            "kind": "object",
+                                                            "typeName": "org.jsoup.safety.Safelist$Protocol",
+                                                            "fields": {
+                                                                "value": {
+                                                                    "kind": "string",
+                                                                    "value": "mailto"
+                                                                }
+                                                            },
+                                                            "id": 46
+                                                        },
+                                                        {
+                                                            "kind": "object",
+                                                            "typeName": "org.jsoup.safety.Safelist$Protocol",
+                                                            "fields": {
+                                                                "value": {
+                                                                    "kind": "string",
+                                                                    "value": "https"
+                                                                }
+                                                            },
+                                                            "id": 47
+                                                        }
+                                                    ]
+                                                }
+                                            }
+                                        ]
+                                    }
+                                },
+                                {
+                                    "key": {
+                                        "kind": "object",
+                                        "typeName": "org.jsoup.safety.Safelist$TagName",
+                                        "fields": {
+                                            "value": {
+                                                "kind": "string",
+                                                "value": "img"
+                                            }
+                                        },
+                                        "id": 48
+                                    },
+                                    "value": {
+                                        "kind": "map",
+                                        "isShallow": false,
+                                        "size": 1,
+                                        "elements": [
+                                            {
+                                                "key": {
+                                                    "kind": "object",
+                                                    "typeName": "org.jsoup.safety.Safelist$AttributeKey",
+                                                    "fields": {
+                                                        "value": {
+                                                            "kind": "string",
+                                                            "value": "src"
+                                                        }
+                                                    },
+                                                    "id": 49
+                                                },
+                                                "value": {
+                                                    "kind": "set",
+                                                    "isShallow": false,
+                                                    "size": 2,
+                                                    "elements": [
+                                                        {
+                                                            "kind": "object",
+                                                            "typeName": "org.jsoup.safety.Safelist$Protocol",
+                                                            "fields": {
+                                                                "value": {
+                                                                    "kind": "string",
+                                                                    "value": "http"
+                                                                }
+                                                            },
+                                                            "id": 50
+                                                        },
+                                                        {
+                                                            "kind": "object",
+                                                            "typeName": "org.jsoup.safety.Safelist$Protocol",
+                                                            "fields": {
+                                                                "value": {
+                                                                    "kind": "string",
+                                                                    "value": "https"
+                                                                }
+                                                            },
+                                                            "id": 51
+                                                        }
+                                                    ]
+                                                }
+                                            }
+                                        ]
+                                    }
+                                },
+                                {
+                                    "key": {
+                                        "kind": "object",
+                                        "typeName": "org.jsoup.safety.Safelist$TagName",
+                                        "fields": {
+                                            "value": {
+                                                "kind": "string",
+                                                "value": "blockquote"
+                                            }
+                                        },
+                                        "id": 52
+                                    },
+                                    "value": {
+                                        "kind": "map",
+                                        "isShallow": false,
+                                        "size": 1,
+                                        "elements": [
+                                            {
+                                                "key": {
+                                                    "kind": "object",
+                                                    "typeName": "org.jsoup.safety.Safelist$AttributeKey",
+                                                    "fields": {
+                                                        "value": {
+                                                            "kind": "string",
+                                                            "value": "cite"
+                                                        }
+                                                    },
+                                                    "id": 53
+                                                },
+                                                "value": {
+                                                    "kind": "set",
+                                                    "isShallow": false,
+                                                    "size": 2,
+                                                    "elements": [
+                                                        {
+                                                            "kind": "object",
+                                                            "typeName": "org.jsoup.safety.Safelist$Protocol",
+                                                            "fields": {
+                                                                "value": {
+                                                                    "kind": "string",
+                                                                    "value": "http"
+                                                                }
+                                                            },
+                                                            "id": 54
+                                                        },
+                                                        {
+                                                            "kind": "object",
+                                                            "typeName": "org.jsoup.safety.Safelist$Protocol",
+                                                            "fields": {
+                                                                "value": {
+                                                                    "kind": "string",
+                                                                    "value": "https"
+                                                                }
+                                                            },
+                                                            "id": 55
+                                                        }
+                                                    ]
+                                                }
+                                            }
+                                        ]
+                                    }
+                                },
+                                {
+                                    "key": {
+                                        "kind": "object",
+                                        "typeName": "org.jsoup.safety.Safelist$TagName",
+                                        "fields": {
+                                            "value": {
+                                                "kind": "string",
+                                                "value": "cite"
+                                            }
+                                        },
+                                        "id": 56
+                                    },
+                                    "value": {
+                                        "kind": "map",
+                                        "isShallow": false,
+                                        "size": 1,
+                                        "elements": [
+                                            {
+                                                "key": {
+                                                    "kind": "object",
+                                                    "typeName": "org.jsoup.safety.Safelist$AttributeKey",
+                                                    "fields": {
+                                                        "value": {
+                                                            "kind": "string",
+                                                            "value": "cite"
+                                                        }
+                                                    },
+                                                    "id": 57
+                                                },
+                                                "value": {
+                                                    "kind": "set",
+                                                    "isShallow": false,
+                                                    "size": 2,
+                                                    "elements": [
+                                                        {
+                                                            "kind": "object",
+                                                            "typeName": "org.jsoup.safety.Safelist$Protocol",
+                                                            "fields": {
+                                                                "value": {
+                                                                    "kind": "string",
+                                                                    "value": "http"
+                                                                }
+                                                            },
+                                                            "id": 58
+                                                        },
+                                                        {
+                                                            "kind": "object",
+                                                            "typeName": "org.jsoup.safety.Safelist$Protocol",
+                                                            "fields": {
+                                                                "value": {
+                                                                    "kind": "string",
+                                                                    "value": "https"
+                                                                }
+                                                            },
+                                                            "id": 59
+                                                        }
+                                                    ]
+                                                }
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        },
+                        "preserveRelativeLinks": {
+                            "kind": "boolean",
+                            "value": false
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "string",
+                        "value": "img"
+                    },
+                    {
+                        "kind": "mock",
+                        "typeName": "org.jsoup.nodes.Element",
+                        "methods": [],
+                        "isSpy": false,
+                        "id": 60
+                    },
+                    {
+                        "kind": "object",
+                        "typeName": "org.jsoup.nodes.Attribute",
+                        "fields": {
+                            "key": {
+                                "kind": "string",
+                                "value": "alt"
+                            },
+                            "val": {
+                                "kind": "string",
+                                "value": "Image"
+                            },
+                            "parent": {
+                                "kind": "object",
+                                "typeName": "org.jsoup.nodes.Attributes",
+                                "fields": {
+                                    "size": {
+                                        "kind": "int",
+                                        "value": 2
+                                    },
+                                    "keys": {
+                                        "kind": "array",
+                                        "isShallow": false,
+                                        "size": 3,
+                                        "elements": [
+                                            {
+                                                "kind": "string",
+                                                "value": "src"
+                                            },
+                                            {
+                                                "kind": "string",
+                                                "value": "alt"
+                                            },
+                                            {
+                                                "kind": "null"
+                                            }
+                                        ]
+                                    },
+                                    "vals": {
+                                        "kind": "array",
+                                        "isShallow": false,
+                                        "size": 3,
+                                        "elements": [
+                                            {
+                                                "kind": "string",
+                                                "value": "http://example.com/"
+                                            },
+                                            {
+                                                "kind": "string",
+                                                "value": "Image"
+                                            },
+                                            {
+                                                "kind": "null"
+                                            }
+                                        ]
+                                    }
+                                },
+                                "id": 62
+                            }
+                        },
+                        "id": 61
+                    }
+                ],
+                "returnValue": {
+                    "kind": "boolean",
+                    "value": true
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "isSafeAttribute",
+                    "fullName": "isSafeAttribute(String, Element, Attribute)",
+                    "argumentsSize": 3,
+                    "returnTypeName": "boolean",
+                    "containingClass": "org.jsoup.safety.Safelist"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "org.jsoup.safety.Safelist",
+                    "fields": {
+                        "tagNames": {
+                            "kind": "set",
+                            "isShallow": false,
+                            "size": 25,
+                            "elements": [
+                                {
+                                    "kind": "object",
+                                    "typeName": "org.jsoup.safety.Safelist$TagName",
+                                    "fields": {
+                                        "value": {
+                                            "kind": "string",
+                                            "value": "dd"
+                                        }
+                                    },
+                                    "id": 1
+                                },
+                                {
+                                    "kind": "object",
+                                    "typeName": "org.jsoup.safety.Safelist$TagName",
+                                    "fields": {
+                                        "value": {
+                                            "kind": "string",
+                                            "value": "small"
+                                        }
+                                    },
+                                    "id": 2
+                                },
+                                {
+                                    "kind": "object",
+                                    "typeName": "org.jsoup.safety.Safelist$TagName",
+                                    "fields": {
+                                        "value": {
+                                            "kind": "string",
+                                            "value": "sub"
+                                        }
+                                    },
+                                    "id": 3
+                                },
+                                {
+                                    "kind": "object",
+                                    "typeName": "org.jsoup.safety.Safelist$TagName",
+                                    "fields": {
+                                        "value": {
+                                            "kind": "string",
+                                            "value": "strong"
+                                        }
+                                    },
+                                    "id": 4
+                                },
+                                {
+                                    "kind": "object",
+                                    "typeName": "org.jsoup.safety.Safelist$TagName",
+                                    "fields": {
+                                        "value": {
+                                            "kind": "string",
+                                            "value": "img"
+                                        }
+                                    },
+                                    "id": 5
+                                },
+                                {
+                                    "kind": "object",
+                                    "typeName": "org.jsoup.safety.Safelist$TagName",
+                                    "fields": {
+                                        "value": {
+                                            "kind": "string",
+                                            "value": "code"
+                                        }
+                                    },
+                                    "id": 6
+                                },
+                                {
+                                    "kind": "object",
+                                    "typeName": "org.jsoup.safety.Safelist$TagName",
+                                    "fields": {
+                                        "value": {
+                                            "kind": "string",
+                                            "value": "dl"
+                                        }
+                                    },
+                                    "id": 7
+                                },
+                                {
+                                    "kind": "object",
+                                    "typeName": "org.jsoup.safety.Safelist$TagName",
+                                    "fields": {
+                                        "value": {
+                                            "kind": "string",
+                                            "value": "sup"
+                                        }
+                                    },
+                                    "id": 8
+                                },
+                                {
+                                    "kind": "object",
+                                    "typeName": "org.jsoup.safety.Safelist$TagName",
+                                    "fields": {
+                                        "value": {
+                                            "kind": "string",
+                                            "value": "br"
+                                        }
+                                    },
+                                    "id": 9
+                                },
+                                {
+                                    "kind": "object",
+                                    "typeName": "org.jsoup.safety.Safelist$TagName",
+                                    "fields": {
+                                        "value": {
+                                            "kind": "string",
+                                            "value": "dt"
+                                        }
+                                    },
+                                    "id": 10
+                                },
+                                {
+                                    "kind": "object",
+                                    "typeName": "org.jsoup.safety.Safelist$TagName",
+                                    "fields": {
+                                        "value": {
+                                            "kind": "string",
+                                            "value": "ul"
+                                        }
+                                    },
+                                    "id": 11
+                                },
+                                {
+                                    "kind": "object",
+                                    "typeName": "org.jsoup.safety.Safelist$TagName",
+                                    "fields": {
+                                        "value": {
+                                            "kind": "string",
+                                            "value": "ol"
+                                        }
+                                    },
+                                    "id": 12
+                                },
+                                {
+                                    "kind": "object",
+                                    "typeName": "org.jsoup.safety.Safelist$TagName",
+                                    "fields": {
+                                        "value": {
+                                            "kind": "string",
+                                            "value": "a"
+                                        }
+                                    },
+                                    "id": 13
+                                },
+                                {
+                                    "kind": "object",
+                                    "typeName": "org.jsoup.safety.Safelist$TagName",
+                                    "fields": {
+                                        "value": {
+                                            "kind": "string",
+                                            "value": "b"
+                                        }
+                                    },
+                                    "id": 14
+                                },
+                                {
+                                    "kind": "object",
+                                    "typeName": "org.jsoup.safety.Safelist$TagName",
+                                    "fields": {
+                                        "value": {
+                                            "kind": "string",
+                                            "value": "blockquote"
+                                        }
+                                    },
+                                    "id": 15
+                                },
+                                {
+                                    "kind": "object",
+                                    "typeName": "org.jsoup.safety.Safelist$TagName",
+                                    "fields": {
+                                        "value": {
+                                            "kind": "string",
+                                            "value": "pre"
+                                        }
+                                    },
+                                    "id": 16
+                                },
+                                {
+                                    "kind": "object",
+                                    "typeName": "org.jsoup.safety.Safelist$TagName",
+                                    "fields": {
+                                        "value": {
+                                            "kind": "string",
+                                            "value": "strike"
+                                        }
+                                    },
+                                    "id": 17
+                                },
+                                {
+                                    "kind": "object",
+                                    "typeName": "org.jsoup.safety.Safelist$TagName",
+                                    "fields": {
+                                        "value": {
+                                            "kind": "string",
+                                            "value": "em"
+                                        }
+                                    },
+                                    "id": 18
+                                },
+                                {
+                                    "kind": "object",
+                                    "typeName": "org.jsoup.safety.Safelist$TagName",
+                                    "fields": {
+                                        "value": {
+                                            "kind": "string",
+                                            "value": "i"
+                                        }
+                                    },
+                                    "id": 19
+                                },
+                                {
+                                    "kind": "object",
+                                    "typeName": "org.jsoup.safety.Safelist$TagName",
+                                    "fields": {
+                                        "value": {
+                                            "kind": "string",
+                                            "value": "p"
+                                        }
+                                    },
+                                    "id": 20
+                                },
+                                {
+                                    "kind": "object",
+                                    "typeName": "org.jsoup.safety.Safelist$TagName",
+                                    "fields": {
+                                        "value": {
+                                            "kind": "string",
+                                            "value": "q"
+                                        }
+                                    },
+                                    "id": 21
+                                },
+                                {
+                                    "kind": "object",
+                                    "typeName": "org.jsoup.safety.Safelist$TagName",
+                                    "fields": {
+                                        "value": {
+                                            "kind": "string",
+                                            "value": "u"
+                                        }
+                                    },
+                                    "id": 22
+                                },
+                                {
+                                    "kind": "object",
+                                    "typeName": "org.jsoup.safety.Safelist$TagName",
+                                    "fields": {
+                                        "value": {
+                                            "kind": "string",
+                                            "value": "cite"
+                                        }
+                                    },
+                                    "id": 23
+                                },
+                                {
+                                    "kind": "object",
+                                    "typeName": "org.jsoup.safety.Safelist$TagName",
+                                    "fields": {
+                                        "value": {
+                                            "kind": "string",
+                                            "value": "li"
+                                        }
+                                    },
+                                    "id": 24
+                                },
+                                {
+                                    "kind": "object",
+                                    "typeName": "org.jsoup.safety.Safelist$TagName",
+                                    "fields": {
+                                        "value": {
+                                            "kind": "string",
+                                            "value": "span"
+                                        }
+                                    },
+                                    "id": 25
+                                }
+                            ]
+                        },
+                        "attributes": {
+                            "kind": "map",
+                            "isShallow": false,
+                            "size": 4,
+                            "elements": [
+                                {
+                                    "key": {
+                                        "kind": "object",
+                                        "typeName": "org.jsoup.safety.Safelist$TagName",
+                                        "fields": {
+                                            "value": {
+                                                "kind": "string",
+                                                "value": "q"
+                                            }
+                                        },
+                                        "id": 26
+                                    },
+                                    "value": {
+                                        "kind": "set",
+                                        "isShallow": false,
+                                        "size": 1,
+                                        "elements": [
+                                            {
+                                                "kind": "object",
+                                                "typeName": "org.jsoup.safety.Safelist$AttributeKey",
+                                                "fields": {
+                                                    "value": {
+                                                        "kind": "string",
+                                                        "value": "cite"
+                                                    }
+                                                },
+                                                "id": 27
+                                            }
+                                        ]
+                                    }
+                                },
+                                {
+                                    "key": {
+                                        "kind": "object",
+                                        "typeName": "org.jsoup.safety.Safelist$TagName",
+                                        "fields": {
+                                            "value": {
+                                                "kind": "string",
+                                                "value": "a"
+                                            }
+                                        },
+                                        "id": 28
+                                    },
+                                    "value": {
+                                        "kind": "set",
+                                        "isShallow": false,
+                                        "size": 1,
+                                        "elements": [
+                                            {
+                                                "kind": "object",
+                                                "typeName": "org.jsoup.safety.Safelist$AttributeKey",
+                                                "fields": {
+                                                    "value": {
+                                                        "kind": "string",
+                                                        "value": "href"
+                                                    }
+                                                },
+                                                "id": 29
+                                            }
+                                        ]
+                                    }
+                                },
+                                {
+                                    "key": {
+                                        "kind": "object",
+                                        "typeName": "org.jsoup.safety.Safelist$TagName",
+                                        "fields": {
+                                            "value": {
+                                                "kind": "string",
+                                                "value": "img"
+                                            }
+                                        },
+                                        "id": 30
+                                    },
+                                    "value": {
+                                        "kind": "set",
+                                        "isShallow": false,
+                                        "size": 6,
+                                        "elements": [
+                                            {
+                                                "kind": "object",
+                                                "typeName": "org.jsoup.safety.Safelist$AttributeKey",
+                                                "fields": {
+                                                    "value": {
+                                                        "kind": "string",
+                                                        "value": "src"
+                                                    }
+                                                },
+                                                "id": 31
+                                            },
+                                            {
+                                                "kind": "object",
+                                                "typeName": "org.jsoup.safety.Safelist$AttributeKey",
+                                                "fields": {
+                                                    "value": {
+                                                        "kind": "string",
+                                                        "value": "alt"
+                                                    }
+                                                },
+                                                "id": 32
+                                            },
+                                            {
+                                                "kind": "object",
+                                                "typeName": "org.jsoup.safety.Safelist$AttributeKey",
+                                                "fields": {
+                                                    "value": {
+                                                        "kind": "string",
+                                                        "value": "width"
+                                                    }
+                                                },
+                                                "id": 33
+                                            },
+                                            {
+                                                "kind": "object",
+                                                "typeName": "org.jsoup.safety.Safelist$AttributeKey",
+                                                "fields": {
+                                                    "value": {
+                                                        "kind": "string",
+                                                        "value": "align"
+                                                    }
+                                                },
+                                                "id": 34
+                                            },
+                                            {
+                                                "kind": "object",
+                                                "typeName": "org.jsoup.safety.Safelist$AttributeKey",
+                                                "fields": {
+                                                    "value": {
+                                                        "kind": "string",
+                                                        "value": "title"
+                                                    }
+                                                },
+                                                "id": 35
+                                            },
+                                            {
+                                                "kind": "object",
+                                                "typeName": "org.jsoup.safety.Safelist$AttributeKey",
+                                                "fields": {
+                                                    "value": {
+                                                        "kind": "string",
+                                                        "value": "height"
+                                                    }
+                                                },
+                                                "id": 36
+                                            }
+                                        ]
+                                    }
+                                },
+                                {
+                                    "key": {
+                                        "kind": "object",
+                                        "typeName": "org.jsoup.safety.Safelist$TagName",
+                                        "fields": {
+                                            "value": {
+                                                "kind": "string",
+                                                "value": "blockquote"
+                                            }
+                                        },
+                                        "id": 37
+                                    },
+                                    "value": {
+                                        "kind": "set",
+                                        "isShallow": false,
+                                        "size": 1,
+                                        "elements": [
+                                            {
+                                                "kind": "object",
+                                                "typeName": "org.jsoup.safety.Safelist$AttributeKey",
+                                                "fields": {
+                                                    "value": {
+                                                        "kind": "string",
+                                                        "value": "cite"
+                                                    }
+                                                },
+                                                "id": 38
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        },
+                        "enforcedAttributes": {
+                            "kind": "map",
+                            "isShallow": false,
+                            "size": 1,
+                            "elements": [
+                                {
+                                    "key": {
+                                        "kind": "object",
+                                        "typeName": "org.jsoup.safety.Safelist$TagName",
+                                        "fields": {
+                                            "value": {
+                                                "kind": "string",
+                                                "value": "a"
+                                            }
+                                        },
+                                        "id": 39
+                                    },
+                                    "value": {
+                                        "kind": "map",
+                                        "isShallow": false,
+                                        "size": 1,
+                                        "elements": [
+                                            {
+                                                "key": {
+                                                    "kind": "object",
+                                                    "typeName": "org.jsoup.safety.Safelist$AttributeKey",
+                                                    "fields": {
+                                                        "value": {
+                                                            "kind": "string",
+                                                            "value": "rel"
+                                                        }
+                                                    },
+                                                    "id": 40
+                                                },
+                                                "value": {
+                                                    "kind": "object",
+                                                    "typeName": "org.jsoup.safety.Safelist$AttributeValue",
+                                                    "fields": {
+                                                        "value": {
+                                                            "kind": "string",
+                                                            "value": "nofollow"
+                                                        }
+                                                    },
+                                                    "id": 41
+                                                }
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        },
+                        "protocols": {
+                            "kind": "map",
+                            "isShallow": false,
+                            "size": 4,
+                            "elements": [
+                                {
+                                    "key": {
+                                        "kind": "object",
+                                        "typeName": "org.jsoup.safety.Safelist$TagName",
+                                        "fields": {
+                                            "value": {
+                                                "kind": "string",
+                                                "value": "a"
+                                            }
+                                        },
+                                        "id": 42
+                                    },
+                                    "value": {
+                                        "kind": "map",
+                                        "isShallow": false,
+                                        "size": 1,
+                                        "elements": [
+                                            {
+                                                "key": {
+                                                    "kind": "object",
+                                                    "typeName": "org.jsoup.safety.Safelist$AttributeKey",
+                                                    "fields": {
+                                                        "value": {
+                                                            "kind": "string",
+                                                            "value": "href"
+                                                        }
+                                                    },
+                                                    "id": 43
+                                                },
+                                                "value": {
+                                                    "kind": "set",
+                                                    "isShallow": false,
+                                                    "size": 4,
+                                                    "elements": [
+                                                        {
+                                                            "kind": "object",
+                                                            "typeName": "org.jsoup.safety.Safelist$Protocol",
+                                                            "fields": {
+                                                                "value": {
+                                                                    "kind": "string",
+                                                                    "value": "ftp"
+                                                                }
+                                                            },
+                                                            "id": 44
+                                                        },
+                                                        {
+                                                            "kind": "object",
+                                                            "typeName": "org.jsoup.safety.Safelist$Protocol",
+                                                            "fields": {
+                                                                "value": {
+                                                                    "kind": "string",
+                                                                    "value": "http"
+                                                                }
+                                                            },
+                                                            "id": 45
+                                                        },
+                                                        {
+                                                            "kind": "object",
+                                                            "typeName": "org.jsoup.safety.Safelist$Protocol",
+                                                            "fields": {
+                                                                "value": {
+                                                                    "kind": "string",
+                                                                    "value": "mailto"
+                                                                }
+                                                            },
+                                                            "id": 46
+                                                        },
+                                                        {
+                                                            "kind": "object",
+                                                            "typeName": "org.jsoup.safety.Safelist$Protocol",
+                                                            "fields": {
+                                                                "value": {
+                                                                    "kind": "string",
+                                                                    "value": "https"
+                                                                }
+                                                            },
+                                                            "id": 47
+                                                        }
+                                                    ]
+                                                }
+                                            }
+                                        ]
+                                    }
+                                },
+                                {
+                                    "key": {
+                                        "kind": "object",
+                                        "typeName": "org.jsoup.safety.Safelist$TagName",
+                                        "fields": {
+                                            "value": {
+                                                "kind": "string",
+                                                "value": "img"
+                                            }
+                                        },
+                                        "id": 48
+                                    },
+                                    "value": {
+                                        "kind": "map",
+                                        "isShallow": false,
+                                        "size": 1,
+                                        "elements": [
+                                            {
+                                                "key": {
+                                                    "kind": "object",
+                                                    "typeName": "org.jsoup.safety.Safelist$AttributeKey",
+                                                    "fields": {
+                                                        "value": {
+                                                            "kind": "string",
+                                                            "value": "src"
+                                                        }
+                                                    },
+                                                    "id": 49
+                                                },
+                                                "value": {
+                                                    "kind": "set",
+                                                    "isShallow": false,
+                                                    "size": 2,
+                                                    "elements": [
+                                                        {
+                                                            "kind": "object",
+                                                            "typeName": "org.jsoup.safety.Safelist$Protocol",
+                                                            "fields": {
+                                                                "value": {
+                                                                    "kind": "string",
+                                                                    "value": "http"
+                                                                }
+                                                            },
+                                                            "id": 50
+                                                        },
+                                                        {
+                                                            "kind": "object",
+                                                            "typeName": "org.jsoup.safety.Safelist$Protocol",
+                                                            "fields": {
+                                                                "value": {
+                                                                    "kind": "string",
+                                                                    "value": "https"
+                                                                }
+                                                            },
+                                                            "id": 51
+                                                        }
+                                                    ]
+                                                }
+                                            }
+                                        ]
+                                    }
+                                },
+                                {
+                                    "key": {
+                                        "kind": "object",
+                                        "typeName": "org.jsoup.safety.Safelist$TagName",
+                                        "fields": {
+                                            "value": {
+                                                "kind": "string",
+                                                "value": "blockquote"
+                                            }
+                                        },
+                                        "id": 52
+                                    },
+                                    "value": {
+                                        "kind": "map",
+                                        "isShallow": false,
+                                        "size": 1,
+                                        "elements": [
+                                            {
+                                                "key": {
+                                                    "kind": "object",
+                                                    "typeName": "org.jsoup.safety.Safelist$AttributeKey",
+                                                    "fields": {
+                                                        "value": {
+                                                            "kind": "string",
+                                                            "value": "cite"
+                                                        }
+                                                    },
+                                                    "id": 53
+                                                },
+                                                "value": {
+                                                    "kind": "set",
+                                                    "isShallow": false,
+                                                    "size": 2,
+                                                    "elements": [
+                                                        {
+                                                            "kind": "object",
+                                                            "typeName": "org.jsoup.safety.Safelist$Protocol",
+                                                            "fields": {
+                                                                "value": {
+                                                                    "kind": "string",
+                                                                    "value": "http"
+                                                                }
+                                                            },
+                                                            "id": 54
+                                                        },
+                                                        {
+                                                            "kind": "object",
+                                                            "typeName": "org.jsoup.safety.Safelist$Protocol",
+                                                            "fields": {
+                                                                "value": {
+                                                                    "kind": "string",
+                                                                    "value": "https"
+                                                                }
+                                                            },
+                                                            "id": 55
+                                                        }
+                                                    ]
+                                                }
+                                            }
+                                        ]
+                                    }
+                                },
+                                {
+                                    "key": {
+                                        "kind": "object",
+                                        "typeName": "org.jsoup.safety.Safelist$TagName",
+                                        "fields": {
+                                            "value": {
+                                                "kind": "string",
+                                                "value": "cite"
+                                            }
+                                        },
+                                        "id": 56
+                                    },
+                                    "value": {
+                                        "kind": "map",
+                                        "isShallow": false,
+                                        "size": 1,
+                                        "elements": [
+                                            {
+                                                "key": {
+                                                    "kind": "object",
+                                                    "typeName": "org.jsoup.safety.Safelist$AttributeKey",
+                                                    "fields": {
+                                                        "value": {
+                                                            "kind": "string",
+                                                            "value": "cite"
+                                                        }
+                                                    },
+                                                    "id": 57
+                                                },
+                                                "value": {
+                                                    "kind": "set",
+                                                    "isShallow": false,
+                                                    "size": 2,
+                                                    "elements": [
+                                                        {
+                                                            "kind": "object",
+                                                            "typeName": "org.jsoup.safety.Safelist$Protocol",
+                                                            "fields": {
+                                                                "value": {
+                                                                    "kind": "string",
+                                                                    "value": "http"
+                                                                }
+                                                            },
+                                                            "id": 58
+                                                        },
+                                                        {
+                                                            "kind": "object",
+                                                            "typeName": "org.jsoup.safety.Safelist$Protocol",
+                                                            "fields": {
+                                                                "value": {
+                                                                    "kind": "string",
+                                                                    "value": "https"
+                                                                }
+                                                            },
+                                                            "id": 59
+                                                        }
+                                                    ]
+                                                }
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        },
+                        "preserveRelativeLinks": {
+                            "kind": "boolean",
+                            "value": false
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "string",
+                        "value": "img"
+                    },
+                    {
+                        "kind": "mock",
+                        "typeName": "org.jsoup.nodes.Element",
+                        "methods": [
+                            {
+                                "method": {
+                                    "methodName": "absUrl",
+                                    "fullName": "org.jsoup.nodes.Node.absUrl(Ljava/lang/String;)Ljava/lang/String;",
+                                    "argumentsSize": 1,
+                                    "returnTypeName": "java.lang.String",
+                                    "containingClass": "org.jsoup.nodes.Node"
+                                },
+                                "calls": [
+                                    {
+                                        "result": {
+                                            "kind": "string",
+                                            "value": "ftp://ftp.example.com"
+                                        },
+                                        "args": []
+                                    }
+                                ]
+                            }
+                        ],
+                        "isSpy": false,
+                        "id": 60
+                    },
+                    {
+                        "kind": "object",
+                        "typeName": "org.jsoup.nodes.Attribute",
+                        "fields": {
+                            "key": {
+                                "kind": "string",
+                                "value": "src"
+                            },
+                            "val": {
+                                "kind": "string",
+                                "value": "ftp://ftp.example.com"
+                            },
+                            "parent": {
+                                "kind": "object",
+                                "typeName": "org.jsoup.nodes.Attributes",
+                                "fields": {
+                                    "size": {
+                                        "kind": "int",
+                                        "value": 1
+                                    },
+                                    "keys": {
+                                        "kind": "array",
+                                        "isShallow": false,
+                                        "size": 3,
+                                        "elements": [
+                                            {
+                                                "kind": "string",
+                                                "value": "src"
+                                            },
+                                            {
+                                                "kind": "null"
+                                            },
+                                            {
+                                                "kind": "null"
+                                            }
+                                        ]
+                                    },
+                                    "vals": {
+                                        "kind": "array",
+                                        "isShallow": false,
+                                        "size": 3,
+                                        "elements": [
+                                            {
+                                                "kind": "string",
+                                                "value": "ftp://ftp.example.com"
+                                            },
+                                            {
+                                                "kind": "null"
+                                            },
+                                            {
+                                                "kind": "null"
+                                            }
+                                        ]
+                                    }
+                                },
+                                "id": 62
+                            }
+                        },
+                        "id": 61
+                    }
+                ],
+                "returnValue": {
+                    "kind": "boolean",
+                    "value": false
+                }
+            }
+        ]
+    }
+]

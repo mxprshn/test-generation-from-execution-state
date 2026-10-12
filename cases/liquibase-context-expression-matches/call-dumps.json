@@ -1,0 +1,3202 @@
+[
+    {
+        "staticMethodMocks": [
+            {
+                "method": {
+                    "methodName": "trimToEmpty",
+                    "fullName": "liquibase.util.StringUtil.trimToEmpty(Ljava/lang/String;)Ljava/lang/String;",
+                    "argumentsSize": 1,
+                    "returnTypeName": "java.lang.String",
+                    "containingClass": "liquibase.util.StringUtil"
+                },
+                "calls": [
+                    {
+                        "result": {
+                            "kind": "string",
+                            "value": "ctx1"
+                        },
+                        "args": []
+                    }
+                ]
+            }
+        ],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "matches",
+                    "fullName": "matches(Contexts)",
+                    "argumentsSize": 1,
+                    "returnTypeName": "boolean",
+                    "containingClass": "liquibase.ContextExpression"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "liquibase.ContextExpression",
+                    "fields": {
+                        "contexts": {
+                            "kind": "set",
+                            "isShallow": false,
+                            "size": 1,
+                            "elements": [
+                                {
+                                    "kind": "string",
+                                    "value": "ctx1"
+                                }
+                            ]
+                        },
+                        "originalString": {
+                            "kind": "string",
+                            "value": "ctx1"
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "object",
+                        "typeName": "liquibase.Contexts",
+                        "fields": {
+                            "contextStore": {
+                                "kind": "set",
+                                "isShallow": false,
+                                "size": 1,
+                                "elements": [
+                                    {
+                                        "kind": "string",
+                                        "value": "ctx1"
+                                    }
+                                ]
+                            }
+                        },
+                        "id": 1
+                    }
+                ],
+                "returnValue": {
+                    "kind": "boolean",
+                    "value": true
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [
+            {
+                "method": {
+                    "methodName": "trimToEmpty",
+                    "fullName": "liquibase.util.StringUtil.trimToEmpty(Ljava/lang/String;)Ljava/lang/String;",
+                    "argumentsSize": 1,
+                    "returnTypeName": "java.lang.String",
+                    "containingClass": "liquibase.util.StringUtil"
+                },
+                "calls": [
+                    {
+                        "result": {
+                            "kind": "string",
+                            "value": "ctx1"
+                        },
+                        "args": []
+                    }
+                ]
+            }
+        ],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "matches",
+                    "fullName": "matches(Contexts)",
+                    "argumentsSize": 1,
+                    "returnTypeName": "boolean",
+                    "containingClass": "liquibase.ContextExpression"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "liquibase.ContextExpression",
+                    "fields": {
+                        "contexts": {
+                            "kind": "set",
+                            "isShallow": false,
+                            "size": 1,
+                            "elements": [
+                                {
+                                    "kind": "string",
+                                    "value": "ctx1"
+                                }
+                            ]
+                        },
+                        "originalString": {
+                            "kind": "string",
+                            "value": "ctx1"
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "object",
+                        "typeName": "liquibase.Contexts",
+                        "fields": {
+                            "contextStore": {
+                                "kind": "set",
+                                "isShallow": false,
+                                "size": 1,
+                                "elements": [
+                                    {
+                                        "kind": "string",
+                                        "value": "ctx2"
+                                    }
+                                ]
+                            }
+                        },
+                        "id": 1
+                    }
+                ],
+                "returnValue": {
+                    "kind": "boolean",
+                    "value": false
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [
+            {
+                "method": {
+                    "methodName": "trimToEmpty",
+                    "fullName": "liquibase.util.StringUtil.trimToEmpty(Ljava/lang/String;)Ljava/lang/String;",
+                    "argumentsSize": 1,
+                    "returnTypeName": "java.lang.String",
+                    "containingClass": "liquibase.util.StringUtil"
+                },
+                "calls": [
+                    {
+                        "result": {
+                            "kind": "string",
+                            "value": "ctx2"
+                        },
+                        "args": []
+                    }
+                ]
+            }
+        ],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "matches",
+                    "fullName": "matches(Contexts)",
+                    "argumentsSize": 1,
+                    "returnTypeName": "boolean",
+                    "containingClass": "liquibase.ContextExpression"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "liquibase.ContextExpression",
+                    "fields": {
+                        "contexts": {
+                            "kind": "set",
+                            "isShallow": false,
+                            "size": 1,
+                            "elements": [
+                                {
+                                    "kind": "string",
+                                    "value": "ctx2"
+                                }
+                            ]
+                        },
+                        "originalString": {
+                            "kind": "string",
+                            "value": "ctx2"
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "object",
+                        "typeName": "liquibase.Contexts",
+                        "fields": {
+                            "contextStore": {
+                                "kind": "set",
+                                "isShallow": false,
+                                "size": 1,
+                                "elements": [
+                                    {
+                                        "kind": "string",
+                                        "value": "ctx1"
+                                    }
+                                ]
+                            }
+                        },
+                        "id": 1
+                    }
+                ],
+                "returnValue": {
+                    "kind": "boolean",
+                    "value": false
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [
+            {
+                "method": {
+                    "methodName": "trimToEmpty",
+                    "fullName": "liquibase.util.StringUtil.trimToEmpty(Ljava/lang/String;)Ljava/lang/String;",
+                    "argumentsSize": 1,
+                    "returnTypeName": "java.lang.String",
+                    "containingClass": "liquibase.util.StringUtil"
+                },
+                "calls": [
+                    {
+                        "result": {
+                            "kind": "string",
+                            "value": "ctx1"
+                        },
+                        "args": []
+                    }
+                ]
+            }
+        ],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "matches",
+                    "fullName": "matches(Contexts)",
+                    "argumentsSize": 1,
+                    "returnTypeName": "boolean",
+                    "containingClass": "liquibase.ContextExpression"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "liquibase.ContextExpression",
+                    "fields": {
+                        "contexts": {
+                            "kind": "set",
+                            "isShallow": false,
+                            "size": 1,
+                            "elements": [
+                                {
+                                    "kind": "string",
+                                    "value": "ctx1"
+                                }
+                            ]
+                        },
+                        "originalString": {
+                            "kind": "string",
+                            "value": "ctx1"
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "object",
+                        "typeName": "liquibase.Contexts",
+                        "fields": {
+                            "contextStore": {
+                                "kind": "set",
+                                "isShallow": false,
+                                "size": 1,
+                                "elements": [
+                                    {
+                                        "kind": "string",
+                                        "value": "ctx1"
+                                    }
+                                ]
+                            }
+                        },
+                        "id": 1
+                    }
+                ],
+                "returnValue": {
+                    "kind": "boolean",
+                    "value": true
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [
+            {
+                "method": {
+                    "methodName": "trimToEmpty",
+                    "fullName": "liquibase.util.StringUtil.trimToEmpty(Ljava/lang/String;)Ljava/lang/String;",
+                    "argumentsSize": 1,
+                    "returnTypeName": "java.lang.String",
+                    "containingClass": "liquibase.util.StringUtil"
+                },
+                "calls": [
+                    {
+                        "result": {
+                            "kind": "string",
+                            "value": "ctx1"
+                        },
+                        "args": []
+                    }
+                ]
+            }
+        ],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "matches",
+                    "fullName": "matches(Contexts)",
+                    "argumentsSize": 1,
+                    "returnTypeName": "boolean",
+                    "containingClass": "liquibase.ContextExpression"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "liquibase.ContextExpression",
+                    "fields": {
+                        "contexts": {
+                            "kind": "set",
+                            "isShallow": false,
+                            "size": 1,
+                            "elements": [
+                                {
+                                    "kind": "string",
+                                    "value": "ctx1"
+                                }
+                            ]
+                        },
+                        "originalString": {
+                            "kind": "string",
+                            "value": "ctx1"
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "object",
+                        "typeName": "liquibase.Contexts",
+                        "fields": {
+                            "contextStore": {
+                                "kind": "set",
+                                "isShallow": false,
+                                "size": 1,
+                                "elements": [
+                                    {
+                                        "kind": "string",
+                                        "value": "ctx2"
+                                    }
+                                ]
+                            }
+                        },
+                        "id": 1
+                    }
+                ],
+                "returnValue": {
+                    "kind": "boolean",
+                    "value": false
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [
+            {
+                "method": {
+                    "methodName": "trimToEmpty",
+                    "fullName": "liquibase.util.StringUtil.trimToEmpty(Ljava/lang/String;)Ljava/lang/String;",
+                    "argumentsSize": 1,
+                    "returnTypeName": "java.lang.String",
+                    "containingClass": "liquibase.util.StringUtil"
+                },
+                "calls": [
+                    {
+                        "result": {
+                            "kind": "string",
+                            "value": "ctx2"
+                        },
+                        "args": []
+                    }
+                ]
+            }
+        ],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "matches",
+                    "fullName": "matches(Contexts)",
+                    "argumentsSize": 1,
+                    "returnTypeName": "boolean",
+                    "containingClass": "liquibase.ContextExpression"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "liquibase.ContextExpression",
+                    "fields": {
+                        "contexts": {
+                            "kind": "set",
+                            "isShallow": false,
+                            "size": 1,
+                            "elements": [
+                                {
+                                    "kind": "string",
+                                    "value": "ctx2"
+                                }
+                            ]
+                        },
+                        "originalString": {
+                            "kind": "string",
+                            "value": "ctx2"
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "object",
+                        "typeName": "liquibase.Contexts",
+                        "fields": {
+                            "contextStore": {
+                                "kind": "set",
+                                "isShallow": false,
+                                "size": 1,
+                                "elements": [
+                                    {
+                                        "kind": "string",
+                                        "value": "ctx1"
+                                    }
+                                ]
+                            }
+                        },
+                        "id": 1
+                    }
+                ],
+                "returnValue": {
+                    "kind": "boolean",
+                    "value": false
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [
+            {
+                "method": {
+                    "methodName": "trimToEmpty",
+                    "fullName": "liquibase.util.StringUtil.trimToEmpty(Ljava/lang/String;)Ljava/lang/String;",
+                    "argumentsSize": 1,
+                    "returnTypeName": "java.lang.String",
+                    "containingClass": "liquibase.util.StringUtil"
+                },
+                "calls": [
+                    {
+                        "result": {
+                            "kind": "string",
+                            "value": "ctx1"
+                        },
+                        "args": []
+                    }
+                ]
+            }
+        ],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "matches",
+                    "fullName": "matches(Contexts)",
+                    "argumentsSize": 1,
+                    "returnTypeName": "boolean",
+                    "containingClass": "liquibase.ContextExpression"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "liquibase.ContextExpression",
+                    "fields": {
+                        "contexts": {
+                            "kind": "set",
+                            "isShallow": false,
+                            "size": 1,
+                            "elements": [
+                                {
+                                    "kind": "string",
+                                    "value": "ctx1"
+                                }
+                            ]
+                        },
+                        "originalString": {
+                            "kind": "string",
+                            "value": "ctx1"
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "object",
+                        "typeName": "liquibase.Contexts",
+                        "fields": {
+                            "contextStore": {
+                                "kind": "set",
+                                "isShallow": false,
+                                "size": 1,
+                                "elements": [
+                                    {
+                                        "kind": "string",
+                                        "value": "ctx1"
+                                    }
+                                ]
+                            }
+                        },
+                        "id": 1
+                    }
+                ],
+                "returnValue": {
+                    "kind": "boolean",
+                    "value": true
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [
+            {
+                "method": {
+                    "methodName": "trimToEmpty",
+                    "fullName": "liquibase.util.StringUtil.trimToEmpty(Ljava/lang/String;)Ljava/lang/String;",
+                    "argumentsSize": 1,
+                    "returnTypeName": "java.lang.String",
+                    "containingClass": "liquibase.util.StringUtil"
+                },
+                "calls": [
+                    {
+                        "result": {
+                            "kind": "string",
+                            "value": "ctx1"
+                        },
+                        "args": []
+                    }
+                ]
+            }
+        ],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "matches",
+                    "fullName": "matches(Contexts)",
+                    "argumentsSize": 1,
+                    "returnTypeName": "boolean",
+                    "containingClass": "liquibase.ContextExpression"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "liquibase.ContextExpression",
+                    "fields": {
+                        "contexts": {
+                            "kind": "set",
+                            "isShallow": false,
+                            "size": 1,
+                            "elements": [
+                                {
+                                    "kind": "string",
+                                    "value": "ctx1"
+                                }
+                            ]
+                        },
+                        "originalString": {
+                            "kind": "string",
+                            "value": "ctx1"
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "object",
+                        "typeName": "liquibase.Contexts",
+                        "fields": {
+                            "contextStore": {
+                                "kind": "set",
+                                "isShallow": false,
+                                "size": 1,
+                                "elements": [
+                                    {
+                                        "kind": "string",
+                                        "value": "ctx2"
+                                    }
+                                ]
+                            }
+                        },
+                        "id": 1
+                    }
+                ],
+                "returnValue": {
+                    "kind": "boolean",
+                    "value": false
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [
+            {
+                "method": {
+                    "methodName": "trimToEmpty",
+                    "fullName": "liquibase.util.StringUtil.trimToEmpty(Ljava/lang/String;)Ljava/lang/String;",
+                    "argumentsSize": 1,
+                    "returnTypeName": "java.lang.String",
+                    "containingClass": "liquibase.util.StringUtil"
+                },
+                "calls": [
+                    {
+                        "result": {
+                            "kind": "string",
+                            "value": "ctx2"
+                        },
+                        "args": []
+                    }
+                ]
+            }
+        ],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "matches",
+                    "fullName": "matches(Contexts)",
+                    "argumentsSize": 1,
+                    "returnTypeName": "boolean",
+                    "containingClass": "liquibase.ContextExpression"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "liquibase.ContextExpression",
+                    "fields": {
+                        "contexts": {
+                            "kind": "set",
+                            "isShallow": false,
+                            "size": 1,
+                            "elements": [
+                                {
+                                    "kind": "string",
+                                    "value": "ctx2"
+                                }
+                            ]
+                        },
+                        "originalString": {
+                            "kind": "string",
+                            "value": "ctx2"
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "object",
+                        "typeName": "liquibase.Contexts",
+                        "fields": {
+                            "contextStore": {
+                                "kind": "set",
+                                "isShallow": false,
+                                "size": 1,
+                                "elements": [
+                                    {
+                                        "kind": "string",
+                                        "value": "ctx1"
+                                    }
+                                ]
+                            }
+                        },
+                        "id": 1
+                    }
+                ],
+                "returnValue": {
+                    "kind": "boolean",
+                    "value": false
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [
+            {
+                "method": {
+                    "methodName": "trimToEmpty",
+                    "fullName": "liquibase.util.StringUtil.trimToEmpty(Ljava/lang/String;)Ljava/lang/String;",
+                    "argumentsSize": 1,
+                    "returnTypeName": "java.lang.String",
+                    "containingClass": "liquibase.util.StringUtil"
+                },
+                "calls": [
+                    {
+                        "result": {
+                            "kind": "string",
+                            "value": "ctx1"
+                        },
+                        "args": []
+                    }
+                ]
+            }
+        ],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "matches",
+                    "fullName": "matches(Contexts)",
+                    "argumentsSize": 1,
+                    "returnTypeName": "boolean",
+                    "containingClass": "liquibase.ContextExpression"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "liquibase.ContextExpression",
+                    "fields": {
+                        "contexts": {
+                            "kind": "set",
+                            "isShallow": false,
+                            "size": 1,
+                            "elements": [
+                                {
+                                    "kind": "string",
+                                    "value": "ctx1"
+                                }
+                            ]
+                        },
+                        "originalString": {
+                            "kind": "string",
+                            "value": "ctx1"
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "object",
+                        "typeName": "liquibase.Contexts",
+                        "fields": {
+                            "contextStore": {
+                                "kind": "set",
+                                "isShallow": false,
+                                "size": 1,
+                                "elements": [
+                                    {
+                                        "kind": "string",
+                                        "value": "ctx1"
+                                    }
+                                ]
+                            }
+                        },
+                        "id": 1
+                    }
+                ],
+                "returnValue": {
+                    "kind": "boolean",
+                    "value": true
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [
+            {
+                "method": {
+                    "methodName": "trimToEmpty",
+                    "fullName": "liquibase.util.StringUtil.trimToEmpty(Ljava/lang/String;)Ljava/lang/String;",
+                    "argumentsSize": 1,
+                    "returnTypeName": "java.lang.String",
+                    "containingClass": "liquibase.util.StringUtil"
+                },
+                "calls": [
+                    {
+                        "result": {
+                            "kind": "string",
+                            "value": "ctx1"
+                        },
+                        "args": []
+                    }
+                ]
+            }
+        ],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "matches",
+                    "fullName": "matches(Contexts)",
+                    "argumentsSize": 1,
+                    "returnTypeName": "boolean",
+                    "containingClass": "liquibase.ContextExpression"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "liquibase.ContextExpression",
+                    "fields": {
+                        "contexts": {
+                            "kind": "set",
+                            "isShallow": false,
+                            "size": 1,
+                            "elements": [
+                                {
+                                    "kind": "string",
+                                    "value": "ctx1"
+                                }
+                            ]
+                        },
+                        "originalString": {
+                            "kind": "string",
+                            "value": "ctx1"
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "object",
+                        "typeName": "liquibase.Contexts",
+                        "fields": {
+                            "contextStore": {
+                                "kind": "set",
+                                "isShallow": false,
+                                "size": 1,
+                                "elements": [
+                                    {
+                                        "kind": "string",
+                                        "value": "ctx2"
+                                    }
+                                ]
+                            }
+                        },
+                        "id": 1
+                    }
+                ],
+                "returnValue": {
+                    "kind": "boolean",
+                    "value": false
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [
+            {
+                "method": {
+                    "methodName": "trimToEmpty",
+                    "fullName": "liquibase.util.StringUtil.trimToEmpty(Ljava/lang/String;)Ljava/lang/String;",
+                    "argumentsSize": 1,
+                    "returnTypeName": "java.lang.String",
+                    "containingClass": "liquibase.util.StringUtil"
+                },
+                "calls": [
+                    {
+                        "result": {
+                            "kind": "string",
+                            "value": "ctx2"
+                        },
+                        "args": []
+                    }
+                ]
+            }
+        ],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "matches",
+                    "fullName": "matches(Contexts)",
+                    "argumentsSize": 1,
+                    "returnTypeName": "boolean",
+                    "containingClass": "liquibase.ContextExpression"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "liquibase.ContextExpression",
+                    "fields": {
+                        "contexts": {
+                            "kind": "set",
+                            "isShallow": false,
+                            "size": 1,
+                            "elements": [
+                                {
+                                    "kind": "string",
+                                    "value": "ctx2"
+                                }
+                            ]
+                        },
+                        "originalString": {
+                            "kind": "string",
+                            "value": "ctx2"
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "object",
+                        "typeName": "liquibase.Contexts",
+                        "fields": {
+                            "contextStore": {
+                                "kind": "set",
+                                "isShallow": false,
+                                "size": 1,
+                                "elements": [
+                                    {
+                                        "kind": "string",
+                                        "value": "ctx1"
+                                    }
+                                ]
+                            }
+                        },
+                        "id": 1
+                    }
+                ],
+                "returnValue": {
+                    "kind": "boolean",
+                    "value": false
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [
+            {
+                "method": {
+                    "methodName": "trimToEmpty",
+                    "fullName": "liquibase.util.StringUtil.trimToEmpty(Ljava/lang/String;)Ljava/lang/String;",
+                    "argumentsSize": 1,
+                    "returnTypeName": "java.lang.String",
+                    "containingClass": "liquibase.util.StringUtil"
+                },
+                "calls": [
+                    {
+                        "result": {
+                            "kind": "string",
+                            "value": "ctx1"
+                        },
+                        "args": []
+                    }
+                ]
+            }
+        ],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "matches",
+                    "fullName": "matches(Contexts)",
+                    "argumentsSize": 1,
+                    "returnTypeName": "boolean",
+                    "containingClass": "liquibase.ContextExpression"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "liquibase.ContextExpression",
+                    "fields": {
+                        "contexts": {
+                            "kind": "set",
+                            "isShallow": false,
+                            "size": 1,
+                            "elements": [
+                                {
+                                    "kind": "string",
+                                    "value": "ctx1"
+                                }
+                            ]
+                        },
+                        "originalString": {
+                            "kind": "string",
+                            "value": "ctx1"
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "object",
+                        "typeName": "liquibase.Contexts",
+                        "fields": {
+                            "contextStore": {
+                                "kind": "set",
+                                "isShallow": false,
+                                "size": 1,
+                                "elements": [
+                                    {
+                                        "kind": "string",
+                                        "value": "ctx1"
+                                    }
+                                ]
+                            }
+                        },
+                        "id": 1
+                    }
+                ],
+                "returnValue": {
+                    "kind": "boolean",
+                    "value": true
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [
+            {
+                "method": {
+                    "methodName": "trimToEmpty",
+                    "fullName": "liquibase.util.StringUtil.trimToEmpty(Ljava/lang/String;)Ljava/lang/String;",
+                    "argumentsSize": 1,
+                    "returnTypeName": "java.lang.String",
+                    "containingClass": "liquibase.util.StringUtil"
+                },
+                "calls": [
+                    {
+                        "result": {
+                            "kind": "string",
+                            "value": "ctx1"
+                        },
+                        "args": []
+                    }
+                ]
+            }
+        ],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "matches",
+                    "fullName": "matches(Contexts)",
+                    "argumentsSize": 1,
+                    "returnTypeName": "boolean",
+                    "containingClass": "liquibase.ContextExpression"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "liquibase.ContextExpression",
+                    "fields": {
+                        "contexts": {
+                            "kind": "set",
+                            "isShallow": false,
+                            "size": 1,
+                            "elements": [
+                                {
+                                    "kind": "string",
+                                    "value": "ctx1"
+                                }
+                            ]
+                        },
+                        "originalString": {
+                            "kind": "string",
+                            "value": "ctx1"
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "object",
+                        "typeName": "liquibase.Contexts",
+                        "fields": {
+                            "contextStore": {
+                                "kind": "set",
+                                "isShallow": false,
+                                "size": 1,
+                                "elements": [
+                                    {
+                                        "kind": "string",
+                                        "value": "ctx2"
+                                    }
+                                ]
+                            }
+                        },
+                        "id": 1
+                    }
+                ],
+                "returnValue": {
+                    "kind": "boolean",
+                    "value": false
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [
+            {
+                "method": {
+                    "methodName": "trimToEmpty",
+                    "fullName": "liquibase.util.StringUtil.trimToEmpty(Ljava/lang/String;)Ljava/lang/String;",
+                    "argumentsSize": 1,
+                    "returnTypeName": "java.lang.String",
+                    "containingClass": "liquibase.util.StringUtil"
+                },
+                "calls": [
+                    {
+                        "result": {
+                            "kind": "string",
+                            "value": "ctx2"
+                        },
+                        "args": []
+                    }
+                ]
+            }
+        ],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "matches",
+                    "fullName": "matches(Contexts)",
+                    "argumentsSize": 1,
+                    "returnTypeName": "boolean",
+                    "containingClass": "liquibase.ContextExpression"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "liquibase.ContextExpression",
+                    "fields": {
+                        "contexts": {
+                            "kind": "set",
+                            "isShallow": false,
+                            "size": 1,
+                            "elements": [
+                                {
+                                    "kind": "string",
+                                    "value": "ctx2"
+                                }
+                            ]
+                        },
+                        "originalString": {
+                            "kind": "string",
+                            "value": "ctx2"
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "object",
+                        "typeName": "liquibase.Contexts",
+                        "fields": {
+                            "contextStore": {
+                                "kind": "set",
+                                "isShallow": false,
+                                "size": 1,
+                                "elements": [
+                                    {
+                                        "kind": "string",
+                                        "value": "ctx1"
+                                    }
+                                ]
+                            }
+                        },
+                        "id": 1
+                    }
+                ],
+                "returnValue": {
+                    "kind": "boolean",
+                    "value": false
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [
+            {
+                "method": {
+                    "methodName": "trimToEmpty",
+                    "fullName": "liquibase.util.StringUtil.trimToEmpty(Ljava/lang/String;)Ljava/lang/String;",
+                    "argumentsSize": 1,
+                    "returnTypeName": "java.lang.String",
+                    "containingClass": "liquibase.util.StringUtil"
+                },
+                "calls": [
+                    {
+                        "result": {
+                            "kind": "string",
+                            "value": "ctx1"
+                        },
+                        "args": []
+                    }
+                ]
+            }
+        ],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "matches",
+                    "fullName": "matches(Contexts)",
+                    "argumentsSize": 1,
+                    "returnTypeName": "boolean",
+                    "containingClass": "liquibase.ContextExpression"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "liquibase.ContextExpression",
+                    "fields": {
+                        "contexts": {
+                            "kind": "set",
+                            "isShallow": false,
+                            "size": 1,
+                            "elements": [
+                                {
+                                    "kind": "string",
+                                    "value": "ctx1"
+                                }
+                            ]
+                        },
+                        "originalString": {
+                            "kind": "string",
+                            "value": "ctx1"
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "object",
+                        "typeName": "liquibase.Contexts",
+                        "fields": {
+                            "contextStore": {
+                                "kind": "set",
+                                "isShallow": false,
+                                "size": 1,
+                                "elements": [
+                                    {
+                                        "kind": "string",
+                                        "value": "ctx1"
+                                    }
+                                ]
+                            }
+                        },
+                        "id": 1
+                    }
+                ],
+                "returnValue": {
+                    "kind": "boolean",
+                    "value": true
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [
+            {
+                "method": {
+                    "methodName": "trimToEmpty",
+                    "fullName": "liquibase.util.StringUtil.trimToEmpty(Ljava/lang/String;)Ljava/lang/String;",
+                    "argumentsSize": 1,
+                    "returnTypeName": "java.lang.String",
+                    "containingClass": "liquibase.util.StringUtil"
+                },
+                "calls": [
+                    {
+                        "result": {
+                            "kind": "string",
+                            "value": "ctx1"
+                        },
+                        "args": []
+                    }
+                ]
+            }
+        ],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "matches",
+                    "fullName": "matches(Contexts)",
+                    "argumentsSize": 1,
+                    "returnTypeName": "boolean",
+                    "containingClass": "liquibase.ContextExpression"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "liquibase.ContextExpression",
+                    "fields": {
+                        "contexts": {
+                            "kind": "set",
+                            "isShallow": false,
+                            "size": 1,
+                            "elements": [
+                                {
+                                    "kind": "string",
+                                    "value": "ctx1"
+                                }
+                            ]
+                        },
+                        "originalString": {
+                            "kind": "string",
+                            "value": "ctx1"
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "object",
+                        "typeName": "liquibase.Contexts",
+                        "fields": {
+                            "contextStore": {
+                                "kind": "set",
+                                "isShallow": false,
+                                "size": 1,
+                                "elements": [
+                                    {
+                                        "kind": "string",
+                                        "value": "ctx2"
+                                    }
+                                ]
+                            }
+                        },
+                        "id": 1
+                    }
+                ],
+                "returnValue": {
+                    "kind": "boolean",
+                    "value": false
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [
+            {
+                "method": {
+                    "methodName": "trimToEmpty",
+                    "fullName": "liquibase.util.StringUtil.trimToEmpty(Ljava/lang/String;)Ljava/lang/String;",
+                    "argumentsSize": 1,
+                    "returnTypeName": "java.lang.String",
+                    "containingClass": "liquibase.util.StringUtil"
+                },
+                "calls": [
+                    {
+                        "result": {
+                            "kind": "string",
+                            "value": "ctx2"
+                        },
+                        "args": []
+                    }
+                ]
+            }
+        ],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "matches",
+                    "fullName": "matches(Contexts)",
+                    "argumentsSize": 1,
+                    "returnTypeName": "boolean",
+                    "containingClass": "liquibase.ContextExpression"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "liquibase.ContextExpression",
+                    "fields": {
+                        "contexts": {
+                            "kind": "set",
+                            "isShallow": false,
+                            "size": 1,
+                            "elements": [
+                                {
+                                    "kind": "string",
+                                    "value": "ctx2"
+                                }
+                            ]
+                        },
+                        "originalString": {
+                            "kind": "string",
+                            "value": "ctx2"
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "object",
+                        "typeName": "liquibase.Contexts",
+                        "fields": {
+                            "contextStore": {
+                                "kind": "set",
+                                "isShallow": false,
+                                "size": 1,
+                                "elements": [
+                                    {
+                                        "kind": "string",
+                                        "value": "ctx1"
+                                    }
+                                ]
+                            }
+                        },
+                        "id": 1
+                    }
+                ],
+                "returnValue": {
+                    "kind": "boolean",
+                    "value": false
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [
+            {
+                "method": {
+                    "methodName": "trimToEmpty",
+                    "fullName": "liquibase.util.StringUtil.trimToEmpty(Ljava/lang/String;)Ljava/lang/String;",
+                    "argumentsSize": 1,
+                    "returnTypeName": "java.lang.String",
+                    "containingClass": "liquibase.util.StringUtil"
+                },
+                "calls": [
+                    {
+                        "result": {
+                            "kind": "string",
+                            "value": "ctx1"
+                        },
+                        "args": []
+                    }
+                ]
+            }
+        ],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "matches",
+                    "fullName": "matches(Contexts)",
+                    "argumentsSize": 1,
+                    "returnTypeName": "boolean",
+                    "containingClass": "liquibase.ContextExpression"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "liquibase.ContextExpression",
+                    "fields": {
+                        "contexts": {
+                            "kind": "set",
+                            "isShallow": false,
+                            "size": 1,
+                            "elements": [
+                                {
+                                    "kind": "string",
+                                    "value": "ctx1"
+                                }
+                            ]
+                        },
+                        "originalString": {
+                            "kind": "string",
+                            "value": "ctx1"
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "object",
+                        "typeName": "liquibase.Contexts",
+                        "fields": {
+                            "contextStore": {
+                                "kind": "set",
+                                "isShallow": false,
+                                "size": 1,
+                                "elements": [
+                                    {
+                                        "kind": "string",
+                                        "value": "ctx2"
+                                    }
+                                ]
+                            }
+                        },
+                        "id": 1
+                    }
+                ],
+                "returnValue": {
+                    "kind": "boolean",
+                    "value": false
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [
+            {
+                "method": {
+                    "methodName": "trimToEmpty",
+                    "fullName": "liquibase.util.StringUtil.trimToEmpty(Ljava/lang/String;)Ljava/lang/String;",
+                    "argumentsSize": 1,
+                    "returnTypeName": "java.lang.String",
+                    "containingClass": "liquibase.util.StringUtil"
+                },
+                "calls": [
+                    {
+                        "result": {
+                            "kind": "string",
+                            "value": "ctx2"
+                        },
+                        "args": []
+                    }
+                ]
+            }
+        ],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "matches",
+                    "fullName": "matches(Contexts)",
+                    "argumentsSize": 1,
+                    "returnTypeName": "boolean",
+                    "containingClass": "liquibase.ContextExpression"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "liquibase.ContextExpression",
+                    "fields": {
+                        "contexts": {
+                            "kind": "set",
+                            "isShallow": false,
+                            "size": 1,
+                            "elements": [
+                                {
+                                    "kind": "string",
+                                    "value": "ctx2"
+                                }
+                            ]
+                        },
+                        "originalString": {
+                            "kind": "string",
+                            "value": "ctx2"
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "object",
+                        "typeName": "liquibase.Contexts",
+                        "fields": {
+                            "contextStore": {
+                                "kind": "set",
+                                "isShallow": false,
+                                "size": 1,
+                                "elements": [
+                                    {
+                                        "kind": "string",
+                                        "value": "ctx1"
+                                    }
+                                ]
+                            }
+                        },
+                        "id": 1
+                    }
+                ],
+                "returnValue": {
+                    "kind": "boolean",
+                    "value": false
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [
+            {
+                "method": {
+                    "methodName": "trimToEmpty",
+                    "fullName": "liquibase.util.StringUtil.trimToEmpty(Ljava/lang/String;)Ljava/lang/String;",
+                    "argumentsSize": 1,
+                    "returnTypeName": "java.lang.String",
+                    "containingClass": "liquibase.util.StringUtil"
+                },
+                "calls": [
+                    {
+                        "result": {
+                            "kind": "string",
+                            "value": "ctx1"
+                        },
+                        "args": []
+                    }
+                ]
+            }
+        ],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "matches",
+                    "fullName": "matches(Contexts)",
+                    "argumentsSize": 1,
+                    "returnTypeName": "boolean",
+                    "containingClass": "liquibase.ContextExpression"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "liquibase.ContextExpression",
+                    "fields": {
+                        "contexts": {
+                            "kind": "set",
+                            "isShallow": false,
+                            "size": 1,
+                            "elements": [
+                                {
+                                    "kind": "string",
+                                    "value": "ctx1"
+                                }
+                            ]
+                        },
+                        "originalString": {
+                            "kind": "string",
+                            "value": "ctx1"
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "object",
+                        "typeName": "liquibase.Contexts",
+                        "fields": {
+                            "contextStore": {
+                                "kind": "set",
+                                "isShallow": false,
+                                "size": 1,
+                                "elements": [
+                                    {
+                                        "kind": "string",
+                                        "value": "ctx1"
+                                    }
+                                ]
+                            }
+                        },
+                        "id": 1
+                    }
+                ],
+                "returnValue": {
+                    "kind": "boolean",
+                    "value": true
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [
+            {
+                "method": {
+                    "methodName": "trimToEmpty",
+                    "fullName": "liquibase.util.StringUtil.trimToEmpty(Ljava/lang/String;)Ljava/lang/String;",
+                    "argumentsSize": 1,
+                    "returnTypeName": "java.lang.String",
+                    "containingClass": "liquibase.util.StringUtil"
+                },
+                "calls": [
+                    {
+                        "result": {
+                            "kind": "string",
+                            "value": "ctx2"
+                        },
+                        "args": []
+                    }
+                ]
+            }
+        ],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "matches",
+                    "fullName": "matches(Contexts)",
+                    "argumentsSize": 1,
+                    "returnTypeName": "boolean",
+                    "containingClass": "liquibase.ContextExpression"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "liquibase.ContextExpression",
+                    "fields": {
+                        "contexts": {
+                            "kind": "set",
+                            "isShallow": false,
+                            "size": 1,
+                            "elements": [
+                                {
+                                    "kind": "string",
+                                    "value": "ctx2"
+                                }
+                            ]
+                        },
+                        "originalString": {
+                            "kind": "string",
+                            "value": "ctx2"
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "object",
+                        "typeName": "liquibase.Contexts",
+                        "fields": {
+                            "contextStore": {
+                                "kind": "set",
+                                "isShallow": false,
+                                "size": 1,
+                                "elements": [
+                                    {
+                                        "kind": "string",
+                                        "value": "ctx1"
+                                    }
+                                ]
+                            }
+                        },
+                        "id": 1
+                    }
+                ],
+                "returnValue": {
+                    "kind": "boolean",
+                    "value": false
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [
+            {
+                "method": {
+                    "methodName": "trimToEmpty",
+                    "fullName": "liquibase.util.StringUtil.trimToEmpty(Ljava/lang/String;)Ljava/lang/String;",
+                    "argumentsSize": 1,
+                    "returnTypeName": "java.lang.String",
+                    "containingClass": "liquibase.util.StringUtil"
+                },
+                "calls": [
+                    {
+                        "result": {
+                            "kind": "string",
+                            "value": "ctx1"
+                        },
+                        "args": []
+                    }
+                ]
+            }
+        ],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "matches",
+                    "fullName": "matches(Contexts)",
+                    "argumentsSize": 1,
+                    "returnTypeName": "boolean",
+                    "containingClass": "liquibase.ContextExpression"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "liquibase.ContextExpression",
+                    "fields": {
+                        "contexts": {
+                            "kind": "set",
+                            "isShallow": false,
+                            "size": 1,
+                            "elements": [
+                                {
+                                    "kind": "string",
+                                    "value": "ctx1"
+                                }
+                            ]
+                        },
+                        "originalString": {
+                            "kind": "string",
+                            "value": "ctx1"
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "object",
+                        "typeName": "liquibase.Contexts",
+                        "fields": {
+                            "contextStore": {
+                                "kind": "set",
+                                "isShallow": false,
+                                "size": 1,
+                                "elements": [
+                                    {
+                                        "kind": "string",
+                                        "value": "ctx2"
+                                    }
+                                ]
+                            }
+                        },
+                        "id": 1
+                    }
+                ],
+                "returnValue": {
+                    "kind": "boolean",
+                    "value": false
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [
+            {
+                "method": {
+                    "methodName": "trimToEmpty",
+                    "fullName": "liquibase.util.StringUtil.trimToEmpty(Ljava/lang/String;)Ljava/lang/String;",
+                    "argumentsSize": 1,
+                    "returnTypeName": "java.lang.String",
+                    "containingClass": "liquibase.util.StringUtil"
+                },
+                "calls": [
+                    {
+                        "result": {
+                            "kind": "string",
+                            "value": "ctx2"
+                        },
+                        "args": []
+                    }
+                ]
+            }
+        ],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "matches",
+                    "fullName": "matches(Contexts)",
+                    "argumentsSize": 1,
+                    "returnTypeName": "boolean",
+                    "containingClass": "liquibase.ContextExpression"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "liquibase.ContextExpression",
+                    "fields": {
+                        "contexts": {
+                            "kind": "set",
+                            "isShallow": false,
+                            "size": 1,
+                            "elements": [
+                                {
+                                    "kind": "string",
+                                    "value": "ctx2"
+                                }
+                            ]
+                        },
+                        "originalString": {
+                            "kind": "string",
+                            "value": "ctx2"
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "object",
+                        "typeName": "liquibase.Contexts",
+                        "fields": {
+                            "contextStore": {
+                                "kind": "set",
+                                "isShallow": false,
+                                "size": 1,
+                                "elements": [
+                                    {
+                                        "kind": "string",
+                                        "value": "ctx2"
+                                    }
+                                ]
+                            }
+                        },
+                        "id": 1
+                    }
+                ],
+                "returnValue": {
+                    "kind": "boolean",
+                    "value": true
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [
+            {
+                "method": {
+                    "methodName": "trimToEmpty",
+                    "fullName": "liquibase.util.StringUtil.trimToEmpty(Ljava/lang/String;)Ljava/lang/String;",
+                    "argumentsSize": 1,
+                    "returnTypeName": "java.lang.String",
+                    "containingClass": "liquibase.util.StringUtil"
+                },
+                "calls": [
+                    {
+                        "result": {
+                            "kind": "string",
+                            "value": "ctx2"
+                        },
+                        "args": []
+                    }
+                ]
+            }
+        ],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "matches",
+                    "fullName": "matches(Contexts)",
+                    "argumentsSize": 1,
+                    "returnTypeName": "boolean",
+                    "containingClass": "liquibase.ContextExpression"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "liquibase.ContextExpression",
+                    "fields": {
+                        "contexts": {
+                            "kind": "set",
+                            "isShallow": false,
+                            "size": 1,
+                            "elements": [
+                                {
+                                    "kind": "string",
+                                    "value": "ctx2"
+                                }
+                            ]
+                        },
+                        "originalString": {
+                            "kind": "string",
+                            "value": "ctx2"
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "object",
+                        "typeName": "liquibase.Contexts",
+                        "fields": {
+                            "contextStore": {
+                                "kind": "set",
+                                "isShallow": false,
+                                "size": 1,
+                                "elements": [
+                                    {
+                                        "kind": "string",
+                                        "value": "ctx1"
+                                    }
+                                ]
+                            }
+                        },
+                        "id": 1
+                    }
+                ],
+                "returnValue": {
+                    "kind": "boolean",
+                    "value": false
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [
+            {
+                "method": {
+                    "methodName": "trimToEmpty",
+                    "fullName": "liquibase.util.StringUtil.trimToEmpty(Ljava/lang/String;)Ljava/lang/String;",
+                    "argumentsSize": 1,
+                    "returnTypeName": "java.lang.String",
+                    "containingClass": "liquibase.util.StringUtil"
+                },
+                "calls": [
+                    {
+                        "result": {
+                            "kind": "string",
+                            "value": "ctx1"
+                        },
+                        "args": []
+                    }
+                ]
+            }
+        ],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "matches",
+                    "fullName": "matches(Contexts)",
+                    "argumentsSize": 1,
+                    "returnTypeName": "boolean",
+                    "containingClass": "liquibase.ContextExpression"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "liquibase.ContextExpression",
+                    "fields": {
+                        "contexts": {
+                            "kind": "set",
+                            "isShallow": false,
+                            "size": 1,
+                            "elements": [
+                                {
+                                    "kind": "string",
+                                    "value": "ctx1"
+                                }
+                            ]
+                        },
+                        "originalString": {
+                            "kind": "string",
+                            "value": "ctx1"
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "object",
+                        "typeName": "liquibase.Contexts",
+                        "fields": {
+                            "contextStore": {
+                                "kind": "set",
+                                "isShallow": false,
+                                "size": 1,
+                                "elements": [
+                                    {
+                                        "kind": "string",
+                                        "value": "ctx2"
+                                    }
+                                ]
+                            }
+                        },
+                        "id": 1
+                    }
+                ],
+                "returnValue": {
+                    "kind": "boolean",
+                    "value": false
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [
+            {
+                "method": {
+                    "methodName": "trimToEmpty",
+                    "fullName": "liquibase.util.StringUtil.trimToEmpty(Ljava/lang/String;)Ljava/lang/String;",
+                    "argumentsSize": 1,
+                    "returnTypeName": "java.lang.String",
+                    "containingClass": "liquibase.util.StringUtil"
+                },
+                "calls": [
+                    {
+                        "result": {
+                            "kind": "string",
+                            "value": "ctx2"
+                        },
+                        "args": []
+                    }
+                ]
+            }
+        ],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "matches",
+                    "fullName": "matches(Contexts)",
+                    "argumentsSize": 1,
+                    "returnTypeName": "boolean",
+                    "containingClass": "liquibase.ContextExpression"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "liquibase.ContextExpression",
+                    "fields": {
+                        "contexts": {
+                            "kind": "set",
+                            "isShallow": false,
+                            "size": 1,
+                            "elements": [
+                                {
+                                    "kind": "string",
+                                    "value": "ctx2"
+                                }
+                            ]
+                        },
+                        "originalString": {
+                            "kind": "string",
+                            "value": "ctx2"
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "object",
+                        "typeName": "liquibase.Contexts",
+                        "fields": {
+                            "contextStore": {
+                                "kind": "set",
+                                "isShallow": false,
+                                "size": 1,
+                                "elements": [
+                                    {
+                                        "kind": "string",
+                                        "value": "ctx2"
+                                    }
+                                ]
+                            }
+                        },
+                        "id": 1
+                    }
+                ],
+                "returnValue": {
+                    "kind": "boolean",
+                    "value": true
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [
+            {
+                "method": {
+                    "methodName": "trimToEmpty",
+                    "fullName": "liquibase.util.StringUtil.trimToEmpty(Ljava/lang/String;)Ljava/lang/String;",
+                    "argumentsSize": 1,
+                    "returnTypeName": "java.lang.String",
+                    "containingClass": "liquibase.util.StringUtil"
+                },
+                "calls": [
+                    {
+                        "result": {
+                            "kind": "string",
+                            "value": "ctx2"
+                        },
+                        "args": []
+                    }
+                ]
+            }
+        ],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "matches",
+                    "fullName": "matches(Contexts)",
+                    "argumentsSize": 1,
+                    "returnTypeName": "boolean",
+                    "containingClass": "liquibase.ContextExpression"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "liquibase.ContextExpression",
+                    "fields": {
+                        "contexts": {
+                            "kind": "set",
+                            "isShallow": false,
+                            "size": 1,
+                            "elements": [
+                                {
+                                    "kind": "string",
+                                    "value": "ctx2"
+                                }
+                            ]
+                        },
+                        "originalString": {
+                            "kind": "string",
+                            "value": "ctx2"
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "object",
+                        "typeName": "liquibase.Contexts",
+                        "fields": {
+                            "contextStore": {
+                                "kind": "set",
+                                "isShallow": false,
+                                "size": 1,
+                                "elements": [
+                                    {
+                                        "kind": "string",
+                                        "value": "ctx1"
+                                    }
+                                ]
+                            }
+                        },
+                        "id": 1
+                    }
+                ],
+                "returnValue": {
+                    "kind": "boolean",
+                    "value": false
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [
+            {
+                "method": {
+                    "methodName": "trimToEmpty",
+                    "fullName": "liquibase.util.StringUtil.trimToEmpty(Ljava/lang/String;)Ljava/lang/String;",
+                    "argumentsSize": 1,
+                    "returnTypeName": "java.lang.String",
+                    "containingClass": "liquibase.util.StringUtil"
+                },
+                "calls": [
+                    {
+                        "result": {
+                            "kind": "string",
+                            "value": "ctx1"
+                        },
+                        "args": []
+                    }
+                ]
+            }
+        ],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "matches",
+                    "fullName": "matches(Contexts)",
+                    "argumentsSize": 1,
+                    "returnTypeName": "boolean",
+                    "containingClass": "liquibase.ContextExpression"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "liquibase.ContextExpression",
+                    "fields": {
+                        "contexts": {
+                            "kind": "set",
+                            "isShallow": false,
+                            "size": 1,
+                            "elements": [
+                                {
+                                    "kind": "string",
+                                    "value": "ctx1"
+                                }
+                            ]
+                        },
+                        "originalString": {
+                            "kind": "string",
+                            "value": "ctx1"
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "object",
+                        "typeName": "liquibase.Contexts",
+                        "fields": {
+                            "contextStore": {
+                                "kind": "set",
+                                "isShallow": false,
+                                "size": 1,
+                                "elements": [
+                                    {
+                                        "kind": "string",
+                                        "value": "ctx2"
+                                    }
+                                ]
+                            }
+                        },
+                        "id": 1
+                    }
+                ],
+                "returnValue": {
+                    "kind": "boolean",
+                    "value": false
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [
+            {
+                "method": {
+                    "methodName": "trimToEmpty",
+                    "fullName": "liquibase.util.StringUtil.trimToEmpty(Ljava/lang/String;)Ljava/lang/String;",
+                    "argumentsSize": 1,
+                    "returnTypeName": "java.lang.String",
+                    "containingClass": "liquibase.util.StringUtil"
+                },
+                "calls": [
+                    {
+                        "result": {
+                            "kind": "string",
+                            "value": "ctx2"
+                        },
+                        "args": []
+                    }
+                ]
+            }
+        ],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "matches",
+                    "fullName": "matches(Contexts)",
+                    "argumentsSize": 1,
+                    "returnTypeName": "boolean",
+                    "containingClass": "liquibase.ContextExpression"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "liquibase.ContextExpression",
+                    "fields": {
+                        "contexts": {
+                            "kind": "set",
+                            "isShallow": false,
+                            "size": 1,
+                            "elements": [
+                                {
+                                    "kind": "string",
+                                    "value": "ctx2"
+                                }
+                            ]
+                        },
+                        "originalString": {
+                            "kind": "string",
+                            "value": "ctx2"
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "object",
+                        "typeName": "liquibase.Contexts",
+                        "fields": {
+                            "contextStore": {
+                                "kind": "set",
+                                "isShallow": false,
+                                "size": 1,
+                                "elements": [
+                                    {
+                                        "kind": "string",
+                                        "value": "ctx2"
+                                    }
+                                ]
+                            }
+                        },
+                        "id": 1
+                    }
+                ],
+                "returnValue": {
+                    "kind": "boolean",
+                    "value": true
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [
+            {
+                "method": {
+                    "methodName": "trimToEmpty",
+                    "fullName": "liquibase.util.StringUtil.trimToEmpty(Ljava/lang/String;)Ljava/lang/String;",
+                    "argumentsSize": 1,
+                    "returnTypeName": "java.lang.String",
+                    "containingClass": "liquibase.util.StringUtil"
+                },
+                "calls": [
+                    {
+                        "result": {
+                            "kind": "string",
+                            "value": "ctx2"
+                        },
+                        "args": []
+                    }
+                ]
+            }
+        ],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "matches",
+                    "fullName": "matches(Contexts)",
+                    "argumentsSize": 1,
+                    "returnTypeName": "boolean",
+                    "containingClass": "liquibase.ContextExpression"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "liquibase.ContextExpression",
+                    "fields": {
+                        "contexts": {
+                            "kind": "set",
+                            "isShallow": false,
+                            "size": 1,
+                            "elements": [
+                                {
+                                    "kind": "string",
+                                    "value": "ctx2"
+                                }
+                            ]
+                        },
+                        "originalString": {
+                            "kind": "string",
+                            "value": "ctx2"
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "object",
+                        "typeName": "liquibase.Contexts",
+                        "fields": {
+                            "contextStore": {
+                                "kind": "set",
+                                "isShallow": false,
+                                "size": 1,
+                                "elements": [
+                                    {
+                                        "kind": "string",
+                                        "value": "ctx1"
+                                    }
+                                ]
+                            }
+                        },
+                        "id": 1
+                    }
+                ],
+                "returnValue": {
+                    "kind": "boolean",
+                    "value": false
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [
+            {
+                "method": {
+                    "methodName": "trimToEmpty",
+                    "fullName": "liquibase.util.StringUtil.trimToEmpty(Ljava/lang/String;)Ljava/lang/String;",
+                    "argumentsSize": 1,
+                    "returnTypeName": "java.lang.String",
+                    "containingClass": "liquibase.util.StringUtil"
+                },
+                "calls": [
+                    {
+                        "result": {
+                            "kind": "string",
+                            "value": "ctx1"
+                        },
+                        "args": []
+                    }
+                ]
+            }
+        ],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "matches",
+                    "fullName": "matches(Contexts)",
+                    "argumentsSize": 1,
+                    "returnTypeName": "boolean",
+                    "containingClass": "liquibase.ContextExpression"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "liquibase.ContextExpression",
+                    "fields": {
+                        "contexts": {
+                            "kind": "set",
+                            "isShallow": false,
+                            "size": 1,
+                            "elements": [
+                                {
+                                    "kind": "string",
+                                    "value": "ctx1"
+                                }
+                            ]
+                        },
+                        "originalString": {
+                            "kind": "string",
+                            "value": "ctx1"
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "object",
+                        "typeName": "liquibase.Contexts",
+                        "fields": {
+                            "contextStore": {
+                                "kind": "set",
+                                "isShallow": false,
+                                "size": 1,
+                                "elements": [
+                                    {
+                                        "kind": "string",
+                                        "value": "ctx2"
+                                    }
+                                ]
+                            }
+                        },
+                        "id": 1
+                    }
+                ],
+                "returnValue": {
+                    "kind": "boolean",
+                    "value": false
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [
+            {
+                "method": {
+                    "methodName": "trimToEmpty",
+                    "fullName": "liquibase.util.StringUtil.trimToEmpty(Ljava/lang/String;)Ljava/lang/String;",
+                    "argumentsSize": 1,
+                    "returnTypeName": "java.lang.String",
+                    "containingClass": "liquibase.util.StringUtil"
+                },
+                "calls": [
+                    {
+                        "result": {
+                            "kind": "string",
+                            "value": "ctx2"
+                        },
+                        "args": []
+                    }
+                ]
+            }
+        ],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "matches",
+                    "fullName": "matches(Contexts)",
+                    "argumentsSize": 1,
+                    "returnTypeName": "boolean",
+                    "containingClass": "liquibase.ContextExpression"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "liquibase.ContextExpression",
+                    "fields": {
+                        "contexts": {
+                            "kind": "set",
+                            "isShallow": false,
+                            "size": 1,
+                            "elements": [
+                                {
+                                    "kind": "string",
+                                    "value": "ctx2"
+                                }
+                            ]
+                        },
+                        "originalString": {
+                            "kind": "string",
+                            "value": "ctx2"
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "object",
+                        "typeName": "liquibase.Contexts",
+                        "fields": {
+                            "contextStore": {
+                                "kind": "set",
+                                "isShallow": false,
+                                "size": 1,
+                                "elements": [
+                                    {
+                                        "kind": "string",
+                                        "value": "ctx2"
+                                    }
+                                ]
+                            }
+                        },
+                        "id": 1
+                    }
+                ],
+                "returnValue": {
+                    "kind": "boolean",
+                    "value": true
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [
+            {
+                "method": {
+                    "methodName": "trimToEmpty",
+                    "fullName": "liquibase.util.StringUtil.trimToEmpty(Ljava/lang/String;)Ljava/lang/String;",
+                    "argumentsSize": 1,
+                    "returnTypeName": "java.lang.String",
+                    "containingClass": "liquibase.util.StringUtil"
+                },
+                "calls": [
+                    {
+                        "result": {
+                            "kind": "string",
+                            "value": "ctx2"
+                        },
+                        "args": []
+                    }
+                ]
+            }
+        ],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "matches",
+                    "fullName": "matches(Contexts)",
+                    "argumentsSize": 1,
+                    "returnTypeName": "boolean",
+                    "containingClass": "liquibase.ContextExpression"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "liquibase.ContextExpression",
+                    "fields": {
+                        "contexts": {
+                            "kind": "set",
+                            "isShallow": false,
+                            "size": 1,
+                            "elements": [
+                                {
+                                    "kind": "string",
+                                    "value": "ctx2"
+                                }
+                            ]
+                        },
+                        "originalString": {
+                            "kind": "string",
+                            "value": "ctx2"
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "object",
+                        "typeName": "liquibase.Contexts",
+                        "fields": {
+                            "contextStore": {
+                                "kind": "set",
+                                "isShallow": false,
+                                "size": 1,
+                                "elements": [
+                                    {
+                                        "kind": "string",
+                                        "value": "ctx1"
+                                    }
+                                ]
+                            }
+                        },
+                        "id": 1
+                    }
+                ],
+                "returnValue": {
+                    "kind": "boolean",
+                    "value": false
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [
+            {
+                "method": {
+                    "methodName": "trimToEmpty",
+                    "fullName": "liquibase.util.StringUtil.trimToEmpty(Ljava/lang/String;)Ljava/lang/String;",
+                    "argumentsSize": 1,
+                    "returnTypeName": "java.lang.String",
+                    "containingClass": "liquibase.util.StringUtil"
+                },
+                "calls": [
+                    {
+                        "result": {
+                            "kind": "string",
+                            "value": "ctx1"
+                        },
+                        "args": []
+                    }
+                ]
+            }
+        ],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "matches",
+                    "fullName": "matches(Contexts)",
+                    "argumentsSize": 1,
+                    "returnTypeName": "boolean",
+                    "containingClass": "liquibase.ContextExpression"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "liquibase.ContextExpression",
+                    "fields": {
+                        "contexts": {
+                            "kind": "set",
+                            "isShallow": false,
+                            "size": 1,
+                            "elements": [
+                                {
+                                    "kind": "string",
+                                    "value": "ctx1"
+                                }
+                            ]
+                        },
+                        "originalString": {
+                            "kind": "string",
+                            "value": "ctx1"
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "object",
+                        "typeName": "liquibase.Contexts",
+                        "fields": {
+                            "contextStore": {
+                                "kind": "set",
+                                "isShallow": false,
+                                "size": 1,
+                                "elements": [
+                                    {
+                                        "kind": "string",
+                                        "value": "ctx2"
+                                    }
+                                ]
+                            }
+                        },
+                        "id": 1
+                    }
+                ],
+                "returnValue": {
+                    "kind": "boolean",
+                    "value": false
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [
+            {
+                "method": {
+                    "methodName": "trimToEmpty",
+                    "fullName": "liquibase.util.StringUtil.trimToEmpty(Ljava/lang/String;)Ljava/lang/String;",
+                    "argumentsSize": 1,
+                    "returnTypeName": "java.lang.String",
+                    "containingClass": "liquibase.util.StringUtil"
+                },
+                "calls": [
+                    {
+                        "result": {
+                            "kind": "string",
+                            "value": "ctx2"
+                        },
+                        "args": []
+                    }
+                ]
+            }
+        ],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "matches",
+                    "fullName": "matches(Contexts)",
+                    "argumentsSize": 1,
+                    "returnTypeName": "boolean",
+                    "containingClass": "liquibase.ContextExpression"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "liquibase.ContextExpression",
+                    "fields": {
+                        "contexts": {
+                            "kind": "set",
+                            "isShallow": false,
+                            "size": 1,
+                            "elements": [
+                                {
+                                    "kind": "string",
+                                    "value": "ctx2"
+                                }
+                            ]
+                        },
+                        "originalString": {
+                            "kind": "string",
+                            "value": "ctx2"
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "object",
+                        "typeName": "liquibase.Contexts",
+                        "fields": {
+                            "contextStore": {
+                                "kind": "set",
+                                "isShallow": false,
+                                "size": 1,
+                                "elements": [
+                                    {
+                                        "kind": "string",
+                                        "value": "ctx2"
+                                    }
+                                ]
+                            }
+                        },
+                        "id": 1
+                    }
+                ],
+                "returnValue": {
+                    "kind": "boolean",
+                    "value": true
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [
+            {
+                "method": {
+                    "methodName": "trimToEmpty",
+                    "fullName": "liquibase.util.StringUtil.trimToEmpty(Ljava/lang/String;)Ljava/lang/String;",
+                    "argumentsSize": 1,
+                    "returnTypeName": "java.lang.String",
+                    "containingClass": "liquibase.util.StringUtil"
+                },
+                "calls": [
+                    {
+                        "result": {
+                            "kind": "string",
+                            "value": "ctx2"
+                        },
+                        "args": []
+                    }
+                ]
+            }
+        ],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "matches",
+                    "fullName": "matches(Contexts)",
+                    "argumentsSize": 1,
+                    "returnTypeName": "boolean",
+                    "containingClass": "liquibase.ContextExpression"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "liquibase.ContextExpression",
+                    "fields": {
+                        "contexts": {
+                            "kind": "set",
+                            "isShallow": false,
+                            "size": 1,
+                            "elements": [
+                                {
+                                    "kind": "string",
+                                    "value": "ctx2"
+                                }
+                            ]
+                        },
+                        "originalString": {
+                            "kind": "string",
+                            "value": "ctx2"
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "object",
+                        "typeName": "liquibase.Contexts",
+                        "fields": {
+                            "contextStore": {
+                                "kind": "set",
+                                "isShallow": false,
+                                "size": 1,
+                                "elements": [
+                                    {
+                                        "kind": "string",
+                                        "value": "ctx1"
+                                    }
+                                ]
+                            }
+                        },
+                        "id": 1
+                    }
+                ],
+                "returnValue": {
+                    "kind": "boolean",
+                    "value": false
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [
+            {
+                "method": {
+                    "methodName": "trimToEmpty",
+                    "fullName": "liquibase.util.StringUtil.trimToEmpty(Ljava/lang/String;)Ljava/lang/String;",
+                    "argumentsSize": 1,
+                    "returnTypeName": "java.lang.String",
+                    "containingClass": "liquibase.util.StringUtil"
+                },
+                "calls": [
+                    {
+                        "result": {
+                            "kind": "string",
+                            "value": "ctx1"
+                        },
+                        "args": []
+                    }
+                ]
+            }
+        ],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "matches",
+                    "fullName": "matches(Contexts)",
+                    "argumentsSize": 1,
+                    "returnTypeName": "boolean",
+                    "containingClass": "liquibase.ContextExpression"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "liquibase.ContextExpression",
+                    "fields": {
+                        "contexts": {
+                            "kind": "set",
+                            "isShallow": false,
+                            "size": 1,
+                            "elements": [
+                                {
+                                    "kind": "string",
+                                    "value": "ctx1"
+                                }
+                            ]
+                        },
+                        "originalString": {
+                            "kind": "string",
+                            "value": "ctx1"
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "object",
+                        "typeName": "liquibase.Contexts",
+                        "fields": {
+                            "contextStore": {
+                                "kind": "set",
+                                "isShallow": false,
+                                "size": 1,
+                                "elements": [
+                                    {
+                                        "kind": "string",
+                                        "value": "ctx2"
+                                    }
+                                ]
+                            }
+                        },
+                        "id": 1
+                    }
+                ],
+                "returnValue": {
+                    "kind": "boolean",
+                    "value": false
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [
+            {
+                "method": {
+                    "methodName": "trimToEmpty",
+                    "fullName": "liquibase.util.StringUtil.trimToEmpty(Ljava/lang/String;)Ljava/lang/String;",
+                    "argumentsSize": 1,
+                    "returnTypeName": "java.lang.String",
+                    "containingClass": "liquibase.util.StringUtil"
+                },
+                "calls": [
+                    {
+                        "result": {
+                            "kind": "string",
+                            "value": "ctx2"
+                        },
+                        "args": []
+                    }
+                ]
+            }
+        ],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "matches",
+                    "fullName": "matches(Contexts)",
+                    "argumentsSize": 1,
+                    "returnTypeName": "boolean",
+                    "containingClass": "liquibase.ContextExpression"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "liquibase.ContextExpression",
+                    "fields": {
+                        "contexts": {
+                            "kind": "set",
+                            "isShallow": false,
+                            "size": 1,
+                            "elements": [
+                                {
+                                    "kind": "string",
+                                    "value": "ctx2"
+                                }
+                            ]
+                        },
+                        "originalString": {
+                            "kind": "string",
+                            "value": "ctx2"
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "object",
+                        "typeName": "liquibase.Contexts",
+                        "fields": {
+                            "contextStore": {
+                                "kind": "set",
+                                "isShallow": false,
+                                "size": 1,
+                                "elements": [
+                                    {
+                                        "kind": "string",
+                                        "value": "ctx2"
+                                    }
+                                ]
+                            }
+                        },
+                        "id": 1
+                    }
+                ],
+                "returnValue": {
+                    "kind": "boolean",
+                    "value": true
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [
+            {
+                "method": {
+                    "methodName": "trimToEmpty",
+                    "fullName": "liquibase.util.StringUtil.trimToEmpty(Ljava/lang/String;)Ljava/lang/String;",
+                    "argumentsSize": 1,
+                    "returnTypeName": "java.lang.String",
+                    "containingClass": "liquibase.util.StringUtil"
+                },
+                "calls": [
+                    {
+                        "result": {
+                            "kind": "string",
+                            "value": "ctx2"
+                        },
+                        "args": []
+                    }
+                ]
+            }
+        ],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "matches",
+                    "fullName": "matches(Contexts)",
+                    "argumentsSize": 1,
+                    "returnTypeName": "boolean",
+                    "containingClass": "liquibase.ContextExpression"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "liquibase.ContextExpression",
+                    "fields": {
+                        "contexts": {
+                            "kind": "set",
+                            "isShallow": false,
+                            "size": 1,
+                            "elements": [
+                                {
+                                    "kind": "string",
+                                    "value": "ctx2"
+                                }
+                            ]
+                        },
+                        "originalString": {
+                            "kind": "string",
+                            "value": "ctx2"
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "object",
+                        "typeName": "liquibase.Contexts",
+                        "fields": {
+                            "contextStore": {
+                                "kind": "set",
+                                "isShallow": false,
+                                "size": 1,
+                                "elements": [
+                                    {
+                                        "kind": "string",
+                                        "value": "ctx2"
+                                    }
+                                ]
+                            }
+                        },
+                        "id": 1
+                    }
+                ],
+                "returnValue": {
+                    "kind": "boolean",
+                    "value": true
+                }
+            }
+        ]
+    }
+]

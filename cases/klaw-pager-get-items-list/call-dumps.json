@@ -1,0 +1,542 @@
+[
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "getItemsList",
+                    "fullName": "getItemsList(String, String, int, List<INPUT>, BiFunction<PageContext, INPUT, OUTPUT>)",
+                    "argumentsSize": 5,
+                    "returnTypeName": "List<OUTPUT>",
+                    "containingClass": "io.aiven.klaw.helpers.Pager"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "unknown",
+                    "fields": {},
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "string",
+                        "value": "1"
+                    },
+                    {
+                        "kind": "string",
+                        "value": "2"
+                    },
+                    {
+                        "kind": "int",
+                        "value": 5
+                    },
+                    {
+                        "kind": "list",
+                        "isShallow": false,
+                        "size": 7,
+                        "elements": [
+                            {
+                                "kind": "string",
+                                "value": "1"
+                            },
+                            {
+                                "kind": "string",
+                                "value": "2"
+                            },
+                            {
+                                "kind": "string",
+                                "value": "3"
+                            },
+                            {
+                                "kind": "string",
+                                "value": "4"
+                            },
+                            {
+                                "kind": "string",
+                                "value": "5"
+                            },
+                            {
+                                "kind": "string",
+                                "value": "6"
+                            },
+                            {
+                                "kind": "string",
+                                "value": "7"
+                            }
+                        ]
+                    },
+                    {
+                        "kind": "mock",
+                        "typeName": "java.util.function.BiFunction",
+                        "methods": [
+                            {
+                                "method": {
+                                    "methodName": "apply",
+                                    "fullName": "io.aiven.klaw.helpers.PagerTest$$Lambda/0x00000070011150d8.apply(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;",
+                                    "argumentsSize": 2,
+                                    "returnTypeName": "java.lang.Object",
+                                    "containingClass": "io.aiven.klaw.helpers.PagerTest$$Lambda/0x00000070011150d8"
+                                },
+                                "calls": [
+                                    {
+                                        "result": {
+                                            "kind": "string",
+                                            "value": "1"
+                                        },
+                                        "args": []
+                                    },
+                                    {
+                                        "result": {
+                                            "kind": "string",
+                                            "value": "2"
+                                        },
+                                        "args": []
+                                    },
+                                    {
+                                        "result": {
+                                            "kind": "string",
+                                            "value": "3"
+                                        },
+                                        "args": []
+                                    },
+                                    {
+                                        "result": {
+                                            "kind": "string",
+                                            "value": "4"
+                                        },
+                                        "args": []
+                                    },
+                                    {
+                                        "result": {
+                                            "kind": "string",
+                                            "value": "5"
+                                        },
+                                        "args": []
+                                    }
+                                ]
+                            }
+                        ],
+                        "isSpy": false,
+                        "id": 1
+                    }
+                ],
+                "returnValue": {
+                    "kind": "list",
+                    "isShallow": true,
+                    "size": 5,
+                    "elements": []
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "getItemsList",
+                    "fullName": "getItemsList(String, String, int, List<INPUT>, BiFunction<PageContext, INPUT, OUTPUT>)",
+                    "argumentsSize": 5,
+                    "returnTypeName": "List<OUTPUT>",
+                    "containingClass": "io.aiven.klaw.helpers.Pager"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "unknown",
+                    "fields": {},
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "string",
+                        "value": "1"
+                    },
+                    {
+                        "kind": "string",
+                        "value": "1"
+                    },
+                    {
+                        "kind": "int",
+                        "value": 5
+                    },
+                    {
+                        "kind": "list",
+                        "isShallow": false,
+                        "size": 7,
+                        "elements": [
+                            {
+                                "kind": "string",
+                                "value": "1"
+                            },
+                            {
+                                "kind": "string",
+                                "value": "2"
+                            },
+                            {
+                                "kind": "string",
+                                "value": "3"
+                            },
+                            {
+                                "kind": "string",
+                                "value": "4"
+                            },
+                            {
+                                "kind": "string",
+                                "value": "5"
+                            },
+                            {
+                                "kind": "string",
+                                "value": "6"
+                            },
+                            {
+                                "kind": "string",
+                                "value": "7"
+                            }
+                        ]
+                    },
+                    {
+                        "kind": "mock",
+                        "typeName": "java.util.function.BiFunction",
+                        "methods": [
+                            {
+                                "method": {
+                                    "methodName": "apply",
+                                    "fullName": "io.aiven.klaw.helpers.PagerTest$$Lambda/0x0000007001115300.apply(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;",
+                                    "argumentsSize": 2,
+                                    "returnTypeName": "java.lang.Object",
+                                    "containingClass": "io.aiven.klaw.helpers.PagerTest$$Lambda/0x0000007001115300"
+                                },
+                                "calls": [
+                                    {
+                                        "result": {
+                                            "kind": "string",
+                                            "value": "1"
+                                        },
+                                        "args": []
+                                    },
+                                    {
+                                        "result": {
+                                            "kind": "string",
+                                            "value": "2"
+                                        },
+                                        "args": []
+                                    },
+                                    {
+                                        "result": {
+                                            "kind": "string",
+                                            "value": "3"
+                                        },
+                                        "args": []
+                                    },
+                                    {
+                                        "result": {
+                                            "kind": "string",
+                                            "value": "4"
+                                        },
+                                        "args": []
+                                    },
+                                    {
+                                        "result": {
+                                            "kind": "string",
+                                            "value": "5"
+                                        },
+                                        "args": []
+                                    }
+                                ]
+                            }
+                        ],
+                        "isSpy": false,
+                        "id": 1
+                    }
+                ],
+                "returnValue": {
+                    "kind": "list",
+                    "isShallow": true,
+                    "size": 5,
+                    "elements": []
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "getItemsList",
+                    "fullName": "getItemsList(String, String, int, List<INPUT>, BiFunction<PageContext, INPUT, OUTPUT>)",
+                    "argumentsSize": 5,
+                    "returnTypeName": "List<OUTPUT>",
+                    "containingClass": "io.aiven.klaw.helpers.Pager"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "unknown",
+                    "fields": {},
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "string",
+                        "value": "1"
+                    },
+                    {
+                        "kind": "string",
+                        "value": ""
+                    },
+                    {
+                        "kind": "int",
+                        "value": 5
+                    },
+                    {
+                        "kind": "list",
+                        "isShallow": false,
+                        "size": 7,
+                        "elements": [
+                            {
+                                "kind": "string",
+                                "value": "1"
+                            },
+                            {
+                                "kind": "string",
+                                "value": "2"
+                            },
+                            {
+                                "kind": "string",
+                                "value": "3"
+                            },
+                            {
+                                "kind": "string",
+                                "value": "4"
+                            },
+                            {
+                                "kind": "string",
+                                "value": "5"
+                            },
+                            {
+                                "kind": "string",
+                                "value": "6"
+                            },
+                            {
+                                "kind": "string",
+                                "value": "7"
+                            }
+                        ]
+                    },
+                    {
+                        "kind": "mock",
+                        "typeName": "java.util.function.BiFunction",
+                        "methods": [
+                            {
+                                "method": {
+                                    "methodName": "apply",
+                                    "fullName": "io.aiven.klaw.helpers.PagerTest$$Lambda/0x0000007001115528.apply(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;",
+                                    "argumentsSize": 2,
+                                    "returnTypeName": "java.lang.Object",
+                                    "containingClass": "io.aiven.klaw.helpers.PagerTest$$Lambda/0x0000007001115528"
+                                },
+                                "calls": [
+                                    {
+                                        "result": {
+                                            "kind": "string",
+                                            "value": "1"
+                                        },
+                                        "args": []
+                                    },
+                                    {
+                                        "result": {
+                                            "kind": "string",
+                                            "value": "2"
+                                        },
+                                        "args": []
+                                    },
+                                    {
+                                        "result": {
+                                            "kind": "string",
+                                            "value": "3"
+                                        },
+                                        "args": []
+                                    },
+                                    {
+                                        "result": {
+                                            "kind": "string",
+                                            "value": "4"
+                                        },
+                                        "args": []
+                                    },
+                                    {
+                                        "result": {
+                                            "kind": "string",
+                                            "value": "5"
+                                        },
+                                        "args": []
+                                    }
+                                ]
+                            }
+                        ],
+                        "isSpy": false,
+                        "id": 1
+                    }
+                ],
+                "returnValue": {
+                    "kind": "list",
+                    "isShallow": true,
+                    "size": 5,
+                    "elements": []
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "getItemsList",
+                    "fullName": "getItemsList(String, String, int, List<INPUT>, BiFunction<PageContext, INPUT, OUTPUT>)",
+                    "argumentsSize": 5,
+                    "returnTypeName": "List<OUTPUT>",
+                    "containingClass": "io.aiven.klaw.helpers.Pager"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "unknown",
+                    "fields": {},
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "string",
+                        "value": "1"
+                    },
+                    {
+                        "kind": "string",
+                        "value": "2"
+                    },
+                    {
+                        "kind": "int",
+                        "value": 5
+                    },
+                    {
+                        "kind": "list",
+                        "isShallow": false,
+                        "size": 12,
+                        "elements": [
+                            {
+                                "kind": "string",
+                                "value": "1"
+                            },
+                            {
+                                "kind": "string",
+                                "value": "2"
+                            },
+                            {
+                                "kind": "string",
+                                "value": "3"
+                            },
+                            {
+                                "kind": "string",
+                                "value": "4"
+                            },
+                            {
+                                "kind": "string",
+                                "value": "5"
+                            },
+                            {
+                                "kind": "string",
+                                "value": "6"
+                            },
+                            {
+                                "kind": "string",
+                                "value": "7"
+                            },
+                            {
+                                "kind": "string",
+                                "value": "8"
+                            },
+                            {
+                                "kind": "string",
+                                "value": "9"
+                            },
+                            {
+                                "kind": "string",
+                                "value": "10"
+                            },
+                            {
+                                "kind": "string",
+                                "value": "11"
+                            },
+                            {
+                                "kind": "string",
+                                "value": "12"
+                            }
+                        ]
+                    },
+                    {
+                        "kind": "mock",
+                        "typeName": "java.util.function.BiFunction",
+                        "methods": [
+                            {
+                                "method": {
+                                    "methodName": "apply",
+                                    "fullName": "io.aiven.klaw.helpers.PagerTest$$Lambda/0x0000007001115750.apply(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;",
+                                    "argumentsSize": 2,
+                                    "returnTypeName": "java.lang.Object",
+                                    "containingClass": "io.aiven.klaw.helpers.PagerTest$$Lambda/0x0000007001115750"
+                                },
+                                "calls": [
+                                    {
+                                        "result": {
+                                            "kind": "string",
+                                            "value": "1"
+                                        },
+                                        "args": []
+                                    },
+                                    {
+                                        "result": {
+                                            "kind": "string",
+                                            "value": "2"
+                                        },
+                                        "args": []
+                                    },
+                                    {
+                                        "result": {
+                                            "kind": "string",
+                                            "value": "3"
+                                        },
+                                        "args": []
+                                    },
+                                    {
+                                        "result": {
+                                            "kind": "string",
+                                            "value": "4"
+                                        },
+                                        "args": []
+                                    },
+                                    {
+                                        "result": {
+                                            "kind": "string",
+                                            "value": "5"
+                                        },
+                                        "args": []
+                                    }
+                                ]
+                            }
+                        ],
+                        "isSpy": false,
+                        "id": 1
+                    }
+                ],
+                "returnValue": {
+                    "kind": "list",
+                    "isShallow": true,
+                    "size": 5,
+                    "elements": []
+                }
+            }
+        ]
+    }
+]

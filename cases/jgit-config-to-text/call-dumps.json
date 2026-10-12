@@ -1,0 +1,238 @@
+[
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "toText",
+                    "fullName": "toText()",
+                    "argumentsSize": 0,
+                    "returnTypeName": "String",
+                    "containingClass": "org.eclipse.jgit.lib.Config"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "org.eclipse.jgit.storage.file.FileBasedConfig",
+                    "fields": {
+                        "typedGetter": {
+                            "kind": "object",
+                            "typeName": "org.eclipse.jgit.lib.DefaultTypedConfigGetter",
+                            "fields": {},
+                            "id": 1
+                        },
+                        "listeners": {
+                            "kind": "mock",
+                            "typeName": "org.eclipse.jgit.events.ListenerList",
+                            "methods": [],
+                            "isSpy": false,
+                            "id": 2
+                        },
+                        "state": {
+                            "kind": "object",
+                            "typeName": "java.util.concurrent.atomic.AtomicReference",
+                            "fields": {
+                                "value": {
+                                    "kind": "mock",
+                                    "typeName": "org.eclipse.jgit.lib.ConfigSnapshot",
+                                    "methods": [],
+                                    "isSpy": false,
+                                    "id": 4
+                                }
+                            },
+                            "id": 3
+                        },
+                        "baseConfig": {
+                            "kind": "mock",
+                            "typeName": "org.eclipse.jgit.storage.file.FileBasedConfig",
+                            "methods": [],
+                            "isSpy": false,
+                            "id": 5
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [],
+                "returnValue": {
+                    "kind": "string",
+                    "value": "[gc]\n\tautoDetach = false\n"
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "toText",
+                    "fullName": "toText()",
+                    "argumentsSize": 0,
+                    "returnTypeName": "String",
+                    "containingClass": "org.eclipse.jgit.lib.Config"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "org.eclipse.jgit.storage.file.FileBasedConfig",
+                    "fields": {
+                        "typedGetter": {
+                            "kind": "object",
+                            "typeName": "org.eclipse.jgit.lib.DefaultTypedConfigGetter",
+                            "fields": {},
+                            "id": 1
+                        },
+                        "listeners": {
+                            "kind": "mock",
+                            "typeName": "org.eclipse.jgit.events.ListenerList",
+                            "methods": [],
+                            "isSpy": false,
+                            "id": 2
+                        },
+                        "state": {
+                            "kind": "object",
+                            "typeName": "java.util.concurrent.atomic.AtomicReference",
+                            "fields": {
+                                "value": {
+                                    "kind": "mock",
+                                    "typeName": "org.eclipse.jgit.lib.ConfigSnapshot",
+                                    "methods": [],
+                                    "isSpy": false,
+                                    "id": 4
+                                }
+                            },
+                            "id": 3
+                        },
+                        "baseConfig": {
+                            "kind": "mock",
+                            "typeName": "org.eclipse.jgit.storage.file.FileBasedConfig",
+                            "methods": [],
+                            "isSpy": false,
+                            "id": 5
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [],
+                "returnValue": {
+                    "kind": "string",
+                    "value": "[core]\n\trepositoryformatversion = 0\n\tfilemode = true\n\tlogallrefupdates = true\n\tprecomposeunicode = true\n"
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "toText",
+                    "fullName": "toText()",
+                    "argumentsSize": 0,
+                    "returnTypeName": "String",
+                    "containingClass": "org.eclipse.jgit.lib.Config"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "org.eclipse.jgit.lib.Config",
+                    "fields": {
+                        "typedGetter": {
+                            "kind": "object",
+                            "typeName": "org.eclipse.jgit.lib.DefaultTypedConfigGetter",
+                            "fields": {},
+                            "id": 1
+                        },
+                        "listeners": {
+                            "kind": "mock",
+                            "typeName": "org.eclipse.jgit.events.ListenerList",
+                            "methods": [],
+                            "isSpy": false,
+                            "id": 2
+                        },
+                        "state": {
+                            "kind": "object",
+                            "typeName": "java.util.concurrent.atomic.AtomicReference",
+                            "fields": {
+                                "value": {
+                                    "kind": "mock",
+                                    "typeName": "org.eclipse.jgit.lib.ConfigSnapshot",
+                                    "methods": [],
+                                    "isSpy": false,
+                                    "id": 4
+                                }
+                            },
+                            "id": 3
+                        },
+                        "baseConfig": {
+                            "kind": "null"
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [],
+                "returnValue": {
+                    "kind": "string",
+                    "value": "[submodule \"sub\"]\n\tpath = sub\n\turl = git://example.com/bad\n"
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "toText",
+                    "fullName": "toText()",
+                    "argumentsSize": 0,
+                    "returnTypeName": "String",
+                    "containingClass": "org.eclipse.jgit.lib.Config"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "org.eclipse.jgit.lib.Config",
+                    "fields": {
+                        "typedGetter": {
+                            "kind": "object",
+                            "typeName": "org.eclipse.jgit.lib.DefaultTypedConfigGetter",
+                            "fields": {},
+                            "id": 1
+                        },
+                        "listeners": {
+                            "kind": "mock",
+                            "typeName": "org.eclipse.jgit.events.ListenerList",
+                            "methods": [],
+                            "isSpy": false,
+                            "id": 2
+                        },
+                        "state": {
+                            "kind": "object",
+                            "typeName": "java.util.concurrent.atomic.AtomicReference",
+                            "fields": {
+                                "value": {
+                                    "kind": "mock",
+                                    "typeName": "org.eclipse.jgit.lib.ConfigSnapshot",
+                                    "methods": [],
+                                    "isSpy": false,
+                                    "id": 4
+                                }
+                            },
+                            "id": 3
+                        },
+                        "baseConfig": {
+                            "kind": "null"
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [],
+                "returnValue": {
+                    "kind": "string",
+                    "value": "[submodule \"sub\"]\n\tpath = sub\n\turl = git://example.com/sub\n"
+                }
+            }
+        ]
+    }
+]

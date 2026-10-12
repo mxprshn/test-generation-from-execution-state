@@ -1,0 +1,137 @@
+package org.jsoup.nodes;
+
+import org.junit.jupiter.api.Test;
+import org.jsoup.parser.Tag;
+import org.springframework.test.util.ReflectionTestUtils;
+import org.mockito.Mockito;
+import org.jsoup.nodes.TextNode;
+import java.util.ArrayList;
+import org.jsoup.nodes.Attributes;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+import org.jsoup.nodes.Document;
+import org.mockito.invocation.InvocationOnMock;
+import org.junit.jupiter.api.Assertions;
+import org.jsoup.nodes.Node;
+import java.lang.*;
+
+class ElementReproducedTests {
+
+    @Test
+    void cssSelectorReproducedTest() throws Throwable {
+        Tag v = new Tag("div");
+        ReflectionTestUtils.setField(v, "tagName", "div");
+        ReflectionTestUtils.setField(v, "parserOptions", 128);
+        Tag.RcData = 128;
+        Tag.Data = 256;
+        Tag.FormSubmittable = 512;
+        Tag.TextBoundary = 1024;
+        Tag.Known = 1;
+        Tag.Void = 2;
+        Tag.Block = 4;
+        Tag.InlineContainer = 8;
+        Tag.SelfClose = 16;
+        Tag.SeenSelfClose = 32;
+        Tag.PreserveWhitespace = 64;
+        ReflectionTestUtils.setField(v, "namespace", "http://www.w3.org/1999/xhtml");
+        ReflectionTestUtils.setField(v, "normalName", "div");
+        ReflectionTestUtils.setField(v, "options", 5);
+        ArrayList<Object> v1 = new ArrayList<Object>();
+        v1.add(Mockito.mock(TextNode.class));
+        Attributes v2 = new Attributes();
+        ReflectionTestUtils.setField(v2, "size", 1);
+        String[] v3 = new String[3];
+        v3[0] = "class";
+        v3[1] = null;
+        v3[2] = null;
+        ReflectionTestUtils.setField(v2, "keys", v3);
+        Object[] v4 = new Object[3];
+        v4[0] = "-4a";
+        v4[1] = null;
+        v4[2] = null;
+        ReflectionTestUtils.setField(v2, "vals", v4);
+        Element mocked = Mockito.mock(Element.class);
+        Element mocked1 = Mockito.mock(Element.class);
+        Elements v5 = new Elements();
+        Mockito.when(mocked1.select(Mockito.<String>any())).thenReturn(v5);
+        Mockito.when(ReflectionTestUtils.<String>invokeMethod(mocked1, "uniqueIdSelector", Mockito.<Document>any())).thenReturn("");
+        Mockito.when(ReflectionTestUtils.<String>invokeMethod(mocked1, "cssSelectorComponent")).thenReturn(" > body");
+        Element mocked2 = Mockito.mock(Element.class);
+        Mockito.when(ReflectionTestUtils.<String>invokeMethod(mocked2, "uniqueIdSelector", Mockito.<Document>any())).thenReturn("");
+        Mockito.when(ReflectionTestUtils.<String>invokeMethod(mocked2, "cssSelectorComponent")).thenReturn("html");
+        Mockito.when(mocked2.parent()).thenReturn(Mockito.mock(Document.class));
+        Mockito.when(mocked1.parent()).thenReturn(mocked2);
+        Mockito.when(mocked.parent()).thenReturn(mocked1);
+        v5.add(mocked);
+        Element v6 = new Element(v, null, v2);
+        ReflectionTestUtils.setField(v6, "tag", v);
+        ReflectionTestUtils.setField(v6, "childNodes", v1);
+        ReflectionTestUtils.setField(v6, "attributes", v2);
+        ReflectionTestUtils.setField(v6, "parentNode", mocked1);
+        ReflectionTestUtils.setField(v6, "siblingIndex", 0);
+        String v7 = v6.cssSelector();
+        Assertions.assertEquals("html > body > div.-\\34 a", v7);
+    }
+
+    @Test
+    void cssSelectorReproducedTest1() {
+        Tag v = new Tag("div");
+        ReflectionTestUtils.setField(v, "tagName", "div");
+        ReflectionTestUtils.setField(v, "parserOptions", 128);
+        Tag.RcData = 128;
+        Tag.Data = 256;
+        Tag.FormSubmittable = 512;
+        Tag.TextBoundary = 1024;
+        Tag.Known = 1;
+        Tag.Void = 2;
+        Tag.Block = 4;
+        Tag.InlineContainer = 8;
+        Tag.SelfClose = 16;
+        Tag.SeenSelfClose = 32;
+        Tag.PreserveWhitespace = 64;
+        ReflectionTestUtils.setField(v, "namespace", "http://www.w3.org/1999/xhtml");
+        ReflectionTestUtils.setField(v, "normalName", "div");
+        ReflectionTestUtils.setField(v, "options", 5);
+        ArrayList<Object> v1 = new ArrayList<Object>();
+        v1.add(Mockito.mock(TextNode.class));
+        Attributes v2 = new Attributes();
+        ReflectionTestUtils.setField(v2, "size", 1);
+        String[] v3 = new String[3];
+        v3[0] = "id";
+        v3[1] = null;
+        v3[2] = null;
+        ReflectionTestUtils.setField(v2, "keys", v3);
+        Object[] v4 = new Object[3];
+        v4[0] = "-4a";
+        v4[1] = null;
+        v4[2] = null;
+        ReflectionTestUtils.setField(v2, "vals", v4);
+        Element v5 = new Element(v, null, v2);
+        ReflectionTestUtils.setField(v5, "tag", v);
+        ReflectionTestUtils.setField(v5, "childNodes", v1);
+        ReflectionTestUtils.setField(v5, "attributes", v2);
+        Element mocked = Mockito.mock(Element.class);
+        Mockito.when(mocked.parent()).thenReturn(Mockito.mock(Element.class));
+        Mockito.when(mocked.id()).thenReturn("");
+        Mockito.when(mocked.hasParent()).thenReturn(true);
+        Mockito.when(mocked.childNodeSize()).thenReturn(3);
+        Element mocked1 = Mockito.mock(Element.class);
+        Mockito.when(mocked1.parent()).thenReturn(mocked);
+        Mockito.when(mocked1.id()).thenReturn("");
+        Mockito.when(mocked1.hasParent()).thenReturn(true);
+        Mockito.when(mocked1.childNodeSize()).thenReturn(1);
+        TextNode mocked2 = Mockito.mock(TextNode.class);
+        Mockito.when(mocked2.childNodeSize()).thenReturn(0);
+        Mockito.when(mocked2.parent()).thenReturn(mocked1);
+        Mockito.when(mocked1.childNode(Mockito.anyInt())).thenReturn(mocked2);
+        TextNode mocked3 = Mockito.mock(TextNode.class);
+        Mockito.when(mocked3.childNodeSize()).thenReturn(0);
+        Mockito.when(mocked3.nextSibling()).thenReturn(Mockito.mock(Element.class));
+        Mockito.when(mocked1.nextSibling()).thenReturn(mocked3);
+        Mockito.when(mocked.childNode(Mockito.anyInt())).thenReturn(mocked1);
+        ReflectionTestUtils.setField(v5, "parentNode", mocked);
+        ReflectionTestUtils.setField(v5, "siblingIndex", 2);
+        String v6 = v5.cssSelector();
+        Assertions.assertEquals("#-\\34 a", v6);
+    }
+}

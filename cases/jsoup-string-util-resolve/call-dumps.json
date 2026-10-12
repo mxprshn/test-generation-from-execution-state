@@ -1,0 +1,124 @@
+[
+    {
+        "staticMethodMocks": [
+            {
+                "method": {
+                    "methodName": "resolve",
+                    "fullName": "org.jsoup.internal.StringUtil.resolve(Ljava/net/URL;Ljava/lang/String;)Ljava/net/URL;",
+                    "argumentsSize": 2,
+                    "returnTypeName": "java.net.URL",
+                    "containingClass": "org.jsoup.internal.StringUtil"
+                },
+                "calls": [
+                    {
+                        "result": {
+                            "kind": "object",
+                            "typeName": "java.net.URL",
+                            "fields": {
+                                "stringRepresentation": {
+                                    "kind": "string",
+                                    "value": "https://jsoup.org/foo"
+                                }
+                            },
+                            "id": 1
+                        },
+                        "args": []
+                    }
+                ]
+            }
+        ],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "resolve",
+                    "fullName": "resolve(String, String)",
+                    "argumentsSize": 2,
+                    "returnTypeName": "String",
+                    "containingClass": "org.jsoup.internal.StringUtil"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "unknown",
+                    "fields": {},
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "string",
+                        "value": "https://jsoup.org/"
+                    },
+                    {
+                        "kind": "string",
+                        "value": "/foo"
+                    }
+                ],
+                "returnValue": {
+                    "kind": "string",
+                    "value": "https://jsoup.org/foo"
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [
+            {
+                "method": {
+                    "methodName": "resolve",
+                    "fullName": "org.jsoup.internal.StringUtil.resolve(Ljava/net/URL;Ljava/lang/String;)Ljava/net/URL;",
+                    "argumentsSize": 2,
+                    "returnTypeName": "java.net.URL",
+                    "containingClass": "org.jsoup.internal.StringUtil"
+                },
+                "calls": [
+                    {
+                        "result": {
+                            "kind": "object",
+                            "typeName": "java.net.URL",
+                            "fields": {
+                                "stringRepresentation": {
+                                    "kind": "string",
+                                    "value": "https://jsoup.org/foo"
+                                }
+                            },
+                            "id": 1
+                        },
+                        "args": []
+                    }
+                ]
+            }
+        ],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "resolve",
+                    "fullName": "resolve(String, String)",
+                    "argumentsSize": 2,
+                    "returnTypeName": "String",
+                    "containingClass": "org.jsoup.internal.StringUtil"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "unknown",
+                    "fields": {},
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "string",
+                        "value": "https://jsoup.org/"
+                    },
+                    {
+                        "kind": "string",
+                        "value": "/foo"
+                    }
+                ],
+                "returnValue": {
+                    "kind": "string",
+                    "value": "https://jsoup.org/foo"
+                }
+            }
+        ]
+    }
+]

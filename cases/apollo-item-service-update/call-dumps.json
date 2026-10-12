@@ -1,0 +1,471 @@
+[
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "update",
+                    "fullName": "update(Item)",
+                    "argumentsSize": 1,
+                    "returnTypeName": "Item",
+                    "containingClass": "com.ctrip.framework.apollo.biz.service.ItemService"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "com.ctrip.framework.apollo.biz.service.ItemService",
+                    "fields": {
+                        "clusterPattern": {
+                            "kind": "object",
+                            "typeName": "java.util.regex.Pattern",
+                            "fields": {
+                                "flags0": {
+                                    "kind": "int",
+                                    "value": 0
+                                },
+                                "normalizedPattern": {
+                                    "kind": "string",
+                                    "value": "[0-9]{14}-[a-zA-Z0-9]{16}"
+                                },
+                                "predicate": {
+                                    "kind": "null"
+                                },
+                                "localTCNCount": {
+                                    "kind": "int",
+                                    "value": 0
+                                },
+                                "temp": {
+                                    "kind": "null"
+                                },
+                                "root": {
+                                    "kind": "object",
+                                    "typeName": "java.util.regex.Pattern$Start",
+                                    "fields": {
+                                        "minLength": {
+                                            "kind": "int",
+                                            "value": 31
+                                        },
+                                        "next": {
+                                            "kind": "object",
+                                            "typeName": "java.util.regex.Pattern$Curly",
+                                            "fields": {
+                                                "atom": {
+                                                    "kind": "mock",
+                                                    "typeName": "java.util.regex.Pattern$Node",
+                                                    "methods": [
+                                                        {
+                                                            "method": {
+                                                                "methodName": "match",
+                                                                "fullName": "java.util.regex.Pattern$BmpCharProperty.match(Ljava/util/regex/Matcher;ILjava/lang/CharSequence;)Z",
+                                                                "argumentsSize": 3,
+                                                                "returnTypeName": "boolean",
+                                                                "containingClass": "java.util.regex.Pattern$BmpCharProperty"
+                                                            },
+                                                            "calls": [
+                                                                {
+                                                                    "result": {
+                                                                        "kind": "boolean",
+                                                                        "value": false
+                                                                    },
+                                                                    "args": []
+                                                                }
+                                                            ]
+                                                        }
+                                                    ],
+                                                    "isSpy": false,
+                                                    "id": 4
+                                                },
+                                                "type": {
+                                                    "kind": "enum",
+                                                    "typeName": "java.util.regex.Pattern$Qtype",
+                                                    "value": "GREEDY"
+                                                },
+                                                "cmin": {
+                                                    "kind": "int",
+                                                    "value": 14
+                                                },
+                                                "cmax": {
+                                                    "kind": "int",
+                                                    "value": 14
+                                                },
+                                                "next": {
+                                                    "kind": "mock",
+                                                    "typeName": "java.util.regex.Pattern$Node",
+                                                    "methods": [],
+                                                    "isSpy": false,
+                                                    "id": 5
+                                                }
+                                            },
+                                            "id": 3
+                                        }
+                                    },
+                                    "id": 2
+                                },
+                                "namedGroups": {
+                                    "kind": "null"
+                                },
+                                "capturingGroupCount": {
+                                    "kind": "int",
+                                    "value": 1
+                                },
+                                "localCount": {
+                                    "kind": "int",
+                                    "value": 0
+                                },
+                                "compiled": {
+                                    "kind": "boolean",
+                                    "value": true
+                                },
+                                "matchRoot": {
+                                    "kind": "ref",
+                                    "typeName": "java.util.regex.Pattern$Curly",
+                                    "refId": 3
+                                },
+                                "groupNodes": {
+                                    "kind": "null"
+                                },
+                                "cursor": {
+                                    "kind": "int",
+                                    "value": 25
+                                },
+                                "hasSupplementary": {
+                                    "kind": "boolean",
+                                    "value": false
+                                },
+                                "hasGroupRef": {
+                                    "kind": "boolean",
+                                    "value": false
+                                },
+                                "pattern": {
+                                    "kind": "string",
+                                    "value": "[0-9]{14}-[a-zA-Z0-9]{16}"
+                                },
+                                "flags": {
+                                    "kind": "int",
+                                    "value": 0
+                                },
+                                "buffer": {
+                                    "kind": "null"
+                                },
+                                "topClosureNodes": {
+                                    "kind": "null"
+                                },
+                                "patternLength": {
+                                    "kind": "int",
+                                    "value": 0
+                                }
+                            },
+                            "id": 1
+                        },
+                        "itemRepository": {
+                            "kind": "mock",
+                            "typeName": "com.ctrip.framework.apollo.biz.repository.ItemRepository",
+                            "methods": [
+                                {
+                                    "method": {
+                                        "methodName": "findById",
+                                        "fullName": "com.ctrip.framework.apollo.biz.repository.ItemRepository.findById(Ljava/lang/Object;)Ljava/util/Optional;",
+                                        "argumentsSize": 1,
+                                        "returnTypeName": "java.util.Optional",
+                                        "containingClass": "com.ctrip.framework.apollo.biz.repository.ItemRepository"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "object",
+                                                "typeName": "java.util.Optional",
+                                                "fields": {
+                                                    "value": {
+                                                        "kind": "object",
+                                                        "typeName": "com.ctrip.framework.apollo.biz.entity.Item",
+                                                        "fields": {
+                                                            "namespaceId": {
+                                                                "kind": "long",
+                                                                "value": 1
+                                                            },
+                                                            "type": {
+                                                                "kind": "int",
+                                                                "value": 0
+                                                            },
+                                                            "value": {
+                                                                "kind": "string",
+                                                                "value": "v1 update"
+                                                            },
+                                                            "lineNum": {
+                                                                "kind": "int",
+                                                                "value": 1
+                                                            },
+                                                            "id": {
+                                                                "kind": "long",
+                                                                "value": 9901
+                                                            },
+                                                            "deletedAt": {
+                                                                "kind": "long",
+                                                                "value": 0
+                                                            },
+                                                            "dataChangeCreatedBy": {
+                                                                "kind": "null"
+                                                            },
+                                                            "dataChangeLastModifiedBy": {
+                                                                "kind": "null"
+                                                            },
+                                                            "key": {
+                                                                "kind": "string",
+                                                                "value": "k1"
+                                                            },
+                                                            "comment": {
+                                                                "kind": "string",
+                                                                "value": ""
+                                                            },
+                                                            "isDeleted": {
+                                                                "kind": "boolean",
+                                                                "value": false
+                                                            },
+                                                            "dataChangeCreatedTime": {
+                                                                "kind": "null"
+                                                            },
+                                                            "dataChangeLastModifiedTime": {
+                                                                "kind": "null"
+                                                            }
+                                                        },
+                                                        "id": 8
+                                                    }
+                                                },
+                                                "id": 7
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "method": {
+                                        "methodName": "save",
+                                        "fullName": "com.ctrip.framework.apollo.biz.repository.ItemRepository.save(Ljava/lang/Object;)Ljava/lang/Object;",
+                                        "argumentsSize": 1,
+                                        "returnTypeName": "java.lang.Object",
+                                        "containingClass": "com.ctrip.framework.apollo.biz.repository.ItemRepository"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "ref",
+                                                "typeName": "com.ctrip.framework.apollo.biz.entity.Item",
+                                                "refId": 8
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                }
+                            ],
+                            "isSpy": false,
+                            "id": 6
+                        },
+                        "namespaceService": {
+                            "kind": "mock",
+                            "typeName": "com.ctrip.framework.apollo.biz.service.NamespaceService",
+                            "methods": [
+                                {
+                                    "method": {
+                                        "methodName": "findOne",
+                                        "fullName": "com.ctrip.framework.apollo.biz.service.NamespaceService.findOne(Ljava/lang/Long;)Lcom/ctrip/framework/apollo/biz/entity/Namespace;",
+                                        "argumentsSize": 1,
+                                        "returnTypeName": "com.ctrip.framework.apollo.biz.entity.Namespace",
+                                        "containingClass": "com.ctrip.framework.apollo.biz.service.NamespaceService"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "object",
+                                                "typeName": "com.ctrip.framework.apollo.biz.entity.Namespace",
+                                                "fields": {
+                                                    "appId": {
+                                                        "kind": "string",
+                                                        "value": "testApp"
+                                                    },
+                                                    "namespaceName": {
+                                                        "kind": "string",
+                                                        "value": "application"
+                                                    },
+                                                    "id": {
+                                                        "kind": "long",
+                                                        "value": 1
+                                                    },
+                                                    "deletedAt": {
+                                                        "kind": "long",
+                                                        "value": 0
+                                                    },
+                                                    "dataChangeCreatedBy": {
+                                                        "kind": "string",
+                                                        "value": "apollo"
+                                                    },
+                                                    "dataChangeLastModifiedBy": {
+                                                        "kind": "string",
+                                                        "value": "apollo"
+                                                    },
+                                                    "clusterName": {
+                                                        "kind": "string",
+                                                        "value": "default"
+                                                    },
+                                                    "isDeleted": {
+                                                        "kind": "boolean",
+                                                        "value": false
+                                                    },
+                                                    "dataChangeCreatedTime": {
+                                                        "kind": "null"
+                                                    },
+                                                    "dataChangeLastModifiedTime": {
+                                                        "kind": "null"
+                                                    }
+                                                },
+                                                "id": 10
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                }
+                            ],
+                            "isSpy": false,
+                            "id": 9
+                        },
+                        "auditService": {
+                            "kind": "mock",
+                            "typeName": "com.ctrip.framework.apollo.biz.service.AuditService",
+                            "methods": [],
+                            "isSpy": false,
+                            "id": 11
+                        },
+                        "bizConfig": {
+                            "kind": "mock",
+                            "typeName": "com.ctrip.framework.apollo.biz.config.BizConfig",
+                            "methods": [
+                                {
+                                    "method": {
+                                        "methodName": "namespaceValueLengthLimitOverride",
+                                        "fullName": "com.ctrip.framework.apollo.biz.config.BizConfig.namespaceValueLengthLimitOverride()Ljava/util/Map;",
+                                        "argumentsSize": 0,
+                                        "returnTypeName": "java.util.Map",
+                                        "containingClass": "com.ctrip.framework.apollo.biz.config.BizConfig"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "map",
+                                                "isShallow": false,
+                                                "size": 0,
+                                                "elements": []
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "method": {
+                                        "methodName": "appIdValueLengthLimitOverride",
+                                        "fullName": "com.ctrip.framework.apollo.biz.config.BizConfig.appIdValueLengthLimitOverride()Ljava/util/Map;",
+                                        "argumentsSize": 0,
+                                        "returnTypeName": "java.util.Map",
+                                        "containingClass": "com.ctrip.framework.apollo.biz.config.BizConfig"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "map",
+                                                "isShallow": false,
+                                                "size": 0,
+                                                "elements": []
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "method": {
+                                        "methodName": "itemValueLengthLimit",
+                                        "fullName": "com.ctrip.framework.apollo.biz.config.BizConfig.itemValueLengthLimit()I",
+                                        "argumentsSize": 0,
+                                        "returnTypeName": "int",
+                                        "containingClass": "com.ctrip.framework.apollo.biz.config.BizConfig"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "int",
+                                                "value": 20000
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                }
+                            ],
+                            "isSpy": false,
+                            "id": 12
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "ref",
+                        "typeName": "com.ctrip.framework.apollo.biz.entity.Item",
+                        "refId": 8
+                    }
+                ],
+                "returnValue": {
+                    "kind": "object",
+                    "typeName": "com.ctrip.framework.apollo.biz.entity.Item",
+                    "fields": {
+                        "namespaceId": {
+                            "kind": "long",
+                            "value": 1
+                        },
+                        "type": {
+                            "kind": "int",
+                            "value": 0
+                        },
+                        "value": {
+                            "kind": "string",
+                            "value": "v1 update"
+                        },
+                        "lineNum": {
+                            "kind": "int",
+                            "value": 1
+                        },
+                        "id": {
+                            "kind": "long",
+                            "value": 9901
+                        },
+                        "deletedAt": {
+                            "kind": "long",
+                            "value": 0
+                        },
+                        "dataChangeCreatedBy": {
+                            "kind": "unknown"
+                        },
+                        "dataChangeLastModifiedBy": {
+                            "kind": "unknown"
+                        },
+                        "key": {
+                            "kind": "string",
+                            "value": "k1"
+                        },
+                        "comment": {
+                            "kind": "string",
+                            "value": ""
+                        },
+                        "isDeleted": {
+                            "kind": "boolean",
+                            "value": false
+                        },
+                        "dataChangeCreatedTime": {
+                            "kind": "unknown"
+                        },
+                        "dataChangeLastModifiedTime": {
+                            "kind": "unknown"
+                        }
+                    },
+                    "id": 13
+                }
+            }
+        ]
+    }
+]

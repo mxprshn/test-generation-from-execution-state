@@ -1,0 +1,1154 @@
+[
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "matches",
+                    "fullName": "matches(String, boolean, boolean)",
+                    "argumentsSize": 3,
+                    "returnTypeName": "boolean",
+                    "containingClass": "org.eclipse.jgit.ignore.internal.PathMatcher"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "org.eclipse.jgit.ignore.internal.PathMatcher",
+                    "fields": {
+                        "matchers": {
+                            "kind": "list",
+                            "isShallow": false,
+                            "size": 3,
+                            "elements": [
+                                {
+                                    "kind": "object",
+                                    "typeName": "org.eclipse.jgit.ignore.internal.NameMatcher",
+                                    "fields": {
+                                        "slash": {
+                                            "kind": "char",
+                                            "value": "/"
+                                        },
+                                        "subPattern": {
+                                            "kind": "string",
+                                            "value": "a"
+                                        },
+                                        "dirOnly": {
+                                            "kind": "boolean",
+                                            "value": true
+                                        },
+                                        "pattern": {
+                                            "kind": "string",
+                                            "value": "a"
+                                        },
+                                        "beginning": {
+                                            "kind": "boolean",
+                                            "value": false
+                                        }
+                                    },
+                                    "id": 1
+                                },
+                                {
+                                    "kind": "object",
+                                    "typeName": "org.eclipse.jgit.ignore.internal.TrailingAsteriskMatcher",
+                                    "fields": {
+                                        "slash": {
+                                            "kind": "char",
+                                            "value": "/"
+                                        },
+                                        "subPattern": {
+                                            "kind": "string",
+                                            "value": "*"
+                                        },
+                                        "dirOnly": {
+                                            "kind": "boolean",
+                                            "value": true
+                                        },
+                                        "pattern": {
+                                            "kind": "string",
+                                            "value": "*"
+                                        },
+                                        "beginning": {
+                                            "kind": "boolean",
+                                            "value": false
+                                        }
+                                    },
+                                    "id": 2
+                                },
+                                {
+                                    "kind": "object",
+                                    "typeName": "org.eclipse.jgit.ignore.internal.NameMatcher",
+                                    "fields": {
+                                        "slash": {
+                                            "kind": "char",
+                                            "value": "/"
+                                        },
+                                        "subPattern": {
+                                            "kind": "string",
+                                            "value": "src"
+                                        },
+                                        "dirOnly": {
+                                            "kind": "boolean",
+                                            "value": true
+                                        },
+                                        "pattern": {
+                                            "kind": "string",
+                                            "value": "src"
+                                        },
+                                        "beginning": {
+                                            "kind": "boolean",
+                                            "value": false
+                                        }
+                                    },
+                                    "id": 3
+                                }
+                            ]
+                        },
+                        "slash": {
+                            "kind": "char",
+                            "value": "/"
+                        },
+                        "beginning": {
+                            "kind": "boolean",
+                            "value": false
+                        },
+                        "dirOnly": {
+                            "kind": "boolean",
+                            "value": true
+                        },
+                        "pattern": {
+                            "kind": "string",
+                            "value": "a/*/src"
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "string",
+                        "value": "a/b/src/"
+                    },
+                    {
+                        "kind": "boolean",
+                        "value": true
+                    },
+                    {
+                        "kind": "boolean",
+                        "value": false
+                    }
+                ],
+                "returnValue": {
+                    "kind": "boolean",
+                    "value": true
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "matches",
+                    "fullName": "matches(String, boolean, boolean)",
+                    "argumentsSize": 3,
+                    "returnTypeName": "boolean",
+                    "containingClass": "org.eclipse.jgit.ignore.internal.PathMatcher"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "org.eclipse.jgit.ignore.internal.PathMatcher",
+                    "fields": {
+                        "matchers": {
+                            "kind": "list",
+                            "isShallow": false,
+                            "size": 3,
+                            "elements": [
+                                {
+                                    "kind": "object",
+                                    "typeName": "org.eclipse.jgit.ignore.internal.NameMatcher",
+                                    "fields": {
+                                        "slash": {
+                                            "kind": "char",
+                                            "value": "/"
+                                        },
+                                        "subPattern": {
+                                            "kind": "string",
+                                            "value": "a"
+                                        },
+                                        "dirOnly": {
+                                            "kind": "boolean",
+                                            "value": true
+                                        },
+                                        "pattern": {
+                                            "kind": "string",
+                                            "value": "a"
+                                        },
+                                        "beginning": {
+                                            "kind": "boolean",
+                                            "value": false
+                                        }
+                                    },
+                                    "id": 1
+                                },
+                                {
+                                    "kind": "object",
+                                    "typeName": "org.eclipse.jgit.ignore.internal.TrailingAsteriskMatcher",
+                                    "fields": {
+                                        "slash": {
+                                            "kind": "char",
+                                            "value": "/"
+                                        },
+                                        "subPattern": {
+                                            "kind": "string",
+                                            "value": "*"
+                                        },
+                                        "dirOnly": {
+                                            "kind": "boolean",
+                                            "value": true
+                                        },
+                                        "pattern": {
+                                            "kind": "string",
+                                            "value": "*"
+                                        },
+                                        "beginning": {
+                                            "kind": "boolean",
+                                            "value": false
+                                        }
+                                    },
+                                    "id": 2
+                                },
+                                {
+                                    "kind": "object",
+                                    "typeName": "org.eclipse.jgit.ignore.internal.NameMatcher",
+                                    "fields": {
+                                        "slash": {
+                                            "kind": "char",
+                                            "value": "/"
+                                        },
+                                        "subPattern": {
+                                            "kind": "string",
+                                            "value": "src"
+                                        },
+                                        "dirOnly": {
+                                            "kind": "boolean",
+                                            "value": true
+                                        },
+                                        "pattern": {
+                                            "kind": "string",
+                                            "value": "src"
+                                        },
+                                        "beginning": {
+                                            "kind": "boolean",
+                                            "value": false
+                                        }
+                                    },
+                                    "id": 3
+                                }
+                            ]
+                        },
+                        "slash": {
+                            "kind": "char",
+                            "value": "/"
+                        },
+                        "beginning": {
+                            "kind": "boolean",
+                            "value": false
+                        },
+                        "dirOnly": {
+                            "kind": "boolean",
+                            "value": true
+                        },
+                        "pattern": {
+                            "kind": "string",
+                            "value": "a/*/src"
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "string",
+                        "value": "a/b/src"
+                    },
+                    {
+                        "kind": "boolean",
+                        "value": true
+                    },
+                    {
+                        "kind": "boolean",
+                        "value": false
+                    }
+                ],
+                "returnValue": {
+                    "kind": "boolean",
+                    "value": true
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "matches",
+                    "fullName": "matches(String, boolean, boolean)",
+                    "argumentsSize": 3,
+                    "returnTypeName": "boolean",
+                    "containingClass": "org.eclipse.jgit.ignore.internal.PathMatcher"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "org.eclipse.jgit.ignore.internal.PathMatcher",
+                    "fields": {
+                        "matchers": {
+                            "kind": "list",
+                            "isShallow": false,
+                            "size": 3,
+                            "elements": [
+                                {
+                                    "kind": "object",
+                                    "typeName": "org.eclipse.jgit.ignore.internal.NameMatcher",
+                                    "fields": {
+                                        "slash": {
+                                            "kind": "char",
+                                            "value": "/"
+                                        },
+                                        "subPattern": {
+                                            "kind": "string",
+                                            "value": "a"
+                                        },
+                                        "dirOnly": {
+                                            "kind": "boolean",
+                                            "value": true
+                                        },
+                                        "pattern": {
+                                            "kind": "string",
+                                            "value": "a"
+                                        },
+                                        "beginning": {
+                                            "kind": "boolean",
+                                            "value": false
+                                        }
+                                    },
+                                    "id": 1
+                                },
+                                {
+                                    "kind": "object",
+                                    "typeName": "org.eclipse.jgit.ignore.internal.TrailingAsteriskMatcher",
+                                    "fields": {
+                                        "slash": {
+                                            "kind": "char",
+                                            "value": "/"
+                                        },
+                                        "subPattern": {
+                                            "kind": "string",
+                                            "value": "*"
+                                        },
+                                        "dirOnly": {
+                                            "kind": "boolean",
+                                            "value": true
+                                        },
+                                        "pattern": {
+                                            "kind": "string",
+                                            "value": "*"
+                                        },
+                                        "beginning": {
+                                            "kind": "boolean",
+                                            "value": false
+                                        }
+                                    },
+                                    "id": 2
+                                },
+                                {
+                                    "kind": "object",
+                                    "typeName": "org.eclipse.jgit.ignore.internal.NameMatcher",
+                                    "fields": {
+                                        "slash": {
+                                            "kind": "char",
+                                            "value": "/"
+                                        },
+                                        "subPattern": {
+                                            "kind": "string",
+                                            "value": "src"
+                                        },
+                                        "dirOnly": {
+                                            "kind": "boolean",
+                                            "value": true
+                                        },
+                                        "pattern": {
+                                            "kind": "string",
+                                            "value": "src"
+                                        },
+                                        "beginning": {
+                                            "kind": "boolean",
+                                            "value": false
+                                        }
+                                    },
+                                    "id": 3
+                                }
+                            ]
+                        },
+                        "slash": {
+                            "kind": "char",
+                            "value": "/"
+                        },
+                        "beginning": {
+                            "kind": "boolean",
+                            "value": false
+                        },
+                        "dirOnly": {
+                            "kind": "boolean",
+                            "value": true
+                        },
+                        "pattern": {
+                            "kind": "string",
+                            "value": "a/*/src"
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "string",
+                        "value": "a/b/src/new"
+                    },
+                    {
+                        "kind": "boolean",
+                        "value": false
+                    },
+                    {
+                        "kind": "boolean",
+                        "value": false
+                    }
+                ],
+                "returnValue": {
+                    "kind": "boolean",
+                    "value": true
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "matches",
+                    "fullName": "matches(String, boolean, boolean)",
+                    "argumentsSize": 3,
+                    "returnTypeName": "boolean",
+                    "containingClass": "org.eclipse.jgit.ignore.internal.PathMatcher"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "org.eclipse.jgit.ignore.internal.PathMatcher",
+                    "fields": {
+                        "matchers": {
+                            "kind": "list",
+                            "isShallow": false,
+                            "size": 3,
+                            "elements": [
+                                {
+                                    "kind": "object",
+                                    "typeName": "org.eclipse.jgit.ignore.internal.NameMatcher",
+                                    "fields": {
+                                        "slash": {
+                                            "kind": "char",
+                                            "value": "/"
+                                        },
+                                        "subPattern": {
+                                            "kind": "string",
+                                            "value": "a"
+                                        },
+                                        "dirOnly": {
+                                            "kind": "boolean",
+                                            "value": true
+                                        },
+                                        "pattern": {
+                                            "kind": "string",
+                                            "value": "a"
+                                        },
+                                        "beginning": {
+                                            "kind": "boolean",
+                                            "value": false
+                                        }
+                                    },
+                                    "id": 1
+                                },
+                                {
+                                    "kind": "object",
+                                    "typeName": "org.eclipse.jgit.ignore.internal.TrailingAsteriskMatcher",
+                                    "fields": {
+                                        "slash": {
+                                            "kind": "char",
+                                            "value": "/"
+                                        },
+                                        "subPattern": {
+                                            "kind": "string",
+                                            "value": "*"
+                                        },
+                                        "dirOnly": {
+                                            "kind": "boolean",
+                                            "value": true
+                                        },
+                                        "pattern": {
+                                            "kind": "string",
+                                            "value": "*"
+                                        },
+                                        "beginning": {
+                                            "kind": "boolean",
+                                            "value": false
+                                        }
+                                    },
+                                    "id": 2
+                                },
+                                {
+                                    "kind": "object",
+                                    "typeName": "org.eclipse.jgit.ignore.internal.NameMatcher",
+                                    "fields": {
+                                        "slash": {
+                                            "kind": "char",
+                                            "value": "/"
+                                        },
+                                        "subPattern": {
+                                            "kind": "string",
+                                            "value": "src"
+                                        },
+                                        "dirOnly": {
+                                            "kind": "boolean",
+                                            "value": true
+                                        },
+                                        "pattern": {
+                                            "kind": "string",
+                                            "value": "src"
+                                        },
+                                        "beginning": {
+                                            "kind": "boolean",
+                                            "value": false
+                                        }
+                                    },
+                                    "id": 3
+                                }
+                            ]
+                        },
+                        "slash": {
+                            "kind": "char",
+                            "value": "/"
+                        },
+                        "beginning": {
+                            "kind": "boolean",
+                            "value": false
+                        },
+                        "dirOnly": {
+                            "kind": "boolean",
+                            "value": true
+                        },
+                        "pattern": {
+                            "kind": "string",
+                            "value": "a/*/src"
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "string",
+                        "value": "a/b/src/new/a.c"
+                    },
+                    {
+                        "kind": "boolean",
+                        "value": false
+                    },
+                    {
+                        "kind": "boolean",
+                        "value": false
+                    }
+                ],
+                "returnValue": {
+                    "kind": "boolean",
+                    "value": true
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "matches",
+                    "fullName": "matches(String, boolean, boolean)",
+                    "argumentsSize": 3,
+                    "returnTypeName": "boolean",
+                    "containingClass": "org.eclipse.jgit.ignore.internal.PathMatcher"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "org.eclipse.jgit.ignore.internal.PathMatcher",
+                    "fields": {
+                        "matchers": {
+                            "kind": "list",
+                            "isShallow": false,
+                            "size": 3,
+                            "elements": [
+                                {
+                                    "kind": "object",
+                                    "typeName": "org.eclipse.jgit.ignore.internal.NameMatcher",
+                                    "fields": {
+                                        "slash": {
+                                            "kind": "char",
+                                            "value": "/"
+                                        },
+                                        "subPattern": {
+                                            "kind": "string",
+                                            "value": "a"
+                                        },
+                                        "dirOnly": {
+                                            "kind": "boolean",
+                                            "value": true
+                                        },
+                                        "pattern": {
+                                            "kind": "string",
+                                            "value": "a"
+                                        },
+                                        "beginning": {
+                                            "kind": "boolean",
+                                            "value": false
+                                        }
+                                    },
+                                    "id": 1
+                                },
+                                {
+                                    "kind": "object",
+                                    "typeName": "org.eclipse.jgit.ignore.internal.TrailingAsteriskMatcher",
+                                    "fields": {
+                                        "slash": {
+                                            "kind": "char",
+                                            "value": "/"
+                                        },
+                                        "subPattern": {
+                                            "kind": "string",
+                                            "value": "*"
+                                        },
+                                        "dirOnly": {
+                                            "kind": "boolean",
+                                            "value": true
+                                        },
+                                        "pattern": {
+                                            "kind": "string",
+                                            "value": "*"
+                                        },
+                                        "beginning": {
+                                            "kind": "boolean",
+                                            "value": false
+                                        }
+                                    },
+                                    "id": 2
+                                },
+                                {
+                                    "kind": "object",
+                                    "typeName": "org.eclipse.jgit.ignore.internal.NameMatcher",
+                                    "fields": {
+                                        "slash": {
+                                            "kind": "char",
+                                            "value": "/"
+                                        },
+                                        "subPattern": {
+                                            "kind": "string",
+                                            "value": "src"
+                                        },
+                                        "dirOnly": {
+                                            "kind": "boolean",
+                                            "value": true
+                                        },
+                                        "pattern": {
+                                            "kind": "string",
+                                            "value": "src"
+                                        },
+                                        "beginning": {
+                                            "kind": "boolean",
+                                            "value": false
+                                        }
+                                    },
+                                    "id": 3
+                                }
+                            ]
+                        },
+                        "slash": {
+                            "kind": "char",
+                            "value": "/"
+                        },
+                        "beginning": {
+                            "kind": "boolean",
+                            "value": false
+                        },
+                        "dirOnly": {
+                            "kind": "boolean",
+                            "value": true
+                        },
+                        "pattern": {
+                            "kind": "string",
+                            "value": "a/*/src"
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "string",
+                        "value": "a/b/src/a.c"
+                    },
+                    {
+                        "kind": "boolean",
+                        "value": false
+                    },
+                    {
+                        "kind": "boolean",
+                        "value": false
+                    }
+                ],
+                "returnValue": {
+                    "kind": "boolean",
+                    "value": true
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "matches",
+                    "fullName": "matches(String, boolean, boolean)",
+                    "argumentsSize": 3,
+                    "returnTypeName": "boolean",
+                    "containingClass": "org.eclipse.jgit.ignore.internal.PathMatcher"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "org.eclipse.jgit.ignore.internal.PathMatcher",
+                    "fields": {
+                        "matchers": {
+                            "kind": "list",
+                            "isShallow": false,
+                            "size": 3,
+                            "elements": [
+                                {
+                                    "kind": "object",
+                                    "typeName": "org.eclipse.jgit.ignore.internal.NameMatcher",
+                                    "fields": {
+                                        "slash": {
+                                            "kind": "char",
+                                            "value": "/"
+                                        },
+                                        "subPattern": {
+                                            "kind": "string",
+                                            "value": "a"
+                                        },
+                                        "dirOnly": {
+                                            "kind": "boolean",
+                                            "value": true
+                                        },
+                                        "pattern": {
+                                            "kind": "string",
+                                            "value": "a"
+                                        },
+                                        "beginning": {
+                                            "kind": "boolean",
+                                            "value": false
+                                        }
+                                    },
+                                    "id": 1
+                                },
+                                {
+                                    "kind": "object",
+                                    "typeName": "org.eclipse.jgit.ignore.internal.TrailingAsteriskMatcher",
+                                    "fields": {
+                                        "slash": {
+                                            "kind": "char",
+                                            "value": "/"
+                                        },
+                                        "subPattern": {
+                                            "kind": "string",
+                                            "value": "*"
+                                        },
+                                        "dirOnly": {
+                                            "kind": "boolean",
+                                            "value": true
+                                        },
+                                        "pattern": {
+                                            "kind": "string",
+                                            "value": "*"
+                                        },
+                                        "beginning": {
+                                            "kind": "boolean",
+                                            "value": false
+                                        }
+                                    },
+                                    "id": 2
+                                },
+                                {
+                                    "kind": "object",
+                                    "typeName": "org.eclipse.jgit.ignore.internal.NameMatcher",
+                                    "fields": {
+                                        "slash": {
+                                            "kind": "char",
+                                            "value": "/"
+                                        },
+                                        "subPattern": {
+                                            "kind": "string",
+                                            "value": "src"
+                                        },
+                                        "dirOnly": {
+                                            "kind": "boolean",
+                                            "value": true
+                                        },
+                                        "pattern": {
+                                            "kind": "string",
+                                            "value": "src"
+                                        },
+                                        "beginning": {
+                                            "kind": "boolean",
+                                            "value": false
+                                        }
+                                    },
+                                    "id": 3
+                                }
+                            ]
+                        },
+                        "slash": {
+                            "kind": "char",
+                            "value": "/"
+                        },
+                        "beginning": {
+                            "kind": "boolean",
+                            "value": false
+                        },
+                        "dirOnly": {
+                            "kind": "boolean",
+                            "value": true
+                        },
+                        "pattern": {
+                            "kind": "string",
+                            "value": "a/*/src"
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "string",
+                        "value": "a/b/src"
+                    },
+                    {
+                        "kind": "boolean",
+                        "value": false
+                    },
+                    {
+                        "kind": "boolean",
+                        "value": false
+                    }
+                ],
+                "returnValue": {
+                    "kind": "boolean",
+                    "value": false
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "matches",
+                    "fullName": "matches(String, boolean, boolean)",
+                    "argumentsSize": 3,
+                    "returnTypeName": "boolean",
+                    "containingClass": "org.eclipse.jgit.ignore.internal.PathMatcher"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "org.eclipse.jgit.ignore.internal.PathMatcher",
+                    "fields": {
+                        "matchers": {
+                            "kind": "list",
+                            "isShallow": false,
+                            "size": 3,
+                            "elements": [
+                                {
+                                    "kind": "object",
+                                    "typeName": "org.eclipse.jgit.ignore.internal.NameMatcher",
+                                    "fields": {
+                                        "slash": {
+                                            "kind": "char",
+                                            "value": "/"
+                                        },
+                                        "subPattern": {
+                                            "kind": "string",
+                                            "value": "a"
+                                        },
+                                        "dirOnly": {
+                                            "kind": "boolean",
+                                            "value": true
+                                        },
+                                        "pattern": {
+                                            "kind": "string",
+                                            "value": "a"
+                                        },
+                                        "beginning": {
+                                            "kind": "boolean",
+                                            "value": false
+                                        }
+                                    },
+                                    "id": 1
+                                },
+                                {
+                                    "kind": "object",
+                                    "typeName": "org.eclipse.jgit.ignore.internal.TrailingAsteriskMatcher",
+                                    "fields": {
+                                        "slash": {
+                                            "kind": "char",
+                                            "value": "/"
+                                        },
+                                        "subPattern": {
+                                            "kind": "string",
+                                            "value": "*"
+                                        },
+                                        "dirOnly": {
+                                            "kind": "boolean",
+                                            "value": true
+                                        },
+                                        "pattern": {
+                                            "kind": "string",
+                                            "value": "*"
+                                        },
+                                        "beginning": {
+                                            "kind": "boolean",
+                                            "value": false
+                                        }
+                                    },
+                                    "id": 2
+                                },
+                                {
+                                    "kind": "object",
+                                    "typeName": "org.eclipse.jgit.ignore.internal.NameMatcher",
+                                    "fields": {
+                                        "slash": {
+                                            "kind": "char",
+                                            "value": "/"
+                                        },
+                                        "subPattern": {
+                                            "kind": "string",
+                                            "value": "src"
+                                        },
+                                        "dirOnly": {
+                                            "kind": "boolean",
+                                            "value": true
+                                        },
+                                        "pattern": {
+                                            "kind": "string",
+                                            "value": "src"
+                                        },
+                                        "beginning": {
+                                            "kind": "boolean",
+                                            "value": false
+                                        }
+                                    },
+                                    "id": 3
+                                }
+                            ]
+                        },
+                        "slash": {
+                            "kind": "char",
+                            "value": "/"
+                        },
+                        "beginning": {
+                            "kind": "boolean",
+                            "value": false
+                        },
+                        "dirOnly": {
+                            "kind": "boolean",
+                            "value": true
+                        },
+                        "pattern": {
+                            "kind": "string",
+                            "value": "a/*/src"
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "string",
+                        "value": "a/b/srcA/"
+                    },
+                    {
+                        "kind": "boolean",
+                        "value": true
+                    },
+                    {
+                        "kind": "boolean",
+                        "value": false
+                    }
+                ],
+                "returnValue": {
+                    "kind": "boolean",
+                    "value": false
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "matches",
+                    "fullName": "matches(String, boolean, boolean)",
+                    "argumentsSize": 3,
+                    "returnTypeName": "boolean",
+                    "containingClass": "org.eclipse.jgit.ignore.internal.PathMatcher"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "org.eclipse.jgit.ignore.internal.PathMatcher",
+                    "fields": {
+                        "matchers": {
+                            "kind": "list",
+                            "isShallow": false,
+                            "size": 3,
+                            "elements": [
+                                {
+                                    "kind": "object",
+                                    "typeName": "org.eclipse.jgit.ignore.internal.NameMatcher",
+                                    "fields": {
+                                        "slash": {
+                                            "kind": "char",
+                                            "value": "/"
+                                        },
+                                        "subPattern": {
+                                            "kind": "string",
+                                            "value": "a"
+                                        },
+                                        "dirOnly": {
+                                            "kind": "boolean",
+                                            "value": true
+                                        },
+                                        "pattern": {
+                                            "kind": "string",
+                                            "value": "a"
+                                        },
+                                        "beginning": {
+                                            "kind": "boolean",
+                                            "value": false
+                                        }
+                                    },
+                                    "id": 1
+                                },
+                                {
+                                    "kind": "object",
+                                    "typeName": "org.eclipse.jgit.ignore.internal.TrailingAsteriskMatcher",
+                                    "fields": {
+                                        "slash": {
+                                            "kind": "char",
+                                            "value": "/"
+                                        },
+                                        "subPattern": {
+                                            "kind": "string",
+                                            "value": "*"
+                                        },
+                                        "dirOnly": {
+                                            "kind": "boolean",
+                                            "value": true
+                                        },
+                                        "pattern": {
+                                            "kind": "string",
+                                            "value": "*"
+                                        },
+                                        "beginning": {
+                                            "kind": "boolean",
+                                            "value": false
+                                        }
+                                    },
+                                    "id": 2
+                                },
+                                {
+                                    "kind": "object",
+                                    "typeName": "org.eclipse.jgit.ignore.internal.NameMatcher",
+                                    "fields": {
+                                        "slash": {
+                                            "kind": "char",
+                                            "value": "/"
+                                        },
+                                        "subPattern": {
+                                            "kind": "string",
+                                            "value": "src"
+                                        },
+                                        "dirOnly": {
+                                            "kind": "boolean",
+                                            "value": true
+                                        },
+                                        "pattern": {
+                                            "kind": "string",
+                                            "value": "src"
+                                        },
+                                        "beginning": {
+                                            "kind": "boolean",
+                                            "value": false
+                                        }
+                                    },
+                                    "id": 3
+                                }
+                            ]
+                        },
+                        "slash": {
+                            "kind": "char",
+                            "value": "/"
+                        },
+                        "beginning": {
+                            "kind": "boolean",
+                            "value": false
+                        },
+                        "dirOnly": {
+                            "kind": "boolean",
+                            "value": true
+                        },
+                        "pattern": {
+                            "kind": "string",
+                            "value": "a/*/src"
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "string",
+                        "value": "a/b/srcA"
+                    },
+                    {
+                        "kind": "boolean",
+                        "value": true
+                    },
+                    {
+                        "kind": "boolean",
+                        "value": false
+                    }
+                ],
+                "returnValue": {
+                    "kind": "boolean",
+                    "value": false
+                }
+            }
+        ]
+    }
+]

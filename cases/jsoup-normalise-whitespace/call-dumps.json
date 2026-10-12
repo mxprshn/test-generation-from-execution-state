@@ -1,0 +1,126 @@
+[
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "normaliseWhitespace",
+                    "fullName": "normaliseWhitespace(String)",
+                    "argumentsSize": 1,
+                    "returnTypeName": "String",
+                    "containingClass": "org.jsoup.internal.StringUtil"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "unknown",
+                    "fields": {},
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "string",
+                        "value": "Hello"
+                    }
+                ],
+                "returnValue": {
+                    "kind": "string",
+                    "value": "Hello"
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "normaliseWhitespace",
+                    "fullName": "normaliseWhitespace(String)",
+                    "argumentsSize": 1,
+                    "returnTypeName": "String",
+                    "containingClass": "org.jsoup.internal.StringUtil"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "unknown",
+                    "fields": {},
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "string",
+                        "value": "First"
+                    }
+                ],
+                "returnValue": {
+                    "kind": "string",
+                    "value": "First"
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "normaliseWhitespace",
+                    "fullName": "normaliseWhitespace(String)",
+                    "argumentsSize": 1,
+                    "returnTypeName": "String",
+                    "containingClass": "org.jsoup.internal.StringUtil"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "unknown",
+                    "fields": {},
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "string",
+                        "value": "Hello"
+                    }
+                ],
+                "returnValue": {
+                    "kind": "string",
+                    "value": "Hello"
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "normaliseWhitespace",
+                    "fullName": "normaliseWhitespace(String)",
+                    "argumentsSize": 1,
+                    "returnTypeName": "String",
+                    "containingClass": "org.jsoup.internal.StringUtil"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "unknown",
+                    "fields": {},
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "string",
+                        "value": "Hello\nthere   \n   now"
+                    }
+                ],
+                "returnValue": {
+                    "kind": "string",
+                    "value": "Hello there now"
+                }
+            }
+        ]
+    }
+]

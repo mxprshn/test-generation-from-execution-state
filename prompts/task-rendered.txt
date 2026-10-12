@@ -1,0 +1,20 @@
+Condition: preliminary test.
+
+A preliminary test class generated deterministically from a recording of the driving scenario is
+provided at:
+{{execution_input}}
+
+It already reproduces the recorded executions of the target method: object construction, arguments,
+mock configuration, the target call and checks. Turn it into the final test class at
+{{output_test_file}} without changing what the tests do:
+- give tests and variables meaningful names;
+- remove redundant code such as unnecessary casts and fully qualified names;
+- replace reflection with the public API where the public API sets the same state;
+- extract shared setup and follow the style of the existing tests of the project.
+
+Do not change the semantics of the preliminary test: keep every target call, every recorded value,
+the behaviour of every mock and every check; do not remove checks and do not add or remove test
+methods. You may add checks only on values already recorded in the preliminary test (for example the
+returned value, the state after the call, or the interactions with mocks configured there). If the
+preliminary test does not compile or fails, make only the minimal change needed to make it compile
+and pass, keeping the recorded values.

@@ -1,0 +1,8 @@
+Condition: execution dump.
+
+A dump of the target method executions recorded while the driving scenario ran is provided as
+one JSON file per recorded execution in {{execution_input}}, in recording order.
+
+For each recorded execution it contains the receiver state, the arguments, the calls to collaborators
+with their arguments and results, and the outcome. Use the recorded values as test data and expected
+results; do not replace them with invented values.

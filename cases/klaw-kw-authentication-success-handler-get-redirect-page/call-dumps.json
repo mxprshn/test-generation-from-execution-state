@@ -1,0 +1,1204 @@
+[
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "getRedirectPage",
+                    "fullName": "getRedirectPage(HttpServletRequest, Authentication)",
+                    "argumentsSize": 2,
+                    "returnTypeName": "String",
+                    "containingClass": "io.aiven.klaw.auth.KwAuthenticationSuccessHandler"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "io.aiven.klaw.auth.KwAuthenticationSuccessHandler",
+                    "fields": {
+                        "contextPath": {
+                            "kind": "null"
+                        },
+                        "quickStartEnabled": {
+                            "kind": "boolean",
+                            "value": false
+                        },
+                        "coralEnabled": {
+                            "kind": "boolean",
+                            "value": false
+                        },
+                        "preferredUsernameAttribute": {
+                            "kind": "null"
+                        },
+                        "emailAttribute": {
+                            "kind": "null"
+                        },
+                        "handleDbRequests": {
+                            "kind": "null"
+                        },
+                        "requestCache": {
+                            "kind": "object",
+                            "typeName": "org.springframework.security.web.savedrequest.HttpSessionRequestCache",
+                            "fields": {
+                                "portResolver": {
+                                    "kind": "object",
+                                    "typeName": "org.springframework.security.web.PortResolverImpl",
+                                    "fields": {
+                                        "portMapper": {
+                                            "kind": "object",
+                                            "typeName": "org.springframework.security.web.PortMapperImpl",
+                                            "fields": {
+                                                "httpsPortMappings": {
+                                                    "kind": "map",
+                                                    "isShallow": false,
+                                                    "size": 2,
+                                                    "elements": [
+                                                        {
+                                                            "key": {
+                                                                "kind": "int",
+                                                                "value": 80
+                                                            },
+                                                            "value": {
+                                                                "kind": "int",
+                                                                "value": 443
+                                                            }
+                                                        },
+                                                        {
+                                                            "key": {
+                                                                "kind": "int",
+                                                                "value": 8080
+                                                            },
+                                                            "value": {
+                                                                "kind": "int",
+                                                                "value": 8443
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                            },
+                                            "id": 3
+                                        }
+                                    },
+                                    "id": 2
+                                },
+                                "createSessionAllowed": {
+                                    "kind": "boolean",
+                                    "value": true
+                                },
+                                "requestMatcher": {
+                                    "kind": "object",
+                                    "typeName": "org.springframework.security.web.util.matcher.AnyRequestMatcher",
+                                    "fields": {},
+                                    "id": 4
+                                },
+                                "sessionAttrName": {
+                                    "kind": "string",
+                                    "value": "SPRING_SECURITY_SAVED_REQUEST"
+                                },
+                                "matchingRequestParameterName": {
+                                    "kind": "string",
+                                    "value": "continue"
+                                }
+                            },
+                            "id": 1
+                        },
+                        "targetUrlParameter": {
+                            "kind": "null"
+                        },
+                        "defaultTargetUrl": {
+                            "kind": "string",
+                            "value": "/"
+                        },
+                        "alwaysUseDefaultTargetUrl": {
+                            "kind": "boolean",
+                            "value": false
+                        },
+                        "useReferer": {
+                            "kind": "boolean",
+                            "value": false
+                        },
+                        "redirectStrategy": {
+                            "kind": "object",
+                            "typeName": "org.springframework.security.web.DefaultRedirectStrategy",
+                            "fields": {
+                                "contextRelative": {
+                                    "kind": "boolean",
+                                    "value": false
+                                },
+                                "statusCode": {
+                                    "kind": "enum",
+                                    "typeName": "org.springframework.http.HttpStatus",
+                                    "value": "FOUND"
+                                }
+                            },
+                            "id": 5
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "mock",
+                        "typeName": "jakarta.servlet.http.HttpServletRequest",
+                        "methods": [
+                            {
+                                "method": {
+                                    "methodName": "getSession",
+                                    "fullName": "jakarta.servlet.http.HttpServletRequest.getSession()Ljakarta/servlet/http/HttpSession;",
+                                    "argumentsSize": 0,
+                                    "returnTypeName": "jakarta.servlet.http.HttpSession",
+                                    "containingClass": "jakarta.servlet.http.HttpServletRequest"
+                                },
+                                "calls": [
+                                    {
+                                        "result": {
+                                            "kind": "mock",
+                                            "typeName": "jakarta.servlet.http.HttpSession",
+                                            "methods": [
+                                                {
+                                                    "method": {
+                                                        "methodName": "getAttribute",
+                                                        "fullName": "jakarta.servlet.http.HttpSession.getAttribute(Ljava/lang/String;)Ljava/lang/Object;",
+                                                        "argumentsSize": 1,
+                                                        "returnTypeName": "java.lang.Object",
+                                                        "containingClass": "jakarta.servlet.http.HttpSession"
+                                                    },
+                                                    "calls": [
+                                                        {
+                                                            "result": {
+                                                                "kind": "object",
+                                                                "typeName": "org.springframework.security.web.savedrequest.DefaultSavedRequest",
+                                                                "fields": {
+                                                                    "cookies": {
+                                                                        "kind": "null"
+                                                                    },
+                                                                    "headers": {
+                                                                        "kind": "null"
+                                                                    },
+                                                                    "contextPath": {
+                                                                        "kind": "null"
+                                                                    },
+                                                                    "pathInfo": {
+                                                                        "kind": "null"
+                                                                    },
+                                                                    "requestURI": {
+                                                                        "kind": "null"
+                                                                    },
+                                                                    "scheme": {
+                                                                        "kind": "null"
+                                                                    },
+                                                                    "servletPath": {
+                                                                        "kind": "null"
+                                                                    },
+                                                                    "locales": {
+                                                                        "kind": "null"
+                                                                    },
+                                                                    "parameters": {
+                                                                        "kind": "null"
+                                                                    },
+                                                                    "method": {
+                                                                        "kind": "null"
+                                                                    },
+                                                                    "queryString": {
+                                                                        "kind": "null"
+                                                                    },
+                                                                    "requestURL": {
+                                                                        "kind": "null"
+                                                                    },
+                                                                    "serverName": {
+                                                                        "kind": "null"
+                                                                    },
+                                                                    "serverPort": {
+                                                                        "kind": "int",
+                                                                        "value": 0
+                                                                    },
+                                                                    "matchingRequestParameterName": {
+                                                                        "kind": "null"
+                                                                    }
+                                                                },
+                                                                "id": 8
+                                                            },
+                                                            "args": []
+                                                        }
+                                                    ]
+                                                }
+                                            ],
+                                            "isSpy": false,
+                                            "id": 7
+                                        },
+                                        "args": []
+                                    }
+                                ]
+                            }
+                        ],
+                        "isSpy": false,
+                        "id": 6
+                    },
+                    {
+                        "kind": "null"
+                    }
+                ],
+                "returnValue": {
+                    "kind": "string",
+                    "value": "index"
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "getRedirectPage",
+                    "fullName": "getRedirectPage(HttpServletRequest, Authentication)",
+                    "argumentsSize": 2,
+                    "returnTypeName": "String",
+                    "containingClass": "io.aiven.klaw.auth.KwAuthenticationSuccessHandler"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "io.aiven.klaw.auth.KwAuthenticationSuccessHandler",
+                    "fields": {
+                        "contextPath": {
+                            "kind": "null"
+                        },
+                        "quickStartEnabled": {
+                            "kind": "boolean",
+                            "value": false
+                        },
+                        "coralEnabled": {
+                            "kind": "boolean",
+                            "value": false
+                        },
+                        "preferredUsernameAttribute": {
+                            "kind": "null"
+                        },
+                        "emailAttribute": {
+                            "kind": "null"
+                        },
+                        "handleDbRequests": {
+                            "kind": "null"
+                        },
+                        "requestCache": {
+                            "kind": "object",
+                            "typeName": "org.springframework.security.web.savedrequest.HttpSessionRequestCache",
+                            "fields": {
+                                "portResolver": {
+                                    "kind": "object",
+                                    "typeName": "org.springframework.security.web.PortResolverImpl",
+                                    "fields": {
+                                        "portMapper": {
+                                            "kind": "object",
+                                            "typeName": "org.springframework.security.web.PortMapperImpl",
+                                            "fields": {
+                                                "httpsPortMappings": {
+                                                    "kind": "map",
+                                                    "isShallow": false,
+                                                    "size": 2,
+                                                    "elements": [
+                                                        {
+                                                            "key": {
+                                                                "kind": "int",
+                                                                "value": 80
+                                                            },
+                                                            "value": {
+                                                                "kind": "int",
+                                                                "value": 443
+                                                            }
+                                                        },
+                                                        {
+                                                            "key": {
+                                                                "kind": "int",
+                                                                "value": 8080
+                                                            },
+                                                            "value": {
+                                                                "kind": "int",
+                                                                "value": 8443
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                            },
+                                            "id": 3
+                                        }
+                                    },
+                                    "id": 2
+                                },
+                                "createSessionAllowed": {
+                                    "kind": "boolean",
+                                    "value": true
+                                },
+                                "requestMatcher": {
+                                    "kind": "object",
+                                    "typeName": "org.springframework.security.web.util.matcher.AnyRequestMatcher",
+                                    "fields": {},
+                                    "id": 4
+                                },
+                                "sessionAttrName": {
+                                    "kind": "string",
+                                    "value": "SPRING_SECURITY_SAVED_REQUEST"
+                                },
+                                "matchingRequestParameterName": {
+                                    "kind": "string",
+                                    "value": "continue"
+                                }
+                            },
+                            "id": 1
+                        },
+                        "targetUrlParameter": {
+                            "kind": "null"
+                        },
+                        "defaultTargetUrl": {
+                            "kind": "string",
+                            "value": "/"
+                        },
+                        "alwaysUseDefaultTargetUrl": {
+                            "kind": "boolean",
+                            "value": false
+                        },
+                        "useReferer": {
+                            "kind": "boolean",
+                            "value": false
+                        },
+                        "redirectStrategy": {
+                            "kind": "object",
+                            "typeName": "org.springframework.security.web.DefaultRedirectStrategy",
+                            "fields": {
+                                "contextRelative": {
+                                    "kind": "boolean",
+                                    "value": false
+                                },
+                                "statusCode": {
+                                    "kind": "enum",
+                                    "typeName": "org.springframework.http.HttpStatus",
+                                    "value": "FOUND"
+                                }
+                            },
+                            "id": 5
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "mock",
+                        "typeName": "jakarta.servlet.http.HttpServletRequest",
+                        "methods": [
+                            {
+                                "method": {
+                                    "methodName": "getSession",
+                                    "fullName": "jakarta.servlet.http.HttpServletRequest.getSession()Ljakarta/servlet/http/HttpSession;",
+                                    "argumentsSize": 0,
+                                    "returnTypeName": "jakarta.servlet.http.HttpSession",
+                                    "containingClass": "jakarta.servlet.http.HttpServletRequest"
+                                },
+                                "calls": [
+                                    {
+                                        "result": {
+                                            "kind": "mock",
+                                            "typeName": "jakarta.servlet.http.HttpSession",
+                                            "methods": [
+                                                {
+                                                    "method": {
+                                                        "methodName": "getAttribute",
+                                                        "fullName": "jakarta.servlet.http.HttpSession.getAttribute(Ljava/lang/String;)Ljava/lang/Object;",
+                                                        "argumentsSize": 1,
+                                                        "returnTypeName": "java.lang.Object",
+                                                        "containingClass": "jakarta.servlet.http.HttpSession"
+                                                    },
+                                                    "calls": [
+                                                        {
+                                                            "result": {
+                                                                "kind": "object",
+                                                                "typeName": "org.springframework.security.web.savedrequest.DefaultSavedRequest",
+                                                                "fields": {
+                                                                    "cookies": {
+                                                                        "kind": "null"
+                                                                    },
+                                                                    "headers": {
+                                                                        "kind": "null"
+                                                                    },
+                                                                    "contextPath": {
+                                                                        "kind": "null"
+                                                                    },
+                                                                    "pathInfo": {
+                                                                        "kind": "null"
+                                                                    },
+                                                                    "requestURI": {
+                                                                        "kind": "null"
+                                                                    },
+                                                                    "scheme": {
+                                                                        "kind": "null"
+                                                                    },
+                                                                    "servletPath": {
+                                                                        "kind": "null"
+                                                                    },
+                                                                    "locales": {
+                                                                        "kind": "null"
+                                                                    },
+                                                                    "parameters": {
+                                                                        "kind": "null"
+                                                                    },
+                                                                    "method": {
+                                                                        "kind": "null"
+                                                                    },
+                                                                    "queryString": {
+                                                                        "kind": "null"
+                                                                    },
+                                                                    "requestURL": {
+                                                                        "kind": "null"
+                                                                    },
+                                                                    "serverName": {
+                                                                        "kind": "null"
+                                                                    },
+                                                                    "serverPort": {
+                                                                        "kind": "int",
+                                                                        "value": 0
+                                                                    },
+                                                                    "matchingRequestParameterName": {
+                                                                        "kind": "null"
+                                                                    }
+                                                                },
+                                                                "id": 8
+                                                            },
+                                                            "args": []
+                                                        }
+                                                    ]
+                                                }
+                                            ],
+                                            "isSpy": false,
+                                            "id": 7
+                                        },
+                                        "args": []
+                                    }
+                                ]
+                            }
+                        ],
+                        "isSpy": false,
+                        "id": 6
+                    },
+                    {
+                        "kind": "null"
+                    }
+                ],
+                "returnValue": {
+                    "kind": "string",
+                    "value": "/browseTopics?topicName=testtopic"
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "getRedirectPage",
+                    "fullName": "getRedirectPage(HttpServletRequest, Authentication)",
+                    "argumentsSize": 2,
+                    "returnTypeName": "String",
+                    "containingClass": "io.aiven.klaw.auth.KwAuthenticationSuccessHandler"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "io.aiven.klaw.auth.KwAuthenticationSuccessHandler",
+                    "fields": {
+                        "contextPath": {
+                            "kind": "null"
+                        },
+                        "quickStartEnabled": {
+                            "kind": "boolean",
+                            "value": false
+                        },
+                        "coralEnabled": {
+                            "kind": "boolean",
+                            "value": true
+                        },
+                        "preferredUsernameAttribute": {
+                            "kind": "null"
+                        },
+                        "emailAttribute": {
+                            "kind": "null"
+                        },
+                        "handleDbRequests": {
+                            "kind": "mock",
+                            "typeName": "io.aiven.klaw.helpers.db.rdbms.HandleDbRequestsJdbc",
+                            "methods": [],
+                            "isSpy": false,
+                            "id": 1
+                        },
+                        "requestCache": {
+                            "kind": "object",
+                            "typeName": "org.springframework.security.web.savedrequest.HttpSessionRequestCache",
+                            "fields": {
+                                "portResolver": {
+                                    "kind": "object",
+                                    "typeName": "org.springframework.security.web.PortResolverImpl",
+                                    "fields": {
+                                        "portMapper": {
+                                            "kind": "object",
+                                            "typeName": "org.springframework.security.web.PortMapperImpl",
+                                            "fields": {
+                                                "httpsPortMappings": {
+                                                    "kind": "map",
+                                                    "isShallow": false,
+                                                    "size": 2,
+                                                    "elements": [
+                                                        {
+                                                            "key": {
+                                                                "kind": "int",
+                                                                "value": 80
+                                                            },
+                                                            "value": {
+                                                                "kind": "int",
+                                                                "value": 443
+                                                            }
+                                                        },
+                                                        {
+                                                            "key": {
+                                                                "kind": "int",
+                                                                "value": 8080
+                                                            },
+                                                            "value": {
+                                                                "kind": "int",
+                                                                "value": 8443
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                            },
+                                            "id": 4
+                                        }
+                                    },
+                                    "id": 3
+                                },
+                                "createSessionAllowed": {
+                                    "kind": "boolean",
+                                    "value": true
+                                },
+                                "requestMatcher": {
+                                    "kind": "object",
+                                    "typeName": "org.springframework.security.web.util.matcher.AnyRequestMatcher",
+                                    "fields": {},
+                                    "id": 5
+                                },
+                                "sessionAttrName": {
+                                    "kind": "string",
+                                    "value": "SPRING_SECURITY_SAVED_REQUEST"
+                                },
+                                "matchingRequestParameterName": {
+                                    "kind": "string",
+                                    "value": "continue"
+                                }
+                            },
+                            "id": 2
+                        },
+                        "targetUrlParameter": {
+                            "kind": "null"
+                        },
+                        "defaultTargetUrl": {
+                            "kind": "string",
+                            "value": "/"
+                        },
+                        "alwaysUseDefaultTargetUrl": {
+                            "kind": "boolean",
+                            "value": false
+                        },
+                        "useReferer": {
+                            "kind": "boolean",
+                            "value": false
+                        },
+                        "redirectStrategy": {
+                            "kind": "object",
+                            "typeName": "org.springframework.security.web.DefaultRedirectStrategy",
+                            "fields": {
+                                "contextRelative": {
+                                    "kind": "boolean",
+                                    "value": false
+                                },
+                                "statusCode": {
+                                    "kind": "enum",
+                                    "typeName": "org.springframework.http.HttpStatus",
+                                    "value": "FOUND"
+                                }
+                            },
+                            "id": 6
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "mock",
+                        "typeName": "jakarta.servlet.http.HttpServletRequest",
+                        "methods": [
+                            {
+                                "method": {
+                                    "methodName": "getSession",
+                                    "fullName": "jakarta.servlet.http.HttpServletRequest.getSession()Ljakarta/servlet/http/HttpSession;",
+                                    "argumentsSize": 0,
+                                    "returnTypeName": "jakarta.servlet.http.HttpSession",
+                                    "containingClass": "jakarta.servlet.http.HttpServletRequest"
+                                },
+                                "calls": [
+                                    {
+                                        "result": {
+                                            "kind": "mock",
+                                            "typeName": "jakarta.servlet.http.HttpSession",
+                                            "methods": [
+                                                {
+                                                    "method": {
+                                                        "methodName": "getAttribute",
+                                                        "fullName": "jakarta.servlet.http.HttpSession.getAttribute(Ljava/lang/String;)Ljava/lang/Object;",
+                                                        "argumentsSize": 1,
+                                                        "returnTypeName": "java.lang.Object",
+                                                        "containingClass": "jakarta.servlet.http.HttpSession"
+                                                    },
+                                                    "calls": [
+                                                        {
+                                                            "result": {
+                                                                "kind": "object",
+                                                                "typeName": "org.springframework.security.web.savedrequest.DefaultSavedRequest",
+                                                                "fields": {
+                                                                    "cookies": {
+                                                                        "kind": "null"
+                                                                    },
+                                                                    "headers": {
+                                                                        "kind": "null"
+                                                                    },
+                                                                    "contextPath": {
+                                                                        "kind": "null"
+                                                                    },
+                                                                    "pathInfo": {
+                                                                        "kind": "null"
+                                                                    },
+                                                                    "requestURI": {
+                                                                        "kind": "null"
+                                                                    },
+                                                                    "scheme": {
+                                                                        "kind": "null"
+                                                                    },
+                                                                    "servletPath": {
+                                                                        "kind": "null"
+                                                                    },
+                                                                    "locales": {
+                                                                        "kind": "null"
+                                                                    },
+                                                                    "parameters": {
+                                                                        "kind": "null"
+                                                                    },
+                                                                    "method": {
+                                                                        "kind": "null"
+                                                                    },
+                                                                    "queryString": {
+                                                                        "kind": "null"
+                                                                    },
+                                                                    "requestURL": {
+                                                                        "kind": "null"
+                                                                    },
+                                                                    "serverName": {
+                                                                        "kind": "null"
+                                                                    },
+                                                                    "serverPort": {
+                                                                        "kind": "int",
+                                                                        "value": 0
+                                                                    },
+                                                                    "matchingRequestParameterName": {
+                                                                        "kind": "null"
+                                                                    }
+                                                                },
+                                                                "id": 9
+                                                            },
+                                                            "args": []
+                                                        }
+                                                    ]
+                                                }
+                                            ],
+                                            "isSpy": false,
+                                            "id": 8
+                                        },
+                                        "args": []
+                                    }
+                                ]
+                            }
+                        ],
+                        "isSpy": false,
+                        "id": 7
+                    },
+                    {
+                        "kind": "mock",
+                        "typeName": "org.springframework.security.core.Authentication",
+                        "methods": [
+                            {
+                                "method": {
+                                    "methodName": "getPrincipal",
+                                    "fullName": "org.springframework.security.core.Authentication.getPrincipal()Ljava/lang/Object;",
+                                    "argumentsSize": 0,
+                                    "returnTypeName": "java.lang.Object",
+                                    "containingClass": "org.springframework.security.core.Authentication"
+                                },
+                                "calls": [
+                                    {
+                                        "result": {
+                                            "kind": "string",
+                                            "value": "userPrincipal"
+                                        },
+                                        "args": []
+                                    }
+                                ]
+                            }
+                        ],
+                        "isSpy": false,
+                        "id": 10
+                    }
+                ],
+                "returnValue": {
+                    "kind": "string",
+                    "value": "/index"
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "getRedirectPage",
+                    "fullName": "getRedirectPage(HttpServletRequest, Authentication)",
+                    "argumentsSize": 2,
+                    "returnTypeName": "String",
+                    "containingClass": "io.aiven.klaw.auth.KwAuthenticationSuccessHandler"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "io.aiven.klaw.auth.KwAuthenticationSuccessHandler",
+                    "fields": {
+                        "contextPath": {
+                            "kind": "null"
+                        },
+                        "quickStartEnabled": {
+                            "kind": "boolean",
+                            "value": false
+                        },
+                        "coralEnabled": {
+                            "kind": "boolean",
+                            "value": false
+                        },
+                        "preferredUsernameAttribute": {
+                            "kind": "null"
+                        },
+                        "emailAttribute": {
+                            "kind": "null"
+                        },
+                        "handleDbRequests": {
+                            "kind": "null"
+                        },
+                        "requestCache": {
+                            "kind": "object",
+                            "typeName": "org.springframework.security.web.savedrequest.HttpSessionRequestCache",
+                            "fields": {
+                                "portResolver": {
+                                    "kind": "object",
+                                    "typeName": "org.springframework.security.web.PortResolverImpl",
+                                    "fields": {
+                                        "portMapper": {
+                                            "kind": "object",
+                                            "typeName": "org.springframework.security.web.PortMapperImpl",
+                                            "fields": {
+                                                "httpsPortMappings": {
+                                                    "kind": "map",
+                                                    "isShallow": false,
+                                                    "size": 2,
+                                                    "elements": [
+                                                        {
+                                                            "key": {
+                                                                "kind": "int",
+                                                                "value": 80
+                                                            },
+                                                            "value": {
+                                                                "kind": "int",
+                                                                "value": 443
+                                                            }
+                                                        },
+                                                        {
+                                                            "key": {
+                                                                "kind": "int",
+                                                                "value": 8080
+                                                            },
+                                                            "value": {
+                                                                "kind": "int",
+                                                                "value": 8443
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                            },
+                                            "id": 3
+                                        }
+                                    },
+                                    "id": 2
+                                },
+                                "createSessionAllowed": {
+                                    "kind": "boolean",
+                                    "value": true
+                                },
+                                "requestMatcher": {
+                                    "kind": "object",
+                                    "typeName": "org.springframework.security.web.util.matcher.AnyRequestMatcher",
+                                    "fields": {},
+                                    "id": 4
+                                },
+                                "sessionAttrName": {
+                                    "kind": "string",
+                                    "value": "SPRING_SECURITY_SAVED_REQUEST"
+                                },
+                                "matchingRequestParameterName": {
+                                    "kind": "string",
+                                    "value": "continue"
+                                }
+                            },
+                            "id": 1
+                        },
+                        "targetUrlParameter": {
+                            "kind": "null"
+                        },
+                        "defaultTargetUrl": {
+                            "kind": "string",
+                            "value": "/"
+                        },
+                        "alwaysUseDefaultTargetUrl": {
+                            "kind": "boolean",
+                            "value": false
+                        },
+                        "useReferer": {
+                            "kind": "boolean",
+                            "value": false
+                        },
+                        "redirectStrategy": {
+                            "kind": "object",
+                            "typeName": "org.springframework.security.web.DefaultRedirectStrategy",
+                            "fields": {
+                                "contextRelative": {
+                                    "kind": "boolean",
+                                    "value": false
+                                },
+                                "statusCode": {
+                                    "kind": "enum",
+                                    "typeName": "org.springframework.http.HttpStatus",
+                                    "value": "FOUND"
+                                }
+                            },
+                            "id": 5
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "mock",
+                        "typeName": "jakarta.servlet.http.HttpServletRequest",
+                        "methods": [
+                            {
+                                "method": {
+                                    "methodName": "getSession",
+                                    "fullName": "jakarta.servlet.http.HttpServletRequest.getSession()Ljakarta/servlet/http/HttpSession;",
+                                    "argumentsSize": 0,
+                                    "returnTypeName": "jakarta.servlet.http.HttpSession",
+                                    "containingClass": "jakarta.servlet.http.HttpServletRequest"
+                                },
+                                "calls": [
+                                    {
+                                        "result": {
+                                            "kind": "mock",
+                                            "typeName": "jakarta.servlet.http.HttpSession",
+                                            "methods": [
+                                                {
+                                                    "method": {
+                                                        "methodName": "getAttribute",
+                                                        "fullName": "jakarta.servlet.http.HttpSession.getAttribute(Ljava/lang/String;)Ljava/lang/Object;",
+                                                        "argumentsSize": 1,
+                                                        "returnTypeName": "java.lang.Object",
+                                                        "containingClass": "jakarta.servlet.http.HttpSession"
+                                                    },
+                                                    "calls": [
+                                                        {
+                                                            "result": {
+                                                                "kind": "null"
+                                                            },
+                                                            "args": []
+                                                        }
+                                                    ]
+                                                }
+                                            ],
+                                            "isSpy": false,
+                                            "id": 7
+                                        },
+                                        "args": []
+                                    }
+                                ]
+                            }
+                        ],
+                        "isSpy": false,
+                        "id": 6
+                    },
+                    {
+                        "kind": "null"
+                    }
+                ],
+                "returnValue": {
+                    "kind": "string",
+                    "value": "index"
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "getRedirectPage",
+                    "fullName": "getRedirectPage(HttpServletRequest, Authentication)",
+                    "argumentsSize": 2,
+                    "returnTypeName": "String",
+                    "containingClass": "io.aiven.klaw.auth.KwAuthenticationSuccessHandler"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "io.aiven.klaw.auth.KwAuthenticationSuccessHandler",
+                    "fields": {
+                        "contextPath": {
+                            "kind": "null"
+                        },
+                        "quickStartEnabled": {
+                            "kind": "boolean",
+                            "value": false
+                        },
+                        "coralEnabled": {
+                            "kind": "boolean",
+                            "value": false
+                        },
+                        "preferredUsernameAttribute": {
+                            "kind": "null"
+                        },
+                        "emailAttribute": {
+                            "kind": "null"
+                        },
+                        "handleDbRequests": {
+                            "kind": "null"
+                        },
+                        "requestCache": {
+                            "kind": "object",
+                            "typeName": "org.springframework.security.web.savedrequest.HttpSessionRequestCache",
+                            "fields": {
+                                "portResolver": {
+                                    "kind": "object",
+                                    "typeName": "org.springframework.security.web.PortResolverImpl",
+                                    "fields": {
+                                        "portMapper": {
+                                            "kind": "object",
+                                            "typeName": "org.springframework.security.web.PortMapperImpl",
+                                            "fields": {
+                                                "httpsPortMappings": {
+                                                    "kind": "map",
+                                                    "isShallow": false,
+                                                    "size": 2,
+                                                    "elements": [
+                                                        {
+                                                            "key": {
+                                                                "kind": "int",
+                                                                "value": 80
+                                                            },
+                                                            "value": {
+                                                                "kind": "int",
+                                                                "value": 443
+                                                            }
+                                                        },
+                                                        {
+                                                            "key": {
+                                                                "kind": "int",
+                                                                "value": 8080
+                                                            },
+                                                            "value": {
+                                                                "kind": "int",
+                                                                "value": 8443
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                            },
+                                            "id": 3
+                                        }
+                                    },
+                                    "id": 2
+                                },
+                                "createSessionAllowed": {
+                                    "kind": "boolean",
+                                    "value": true
+                                },
+                                "requestMatcher": {
+                                    "kind": "object",
+                                    "typeName": "org.springframework.security.web.util.matcher.AnyRequestMatcher",
+                                    "fields": {},
+                                    "id": 4
+                                },
+                                "sessionAttrName": {
+                                    "kind": "string",
+                                    "value": "SPRING_SECURITY_SAVED_REQUEST"
+                                },
+                                "matchingRequestParameterName": {
+                                    "kind": "string",
+                                    "value": "continue"
+                                }
+                            },
+                            "id": 1
+                        },
+                        "targetUrlParameter": {
+                            "kind": "null"
+                        },
+                        "defaultTargetUrl": {
+                            "kind": "string",
+                            "value": "/"
+                        },
+                        "alwaysUseDefaultTargetUrl": {
+                            "kind": "boolean",
+                            "value": false
+                        },
+                        "useReferer": {
+                            "kind": "boolean",
+                            "value": false
+                        },
+                        "redirectStrategy": {
+                            "kind": "object",
+                            "typeName": "org.springframework.security.web.DefaultRedirectStrategy",
+                            "fields": {
+                                "contextRelative": {
+                                    "kind": "boolean",
+                                    "value": false
+                                },
+                                "statusCode": {
+                                    "kind": "enum",
+                                    "typeName": "org.springframework.http.HttpStatus",
+                                    "value": "FOUND"
+                                }
+                            },
+                            "id": 5
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "mock",
+                        "typeName": "jakarta.servlet.http.HttpServletRequest",
+                        "methods": [
+                            {
+                                "method": {
+                                    "methodName": "getSession",
+                                    "fullName": "jakarta.servlet.http.HttpServletRequest.getSession()Ljakarta/servlet/http/HttpSession;",
+                                    "argumentsSize": 0,
+                                    "returnTypeName": "jakarta.servlet.http.HttpSession",
+                                    "containingClass": "jakarta.servlet.http.HttpServletRequest"
+                                },
+                                "calls": [
+                                    {
+                                        "result": {
+                                            "kind": "mock",
+                                            "typeName": "jakarta.servlet.http.HttpSession",
+                                            "methods": [
+                                                {
+                                                    "method": {
+                                                        "methodName": "getAttribute",
+                                                        "fullName": "jakarta.servlet.http.HttpSession.getAttribute(Ljava/lang/String;)Ljava/lang/Object;",
+                                                        "argumentsSize": 1,
+                                                        "returnTypeName": "java.lang.Object",
+                                                        "containingClass": "jakarta.servlet.http.HttpSession"
+                                                    },
+                                                    "calls": [
+                                                        {
+                                                            "result": {
+                                                                "kind": "object",
+                                                                "typeName": "org.springframework.security.web.savedrequest.DefaultSavedRequest",
+                                                                "fields": {
+                                                                    "cookies": {
+                                                                        "kind": "null"
+                                                                    },
+                                                                    "headers": {
+                                                                        "kind": "null"
+                                                                    },
+                                                                    "contextPath": {
+                                                                        "kind": "null"
+                                                                    },
+                                                                    "pathInfo": {
+                                                                        "kind": "null"
+                                                                    },
+                                                                    "requestURI": {
+                                                                        "kind": "null"
+                                                                    },
+                                                                    "scheme": {
+                                                                        "kind": "null"
+                                                                    },
+                                                                    "servletPath": {
+                                                                        "kind": "null"
+                                                                    },
+                                                                    "locales": {
+                                                                        "kind": "null"
+                                                                    },
+                                                                    "parameters": {
+                                                                        "kind": "null"
+                                                                    },
+                                                                    "method": {
+                                                                        "kind": "null"
+                                                                    },
+                                                                    "queryString": {
+                                                                        "kind": "null"
+                                                                    },
+                                                                    "requestURL": {
+                                                                        "kind": "null"
+                                                                    },
+                                                                    "serverName": {
+                                                                        "kind": "null"
+                                                                    },
+                                                                    "serverPort": {
+                                                                        "kind": "int",
+                                                                        "value": 0
+                                                                    },
+                                                                    "matchingRequestParameterName": {
+                                                                        "kind": "null"
+                                                                    }
+                                                                },
+                                                                "id": 8
+                                                            },
+                                                            "args": []
+                                                        }
+                                                    ]
+                                                }
+                                            ],
+                                            "isSpy": false,
+                                            "id": 7
+                                        },
+                                        "args": []
+                                    }
+                                ]
+                            }
+                        ],
+                        "isSpy": false,
+                        "id": 6
+                    },
+                    {
+                        "kind": "null"
+                    }
+                ],
+                "returnValue": {
+                    "kind": "string",
+                    "value": "/"
+                }
+            }
+        ]
+    }
+]

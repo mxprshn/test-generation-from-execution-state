@@ -1,0 +1,1873 @@
+[
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "hasClass",
+                    "fullName": "hasClass(String)",
+                    "argumentsSize": 1,
+                    "returnTypeName": "boolean",
+                    "containingClass": "org.jsoup.nodes.Element"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "org.jsoup.nodes.Element",
+                    "fields": {
+                        "tag": {
+                            "kind": "object",
+                            "typeName": "org.jsoup.parser.Tag",
+                            "fields": {
+                                "RcData": {
+                                    "kind": "int",
+                                    "value": 128
+                                },
+                                "Data": {
+                                    "kind": "int",
+                                    "value": 256
+                                },
+                                "TextBoundary": {
+                                    "kind": "int",
+                                    "value": 1024
+                                },
+                                "tagName": {
+                                    "kind": "string",
+                                    "value": "p"
+                                },
+                                "parserOptions": {
+                                    "kind": "int",
+                                    "value": 224
+                                },
+                                "Known": {
+                                    "kind": "int",
+                                    "value": 1
+                                },
+                                "Void": {
+                                    "kind": "int",
+                                    "value": 2
+                                },
+                                "Block": {
+                                    "kind": "int",
+                                    "value": 4
+                                },
+                                "InlineContainer": {
+                                    "kind": "int",
+                                    "value": 8
+                                },
+                                "SelfClose": {
+                                    "kind": "int",
+                                    "value": 16
+                                },
+                                "SeenSelfClose": {
+                                    "kind": "int",
+                                    "value": 32
+                                },
+                                "PreserveWhitespace": {
+                                    "kind": "int",
+                                    "value": 64
+                                },
+                                "FormSubmittable": {
+                                    "kind": "int",
+                                    "value": 512
+                                },
+                                "namespace": {
+                                    "kind": "string",
+                                    "value": "http://www.w3.org/1999/xhtml"
+                                },
+                                "normalName": {
+                                    "kind": "string",
+                                    "value": "p"
+                                },
+                                "options": {
+                                    "kind": "int",
+                                    "value": 13
+                                }
+                            },
+                            "id": 1
+                        },
+                        "childNodes": {
+                            "kind": "list",
+                            "isShallow": false,
+                            "size": 0,
+                            "elements": []
+                        },
+                        "attributes": {
+                            "kind": "object",
+                            "typeName": "org.jsoup.nodes.Attributes",
+                            "fields": {
+                                "size": {
+                                    "kind": "int",
+                                    "value": 2
+                                },
+                                "keys": {
+                                    "kind": "array",
+                                    "isShallow": false,
+                                    "size": 3,
+                                    "elements": [
+                                        {
+                                            "kind": "string",
+                                            "value": "id"
+                                        },
+                                        {
+                                            "kind": "string",
+                                            "value": "class"
+                                        },
+                                        {
+                                            "kind": "null"
+                                        }
+                                    ]
+                                },
+                                "vals": {
+                                    "kind": "array",
+                                    "isShallow": false,
+                                    "size": 3,
+                                    "elements": [
+                                        {
+                                            "kind": "string",
+                                            "value": "0"
+                                        },
+                                        {
+                                            "kind": "string",
+                                            "value": "ONE two"
+                                        },
+                                        {
+                                            "kind": "null"
+                                        }
+                                    ]
+                                }
+                            },
+                            "id": 2
+                        },
+                        "parentNode": {
+                            "kind": "mock",
+                            "typeName": "org.jsoup.nodes.Element",
+                            "methods": [],
+                            "isSpy": false,
+                            "id": 3
+                        },
+                        "siblingIndex": {
+                            "kind": "int",
+                            "value": 0
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "string",
+                        "value": "One"
+                    }
+                ],
+                "returnValue": {
+                    "kind": "boolean",
+                    "value": true
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "hasClass",
+                    "fullName": "hasClass(String)",
+                    "argumentsSize": 1,
+                    "returnTypeName": "boolean",
+                    "containingClass": "org.jsoup.nodes.Element"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "org.jsoup.nodes.Element",
+                    "fields": {
+                        "tag": {
+                            "kind": "object",
+                            "typeName": "org.jsoup.parser.Tag",
+                            "fields": {
+                                "RcData": {
+                                    "kind": "int",
+                                    "value": 128
+                                },
+                                "Data": {
+                                    "kind": "int",
+                                    "value": 256
+                                },
+                                "TextBoundary": {
+                                    "kind": "int",
+                                    "value": 1024
+                                },
+                                "tagName": {
+                                    "kind": "string",
+                                    "value": "p"
+                                },
+                                "parserOptions": {
+                                    "kind": "int",
+                                    "value": 224
+                                },
+                                "Known": {
+                                    "kind": "int",
+                                    "value": 1
+                                },
+                                "Void": {
+                                    "kind": "int",
+                                    "value": 2
+                                },
+                                "Block": {
+                                    "kind": "int",
+                                    "value": 4
+                                },
+                                "InlineContainer": {
+                                    "kind": "int",
+                                    "value": 8
+                                },
+                                "SelfClose": {
+                                    "kind": "int",
+                                    "value": 16
+                                },
+                                "SeenSelfClose": {
+                                    "kind": "int",
+                                    "value": 32
+                                },
+                                "PreserveWhitespace": {
+                                    "kind": "int",
+                                    "value": 64
+                                },
+                                "FormSubmittable": {
+                                    "kind": "int",
+                                    "value": 512
+                                },
+                                "namespace": {
+                                    "kind": "string",
+                                    "value": "http://www.w3.org/1999/xhtml"
+                                },
+                                "normalName": {
+                                    "kind": "string",
+                                    "value": "p"
+                                },
+                                "options": {
+                                    "kind": "int",
+                                    "value": 13
+                                }
+                            },
+                            "id": 1
+                        },
+                        "childNodes": {
+                            "kind": "list",
+                            "isShallow": false,
+                            "size": 0,
+                            "elements": []
+                        },
+                        "attributes": {
+                            "kind": "object",
+                            "typeName": "org.jsoup.nodes.Attributes",
+                            "fields": {
+                                "size": {
+                                    "kind": "int",
+                                    "value": 2
+                                },
+                                "keys": {
+                                    "kind": "array",
+                                    "isShallow": false,
+                                    "size": 3,
+                                    "elements": [
+                                        {
+                                            "kind": "string",
+                                            "value": "id"
+                                        },
+                                        {
+                                            "kind": "string",
+                                            "value": "class"
+                                        },
+                                        {
+                                            "kind": "null"
+                                        }
+                                    ]
+                                },
+                                "vals": {
+                                    "kind": "array",
+                                    "isShallow": false,
+                                    "size": 3,
+                                    "elements": [
+                                        {
+                                            "kind": "string",
+                                            "value": "1"
+                                        },
+                                        {
+                                            "kind": "string",
+                                            "value": "one"
+                                        },
+                                        {
+                                            "kind": "null"
+                                        }
+                                    ]
+                                }
+                            },
+                            "id": 2
+                        },
+                        "parentNode": {
+                            "kind": "mock",
+                            "typeName": "org.jsoup.nodes.Element",
+                            "methods": [],
+                            "isSpy": false,
+                            "id": 3
+                        },
+                        "siblingIndex": {
+                            "kind": "int",
+                            "value": 1
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "string",
+                        "value": "One"
+                    }
+                ],
+                "returnValue": {
+                    "kind": "boolean",
+                    "value": true
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "hasClass",
+                    "fullName": "hasClass(String)",
+                    "argumentsSize": 1,
+                    "returnTypeName": "boolean",
+                    "containingClass": "org.jsoup.nodes.Element"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "org.jsoup.nodes.Element",
+                    "fields": {
+                        "tag": {
+                            "kind": "object",
+                            "typeName": "org.jsoup.parser.Tag",
+                            "fields": {
+                                "RcData": {
+                                    "kind": "int",
+                                    "value": 128
+                                },
+                                "Data": {
+                                    "kind": "int",
+                                    "value": 256
+                                },
+                                "TextBoundary": {
+                                    "kind": "int",
+                                    "value": 1024
+                                },
+                                "tagName": {
+                                    "kind": "string",
+                                    "value": "p"
+                                },
+                                "parserOptions": {
+                                    "kind": "int",
+                                    "value": 224
+                                },
+                                "Known": {
+                                    "kind": "int",
+                                    "value": 1
+                                },
+                                "Void": {
+                                    "kind": "int",
+                                    "value": 2
+                                },
+                                "Block": {
+                                    "kind": "int",
+                                    "value": 4
+                                },
+                                "InlineContainer": {
+                                    "kind": "int",
+                                    "value": 8
+                                },
+                                "SelfClose": {
+                                    "kind": "int",
+                                    "value": 16
+                                },
+                                "SeenSelfClose": {
+                                    "kind": "int",
+                                    "value": 32
+                                },
+                                "PreserveWhitespace": {
+                                    "kind": "int",
+                                    "value": 64
+                                },
+                                "FormSubmittable": {
+                                    "kind": "int",
+                                    "value": 512
+                                },
+                                "namespace": {
+                                    "kind": "string",
+                                    "value": "http://www.w3.org/1999/xhtml"
+                                },
+                                "normalName": {
+                                    "kind": "string",
+                                    "value": "p"
+                                },
+                                "options": {
+                                    "kind": "int",
+                                    "value": 13
+                                }
+                            },
+                            "id": 1
+                        },
+                        "childNodes": {
+                            "kind": "list",
+                            "isShallow": false,
+                            "size": 0,
+                            "elements": []
+                        },
+                        "attributes": {
+                            "kind": "object",
+                            "typeName": "org.jsoup.nodes.Attributes",
+                            "fields": {
+                                "size": {
+                                    "kind": "int",
+                                    "value": 2
+                                },
+                                "keys": {
+                                    "kind": "array",
+                                    "isShallow": false,
+                                    "size": 3,
+                                    "elements": [
+                                        {
+                                            "kind": "string",
+                                            "value": "id"
+                                        },
+                                        {
+                                            "kind": "string",
+                                            "value": "class"
+                                        },
+                                        {
+                                            "kind": "null"
+                                        }
+                                    ]
+                                },
+                                "vals": {
+                                    "kind": "array",
+                                    "isShallow": false,
+                                    "size": 3,
+                                    "elements": [
+                                        {
+                                            "kind": "string",
+                                            "value": "2"
+                                        },
+                                        {
+                                            "kind": "string",
+                                            "value": "two"
+                                        },
+                                        {
+                                            "kind": "null"
+                                        }
+                                    ]
+                                }
+                            },
+                            "id": 2
+                        },
+                        "parentNode": {
+                            "kind": "mock",
+                            "typeName": "org.jsoup.nodes.Element",
+                            "methods": [],
+                            "isSpy": false,
+                            "id": 3
+                        },
+                        "siblingIndex": {
+                            "kind": "int",
+                            "value": 2
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "string",
+                        "value": "One"
+                    }
+                ],
+                "returnValue": {
+                    "kind": "boolean",
+                    "value": false
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "hasClass",
+                    "fullName": "hasClass(String)",
+                    "argumentsSize": 1,
+                    "returnTypeName": "boolean",
+                    "containingClass": "org.jsoup.nodes.Element"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "org.jsoup.nodes.Document",
+                    "fields": {
+                        "tag": {
+                            "kind": "object",
+                            "typeName": "org.jsoup.parser.Tag",
+                            "fields": {
+                                "RcData": {
+                                    "kind": "int",
+                                    "value": 128
+                                },
+                                "Data": {
+                                    "kind": "int",
+                                    "value": 256
+                                },
+                                "TextBoundary": {
+                                    "kind": "int",
+                                    "value": 1024
+                                },
+                                "tagName": {
+                                    "kind": "string",
+                                    "value": "#root"
+                                },
+                                "parserOptions": {
+                                    "kind": "int",
+                                    "value": 0
+                                },
+                                "Known": {
+                                    "kind": "int",
+                                    "value": 1
+                                },
+                                "Void": {
+                                    "kind": "int",
+                                    "value": 2
+                                },
+                                "Block": {
+                                    "kind": "int",
+                                    "value": 4
+                                },
+                                "InlineContainer": {
+                                    "kind": "int",
+                                    "value": 8
+                                },
+                                "SelfClose": {
+                                    "kind": "int",
+                                    "value": 16
+                                },
+                                "SeenSelfClose": {
+                                    "kind": "int",
+                                    "value": 32
+                                },
+                                "PreserveWhitespace": {
+                                    "kind": "int",
+                                    "value": 64
+                                },
+                                "FormSubmittable": {
+                                    "kind": "int",
+                                    "value": 512
+                                },
+                                "namespace": {
+                                    "kind": "string",
+                                    "value": "http://www.w3.org/1999/xhtml"
+                                },
+                                "normalName": {
+                                    "kind": "string",
+                                    "value": "#root"
+                                },
+                                "options": {
+                                    "kind": "int",
+                                    "value": 0
+                                }
+                            },
+                            "id": 1
+                        },
+                        "childNodes": {
+                            "kind": "list",
+                            "isShallow": false,
+                            "size": 1,
+                            "elements": [
+                                {
+                                    "kind": "mock",
+                                    "typeName": "org.jsoup.nodes.Element",
+                                    "methods": [],
+                                    "isSpy": false,
+                                    "id": 2
+                                }
+                            ]
+                        },
+                        "attributes": {
+                            "kind": "null"
+                        },
+                        "parentNode": {
+                            "kind": "null"
+                        },
+                        "siblingIndex": {
+                            "kind": "int",
+                            "value": 0
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "string",
+                        "value": "foo"
+                    }
+                ],
+                "returnValue": {
+                    "kind": "boolean",
+                    "value": false
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "hasClass",
+                    "fullName": "hasClass(String)",
+                    "argumentsSize": 1,
+                    "returnTypeName": "boolean",
+                    "containingClass": "org.jsoup.nodes.Element"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "org.jsoup.nodes.Element",
+                    "fields": {
+                        "tag": {
+                            "kind": "object",
+                            "typeName": "org.jsoup.parser.Tag",
+                            "fields": {
+                                "RcData": {
+                                    "kind": "int",
+                                    "value": 128
+                                },
+                                "Data": {
+                                    "kind": "int",
+                                    "value": 256
+                                },
+                                "TextBoundary": {
+                                    "kind": "int",
+                                    "value": 1024
+                                },
+                                "tagName": {
+                                    "kind": "string",
+                                    "value": "html"
+                                },
+                                "parserOptions": {
+                                    "kind": "int",
+                                    "value": 137
+                                },
+                                "Known": {
+                                    "kind": "int",
+                                    "value": 1
+                                },
+                                "Void": {
+                                    "kind": "int",
+                                    "value": 2
+                                },
+                                "Block": {
+                                    "kind": "int",
+                                    "value": 4
+                                },
+                                "InlineContainer": {
+                                    "kind": "int",
+                                    "value": 8
+                                },
+                                "SelfClose": {
+                                    "kind": "int",
+                                    "value": 16
+                                },
+                                "SeenSelfClose": {
+                                    "kind": "int",
+                                    "value": 32
+                                },
+                                "PreserveWhitespace": {
+                                    "kind": "int",
+                                    "value": 64
+                                },
+                                "FormSubmittable": {
+                                    "kind": "int",
+                                    "value": 512
+                                },
+                                "namespace": {
+                                    "kind": "string",
+                                    "value": "http://www.w3.org/1999/xhtml"
+                                },
+                                "normalName": {
+                                    "kind": "string",
+                                    "value": "html"
+                                },
+                                "options": {
+                                    "kind": "int",
+                                    "value": 5
+                                }
+                            },
+                            "id": 1
+                        },
+                        "childNodes": {
+                            "kind": "list",
+                            "isShallow": false,
+                            "size": 2,
+                            "elements": [
+                                {
+                                    "kind": "mock",
+                                    "typeName": "org.jsoup.nodes.Element",
+                                    "methods": [],
+                                    "isSpy": false,
+                                    "id": 2
+                                },
+                                {
+                                    "kind": "mock",
+                                    "typeName": "org.jsoup.nodes.Element",
+                                    "methods": [],
+                                    "isSpy": false,
+                                    "id": 3
+                                }
+                            ]
+                        },
+                        "attributes": {
+                            "kind": "null"
+                        },
+                        "parentNode": {
+                            "kind": "mock",
+                            "typeName": "org.jsoup.nodes.Document",
+                            "methods": [],
+                            "isSpy": false,
+                            "id": 4
+                        },
+                        "siblingIndex": {
+                            "kind": "int",
+                            "value": 0
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "string",
+                        "value": "foo"
+                    }
+                ],
+                "returnValue": {
+                    "kind": "boolean",
+                    "value": false
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "hasClass",
+                    "fullName": "hasClass(String)",
+                    "argumentsSize": 1,
+                    "returnTypeName": "boolean",
+                    "containingClass": "org.jsoup.nodes.Element"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "org.jsoup.nodes.Element",
+                    "fields": {
+                        "tag": {
+                            "kind": "object",
+                            "typeName": "org.jsoup.parser.Tag",
+                            "fields": {
+                                "RcData": {
+                                    "kind": "int",
+                                    "value": 128
+                                },
+                                "Data": {
+                                    "kind": "int",
+                                    "value": 256
+                                },
+                                "TextBoundary": {
+                                    "kind": "int",
+                                    "value": 1024
+                                },
+                                "tagName": {
+                                    "kind": "string",
+                                    "value": "head"
+                                },
+                                "parserOptions": {
+                                    "kind": "int",
+                                    "value": 128
+                                },
+                                "Known": {
+                                    "kind": "int",
+                                    "value": 1
+                                },
+                                "Void": {
+                                    "kind": "int",
+                                    "value": 2
+                                },
+                                "Block": {
+                                    "kind": "int",
+                                    "value": 4
+                                },
+                                "InlineContainer": {
+                                    "kind": "int",
+                                    "value": 8
+                                },
+                                "SelfClose": {
+                                    "kind": "int",
+                                    "value": 16
+                                },
+                                "SeenSelfClose": {
+                                    "kind": "int",
+                                    "value": 32
+                                },
+                                "PreserveWhitespace": {
+                                    "kind": "int",
+                                    "value": 64
+                                },
+                                "FormSubmittable": {
+                                    "kind": "int",
+                                    "value": 512
+                                },
+                                "namespace": {
+                                    "kind": "string",
+                                    "value": "http://www.w3.org/1999/xhtml"
+                                },
+                                "normalName": {
+                                    "kind": "string",
+                                    "value": "head"
+                                },
+                                "options": {
+                                    "kind": "int",
+                                    "value": 5
+                                }
+                            },
+                            "id": 1
+                        },
+                        "childNodes": {
+                            "kind": "list",
+                            "isShallow": false,
+                            "size": 0,
+                            "elements": []
+                        },
+                        "attributes": {
+                            "kind": "null"
+                        },
+                        "parentNode": {
+                            "kind": "mock",
+                            "typeName": "org.jsoup.nodes.Element",
+                            "methods": [],
+                            "isSpy": false,
+                            "id": 2
+                        },
+                        "siblingIndex": {
+                            "kind": "int",
+                            "value": 0
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "string",
+                        "value": "foo"
+                    }
+                ],
+                "returnValue": {
+                    "kind": "boolean",
+                    "value": false
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "hasClass",
+                    "fullName": "hasClass(String)",
+                    "argumentsSize": 1,
+                    "returnTypeName": "boolean",
+                    "containingClass": "org.jsoup.nodes.Element"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "org.jsoup.nodes.Element",
+                    "fields": {
+                        "tag": {
+                            "kind": "object",
+                            "typeName": "org.jsoup.parser.Tag",
+                            "fields": {
+                                "RcData": {
+                                    "kind": "int",
+                                    "value": 128
+                                },
+                                "Data": {
+                                    "kind": "int",
+                                    "value": 256
+                                },
+                                "TextBoundary": {
+                                    "kind": "int",
+                                    "value": 1024
+                                },
+                                "tagName": {
+                                    "kind": "string",
+                                    "value": "body"
+                                },
+                                "parserOptions": {
+                                    "kind": "int",
+                                    "value": 128
+                                },
+                                "Known": {
+                                    "kind": "int",
+                                    "value": 1
+                                },
+                                "Void": {
+                                    "kind": "int",
+                                    "value": 2
+                                },
+                                "Block": {
+                                    "kind": "int",
+                                    "value": 4
+                                },
+                                "InlineContainer": {
+                                    "kind": "int",
+                                    "value": 8
+                                },
+                                "SelfClose": {
+                                    "kind": "int",
+                                    "value": 16
+                                },
+                                "SeenSelfClose": {
+                                    "kind": "int",
+                                    "value": 32
+                                },
+                                "PreserveWhitespace": {
+                                    "kind": "int",
+                                    "value": 64
+                                },
+                                "FormSubmittable": {
+                                    "kind": "int",
+                                    "value": 512
+                                },
+                                "namespace": {
+                                    "kind": "string",
+                                    "value": "http://www.w3.org/1999/xhtml"
+                                },
+                                "normalName": {
+                                    "kind": "string",
+                                    "value": "body"
+                                },
+                                "options": {
+                                    "kind": "int",
+                                    "value": 5
+                                }
+                            },
+                            "id": 1
+                        },
+                        "childNodes": {
+                            "kind": "list",
+                            "isShallow": false,
+                            "size": 1,
+                            "elements": [
+                                {
+                                    "kind": "mock",
+                                    "typeName": "org.jsoup.nodes.Element",
+                                    "methods": [],
+                                    "isSpy": false,
+                                    "id": 2
+                                }
+                            ]
+                        },
+                        "attributes": {
+                            "kind": "null"
+                        },
+                        "parentNode": {
+                            "kind": "mock",
+                            "typeName": "org.jsoup.nodes.Element",
+                            "methods": [],
+                            "isSpy": false,
+                            "id": 3
+                        },
+                        "siblingIndex": {
+                            "kind": "int",
+                            "value": 1
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "string",
+                        "value": "foo"
+                    }
+                ],
+                "returnValue": {
+                    "kind": "boolean",
+                    "value": false
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "hasClass",
+                    "fullName": "hasClass(String)",
+                    "argumentsSize": 1,
+                    "returnTypeName": "boolean",
+                    "containingClass": "org.jsoup.nodes.Element"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "org.jsoup.nodes.Element",
+                    "fields": {
+                        "tag": {
+                            "kind": "object",
+                            "typeName": "org.jsoup.parser.Tag",
+                            "fields": {
+                                "RcData": {
+                                    "kind": "int",
+                                    "value": 128
+                                },
+                                "Data": {
+                                    "kind": "int",
+                                    "value": 256
+                                },
+                                "TextBoundary": {
+                                    "kind": "int",
+                                    "value": 1024
+                                },
+                                "tagName": {
+                                    "kind": "string",
+                                    "value": "div"
+                                },
+                                "parserOptions": {
+                                    "kind": "int",
+                                    "value": 128
+                                },
+                                "Known": {
+                                    "kind": "int",
+                                    "value": 1
+                                },
+                                "Void": {
+                                    "kind": "int",
+                                    "value": 2
+                                },
+                                "Block": {
+                                    "kind": "int",
+                                    "value": 4
+                                },
+                                "InlineContainer": {
+                                    "kind": "int",
+                                    "value": 8
+                                },
+                                "SelfClose": {
+                                    "kind": "int",
+                                    "value": 16
+                                },
+                                "SeenSelfClose": {
+                                    "kind": "int",
+                                    "value": 32
+                                },
+                                "PreserveWhitespace": {
+                                    "kind": "int",
+                                    "value": 64
+                                },
+                                "FormSubmittable": {
+                                    "kind": "int",
+                                    "value": 512
+                                },
+                                "namespace": {
+                                    "kind": "string",
+                                    "value": "http://www.w3.org/1999/xhtml"
+                                },
+                                "normalName": {
+                                    "kind": "string",
+                                    "value": "div"
+                                },
+                                "options": {
+                                    "kind": "int",
+                                    "value": 5
+                                }
+                            },
+                            "id": 1
+                        },
+                        "childNodes": {
+                            "kind": "list",
+                            "isShallow": false,
+                            "size": 0,
+                            "elements": []
+                        },
+                        "attributes": {
+                            "kind": "object",
+                            "typeName": "org.jsoup.nodes.Attributes",
+                            "fields": {
+                                "size": {
+                                    "kind": "int",
+                                    "value": 1
+                                },
+                                "keys": {
+                                    "kind": "array",
+                                    "isShallow": false,
+                                    "size": 3,
+                                    "elements": [
+                                        {
+                                            "kind": "string",
+                                            "value": "class"
+                                        },
+                                        {
+                                            "kind": "null"
+                                        },
+                                        {
+                                            "kind": "null"
+                                        }
+                                    ]
+                                },
+                                "vals": {
+                                    "kind": "array",
+                                    "isShallow": false,
+                                    "size": 3,
+                                    "elements": [
+                                        {
+                                            "kind": "string",
+                                            "value": "one"
+                                        },
+                                        {
+                                            "kind": "null"
+                                        },
+                                        {
+                                            "kind": "null"
+                                        }
+                                    ]
+                                }
+                            },
+                            "id": 2
+                        },
+                        "parentNode": {
+                            "kind": "mock",
+                            "typeName": "org.jsoup.nodes.Element",
+                            "methods": [],
+                            "isSpy": false,
+                            "id": 3
+                        },
+                        "siblingIndex": {
+                            "kind": "int",
+                            "value": 0
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "string",
+                        "value": "foo"
+                    }
+                ],
+                "returnValue": {
+                    "kind": "boolean",
+                    "value": false
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "hasClass",
+                    "fullName": "hasClass(String)",
+                    "argumentsSize": 1,
+                    "returnTypeName": "boolean",
+                    "containingClass": "org.jsoup.nodes.Element"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "org.jsoup.nodes.Document",
+                    "fields": {
+                        "tag": {
+                            "kind": "object",
+                            "typeName": "org.jsoup.parser.Tag",
+                            "fields": {
+                                "RcData": {
+                                    "kind": "int",
+                                    "value": 128
+                                },
+                                "Data": {
+                                    "kind": "int",
+                                    "value": 256
+                                },
+                                "TextBoundary": {
+                                    "kind": "int",
+                                    "value": 1024
+                                },
+                                "tagName": {
+                                    "kind": "string",
+                                    "value": "#root"
+                                },
+                                "parserOptions": {
+                                    "kind": "int",
+                                    "value": 0
+                                },
+                                "Known": {
+                                    "kind": "int",
+                                    "value": 1
+                                },
+                                "Void": {
+                                    "kind": "int",
+                                    "value": 2
+                                },
+                                "Block": {
+                                    "kind": "int",
+                                    "value": 4
+                                },
+                                "InlineContainer": {
+                                    "kind": "int",
+                                    "value": 8
+                                },
+                                "SelfClose": {
+                                    "kind": "int",
+                                    "value": 16
+                                },
+                                "SeenSelfClose": {
+                                    "kind": "int",
+                                    "value": 32
+                                },
+                                "PreserveWhitespace": {
+                                    "kind": "int",
+                                    "value": 64
+                                },
+                                "FormSubmittable": {
+                                    "kind": "int",
+                                    "value": 512
+                                },
+                                "namespace": {
+                                    "kind": "string",
+                                    "value": "http://www.w3.org/1999/xhtml"
+                                },
+                                "normalName": {
+                                    "kind": "string",
+                                    "value": "#root"
+                                },
+                                "options": {
+                                    "kind": "int",
+                                    "value": 0
+                                }
+                            },
+                            "id": 1
+                        },
+                        "childNodes": {
+                            "kind": "list",
+                            "isShallow": false,
+                            "size": 1,
+                            "elements": [
+                                {
+                                    "kind": "mock",
+                                    "typeName": "org.jsoup.nodes.Element",
+                                    "methods": [],
+                                    "isSpy": false,
+                                    "id": 2
+                                }
+                            ]
+                        },
+                        "attributes": {
+                            "kind": "null"
+                        },
+                        "parentNode": {
+                            "kind": "null"
+                        },
+                        "siblingIndex": {
+                            "kind": "int",
+                            "value": 0
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "string",
+                        "value": "one-two"
+                    }
+                ],
+                "returnValue": {
+                    "kind": "boolean",
+                    "value": false
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "hasClass",
+                    "fullName": "hasClass(String)",
+                    "argumentsSize": 1,
+                    "returnTypeName": "boolean",
+                    "containingClass": "org.jsoup.nodes.Element"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "org.jsoup.nodes.Element",
+                    "fields": {
+                        "tag": {
+                            "kind": "object",
+                            "typeName": "org.jsoup.parser.Tag",
+                            "fields": {
+                                "RcData": {
+                                    "kind": "int",
+                                    "value": 128
+                                },
+                                "Data": {
+                                    "kind": "int",
+                                    "value": 256
+                                },
+                                "TextBoundary": {
+                                    "kind": "int",
+                                    "value": 1024
+                                },
+                                "tagName": {
+                                    "kind": "string",
+                                    "value": "html"
+                                },
+                                "parserOptions": {
+                                    "kind": "int",
+                                    "value": 137
+                                },
+                                "Known": {
+                                    "kind": "int",
+                                    "value": 1
+                                },
+                                "Void": {
+                                    "kind": "int",
+                                    "value": 2
+                                },
+                                "Block": {
+                                    "kind": "int",
+                                    "value": 4
+                                },
+                                "InlineContainer": {
+                                    "kind": "int",
+                                    "value": 8
+                                },
+                                "SelfClose": {
+                                    "kind": "int",
+                                    "value": 16
+                                },
+                                "SeenSelfClose": {
+                                    "kind": "int",
+                                    "value": 32
+                                },
+                                "PreserveWhitespace": {
+                                    "kind": "int",
+                                    "value": 64
+                                },
+                                "FormSubmittable": {
+                                    "kind": "int",
+                                    "value": 512
+                                },
+                                "namespace": {
+                                    "kind": "string",
+                                    "value": "http://www.w3.org/1999/xhtml"
+                                },
+                                "normalName": {
+                                    "kind": "string",
+                                    "value": "html"
+                                },
+                                "options": {
+                                    "kind": "int",
+                                    "value": 5
+                                }
+                            },
+                            "id": 1
+                        },
+                        "childNodes": {
+                            "kind": "list",
+                            "isShallow": false,
+                            "size": 2,
+                            "elements": [
+                                {
+                                    "kind": "mock",
+                                    "typeName": "org.jsoup.nodes.Element",
+                                    "methods": [],
+                                    "isSpy": false,
+                                    "id": 2
+                                },
+                                {
+                                    "kind": "mock",
+                                    "typeName": "org.jsoup.nodes.Element",
+                                    "methods": [],
+                                    "isSpy": false,
+                                    "id": 3
+                                }
+                            ]
+                        },
+                        "attributes": {
+                            "kind": "null"
+                        },
+                        "parentNode": {
+                            "kind": "mock",
+                            "typeName": "org.jsoup.nodes.Document",
+                            "methods": [],
+                            "isSpy": false,
+                            "id": 4
+                        },
+                        "siblingIndex": {
+                            "kind": "int",
+                            "value": 0
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "string",
+                        "value": "one-two"
+                    }
+                ],
+                "returnValue": {
+                    "kind": "boolean",
+                    "value": false
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "hasClass",
+                    "fullName": "hasClass(String)",
+                    "argumentsSize": 1,
+                    "returnTypeName": "boolean",
+                    "containingClass": "org.jsoup.nodes.Element"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "org.jsoup.nodes.Element",
+                    "fields": {
+                        "tag": {
+                            "kind": "object",
+                            "typeName": "org.jsoup.parser.Tag",
+                            "fields": {
+                                "RcData": {
+                                    "kind": "int",
+                                    "value": 128
+                                },
+                                "Data": {
+                                    "kind": "int",
+                                    "value": 256
+                                },
+                                "TextBoundary": {
+                                    "kind": "int",
+                                    "value": 1024
+                                },
+                                "tagName": {
+                                    "kind": "string",
+                                    "value": "head"
+                                },
+                                "parserOptions": {
+                                    "kind": "int",
+                                    "value": 128
+                                },
+                                "Known": {
+                                    "kind": "int",
+                                    "value": 1
+                                },
+                                "Void": {
+                                    "kind": "int",
+                                    "value": 2
+                                },
+                                "Block": {
+                                    "kind": "int",
+                                    "value": 4
+                                },
+                                "InlineContainer": {
+                                    "kind": "int",
+                                    "value": 8
+                                },
+                                "SelfClose": {
+                                    "kind": "int",
+                                    "value": 16
+                                },
+                                "SeenSelfClose": {
+                                    "kind": "int",
+                                    "value": 32
+                                },
+                                "PreserveWhitespace": {
+                                    "kind": "int",
+                                    "value": 64
+                                },
+                                "FormSubmittable": {
+                                    "kind": "int",
+                                    "value": 512
+                                },
+                                "namespace": {
+                                    "kind": "string",
+                                    "value": "http://www.w3.org/1999/xhtml"
+                                },
+                                "normalName": {
+                                    "kind": "string",
+                                    "value": "head"
+                                },
+                                "options": {
+                                    "kind": "int",
+                                    "value": 5
+                                }
+                            },
+                            "id": 1
+                        },
+                        "childNodes": {
+                            "kind": "list",
+                            "isShallow": false,
+                            "size": 0,
+                            "elements": []
+                        },
+                        "attributes": {
+                            "kind": "null"
+                        },
+                        "parentNode": {
+                            "kind": "mock",
+                            "typeName": "org.jsoup.nodes.Element",
+                            "methods": [],
+                            "isSpy": false,
+                            "id": 2
+                        },
+                        "siblingIndex": {
+                            "kind": "int",
+                            "value": 0
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "string",
+                        "value": "one-two"
+                    }
+                ],
+                "returnValue": {
+                    "kind": "boolean",
+                    "value": false
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "hasClass",
+                    "fullName": "hasClass(String)",
+                    "argumentsSize": 1,
+                    "returnTypeName": "boolean",
+                    "containingClass": "org.jsoup.nodes.Element"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "org.jsoup.nodes.Element",
+                    "fields": {
+                        "tag": {
+                            "kind": "object",
+                            "typeName": "org.jsoup.parser.Tag",
+                            "fields": {
+                                "RcData": {
+                                    "kind": "int",
+                                    "value": 128
+                                },
+                                "Data": {
+                                    "kind": "int",
+                                    "value": 256
+                                },
+                                "TextBoundary": {
+                                    "kind": "int",
+                                    "value": 1024
+                                },
+                                "tagName": {
+                                    "kind": "string",
+                                    "value": "body"
+                                },
+                                "parserOptions": {
+                                    "kind": "int",
+                                    "value": 128
+                                },
+                                "Known": {
+                                    "kind": "int",
+                                    "value": 1
+                                },
+                                "Void": {
+                                    "kind": "int",
+                                    "value": 2
+                                },
+                                "Block": {
+                                    "kind": "int",
+                                    "value": 4
+                                },
+                                "InlineContainer": {
+                                    "kind": "int",
+                                    "value": 8
+                                },
+                                "SelfClose": {
+                                    "kind": "int",
+                                    "value": 16
+                                },
+                                "SeenSelfClose": {
+                                    "kind": "int",
+                                    "value": 32
+                                },
+                                "PreserveWhitespace": {
+                                    "kind": "int",
+                                    "value": 64
+                                },
+                                "FormSubmittable": {
+                                    "kind": "int",
+                                    "value": 512
+                                },
+                                "namespace": {
+                                    "kind": "string",
+                                    "value": "http://www.w3.org/1999/xhtml"
+                                },
+                                "normalName": {
+                                    "kind": "string",
+                                    "value": "body"
+                                },
+                                "options": {
+                                    "kind": "int",
+                                    "value": 5
+                                }
+                            },
+                            "id": 1
+                        },
+                        "childNodes": {
+                            "kind": "list",
+                            "isShallow": false,
+                            "size": 1,
+                            "elements": [
+                                {
+                                    "kind": "mock",
+                                    "typeName": "org.jsoup.nodes.Element",
+                                    "methods": [],
+                                    "isSpy": false,
+                                    "id": 2
+                                }
+                            ]
+                        },
+                        "attributes": {
+                            "kind": "null"
+                        },
+                        "parentNode": {
+                            "kind": "mock",
+                            "typeName": "org.jsoup.nodes.Element",
+                            "methods": [],
+                            "isSpy": false,
+                            "id": 3
+                        },
+                        "siblingIndex": {
+                            "kind": "int",
+                            "value": 1
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "string",
+                        "value": "one-two"
+                    }
+                ],
+                "returnValue": {
+                    "kind": "boolean",
+                    "value": false
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "hasClass",
+                    "fullName": "hasClass(String)",
+                    "argumentsSize": 1,
+                    "returnTypeName": "boolean",
+                    "containingClass": "org.jsoup.nodes.Element"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "org.jsoup.nodes.Element",
+                    "fields": {
+                        "tag": {
+                            "kind": "object",
+                            "typeName": "org.jsoup.parser.Tag",
+                            "fields": {
+                                "RcData": {
+                                    "kind": "int",
+                                    "value": 128
+                                },
+                                "Data": {
+                                    "kind": "int",
+                                    "value": 256
+                                },
+                                "TextBoundary": {
+                                    "kind": "int",
+                                    "value": 1024
+                                },
+                                "tagName": {
+                                    "kind": "string",
+                                    "value": "div"
+                                },
+                                "parserOptions": {
+                                    "kind": "int",
+                                    "value": 128
+                                },
+                                "Known": {
+                                    "kind": "int",
+                                    "value": 1
+                                },
+                                "Void": {
+                                    "kind": "int",
+                                    "value": 2
+                                },
+                                "Block": {
+                                    "kind": "int",
+                                    "value": 4
+                                },
+                                "InlineContainer": {
+                                    "kind": "int",
+                                    "value": 8
+                                },
+                                "SelfClose": {
+                                    "kind": "int",
+                                    "value": 16
+                                },
+                                "SeenSelfClose": {
+                                    "kind": "int",
+                                    "value": 32
+                                },
+                                "PreserveWhitespace": {
+                                    "kind": "int",
+                                    "value": 64
+                                },
+                                "FormSubmittable": {
+                                    "kind": "int",
+                                    "value": 512
+                                },
+                                "namespace": {
+                                    "kind": "string",
+                                    "value": "http://www.w3.org/1999/xhtml"
+                                },
+                                "normalName": {
+                                    "kind": "string",
+                                    "value": "div"
+                                },
+                                "options": {
+                                    "kind": "int",
+                                    "value": 5
+                                }
+                            },
+                            "id": 1
+                        },
+                        "childNodes": {
+                            "kind": "list",
+                            "isShallow": false,
+                            "size": 0,
+                            "elements": []
+                        },
+                        "attributes": {
+                            "kind": "object",
+                            "typeName": "org.jsoup.nodes.Attributes",
+                            "fields": {
+                                "size": {
+                                    "kind": "int",
+                                    "value": 2
+                                },
+                                "keys": {
+                                    "kind": "array",
+                                    "isShallow": false,
+                                    "size": 3,
+                                    "elements": [
+                                        {
+                                            "kind": "string",
+                                            "value": "class"
+                                        },
+                                        {
+                                            "kind": "string",
+                                            "value": "id"
+                                        },
+                                        {
+                                            "kind": "null"
+                                        }
+                                    ]
+                                },
+                                "vals": {
+                                    "kind": "array",
+                                    "isShallow": false,
+                                    "size": 3,
+                                    "elements": [
+                                        {
+                                            "kind": "string",
+                                            "value": "One-Two"
+                                        },
+                                        {
+                                            "kind": "string",
+                                            "value": "1"
+                                        },
+                                        {
+                                            "kind": "null"
+                                        }
+                                    ]
+                                }
+                            },
+                            "id": 2
+                        },
+                        "parentNode": {
+                            "kind": "mock",
+                            "typeName": "org.jsoup.nodes.Element",
+                            "methods": [],
+                            "isSpy": false,
+                            "id": 3
+                        },
+                        "siblingIndex": {
+                            "kind": "int",
+                            "value": 0
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "string",
+                        "value": "one-two"
+                    }
+                ],
+                "returnValue": {
+                    "kind": "boolean",
+                    "value": true
+                }
+            }
+        ]
+    }
+]

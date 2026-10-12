@@ -1,0 +1,728 @@
+[
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "chompBalanced",
+                    "fullName": "chompBalanced(char, char)",
+                    "argumentsSize": 2,
+                    "returnTypeName": "String",
+                    "containingClass": "org.jsoup.parser.TokenQueue"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "org.jsoup.parser.TokenQueue",
+                    "fields": {
+                        "reader": {
+                            "kind": "mock",
+                            "typeName": "org.jsoup.parser.CharacterReader",
+                            "methods": [
+                                {
+                                    "method": {
+                                        "methodName": "isEmpty",
+                                        "fullName": "org.jsoup.parser.CharacterReader.isEmpty()Z",
+                                        "argumentsSize": 0,
+                                        "returnTypeName": "boolean",
+                                        "containingClass": "org.jsoup.parser.CharacterReader"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "method": {
+                                        "methodName": "consume",
+                                        "fullName": "org.jsoup.parser.CharacterReader.consume()C",
+                                        "argumentsSize": 0,
+                                        "returnTypeName": "char",
+                                        "containingClass": "org.jsoup.parser.CharacterReader"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "char",
+                                                "value": "["
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "char",
+                                                "value": "h"
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "char",
+                                                "value": "t"
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "char",
+                                                "value": "t"
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "char",
+                                                "value": "p"
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "char",
+                                                "value": "-"
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "char",
+                                                "value": "e"
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "char",
+                                                "value": "q"
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "char",
+                                                "value": "u"
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "char",
+                                                "value": "i"
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                }
+                            ],
+                            "isSpy": false,
+                            "id": 1
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "char",
+                        "value": "["
+                    },
+                    {
+                        "kind": "char",
+                        "value": "]"
+                    }
+                ],
+                "returnValue": {
+                    "kind": "string",
+                    "value": "http-equiv=content-type"
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "chompBalanced",
+                    "fullName": "chompBalanced(char, char)",
+                    "argumentsSize": 2,
+                    "returnTypeName": "String",
+                    "containingClass": "org.jsoup.parser.TokenQueue"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "org.jsoup.parser.TokenQueue",
+                    "fields": {
+                        "reader": {
+                            "kind": "mock",
+                            "typeName": "org.jsoup.parser.CharacterReader",
+                            "methods": [
+                                {
+                                    "method": {
+                                        "methodName": "isEmpty",
+                                        "fullName": "org.jsoup.parser.CharacterReader.isEmpty()Z",
+                                        "argumentsSize": 0,
+                                        "returnTypeName": "boolean",
+                                        "containingClass": "org.jsoup.parser.CharacterReader"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "method": {
+                                        "methodName": "consume",
+                                        "fullName": "org.jsoup.parser.CharacterReader.consume()C",
+                                        "argumentsSize": 0,
+                                        "returnTypeName": "char",
+                                        "containingClass": "org.jsoup.parser.CharacterReader"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "char",
+                                                "value": "["
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "char",
+                                                "value": "c"
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "char",
+                                                "value": "h"
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "char",
+                                                "value": "a"
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "char",
+                                                "value": "r"
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "char",
+                                                "value": "s"
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "char",
+                                                "value": "e"
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "char",
+                                                "value": "t"
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "char",
+                                                "value": "]"
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                }
+                            ],
+                            "isSpy": false,
+                            "id": 1
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "char",
+                        "value": "["
+                    },
+                    {
+                        "kind": "char",
+                        "value": "]"
+                    }
+                ],
+                "returnValue": {
+                    "kind": "string",
+                    "value": "charset"
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "chompBalanced",
+                    "fullName": "chompBalanced(char, char)",
+                    "argumentsSize": 2,
+                    "returnTypeName": "String",
+                    "containingClass": "org.jsoup.parser.TokenQueue"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "org.jsoup.parser.TokenQueue",
+                    "fields": {
+                        "reader": {
+                            "kind": "mock",
+                            "typeName": "org.jsoup.parser.CharacterReader",
+                            "methods": [
+                                {
+                                    "method": {
+                                        "methodName": "isEmpty",
+                                        "fullName": "org.jsoup.parser.CharacterReader.isEmpty()Z",
+                                        "argumentsSize": 0,
+                                        "returnTypeName": "boolean",
+                                        "containingClass": "org.jsoup.parser.CharacterReader"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "method": {
+                                        "methodName": "consume",
+                                        "fullName": "org.jsoup.parser.CharacterReader.consume()C",
+                                        "argumentsSize": 0,
+                                        "returnTypeName": "char",
+                                        "containingClass": "org.jsoup.parser.CharacterReader"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "char",
+                                                "value": "("
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "char",
+                                                "value": "("
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "char",
+                                                "value": "?"
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "char",
+                                                "value": "i"
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "char",
+                                                "value": ")"
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "char",
+                                                "value": "t"
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "char",
+                                                "value": "w"
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "char",
+                                                "value": "o"
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "char",
+                                                "value": ")"
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                }
+                            ],
+                            "isSpy": false,
+                            "id": 1
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "char",
+                        "value": "("
+                    },
+                    {
+                        "kind": "char",
+                        "value": ")"
+                    }
+                ],
+                "returnValue": {
+                    "kind": "string",
+                    "value": "(?i)two"
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "chompBalanced",
+                    "fullName": "chompBalanced(char, char)",
+                    "argumentsSize": 2,
+                    "returnTypeName": "String",
+                    "containingClass": "org.jsoup.parser.TokenQueue"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "org.jsoup.parser.TokenQueue",
+                    "fields": {
+                        "reader": {
+                            "kind": "mock",
+                            "typeName": "org.jsoup.parser.CharacterReader",
+                            "methods": [
+                                {
+                                    "method": {
+                                        "methodName": "isEmpty",
+                                        "fullName": "org.jsoup.parser.CharacterReader.isEmpty()Z",
+                                        "argumentsSize": 0,
+                                        "returnTypeName": "boolean",
+                                        "containingClass": "org.jsoup.parser.CharacterReader"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "method": {
+                                        "methodName": "consume",
+                                        "fullName": "org.jsoup.parser.CharacterReader.consume()C",
+                                        "argumentsSize": 0,
+                                        "returnTypeName": "char",
+                                        "containingClass": "org.jsoup.parser.CharacterReader"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "char",
+                                                "value": "("
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "char",
+                                                "value": "t"
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "char",
+                                                "value": "w"
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "char",
+                                                "value": "o"
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "char",
+                                                "value": ")"
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                }
+                            ],
+                            "isSpy": false,
+                            "id": 1
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "char",
+                        "value": "("
+                    },
+                    {
+                        "kind": "char",
+                        "value": ")"
+                    }
+                ],
+                "returnValue": {
+                    "kind": "string",
+                    "value": "two"
+                }
+            }
+        ]
+    }
+]

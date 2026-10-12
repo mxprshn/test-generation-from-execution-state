@@ -1,0 +1,403 @@
+[
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "apply",
+                    "fullName": "apply(DynamicContext)",
+                    "argumentsSize": 1,
+                    "returnTypeName": "boolean",
+                    "containingClass": "org.apache.ibatis.scripting.xmltags.ForEachSqlNode"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "org.apache.ibatis.scripting.xmltags.ForEachSqlNode",
+                    "fields": {
+                        "evaluator": {
+                            "kind": "object",
+                            "typeName": "org.apache.ibatis.scripting.xmltags.ExpressionEvaluator",
+                            "fields": {},
+                            "id": 1
+                        },
+                        "collectionExpression": {
+                            "kind": "string",
+                            "value": "names"
+                        },
+                        "nullable": {
+                            "kind": "null"
+                        },
+                        "contents": {
+                            "kind": "object",
+                            "typeName": "org.apache.ibatis.scripting.xmltags.MixedSqlNode",
+                            "fields": {
+                                "contents": {
+                                    "kind": "list",
+                                    "isShallow": false,
+                                    "size": 3,
+                                    "elements": [
+                                        {
+                                            "kind": "mock",
+                                            "typeName": "org.apache.ibatis.scripting.xmltags.XMLScriptBuilder$EmptySqlNode",
+                                            "methods": [
+                                                {
+                                                    "method": {
+                                                        "methodName": "apply",
+                                                        "fullName": "org.apache.ibatis.scripting.xmltags.XMLScriptBuilder$EmptySqlNode.apply(Lorg/apache/ibatis/scripting/xmltags/DynamicContext;)Z",
+                                                        "argumentsSize": 1,
+                                                        "returnTypeName": "boolean",
+                                                        "containingClass": "org.apache.ibatis.scripting.xmltags.XMLScriptBuilder$EmptySqlNode"
+                                                    },
+                                                    "calls": [
+                                                        {
+                                                            "result": {
+                                                                "kind": "boolean",
+                                                                "value": true
+                                                            },
+                                                            "args": []
+                                                        }
+                                                    ]
+                                                }
+                                            ],
+                                            "isSpy": false,
+                                            "id": 3
+                                        },
+                                        {
+                                            "kind": "mock",
+                                            "typeName": "org.apache.ibatis.scripting.xmltags.ForEachSqlNode",
+                                            "methods": [],
+                                            "isSpy": false,
+                                            "id": 4
+                                        },
+                                        {
+                                            "kind": "mock",
+                                            "typeName": "org.apache.ibatis.scripting.xmltags.XMLScriptBuilder$EmptySqlNode",
+                                            "methods": [],
+                                            "isSpy": false,
+                                            "id": 5
+                                        }
+                                    ]
+                                }
+                            },
+                            "id": 2
+                        },
+                        "open": {
+                            "kind": "null"
+                        },
+                        "close": {
+                            "kind": "null"
+                        },
+                        "separator": {
+                            "kind": "string",
+                            "value": "or"
+                        },
+                        "item": {
+                            "kind": "string",
+                            "value": "name"
+                        },
+                        "index": {
+                            "kind": "null"
+                        },
+                        "configuration": {
+                            "kind": "mock",
+                            "typeName": "org.apache.ibatis.session.Configuration",
+                            "methods": [
+                                {
+                                    "method": {
+                                        "methodName": "isNullableOnForEach",
+                                        "fullName": "org.apache.ibatis.session.Configuration.isNullableOnForEach()Z",
+                                        "argumentsSize": 0,
+                                        "returnTypeName": "boolean",
+                                        "containingClass": "org.apache.ibatis.session.Configuration"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "method": {
+                                        "methodName": "newMetaObject",
+                                        "fullName": "org.apache.ibatis.session.Configuration.newMetaObject(Ljava/lang/Object;)Lorg/apache/ibatis/reflection/MetaObject;",
+                                        "argumentsSize": 1,
+                                        "returnTypeName": "org.apache.ibatis.reflection.MetaObject",
+                                        "containingClass": "org.apache.ibatis.session.Configuration"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "mock",
+                                                "typeName": "org.apache.ibatis.reflection.MetaObject",
+                                                "methods": [],
+                                                "isSpy": false,
+                                                "id": 7
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "method": {
+                                        "methodName": "getTypeHandlerRegistry",
+                                        "fullName": "org.apache.ibatis.session.Configuration.getTypeHandlerRegistry()Lorg/apache/ibatis/type/TypeHandlerRegistry;",
+                                        "argumentsSize": 0,
+                                        "returnTypeName": "org.apache.ibatis.type.TypeHandlerRegistry",
+                                        "containingClass": "org.apache.ibatis.session.Configuration"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "mock",
+                                                "typeName": "org.apache.ibatis.type.TypeHandlerRegistry",
+                                                "methods": [
+                                                    {
+                                                        "method": {
+                                                            "methodName": "hasTypeHandler",
+                                                            "fullName": "org.apache.ibatis.type.TypeHandlerRegistry.hasTypeHandler(Ljava/lang/reflect/Type;)Z",
+                                                            "argumentsSize": 1,
+                                                            "returnTypeName": "boolean",
+                                                            "containingClass": "org.apache.ibatis.type.TypeHandlerRegistry"
+                                                        },
+                                                        "calls": [
+                                                            {
+                                                                "result": {
+                                                                    "kind": "boolean",
+                                                                    "value": false
+                                                                },
+                                                                "args": []
+                                                            }
+                                                        ]
+                                                    }
+                                                ],
+                                                "isSpy": false,
+                                                "id": 8
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "method": {
+                                        "methodName": "getDatabaseId",
+                                        "fullName": "org.apache.ibatis.session.Configuration.getDatabaseId()Ljava/lang/String;",
+                                        "argumentsSize": 0,
+                                        "returnTypeName": "java.lang.String",
+                                        "containingClass": "org.apache.ibatis.session.Configuration"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "null"
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                }
+                            ],
+                            "isSpy": false,
+                            "id": 6
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "mock",
+                        "typeName": "org.apache.ibatis.scripting.xmltags.DynamicContext",
+                        "methods": [
+                            {
+                                "method": {
+                                    "methodName": "getBindings",
+                                    "fullName": "org.apache.ibatis.scripting.xmltags.DynamicContext.getBindings()Ljava/util/Map;",
+                                    "argumentsSize": 0,
+                                    "returnTypeName": "java.util.Map",
+                                    "containingClass": "org.apache.ibatis.scripting.xmltags.DynamicContext"
+                                },
+                                "calls": [
+                                    {
+                                        "result": {
+                                            "kind": "map",
+                                            "isShallow": false,
+                                            "size": 2,
+                                            "elements": [
+                                                {
+                                                    "key": {
+                                                        "kind": "string",
+                                                        "value": "_parameter"
+                                                    },
+                                                    "value": {
+                                                        "kind": "object",
+                                                        "typeName": "org.apache.ibatis.submitted.nested.Parameter",
+                                                        "fields": {
+                                                            "names": {
+                                                                "kind": "list",
+                                                                "isShallow": false,
+                                                                "size": 1,
+                                                                "elements": [
+                                                                    {
+                                                                        "kind": "object",
+                                                                        "typeName": "org.apache.ibatis.submitted.nested.Name",
+                                                                        "fields": {
+                                                                            "lastName": {
+                                                                                "kind": "string",
+                                                                                "value": "Flintstone"
+                                                                            },
+                                                                            "firstNames": {
+                                                                                "kind": "list",
+                                                                                "isShallow": false,
+                                                                                "size": 2,
+                                                                                "elements": [
+                                                                                    {
+                                                                                        "kind": "string",
+                                                                                        "value": "Fred"
+                                                                                    },
+                                                                                    {
+                                                                                        "kind": "string",
+                                                                                        "value": "Wilma"
+                                                                                    }
+                                                                                ]
+                                                                            }
+                                                                        },
+                                                                        "id": 11
+                                                                    }
+                                                                ]
+                                                            }
+                                                        },
+                                                        "id": 10
+                                                    }
+                                                },
+                                                {
+                                                    "key": {
+                                                        "kind": "string",
+                                                        "value": "_databaseId"
+                                                    },
+                                                    "value": {
+                                                        "kind": "null"
+                                                    }
+                                                }
+                                            ]
+                                        },
+                                        "args": []
+                                    },
+                                    {
+                                        "result": {
+                                            "kind": "map",
+                                            "isShallow": false,
+                                            "size": 2,
+                                            "elements": [
+                                                {
+                                                    "key": {
+                                                        "kind": "string",
+                                                        "value": "_parameter"
+                                                    },
+                                                    "value": {
+                                                        "kind": "ref",
+                                                        "typeName": "org.apache.ibatis.submitted.nested.Parameter",
+                                                        "refId": 10
+                                                    }
+                                                },
+                                                {
+                                                    "key": {
+                                                        "kind": "string",
+                                                        "value": "_databaseId"
+                                                    },
+                                                    "value": {
+                                                        "kind": "null"
+                                                    }
+                                                }
+                                            ]
+                                        },
+                                        "args": []
+                                    }
+                                ]
+                            },
+                            {
+                                "method": {
+                                    "methodName": "getParameterObject",
+                                    "fullName": "org.apache.ibatis.scripting.xmltags.DynamicContext.getParameterObject()Ljava/lang/Object;",
+                                    "argumentsSize": 0,
+                                    "returnTypeName": "java.lang.Object",
+                                    "containingClass": "org.apache.ibatis.scripting.xmltags.DynamicContext"
+                                },
+                                "calls": [
+                                    {
+                                        "result": {
+                                            "kind": "ref",
+                                            "typeName": "org.apache.ibatis.submitted.nested.Parameter",
+                                            "refId": 10
+                                        },
+                                        "args": []
+                                    }
+                                ]
+                            },
+                            {
+                                "method": {
+                                    "methodName": "getParameterType",
+                                    "fullName": "org.apache.ibatis.scripting.xmltags.DynamicContext.getParameterType()Ljava/lang/Class;",
+                                    "argumentsSize": 0,
+                                    "returnTypeName": "java.lang.Class",
+                                    "containingClass": "org.apache.ibatis.scripting.xmltags.DynamicContext"
+                                },
+                                "calls": [
+                                    {
+                                        "result": {
+                                            "kind": "null"
+                                        },
+                                        "args": []
+                                    }
+                                ]
+                            },
+                            {
+                                "method": {
+                                    "methodName": "getParamNameResolver",
+                                    "fullName": "org.apache.ibatis.scripting.xmltags.DynamicContext.getParamNameResolver()Lorg/apache/ibatis/reflection/ParamNameResolver;",
+                                    "argumentsSize": 0,
+                                    "returnTypeName": "org.apache.ibatis.reflection.ParamNameResolver",
+                                    "containingClass": "org.apache.ibatis.scripting.xmltags.DynamicContext"
+                                },
+                                "calls": [
+                                    {
+                                        "result": {
+                                            "kind": "null"
+                                        },
+                                        "args": []
+                                    }
+                                ]
+                            },
+                            {
+                                "method": {
+                                    "methodName": "isParamExists",
+                                    "fullName": "org.apache.ibatis.scripting.xmltags.DynamicContext.isParamExists()Z",
+                                    "argumentsSize": 0,
+                                    "returnTypeName": "boolean",
+                                    "containingClass": "org.apache.ibatis.scripting.xmltags.DynamicContext"
+                                },
+                                "calls": [
+                                    {
+                                        "result": {
+                                            "kind": "boolean",
+                                            "value": true
+                                        },
+                                        "args": []
+                                    }
+                                ]
+                            }
+                        ],
+                        "isSpy": false,
+                        "id": 9
+                    }
+                ],
+                "returnValue": {
+                    "kind": "boolean",
+                    "value": true
+                }
+            }
+        ]
+    }
+]

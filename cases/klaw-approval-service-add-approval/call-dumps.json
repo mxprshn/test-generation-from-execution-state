@@ -1,0 +1,3270 @@
+[
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "addApproval",
+                    "fullName": "addApproval(List<Approval>, String, Integer, Integer)",
+                    "argumentsSize": 4,
+                    "returnTypeName": "List<Approval>",
+                    "containingClass": "io.aiven.klaw.service.ApprovalService"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "io.aiven.klaw.service.ApprovalService",
+                    "fields": {
+                        "topicApprovals": {
+                            "kind": "null"
+                        },
+                        "aclApprovals": {
+                            "kind": "null"
+                        },
+                        "schemaApprovals": {
+                            "kind": "null"
+                        },
+                        "connectApprovals": {
+                            "kind": "null"
+                        },
+                        "mailService": {
+                            "kind": "mock",
+                            "typeName": "io.aiven.klaw.service.MailUtils",
+                            "methods": [],
+                            "isSpy": false,
+                            "id": 1
+                        },
+                        "commonUtilsService": {
+                            "kind": "mock",
+                            "typeName": "io.aiven.klaw.service.CommonUtilsService",
+                            "methods": [],
+                            "isSpy": false,
+                            "id": 2
+                        },
+                        "manageDatabase": {
+                            "kind": "mock",
+                            "typeName": "io.aiven.klaw.config.ManageDatabase",
+                            "methods": [
+                                {
+                                    "method": {
+                                        "methodName": "selectAllCachedUserInfo",
+                                        "fullName": "io.aiven.klaw.config.ManageDatabase.selectAllCachedUserInfo()Ljava/util/List;",
+                                        "argumentsSize": 0,
+                                        "returnTypeName": "java.util.List",
+                                        "containingClass": "io.aiven.klaw.config.ManageDatabase"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "list",
+                                                "isShallow": false,
+                                                "size": 3,
+                                                "elements": [
+                                                    {
+                                                        "kind": "object",
+                                                        "typeName": "io.aiven.klaw.dao.UserInfo",
+                                                        "fields": {
+                                                            "pwd": {
+                                                                "kind": "null"
+                                                            },
+                                                            "role": {
+                                                                "kind": "string",
+                                                                "value": "USER"
+                                                            },
+                                                            "mailid": {
+                                                                "kind": "string",
+                                                                "value": "John@klaw.mailid"
+                                                            },
+                                                            "switchTeams": {
+                                                                "kind": "boolean",
+                                                                "value": false
+                                                            },
+                                                            "otherParams": {
+                                                                "kind": "null"
+                                                            },
+                                                            "resetTokenGeneratedAt": {
+                                                                "kind": "null"
+                                                            },
+                                                            "username": {
+                                                                "kind": "string",
+                                                                "value": "John"
+                                                            },
+                                                            "tenantId": {
+                                                                "kind": "int",
+                                                                "value": 101
+                                                            },
+                                                            "teamId": {
+                                                                "kind": "int",
+                                                                "value": 10
+                                                            },
+                                                            "fullname": {
+                                                                "kind": "null"
+                                                            },
+                                                            "switchAllowedTeamIds": {
+                                                                "kind": "null"
+                                                            },
+                                                            "resetToken": {
+                                                                "kind": "null"
+                                                            }
+                                                        },
+                                                        "id": 4
+                                                    },
+                                                    {
+                                                        "kind": "object",
+                                                        "typeName": "io.aiven.klaw.dao.UserInfo",
+                                                        "fields": {
+                                                            "pwd": {
+                                                                "kind": "null"
+                                                            },
+                                                            "role": {
+                                                                "kind": "string",
+                                                                "value": "USER"
+                                                            },
+                                                            "mailid": {
+                                                                "kind": "string",
+                                                                "value": "James@klaw.mailid"
+                                                            },
+                                                            "switchTeams": {
+                                                                "kind": "boolean",
+                                                                "value": false
+                                                            },
+                                                            "otherParams": {
+                                                                "kind": "null"
+                                                            },
+                                                            "resetTokenGeneratedAt": {
+                                                                "kind": "null"
+                                                            },
+                                                            "username": {
+                                                                "kind": "string",
+                                                                "value": "James"
+                                                            },
+                                                            "tenantId": {
+                                                                "kind": "int",
+                                                                "value": 101
+                                                            },
+                                                            "teamId": {
+                                                                "kind": "int",
+                                                                "value": 11
+                                                            },
+                                                            "fullname": {
+                                                                "kind": "null"
+                                                            },
+                                                            "switchAllowedTeamIds": {
+                                                                "kind": "null"
+                                                            },
+                                                            "resetToken": {
+                                                                "kind": "null"
+                                                            }
+                                                        },
+                                                        "id": 5
+                                                    },
+                                                    {
+                                                        "kind": "object",
+                                                        "typeName": "io.aiven.klaw.dao.UserInfo",
+                                                        "fields": {
+                                                            "pwd": {
+                                                                "kind": "null"
+                                                            },
+                                                            "role": {
+                                                                "kind": "string",
+                                                                "value": "USER"
+                                                            },
+                                                            "mailid": {
+                                                                "kind": "string",
+                                                                "value": "Jackie@klaw.mailid"
+                                                            },
+                                                            "switchTeams": {
+                                                                "kind": "boolean",
+                                                                "value": false
+                                                            },
+                                                            "otherParams": {
+                                                                "kind": "null"
+                                                            },
+                                                            "resetTokenGeneratedAt": {
+                                                                "kind": "null"
+                                                            },
+                                                            "username": {
+                                                                "kind": "string",
+                                                                "value": "Jackie"
+                                                            },
+                                                            "tenantId": {
+                                                                "kind": "int",
+                                                                "value": 101
+                                                            },
+                                                            "teamId": {
+                                                                "kind": "int",
+                                                                "value": 13
+                                                            },
+                                                            "fullname": {
+                                                                "kind": "null"
+                                                            },
+                                                            "switchAllowedTeamIds": {
+                                                                "kind": "null"
+                                                            },
+                                                            "resetToken": {
+                                                                "kind": "null"
+                                                            }
+                                                        },
+                                                        "id": 6
+                                                    }
+                                                ]
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "method": {
+                                        "methodName": "getTeamNameFromTeamId",
+                                        "fullName": "io.aiven.klaw.config.ManageDatabase.getTeamNameFromTeamId(II)Ljava/lang/String;",
+                                        "argumentsSize": 2,
+                                        "returnTypeName": "java.lang.String",
+                                        "containingClass": "io.aiven.klaw.config.ManageDatabase"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "string",
+                                                "value": "SUPPORT_TEAM"
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "string",
+                                                "value": "SUPPORT_TEAM"
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                }
+                            ],
+                            "isSpy": false,
+                            "id": 3
+                        },
+                        "allowMultiApproval": {
+                            "kind": "boolean",
+                            "value": true
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "list",
+                        "isShallow": false,
+                        "size": 2,
+                        "elements": [
+                            {
+                                "kind": "object",
+                                "typeName": "io.aiven.klaw.dao.Approval",
+                                "fields": {
+                                    "approvalId": {
+                                        "kind": "int",
+                                        "value": 1
+                                    },
+                                    "approvalType": {
+                                        "kind": "enum",
+                                        "typeName": "io.aiven.klaw.model.enums.ApprovalType",
+                                        "value": "TEAM"
+                                    },
+                                    "requiredApprover": {
+                                        "kind": "string",
+                                        "value": "SUPPORT_TEAM"
+                                    },
+                                    "approverName": {
+                                        "kind": "null"
+                                    },
+                                    "approverTeamId": {
+                                        "kind": "int",
+                                        "value": 0
+                                    },
+                                    "approverTeamName": {
+                                        "kind": "null"
+                                    }
+                                },
+                                "id": 7
+                            },
+                            {
+                                "kind": "object",
+                                "typeName": "io.aiven.klaw.dao.Approval",
+                                "fields": {
+                                    "approvalId": {
+                                        "kind": "int",
+                                        "value": 2
+                                    },
+                                    "approvalType": {
+                                        "kind": "enum",
+                                        "typeName": "io.aiven.klaw.model.enums.ApprovalType",
+                                        "value": "TOPIC_TEAM_OWNER"
+                                    },
+                                    "requiredApprover": {
+                                        "kind": "string",
+                                        "value": "Octopus"
+                                    },
+                                    "approverName": {
+                                        "kind": "null"
+                                    },
+                                    "approverTeamId": {
+                                        "kind": "int",
+                                        "value": 0
+                                    },
+                                    "approverTeamName": {
+                                        "kind": "null"
+                                    }
+                                },
+                                "id": 8
+                            }
+                        ]
+                    },
+                    {
+                        "kind": "string",
+                        "value": "Jackie"
+                    },
+                    {
+                        "kind": "int",
+                        "value": 10
+                    },
+                    {
+                        "kind": "null"
+                    }
+                ],
+                "returnValue": {
+                    "kind": "list",
+                    "isShallow": true,
+                    "size": 2,
+                    "elements": []
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "addApproval",
+                    "fullName": "addApproval(List<Approval>, String, Integer, Integer)",
+                    "argumentsSize": 4,
+                    "returnTypeName": "List<Approval>",
+                    "containingClass": "io.aiven.klaw.service.ApprovalService"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "io.aiven.klaw.service.ApprovalService",
+                    "fields": {
+                        "topicApprovals": {
+                            "kind": "null"
+                        },
+                        "aclApprovals": {
+                            "kind": "null"
+                        },
+                        "schemaApprovals": {
+                            "kind": "null"
+                        },
+                        "connectApprovals": {
+                            "kind": "null"
+                        },
+                        "mailService": {
+                            "kind": "mock",
+                            "typeName": "io.aiven.klaw.service.MailUtils",
+                            "methods": [],
+                            "isSpy": false,
+                            "id": 1
+                        },
+                        "commonUtilsService": {
+                            "kind": "mock",
+                            "typeName": "io.aiven.klaw.service.CommonUtilsService",
+                            "methods": [],
+                            "isSpy": false,
+                            "id": 2
+                        },
+                        "manageDatabase": {
+                            "kind": "mock",
+                            "typeName": "io.aiven.klaw.config.ManageDatabase",
+                            "methods": [
+                                {
+                                    "method": {
+                                        "methodName": "selectAllCachedUserInfo",
+                                        "fullName": "io.aiven.klaw.config.ManageDatabase.selectAllCachedUserInfo()Ljava/util/List;",
+                                        "argumentsSize": 0,
+                                        "returnTypeName": "java.util.List",
+                                        "containingClass": "io.aiven.klaw.config.ManageDatabase"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "list",
+                                                "isShallow": false,
+                                                "size": 3,
+                                                "elements": [
+                                                    {
+                                                        "kind": "object",
+                                                        "typeName": "io.aiven.klaw.dao.UserInfo",
+                                                        "fields": {
+                                                            "pwd": {
+                                                                "kind": "null"
+                                                            },
+                                                            "role": {
+                                                                "kind": "string",
+                                                                "value": "USER"
+                                                            },
+                                                            "mailid": {
+                                                                "kind": "string",
+                                                                "value": "John@klaw.mailid"
+                                                            },
+                                                            "switchTeams": {
+                                                                "kind": "boolean",
+                                                                "value": false
+                                                            },
+                                                            "otherParams": {
+                                                                "kind": "null"
+                                                            },
+                                                            "resetTokenGeneratedAt": {
+                                                                "kind": "null"
+                                                            },
+                                                            "username": {
+                                                                "kind": "string",
+                                                                "value": "John"
+                                                            },
+                                                            "tenantId": {
+                                                                "kind": "int",
+                                                                "value": 101
+                                                            },
+                                                            "teamId": {
+                                                                "kind": "int",
+                                                                "value": 10
+                                                            },
+                                                            "fullname": {
+                                                                "kind": "null"
+                                                            },
+                                                            "switchAllowedTeamIds": {
+                                                                "kind": "null"
+                                                            },
+                                                            "resetToken": {
+                                                                "kind": "null"
+                                                            }
+                                                        },
+                                                        "id": 4
+                                                    },
+                                                    {
+                                                        "kind": "object",
+                                                        "typeName": "io.aiven.klaw.dao.UserInfo",
+                                                        "fields": {
+                                                            "pwd": {
+                                                                "kind": "null"
+                                                            },
+                                                            "role": {
+                                                                "kind": "string",
+                                                                "value": "USER"
+                                                            },
+                                                            "mailid": {
+                                                                "kind": "string",
+                                                                "value": "James@klaw.mailid"
+                                                            },
+                                                            "switchTeams": {
+                                                                "kind": "boolean",
+                                                                "value": false
+                                                            },
+                                                            "otherParams": {
+                                                                "kind": "null"
+                                                            },
+                                                            "resetTokenGeneratedAt": {
+                                                                "kind": "null"
+                                                            },
+                                                            "username": {
+                                                                "kind": "string",
+                                                                "value": "James"
+                                                            },
+                                                            "tenantId": {
+                                                                "kind": "int",
+                                                                "value": 101
+                                                            },
+                                                            "teamId": {
+                                                                "kind": "int",
+                                                                "value": 11
+                                                            },
+                                                            "fullname": {
+                                                                "kind": "null"
+                                                            },
+                                                            "switchAllowedTeamIds": {
+                                                                "kind": "null"
+                                                            },
+                                                            "resetToken": {
+                                                                "kind": "null"
+                                                            }
+                                                        },
+                                                        "id": 5
+                                                    },
+                                                    {
+                                                        "kind": "object",
+                                                        "typeName": "io.aiven.klaw.dao.UserInfo",
+                                                        "fields": {
+                                                            "pwd": {
+                                                                "kind": "null"
+                                                            },
+                                                            "role": {
+                                                                "kind": "string",
+                                                                "value": "USER"
+                                                            },
+                                                            "mailid": {
+                                                                "kind": "string",
+                                                                "value": "Jackie@klaw.mailid"
+                                                            },
+                                                            "switchTeams": {
+                                                                "kind": "boolean",
+                                                                "value": false
+                                                            },
+                                                            "otherParams": {
+                                                                "kind": "null"
+                                                            },
+                                                            "resetTokenGeneratedAt": {
+                                                                "kind": "null"
+                                                            },
+                                                            "username": {
+                                                                "kind": "string",
+                                                                "value": "Jackie"
+                                                            },
+                                                            "tenantId": {
+                                                                "kind": "int",
+                                                                "value": 101
+                                                            },
+                                                            "teamId": {
+                                                                "kind": "int",
+                                                                "value": 13
+                                                            },
+                                                            "fullname": {
+                                                                "kind": "null"
+                                                            },
+                                                            "switchAllowedTeamIds": {
+                                                                "kind": "null"
+                                                            },
+                                                            "resetToken": {
+                                                                "kind": "null"
+                                                            }
+                                                        },
+                                                        "id": 6
+                                                    }
+                                                ]
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                }
+                            ],
+                            "isSpy": false,
+                            "id": 3
+                        },
+                        "allowMultiApproval": {
+                            "kind": "boolean",
+                            "value": true
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "list",
+                        "isShallow": false,
+                        "size": 2,
+                        "elements": [
+                            {
+                                "kind": "object",
+                                "typeName": "io.aiven.klaw.dao.Approval",
+                                "fields": {
+                                    "approvalId": {
+                                        "kind": "int",
+                                        "value": 1
+                                    },
+                                    "approvalType": {
+                                        "kind": "enum",
+                                        "typeName": "io.aiven.klaw.model.enums.ApprovalType",
+                                        "value": "TOPIC_TEAM_OWNER"
+                                    },
+                                    "requiredApprover": {
+                                        "kind": "string",
+                                        "value": "Octopus"
+                                    },
+                                    "approverName": {
+                                        "kind": "null"
+                                    },
+                                    "approverTeamId": {
+                                        "kind": "int",
+                                        "value": 0
+                                    },
+                                    "approverTeamName": {
+                                        "kind": "null"
+                                    }
+                                },
+                                "id": 7
+                            },
+                            {
+                                "kind": "object",
+                                "typeName": "io.aiven.klaw.dao.Approval",
+                                "fields": {
+                                    "approvalId": {
+                                        "kind": "int",
+                                        "value": 2
+                                    },
+                                    "approvalType": {
+                                        "kind": "enum",
+                                        "typeName": "io.aiven.klaw.model.enums.ApprovalType",
+                                        "value": "TOPIC_TEAM_OWNER"
+                                    },
+                                    "requiredApprover": {
+                                        "kind": "string",
+                                        "value": "Octopus"
+                                    },
+                                    "approverName": {
+                                        "kind": "null"
+                                    },
+                                    "approverTeamId": {
+                                        "kind": "int",
+                                        "value": 0
+                                    },
+                                    "approverTeamName": {
+                                        "kind": "null"
+                                    }
+                                },
+                                "id": 8
+                            }
+                        ]
+                    },
+                    {
+                        "kind": "string",
+                        "value": "John"
+                    },
+                    {
+                        "kind": "int",
+                        "value": 11
+                    },
+                    {
+                        "kind": "null"
+                    }
+                ],
+                "returnValue": {
+                    "kind": "list",
+                    "isShallow": true,
+                    "size": 2,
+                    "elements": []
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "addApproval",
+                    "fullName": "addApproval(List<Approval>, String, Integer, Integer)",
+                    "argumentsSize": 4,
+                    "returnTypeName": "List<Approval>",
+                    "containingClass": "io.aiven.klaw.service.ApprovalService"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "io.aiven.klaw.service.ApprovalService",
+                    "fields": {
+                        "topicApprovals": {
+                            "kind": "null"
+                        },
+                        "aclApprovals": {
+                            "kind": "null"
+                        },
+                        "schemaApprovals": {
+                            "kind": "null"
+                        },
+                        "connectApprovals": {
+                            "kind": "null"
+                        },
+                        "mailService": {
+                            "kind": "mock",
+                            "typeName": "io.aiven.klaw.service.MailUtils",
+                            "methods": [],
+                            "isSpy": false,
+                            "id": 1
+                        },
+                        "commonUtilsService": {
+                            "kind": "mock",
+                            "typeName": "io.aiven.klaw.service.CommonUtilsService",
+                            "methods": [],
+                            "isSpy": false,
+                            "id": 2
+                        },
+                        "manageDatabase": {
+                            "kind": "mock",
+                            "typeName": "io.aiven.klaw.config.ManageDatabase",
+                            "methods": [],
+                            "isSpy": false,
+                            "id": 3
+                        },
+                        "allowMultiApproval": {
+                            "kind": "boolean",
+                            "value": true
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "list",
+                        "isShallow": false,
+                        "size": 2,
+                        "elements": [
+                            {
+                                "kind": "object",
+                                "typeName": "io.aiven.klaw.dao.Approval",
+                                "fields": {
+                                    "approvalId": {
+                                        "kind": "int",
+                                        "value": 1
+                                    },
+                                    "approvalType": {
+                                        "kind": "enum",
+                                        "typeName": "io.aiven.klaw.model.enums.ApprovalType",
+                                        "value": "TOPIC_TEAM_OWNER"
+                                    },
+                                    "requiredApprover": {
+                                        "kind": "string",
+                                        "value": "Octopus"
+                                    },
+                                    "approverName": {
+                                        "kind": "string",
+                                        "value": "James"
+                                    },
+                                    "approverTeamId": {
+                                        "kind": "int",
+                                        "value": 11
+                                    },
+                                    "approverTeamName": {
+                                        "kind": "string",
+                                        "value": "Octopus"
+                                    }
+                                },
+                                "id": 4
+                            },
+                            {
+                                "kind": "object",
+                                "typeName": "io.aiven.klaw.dao.Approval",
+                                "fields": {
+                                    "approvalId": {
+                                        "kind": "int",
+                                        "value": 2
+                                    },
+                                    "approvalType": {
+                                        "kind": "enum",
+                                        "typeName": "io.aiven.klaw.model.enums.ApprovalType",
+                                        "value": "TOPIC_TEAM_OWNER"
+                                    },
+                                    "requiredApprover": {
+                                        "kind": "string",
+                                        "value": "Octopus"
+                                    },
+                                    "approverName": {
+                                        "kind": "null"
+                                    },
+                                    "approverTeamId": {
+                                        "kind": "int",
+                                        "value": 0
+                                    },
+                                    "approverTeamName": {
+                                        "kind": "null"
+                                    }
+                                },
+                                "id": 5
+                            }
+                        ]
+                    },
+                    {
+                        "kind": "string",
+                        "value": "James"
+                    },
+                    {
+                        "kind": "int",
+                        "value": 11
+                    },
+                    {
+                        "kind": "null"
+                    }
+                ],
+                "returnValue": {
+                    "kind": "exception",
+                    "typeName": "io.aiven.klaw.error.KlawBadRequestException"
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "addApproval",
+                    "fullName": "addApproval(List<Approval>, String, Integer, Integer)",
+                    "argumentsSize": 4,
+                    "returnTypeName": "List<Approval>",
+                    "containingClass": "io.aiven.klaw.service.ApprovalService"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "io.aiven.klaw.service.ApprovalService",
+                    "fields": {
+                        "topicApprovals": {
+                            "kind": "null"
+                        },
+                        "aclApprovals": {
+                            "kind": "null"
+                        },
+                        "schemaApprovals": {
+                            "kind": "null"
+                        },
+                        "connectApprovals": {
+                            "kind": "null"
+                        },
+                        "mailService": {
+                            "kind": "mock",
+                            "typeName": "io.aiven.klaw.service.MailUtils",
+                            "methods": [],
+                            "isSpy": false,
+                            "id": 1
+                        },
+                        "commonUtilsService": {
+                            "kind": "mock",
+                            "typeName": "io.aiven.klaw.service.CommonUtilsService",
+                            "methods": [],
+                            "isSpy": false,
+                            "id": 2
+                        },
+                        "manageDatabase": {
+                            "kind": "mock",
+                            "typeName": "io.aiven.klaw.config.ManageDatabase",
+                            "methods": [
+                                {
+                                    "method": {
+                                        "methodName": "selectAllCachedUserInfo",
+                                        "fullName": "io.aiven.klaw.config.ManageDatabase.selectAllCachedUserInfo()Ljava/util/List;",
+                                        "argumentsSize": 0,
+                                        "returnTypeName": "java.util.List",
+                                        "containingClass": "io.aiven.klaw.config.ManageDatabase"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "list",
+                                                "isShallow": false,
+                                                "size": 3,
+                                                "elements": [
+                                                    {
+                                                        "kind": "object",
+                                                        "typeName": "io.aiven.klaw.dao.UserInfo",
+                                                        "fields": {
+                                                            "pwd": {
+                                                                "kind": "null"
+                                                            },
+                                                            "role": {
+                                                                "kind": "string",
+                                                                "value": "USER"
+                                                            },
+                                                            "mailid": {
+                                                                "kind": "string",
+                                                                "value": "John@klaw.mailid"
+                                                            },
+                                                            "switchTeams": {
+                                                                "kind": "boolean",
+                                                                "value": false
+                                                            },
+                                                            "otherParams": {
+                                                                "kind": "null"
+                                                            },
+                                                            "resetTokenGeneratedAt": {
+                                                                "kind": "null"
+                                                            },
+                                                            "username": {
+                                                                "kind": "string",
+                                                                "value": "John"
+                                                            },
+                                                            "tenantId": {
+                                                                "kind": "int",
+                                                                "value": 101
+                                                            },
+                                                            "teamId": {
+                                                                "kind": "int",
+                                                                "value": 10
+                                                            },
+                                                            "fullname": {
+                                                                "kind": "null"
+                                                            },
+                                                            "switchAllowedTeamIds": {
+                                                                "kind": "null"
+                                                            },
+                                                            "resetToken": {
+                                                                "kind": "null"
+                                                            }
+                                                        },
+                                                        "id": 4
+                                                    },
+                                                    {
+                                                        "kind": "object",
+                                                        "typeName": "io.aiven.klaw.dao.UserInfo",
+                                                        "fields": {
+                                                            "pwd": {
+                                                                "kind": "null"
+                                                            },
+                                                            "role": {
+                                                                "kind": "string",
+                                                                "value": "USER"
+                                                            },
+                                                            "mailid": {
+                                                                "kind": "string",
+                                                                "value": "James@klaw.mailid"
+                                                            },
+                                                            "switchTeams": {
+                                                                "kind": "boolean",
+                                                                "value": false
+                                                            },
+                                                            "otherParams": {
+                                                                "kind": "null"
+                                                            },
+                                                            "resetTokenGeneratedAt": {
+                                                                "kind": "null"
+                                                            },
+                                                            "username": {
+                                                                "kind": "string",
+                                                                "value": "James"
+                                                            },
+                                                            "tenantId": {
+                                                                "kind": "int",
+                                                                "value": 101
+                                                            },
+                                                            "teamId": {
+                                                                "kind": "int",
+                                                                "value": 11
+                                                            },
+                                                            "fullname": {
+                                                                "kind": "null"
+                                                            },
+                                                            "switchAllowedTeamIds": {
+                                                                "kind": "null"
+                                                            },
+                                                            "resetToken": {
+                                                                "kind": "null"
+                                                            }
+                                                        },
+                                                        "id": 5
+                                                    },
+                                                    {
+                                                        "kind": "object",
+                                                        "typeName": "io.aiven.klaw.dao.UserInfo",
+                                                        "fields": {
+                                                            "pwd": {
+                                                                "kind": "null"
+                                                            },
+                                                            "role": {
+                                                                "kind": "string",
+                                                                "value": "USER"
+                                                            },
+                                                            "mailid": {
+                                                                "kind": "string",
+                                                                "value": "Jackie@klaw.mailid"
+                                                            },
+                                                            "switchTeams": {
+                                                                "kind": "boolean",
+                                                                "value": false
+                                                            },
+                                                            "otherParams": {
+                                                                "kind": "null"
+                                                            },
+                                                            "resetTokenGeneratedAt": {
+                                                                "kind": "null"
+                                                            },
+                                                            "username": {
+                                                                "kind": "string",
+                                                                "value": "Jackie"
+                                                            },
+                                                            "tenantId": {
+                                                                "kind": "int",
+                                                                "value": 101
+                                                            },
+                                                            "teamId": {
+                                                                "kind": "int",
+                                                                "value": 13
+                                                            },
+                                                            "fullname": {
+                                                                "kind": "null"
+                                                            },
+                                                            "switchAllowedTeamIds": {
+                                                                "kind": "null"
+                                                            },
+                                                            "resetToken": {
+                                                                "kind": "null"
+                                                            }
+                                                        },
+                                                        "id": 6
+                                                    }
+                                                ]
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "method": {
+                                        "methodName": "getTeamNameFromTeamId",
+                                        "fullName": "io.aiven.klaw.config.ManageDatabase.getTeamNameFromTeamId(II)Ljava/lang/String;",
+                                        "argumentsSize": 2,
+                                        "returnTypeName": "java.lang.String",
+                                        "containingClass": "io.aiven.klaw.config.ManageDatabase"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "string",
+                                                "value": "Octopus"
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                }
+                            ],
+                            "isSpy": false,
+                            "id": 3
+                        },
+                        "allowMultiApproval": {
+                            "kind": "boolean",
+                            "value": true
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "list",
+                        "isShallow": false,
+                        "size": 2,
+                        "elements": [
+                            {
+                                "kind": "object",
+                                "typeName": "io.aiven.klaw.dao.Approval",
+                                "fields": {
+                                    "approvalId": {
+                                        "kind": "int",
+                                        "value": 1
+                                    },
+                                    "approvalType": {
+                                        "kind": "enum",
+                                        "typeName": "io.aiven.klaw.model.enums.ApprovalType",
+                                        "value": "TOPIC_TEAM_OWNER"
+                                    },
+                                    "requiredApprover": {
+                                        "kind": "string",
+                                        "value": "Octopus"
+                                    },
+                                    "approverName": {
+                                        "kind": "null"
+                                    },
+                                    "approverTeamId": {
+                                        "kind": "int",
+                                        "value": 0
+                                    },
+                                    "approverTeamName": {
+                                        "kind": "null"
+                                    }
+                                },
+                                "id": 7
+                            },
+                            {
+                                "kind": "object",
+                                "typeName": "io.aiven.klaw.dao.Approval",
+                                "fields": {
+                                    "approvalId": {
+                                        "kind": "int",
+                                        "value": 2
+                                    },
+                                    "approvalType": {
+                                        "kind": "enum",
+                                        "typeName": "io.aiven.klaw.model.enums.ApprovalType",
+                                        "value": "TOPIC_TEAM_OWNER"
+                                    },
+                                    "requiredApprover": {
+                                        "kind": "string",
+                                        "value": "Octopus"
+                                    },
+                                    "approverName": {
+                                        "kind": "null"
+                                    },
+                                    "approverTeamId": {
+                                        "kind": "int",
+                                        "value": 0
+                                    },
+                                    "approverTeamName": {
+                                        "kind": "null"
+                                    }
+                                },
+                                "id": 8
+                            }
+                        ]
+                    },
+                    {
+                        "kind": "string",
+                        "value": "James"
+                    },
+                    {
+                        "kind": "int",
+                        "value": 11
+                    },
+                    {
+                        "kind": "null"
+                    }
+                ],
+                "returnValue": {
+                    "kind": "list",
+                    "isShallow": true,
+                    "size": 2,
+                    "elements": []
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "addApproval",
+                    "fullName": "addApproval(List<Approval>, String, Integer, Integer)",
+                    "argumentsSize": 4,
+                    "returnTypeName": "List<Approval>",
+                    "containingClass": "io.aiven.klaw.service.ApprovalService"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "io.aiven.klaw.service.ApprovalService",
+                    "fields": {
+                        "topicApprovals": {
+                            "kind": "null"
+                        },
+                        "aclApprovals": {
+                            "kind": "null"
+                        },
+                        "schemaApprovals": {
+                            "kind": "null"
+                        },
+                        "connectApprovals": {
+                            "kind": "null"
+                        },
+                        "mailService": {
+                            "kind": "mock",
+                            "typeName": "io.aiven.klaw.service.MailUtils",
+                            "methods": [],
+                            "isSpy": false,
+                            "id": 1
+                        },
+                        "commonUtilsService": {
+                            "kind": "mock",
+                            "typeName": "io.aiven.klaw.service.CommonUtilsService",
+                            "methods": [],
+                            "isSpy": false,
+                            "id": 2
+                        },
+                        "manageDatabase": {
+                            "kind": "mock",
+                            "typeName": "io.aiven.klaw.config.ManageDatabase",
+                            "methods": [
+                                {
+                                    "method": {
+                                        "methodName": "selectAllCachedUserInfo",
+                                        "fullName": "io.aiven.klaw.config.ManageDatabase.selectAllCachedUserInfo()Ljava/util/List;",
+                                        "argumentsSize": 0,
+                                        "returnTypeName": "java.util.List",
+                                        "containingClass": "io.aiven.klaw.config.ManageDatabase"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "list",
+                                                "isShallow": false,
+                                                "size": 3,
+                                                "elements": [
+                                                    {
+                                                        "kind": "object",
+                                                        "typeName": "io.aiven.klaw.dao.UserInfo",
+                                                        "fields": {
+                                                            "pwd": {
+                                                                "kind": "null"
+                                                            },
+                                                            "role": {
+                                                                "kind": "string",
+                                                                "value": "USER"
+                                                            },
+                                                            "mailid": {
+                                                                "kind": "string",
+                                                                "value": "John@klaw.mailid"
+                                                            },
+                                                            "switchTeams": {
+                                                                "kind": "boolean",
+                                                                "value": false
+                                                            },
+                                                            "otherParams": {
+                                                                "kind": "null"
+                                                            },
+                                                            "resetTokenGeneratedAt": {
+                                                                "kind": "null"
+                                                            },
+                                                            "username": {
+                                                                "kind": "string",
+                                                                "value": "John"
+                                                            },
+                                                            "tenantId": {
+                                                                "kind": "int",
+                                                                "value": 101
+                                                            },
+                                                            "teamId": {
+                                                                "kind": "int",
+                                                                "value": 10
+                                                            },
+                                                            "fullname": {
+                                                                "kind": "null"
+                                                            },
+                                                            "switchAllowedTeamIds": {
+                                                                "kind": "null"
+                                                            },
+                                                            "resetToken": {
+                                                                "kind": "null"
+                                                            }
+                                                        },
+                                                        "id": 4
+                                                    },
+                                                    {
+                                                        "kind": "object",
+                                                        "typeName": "io.aiven.klaw.dao.UserInfo",
+                                                        "fields": {
+                                                            "pwd": {
+                                                                "kind": "null"
+                                                            },
+                                                            "role": {
+                                                                "kind": "string",
+                                                                "value": "USER"
+                                                            },
+                                                            "mailid": {
+                                                                "kind": "string",
+                                                                "value": "James@klaw.mailid"
+                                                            },
+                                                            "switchTeams": {
+                                                                "kind": "boolean",
+                                                                "value": false
+                                                            },
+                                                            "otherParams": {
+                                                                "kind": "null"
+                                                            },
+                                                            "resetTokenGeneratedAt": {
+                                                                "kind": "null"
+                                                            },
+                                                            "username": {
+                                                                "kind": "string",
+                                                                "value": "James"
+                                                            },
+                                                            "tenantId": {
+                                                                "kind": "int",
+                                                                "value": 101
+                                                            },
+                                                            "teamId": {
+                                                                "kind": "int",
+                                                                "value": 11
+                                                            },
+                                                            "fullname": {
+                                                                "kind": "null"
+                                                            },
+                                                            "switchAllowedTeamIds": {
+                                                                "kind": "null"
+                                                            },
+                                                            "resetToken": {
+                                                                "kind": "null"
+                                                            }
+                                                        },
+                                                        "id": 5
+                                                    },
+                                                    {
+                                                        "kind": "object",
+                                                        "typeName": "io.aiven.klaw.dao.UserInfo",
+                                                        "fields": {
+                                                            "pwd": {
+                                                                "kind": "null"
+                                                            },
+                                                            "role": {
+                                                                "kind": "string",
+                                                                "value": "USER"
+                                                            },
+                                                            "mailid": {
+                                                                "kind": "string",
+                                                                "value": "Jackie@klaw.mailid"
+                                                            },
+                                                            "switchTeams": {
+                                                                "kind": "boolean",
+                                                                "value": false
+                                                            },
+                                                            "otherParams": {
+                                                                "kind": "null"
+                                                            },
+                                                            "resetTokenGeneratedAt": {
+                                                                "kind": "null"
+                                                            },
+                                                            "username": {
+                                                                "kind": "string",
+                                                                "value": "Jackie"
+                                                            },
+                                                            "tenantId": {
+                                                                "kind": "int",
+                                                                "value": 101
+                                                            },
+                                                            "teamId": {
+                                                                "kind": "int",
+                                                                "value": 13
+                                                            },
+                                                            "fullname": {
+                                                                "kind": "null"
+                                                            },
+                                                            "switchAllowedTeamIds": {
+                                                                "kind": "null"
+                                                            },
+                                                            "resetToken": {
+                                                                "kind": "null"
+                                                            }
+                                                        },
+                                                        "id": 6
+                                                    }
+                                                ]
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "method": {
+                                        "methodName": "getTeamNameFromTeamId",
+                                        "fullName": "io.aiven.klaw.config.ManageDatabase.getTeamNameFromTeamId(II)Ljava/lang/String;",
+                                        "argumentsSize": 2,
+                                        "returnTypeName": "java.lang.String",
+                                        "containingClass": "io.aiven.klaw.config.ManageDatabase"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "string",
+                                                "value": "ALICE"
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                }
+                            ],
+                            "isSpy": false,
+                            "id": 3
+                        },
+                        "allowMultiApproval": {
+                            "kind": "boolean",
+                            "value": true
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "list",
+                        "isShallow": false,
+                        "size": 2,
+                        "elements": [
+                            {
+                                "kind": "object",
+                                "typeName": "io.aiven.klaw.dao.Approval",
+                                "fields": {
+                                    "approvalId": {
+                                        "kind": "int",
+                                        "value": 1
+                                    },
+                                    "approvalType": {
+                                        "kind": "enum",
+                                        "typeName": "io.aiven.klaw.model.enums.ApprovalType",
+                                        "value": "TOPIC_TEAM_OWNER"
+                                    },
+                                    "requiredApprover": {
+                                        "kind": "string",
+                                        "value": "ALICE"
+                                    },
+                                    "approverName": {
+                                        "kind": "null"
+                                    },
+                                    "approverTeamId": {
+                                        "kind": "int",
+                                        "value": 0
+                                    },
+                                    "approverTeamName": {
+                                        "kind": "null"
+                                    }
+                                },
+                                "id": 7
+                            },
+                            {
+                                "kind": "object",
+                                "typeName": "io.aiven.klaw.dao.Approval",
+                                "fields": {
+                                    "approvalId": {
+                                        "kind": "int",
+                                        "value": 2
+                                    },
+                                    "approvalType": {
+                                        "kind": "enum",
+                                        "typeName": "io.aiven.klaw.model.enums.ApprovalType",
+                                        "value": "ACL_TEAM_OWNER"
+                                    },
+                                    "requiredApprover": {
+                                        "kind": "string",
+                                        "value": "Octopus"
+                                    },
+                                    "approverName": {
+                                        "kind": "null"
+                                    },
+                                    "approverTeamId": {
+                                        "kind": "int",
+                                        "value": 0
+                                    },
+                                    "approverTeamName": {
+                                        "kind": "null"
+                                    }
+                                },
+                                "id": 8
+                            }
+                        ]
+                    },
+                    {
+                        "kind": "string",
+                        "value": "John"
+                    },
+                    {
+                        "kind": "int",
+                        "value": 11
+                    },
+                    {
+                        "kind": "int",
+                        "value": 10
+                    }
+                ],
+                "returnValue": {
+                    "kind": "list",
+                    "isShallow": true,
+                    "size": 2,
+                    "elements": []
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "addApproval",
+                    "fullName": "addApproval(List<Approval>, String, Integer, Integer)",
+                    "argumentsSize": 4,
+                    "returnTypeName": "List<Approval>",
+                    "containingClass": "io.aiven.klaw.service.ApprovalService"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "io.aiven.klaw.service.ApprovalService",
+                    "fields": {
+                        "topicApprovals": {
+                            "kind": "null"
+                        },
+                        "aclApprovals": {
+                            "kind": "null"
+                        },
+                        "schemaApprovals": {
+                            "kind": "null"
+                        },
+                        "connectApprovals": {
+                            "kind": "null"
+                        },
+                        "mailService": {
+                            "kind": "mock",
+                            "typeName": "io.aiven.klaw.service.MailUtils",
+                            "methods": [],
+                            "isSpy": false,
+                            "id": 1
+                        },
+                        "commonUtilsService": {
+                            "kind": "mock",
+                            "typeName": "io.aiven.klaw.service.CommonUtilsService",
+                            "methods": [],
+                            "isSpy": false,
+                            "id": 2
+                        },
+                        "manageDatabase": {
+                            "kind": "mock",
+                            "typeName": "io.aiven.klaw.config.ManageDatabase",
+                            "methods": [
+                                {
+                                    "method": {
+                                        "methodName": "selectAllCachedUserInfo",
+                                        "fullName": "io.aiven.klaw.config.ManageDatabase.selectAllCachedUserInfo()Ljava/util/List;",
+                                        "argumentsSize": 0,
+                                        "returnTypeName": "java.util.List",
+                                        "containingClass": "io.aiven.klaw.config.ManageDatabase"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "list",
+                                                "isShallow": false,
+                                                "size": 3,
+                                                "elements": [
+                                                    {
+                                                        "kind": "object",
+                                                        "typeName": "io.aiven.klaw.dao.UserInfo",
+                                                        "fields": {
+                                                            "pwd": {
+                                                                "kind": "null"
+                                                            },
+                                                            "role": {
+                                                                "kind": "string",
+                                                                "value": "USER"
+                                                            },
+                                                            "mailid": {
+                                                                "kind": "string",
+                                                                "value": "John@klaw.mailid"
+                                                            },
+                                                            "switchTeams": {
+                                                                "kind": "boolean",
+                                                                "value": false
+                                                            },
+                                                            "otherParams": {
+                                                                "kind": "null"
+                                                            },
+                                                            "resetTokenGeneratedAt": {
+                                                                "kind": "null"
+                                                            },
+                                                            "username": {
+                                                                "kind": "string",
+                                                                "value": "John"
+                                                            },
+                                                            "tenantId": {
+                                                                "kind": "int",
+                                                                "value": 101
+                                                            },
+                                                            "teamId": {
+                                                                "kind": "int",
+                                                                "value": 10
+                                                            },
+                                                            "fullname": {
+                                                                "kind": "null"
+                                                            },
+                                                            "switchAllowedTeamIds": {
+                                                                "kind": "null"
+                                                            },
+                                                            "resetToken": {
+                                                                "kind": "null"
+                                                            }
+                                                        },
+                                                        "id": 4
+                                                    },
+                                                    {
+                                                        "kind": "object",
+                                                        "typeName": "io.aiven.klaw.dao.UserInfo",
+                                                        "fields": {
+                                                            "pwd": {
+                                                                "kind": "null"
+                                                            },
+                                                            "role": {
+                                                                "kind": "string",
+                                                                "value": "USER"
+                                                            },
+                                                            "mailid": {
+                                                                "kind": "string",
+                                                                "value": "James@klaw.mailid"
+                                                            },
+                                                            "switchTeams": {
+                                                                "kind": "boolean",
+                                                                "value": false
+                                                            },
+                                                            "otherParams": {
+                                                                "kind": "null"
+                                                            },
+                                                            "resetTokenGeneratedAt": {
+                                                                "kind": "null"
+                                                            },
+                                                            "username": {
+                                                                "kind": "string",
+                                                                "value": "James"
+                                                            },
+                                                            "tenantId": {
+                                                                "kind": "int",
+                                                                "value": 101
+                                                            },
+                                                            "teamId": {
+                                                                "kind": "int",
+                                                                "value": 11
+                                                            },
+                                                            "fullname": {
+                                                                "kind": "null"
+                                                            },
+                                                            "switchAllowedTeamIds": {
+                                                                "kind": "null"
+                                                            },
+                                                            "resetToken": {
+                                                                "kind": "null"
+                                                            }
+                                                        },
+                                                        "id": 5
+                                                    },
+                                                    {
+                                                        "kind": "object",
+                                                        "typeName": "io.aiven.klaw.dao.UserInfo",
+                                                        "fields": {
+                                                            "pwd": {
+                                                                "kind": "null"
+                                                            },
+                                                            "role": {
+                                                                "kind": "string",
+                                                                "value": "USER"
+                                                            },
+                                                            "mailid": {
+                                                                "kind": "string",
+                                                                "value": "Jackie@klaw.mailid"
+                                                            },
+                                                            "switchTeams": {
+                                                                "kind": "boolean",
+                                                                "value": false
+                                                            },
+                                                            "otherParams": {
+                                                                "kind": "null"
+                                                            },
+                                                            "resetTokenGeneratedAt": {
+                                                                "kind": "null"
+                                                            },
+                                                            "username": {
+                                                                "kind": "string",
+                                                                "value": "Jackie"
+                                                            },
+                                                            "tenantId": {
+                                                                "kind": "int",
+                                                                "value": 101
+                                                            },
+                                                            "teamId": {
+                                                                "kind": "int",
+                                                                "value": 13
+                                                            },
+                                                            "fullname": {
+                                                                "kind": "null"
+                                                            },
+                                                            "switchAllowedTeamIds": {
+                                                                "kind": "null"
+                                                            },
+                                                            "resetToken": {
+                                                                "kind": "null"
+                                                            }
+                                                        },
+                                                        "id": 6
+                                                    }
+                                                ]
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "method": {
+                                        "methodName": "getTeamNameFromTeamId",
+                                        "fullName": "io.aiven.klaw.config.ManageDatabase.getTeamNameFromTeamId(II)Ljava/lang/String;",
+                                        "argumentsSize": 2,
+                                        "returnTypeName": "java.lang.String",
+                                        "containingClass": "io.aiven.klaw.config.ManageDatabase"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "string",
+                                                "value": "SUPPORT_TEAM"
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "string",
+                                                "value": "SUPPORT_TEAM"
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                }
+                            ],
+                            "isSpy": false,
+                            "id": 3
+                        },
+                        "allowMultiApproval": {
+                            "kind": "boolean",
+                            "value": true
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "list",
+                        "isShallow": false,
+                        "size": 2,
+                        "elements": [
+                            {
+                                "kind": "object",
+                                "typeName": "io.aiven.klaw.dao.Approval",
+                                "fields": {
+                                    "approvalId": {
+                                        "kind": "int",
+                                        "value": 1
+                                    },
+                                    "approvalType": {
+                                        "kind": "enum",
+                                        "typeName": "io.aiven.klaw.model.enums.ApprovalType",
+                                        "value": "TEAM"
+                                    },
+                                    "requiredApprover": {
+                                        "kind": "string",
+                                        "value": "SUPPORT_TEAM"
+                                    },
+                                    "approverName": {
+                                        "kind": "null"
+                                    },
+                                    "approverTeamId": {
+                                        "kind": "int",
+                                        "value": 0
+                                    },
+                                    "approverTeamName": {
+                                        "kind": "null"
+                                    }
+                                },
+                                "id": 7
+                            },
+                            {
+                                "kind": "object",
+                                "typeName": "io.aiven.klaw.dao.Approval",
+                                "fields": {
+                                    "approvalId": {
+                                        "kind": "int",
+                                        "value": 2
+                                    },
+                                    "approvalType": {
+                                        "kind": "enum",
+                                        "typeName": "io.aiven.klaw.model.enums.ApprovalType",
+                                        "value": "ACL_TEAM_OWNER"
+                                    },
+                                    "requiredApprover": {
+                                        "kind": "string",
+                                        "value": "Octopus"
+                                    },
+                                    "approverName": {
+                                        "kind": "null"
+                                    },
+                                    "approverTeamId": {
+                                        "kind": "int",
+                                        "value": 0
+                                    },
+                                    "approverTeamName": {
+                                        "kind": "null"
+                                    }
+                                },
+                                "id": 8
+                            }
+                        ]
+                    },
+                    {
+                        "kind": "string",
+                        "value": "Jackie"
+                    },
+                    {
+                        "kind": "int",
+                        "value": 10
+                    },
+                    {
+                        "kind": "int",
+                        "value": 11
+                    }
+                ],
+                "returnValue": {
+                    "kind": "list",
+                    "isShallow": true,
+                    "size": 2,
+                    "elements": []
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "addApproval",
+                    "fullName": "addApproval(List<Approval>, String, Integer, Integer)",
+                    "argumentsSize": 4,
+                    "returnTypeName": "List<Approval>",
+                    "containingClass": "io.aiven.klaw.service.ApprovalService"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "io.aiven.klaw.service.ApprovalService",
+                    "fields": {
+                        "topicApprovals": {
+                            "kind": "null"
+                        },
+                        "aclApprovals": {
+                            "kind": "null"
+                        },
+                        "schemaApprovals": {
+                            "kind": "null"
+                        },
+                        "connectApprovals": {
+                            "kind": "null"
+                        },
+                        "mailService": {
+                            "kind": "mock",
+                            "typeName": "io.aiven.klaw.service.MailUtils",
+                            "methods": [],
+                            "isSpy": false,
+                            "id": 1
+                        },
+                        "commonUtilsService": {
+                            "kind": "mock",
+                            "typeName": "io.aiven.klaw.service.CommonUtilsService",
+                            "methods": [],
+                            "isSpy": false,
+                            "id": 2
+                        },
+                        "manageDatabase": {
+                            "kind": "mock",
+                            "typeName": "io.aiven.klaw.config.ManageDatabase",
+                            "methods": [
+                                {
+                                    "method": {
+                                        "methodName": "selectAllCachedUserInfo",
+                                        "fullName": "io.aiven.klaw.config.ManageDatabase.selectAllCachedUserInfo()Ljava/util/List;",
+                                        "argumentsSize": 0,
+                                        "returnTypeName": "java.util.List",
+                                        "containingClass": "io.aiven.klaw.config.ManageDatabase"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "list",
+                                                "isShallow": false,
+                                                "size": 3,
+                                                "elements": [
+                                                    {
+                                                        "kind": "object",
+                                                        "typeName": "io.aiven.klaw.dao.UserInfo",
+                                                        "fields": {
+                                                            "pwd": {
+                                                                "kind": "null"
+                                                            },
+                                                            "role": {
+                                                                "kind": "string",
+                                                                "value": "USER"
+                                                            },
+                                                            "mailid": {
+                                                                "kind": "string",
+                                                                "value": "John@klaw.mailid"
+                                                            },
+                                                            "switchTeams": {
+                                                                "kind": "boolean",
+                                                                "value": false
+                                                            },
+                                                            "otherParams": {
+                                                                "kind": "null"
+                                                            },
+                                                            "resetTokenGeneratedAt": {
+                                                                "kind": "null"
+                                                            },
+                                                            "username": {
+                                                                "kind": "string",
+                                                                "value": "John"
+                                                            },
+                                                            "tenantId": {
+                                                                "kind": "int",
+                                                                "value": 101
+                                                            },
+                                                            "teamId": {
+                                                                "kind": "int",
+                                                                "value": 10
+                                                            },
+                                                            "fullname": {
+                                                                "kind": "null"
+                                                            },
+                                                            "switchAllowedTeamIds": {
+                                                                "kind": "null"
+                                                            },
+                                                            "resetToken": {
+                                                                "kind": "null"
+                                                            }
+                                                        },
+                                                        "id": 4
+                                                    },
+                                                    {
+                                                        "kind": "object",
+                                                        "typeName": "io.aiven.klaw.dao.UserInfo",
+                                                        "fields": {
+                                                            "pwd": {
+                                                                "kind": "null"
+                                                            },
+                                                            "role": {
+                                                                "kind": "string",
+                                                                "value": "USER"
+                                                            },
+                                                            "mailid": {
+                                                                "kind": "string",
+                                                                "value": "James@klaw.mailid"
+                                                            },
+                                                            "switchTeams": {
+                                                                "kind": "boolean",
+                                                                "value": false
+                                                            },
+                                                            "otherParams": {
+                                                                "kind": "null"
+                                                            },
+                                                            "resetTokenGeneratedAt": {
+                                                                "kind": "null"
+                                                            },
+                                                            "username": {
+                                                                "kind": "string",
+                                                                "value": "James"
+                                                            },
+                                                            "tenantId": {
+                                                                "kind": "int",
+                                                                "value": 101
+                                                            },
+                                                            "teamId": {
+                                                                "kind": "int",
+                                                                "value": 11
+                                                            },
+                                                            "fullname": {
+                                                                "kind": "null"
+                                                            },
+                                                            "switchAllowedTeamIds": {
+                                                                "kind": "null"
+                                                            },
+                                                            "resetToken": {
+                                                                "kind": "null"
+                                                            }
+                                                        },
+                                                        "id": 5
+                                                    },
+                                                    {
+                                                        "kind": "object",
+                                                        "typeName": "io.aiven.klaw.dao.UserInfo",
+                                                        "fields": {
+                                                            "pwd": {
+                                                                "kind": "null"
+                                                            },
+                                                            "role": {
+                                                                "kind": "string",
+                                                                "value": "USER"
+                                                            },
+                                                            "mailid": {
+                                                                "kind": "string",
+                                                                "value": "Jackie@klaw.mailid"
+                                                            },
+                                                            "switchTeams": {
+                                                                "kind": "boolean",
+                                                                "value": false
+                                                            },
+                                                            "otherParams": {
+                                                                "kind": "null"
+                                                            },
+                                                            "resetTokenGeneratedAt": {
+                                                                "kind": "null"
+                                                            },
+                                                            "username": {
+                                                                "kind": "string",
+                                                                "value": "Jackie"
+                                                            },
+                                                            "tenantId": {
+                                                                "kind": "int",
+                                                                "value": 101
+                                                            },
+                                                            "teamId": {
+                                                                "kind": "int",
+                                                                "value": 13
+                                                            },
+                                                            "fullname": {
+                                                                "kind": "null"
+                                                            },
+                                                            "switchAllowedTeamIds": {
+                                                                "kind": "null"
+                                                            },
+                                                            "resetToken": {
+                                                                "kind": "null"
+                                                            }
+                                                        },
+                                                        "id": 6
+                                                    }
+                                                ]
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "method": {
+                                        "methodName": "getTeamNameFromTeamId",
+                                        "fullName": "io.aiven.klaw.config.ManageDatabase.getTeamNameFromTeamId(II)Ljava/lang/String;",
+                                        "argumentsSize": 2,
+                                        "returnTypeName": "java.lang.String",
+                                        "containingClass": "io.aiven.klaw.config.ManageDatabase"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "string",
+                                                "value": "ALICE"
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "string",
+                                                "value": "ALICE"
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                }
+                            ],
+                            "isSpy": false,
+                            "id": 3
+                        },
+                        "allowMultiApproval": {
+                            "kind": "boolean",
+                            "value": true
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "list",
+                        "isShallow": false,
+                        "size": 2,
+                        "elements": [
+                            {
+                                "kind": "object",
+                                "typeName": "io.aiven.klaw.dao.Approval",
+                                "fields": {
+                                    "approvalId": {
+                                        "kind": "int",
+                                        "value": 1
+                                    },
+                                    "approvalType": {
+                                        "kind": "enum",
+                                        "typeName": "io.aiven.klaw.model.enums.ApprovalType",
+                                        "value": "TOPIC_TEAM_OWNER"
+                                    },
+                                    "requiredApprover": {
+                                        "kind": "string",
+                                        "value": "ALICE"
+                                    },
+                                    "approverName": {
+                                        "kind": "null"
+                                    },
+                                    "approverTeamId": {
+                                        "kind": "int",
+                                        "value": 0
+                                    },
+                                    "approverTeamName": {
+                                        "kind": "null"
+                                    }
+                                },
+                                "id": 7
+                            },
+                            {
+                                "kind": "object",
+                                "typeName": "io.aiven.klaw.dao.Approval",
+                                "fields": {
+                                    "approvalId": {
+                                        "kind": "int",
+                                        "value": 2
+                                    },
+                                    "approvalType": {
+                                        "kind": "enum",
+                                        "typeName": "io.aiven.klaw.model.enums.ApprovalType",
+                                        "value": "ACL_TEAM_OWNER"
+                                    },
+                                    "requiredApprover": {
+                                        "kind": "string",
+                                        "value": "Octopus"
+                                    },
+                                    "approverName": {
+                                        "kind": "null"
+                                    },
+                                    "approverTeamId": {
+                                        "kind": "int",
+                                        "value": 0
+                                    },
+                                    "approverTeamName": {
+                                        "kind": "null"
+                                    }
+                                },
+                                "id": 8
+                            }
+                        ]
+                    },
+                    {
+                        "kind": "string",
+                        "value": "John"
+                    },
+                    {
+                        "kind": "int",
+                        "value": 10
+                    },
+                    {
+                        "kind": "int",
+                        "value": 10
+                    }
+                ],
+                "returnValue": {
+                    "kind": "list",
+                    "isShallow": true,
+                    "size": 2,
+                    "elements": []
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "addApproval",
+                    "fullName": "addApproval(List<Approval>, String, Integer, Integer)",
+                    "argumentsSize": 4,
+                    "returnTypeName": "List<Approval>",
+                    "containingClass": "io.aiven.klaw.service.ApprovalService"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "io.aiven.klaw.service.ApprovalService",
+                    "fields": {
+                        "topicApprovals": {
+                            "kind": "null"
+                        },
+                        "aclApprovals": {
+                            "kind": "null"
+                        },
+                        "schemaApprovals": {
+                            "kind": "null"
+                        },
+                        "connectApprovals": {
+                            "kind": "null"
+                        },
+                        "mailService": {
+                            "kind": "mock",
+                            "typeName": "io.aiven.klaw.service.MailUtils",
+                            "methods": [],
+                            "isSpy": false,
+                            "id": 1
+                        },
+                        "commonUtilsService": {
+                            "kind": "mock",
+                            "typeName": "io.aiven.klaw.service.CommonUtilsService",
+                            "methods": [],
+                            "isSpy": false,
+                            "id": 2
+                        },
+                        "manageDatabase": {
+                            "kind": "mock",
+                            "typeName": "io.aiven.klaw.config.ManageDatabase",
+                            "methods": [
+                                {
+                                    "method": {
+                                        "methodName": "selectAllCachedUserInfo",
+                                        "fullName": "io.aiven.klaw.config.ManageDatabase.selectAllCachedUserInfo()Ljava/util/List;",
+                                        "argumentsSize": 0,
+                                        "returnTypeName": "java.util.List",
+                                        "containingClass": "io.aiven.klaw.config.ManageDatabase"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "list",
+                                                "isShallow": false,
+                                                "size": 3,
+                                                "elements": [
+                                                    {
+                                                        "kind": "object",
+                                                        "typeName": "io.aiven.klaw.dao.UserInfo",
+                                                        "fields": {
+                                                            "pwd": {
+                                                                "kind": "null"
+                                                            },
+                                                            "role": {
+                                                                "kind": "string",
+                                                                "value": "USER"
+                                                            },
+                                                            "mailid": {
+                                                                "kind": "string",
+                                                                "value": "John@klaw.mailid"
+                                                            },
+                                                            "switchTeams": {
+                                                                "kind": "boolean",
+                                                                "value": false
+                                                            },
+                                                            "otherParams": {
+                                                                "kind": "null"
+                                                            },
+                                                            "resetTokenGeneratedAt": {
+                                                                "kind": "null"
+                                                            },
+                                                            "username": {
+                                                                "kind": "string",
+                                                                "value": "John"
+                                                            },
+                                                            "tenantId": {
+                                                                "kind": "int",
+                                                                "value": 101
+                                                            },
+                                                            "teamId": {
+                                                                "kind": "int",
+                                                                "value": 10
+                                                            },
+                                                            "fullname": {
+                                                                "kind": "null"
+                                                            },
+                                                            "switchAllowedTeamIds": {
+                                                                "kind": "null"
+                                                            },
+                                                            "resetToken": {
+                                                                "kind": "null"
+                                                            }
+                                                        },
+                                                        "id": 4
+                                                    },
+                                                    {
+                                                        "kind": "object",
+                                                        "typeName": "io.aiven.klaw.dao.UserInfo",
+                                                        "fields": {
+                                                            "pwd": {
+                                                                "kind": "null"
+                                                            },
+                                                            "role": {
+                                                                "kind": "string",
+                                                                "value": "USER"
+                                                            },
+                                                            "mailid": {
+                                                                "kind": "string",
+                                                                "value": "James@klaw.mailid"
+                                                            },
+                                                            "switchTeams": {
+                                                                "kind": "boolean",
+                                                                "value": false
+                                                            },
+                                                            "otherParams": {
+                                                                "kind": "null"
+                                                            },
+                                                            "resetTokenGeneratedAt": {
+                                                                "kind": "null"
+                                                            },
+                                                            "username": {
+                                                                "kind": "string",
+                                                                "value": "James"
+                                                            },
+                                                            "tenantId": {
+                                                                "kind": "int",
+                                                                "value": 101
+                                                            },
+                                                            "teamId": {
+                                                                "kind": "int",
+                                                                "value": 11
+                                                            },
+                                                            "fullname": {
+                                                                "kind": "null"
+                                                            },
+                                                            "switchAllowedTeamIds": {
+                                                                "kind": "null"
+                                                            },
+                                                            "resetToken": {
+                                                                "kind": "null"
+                                                            }
+                                                        },
+                                                        "id": 5
+                                                    },
+                                                    {
+                                                        "kind": "object",
+                                                        "typeName": "io.aiven.klaw.dao.UserInfo",
+                                                        "fields": {
+                                                            "pwd": {
+                                                                "kind": "null"
+                                                            },
+                                                            "role": {
+                                                                "kind": "string",
+                                                                "value": "USER"
+                                                            },
+                                                            "mailid": {
+                                                                "kind": "string",
+                                                                "value": "Jackie@klaw.mailid"
+                                                            },
+                                                            "switchTeams": {
+                                                                "kind": "boolean",
+                                                                "value": false
+                                                            },
+                                                            "otherParams": {
+                                                                "kind": "null"
+                                                            },
+                                                            "resetTokenGeneratedAt": {
+                                                                "kind": "null"
+                                                            },
+                                                            "username": {
+                                                                "kind": "string",
+                                                                "value": "Jackie"
+                                                            },
+                                                            "tenantId": {
+                                                                "kind": "int",
+                                                                "value": 101
+                                                            },
+                                                            "teamId": {
+                                                                "kind": "int",
+                                                                "value": 13
+                                                            },
+                                                            "fullname": {
+                                                                "kind": "null"
+                                                            },
+                                                            "switchAllowedTeamIds": {
+                                                                "kind": "null"
+                                                            },
+                                                            "resetToken": {
+                                                                "kind": "null"
+                                                            }
+                                                        },
+                                                        "id": 6
+                                                    }
+                                                ]
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "method": {
+                                        "methodName": "getTeamNameFromTeamId",
+                                        "fullName": "io.aiven.klaw.config.ManageDatabase.getTeamNameFromTeamId(II)Ljava/lang/String;",
+                                        "argumentsSize": 2,
+                                        "returnTypeName": "java.lang.String",
+                                        "containingClass": "io.aiven.klaw.config.ManageDatabase"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "string",
+                                                "value": "Octopus"
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                }
+                            ],
+                            "isSpy": false,
+                            "id": 3
+                        },
+                        "allowMultiApproval": {
+                            "kind": "boolean",
+                            "value": true
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "list",
+                        "isShallow": false,
+                        "size": 2,
+                        "elements": [
+                            {
+                                "kind": "object",
+                                "typeName": "io.aiven.klaw.dao.Approval",
+                                "fields": {
+                                    "approvalId": {
+                                        "kind": "int",
+                                        "value": 1
+                                    },
+                                    "approvalType": {
+                                        "kind": "enum",
+                                        "typeName": "io.aiven.klaw.model.enums.ApprovalType",
+                                        "value": "TOPIC_TEAM_OWNER"
+                                    },
+                                    "requiredApprover": {
+                                        "kind": "string",
+                                        "value": "Octopus"
+                                    },
+                                    "approverName": {
+                                        "kind": "null"
+                                    },
+                                    "approverTeamId": {
+                                        "kind": "int",
+                                        "value": 0
+                                    },
+                                    "approverTeamName": {
+                                        "kind": "null"
+                                    }
+                                },
+                                "id": 7
+                            },
+                            {
+                                "kind": "object",
+                                "typeName": "io.aiven.klaw.dao.Approval",
+                                "fields": {
+                                    "approvalId": {
+                                        "kind": "int",
+                                        "value": 2
+                                    },
+                                    "approvalType": {
+                                        "kind": "enum",
+                                        "typeName": "io.aiven.klaw.model.enums.ApprovalType",
+                                        "value": "TOPIC_TEAM_OWNER"
+                                    },
+                                    "requiredApprover": {
+                                        "kind": "string",
+                                        "value": "Octopus"
+                                    },
+                                    "approverName": {
+                                        "kind": "null"
+                                    },
+                                    "approverTeamId": {
+                                        "kind": "int",
+                                        "value": 0
+                                    },
+                                    "approverTeamName": {
+                                        "kind": "null"
+                                    }
+                                },
+                                "id": 8
+                            }
+                        ]
+                    },
+                    {
+                        "kind": "string",
+                        "value": "James"
+                    },
+                    {
+                        "kind": "int",
+                        "value": 11
+                    },
+                    {
+                        "kind": "null"
+                    }
+                ],
+                "returnValue": {
+                    "kind": "list",
+                    "isShallow": true,
+                    "size": 2,
+                    "elements": []
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "addApproval",
+                    "fullName": "addApproval(List<Approval>, String, Integer, Integer)",
+                    "argumentsSize": 4,
+                    "returnTypeName": "List<Approval>",
+                    "containingClass": "io.aiven.klaw.service.ApprovalService"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "io.aiven.klaw.service.ApprovalService",
+                    "fields": {
+                        "topicApprovals": {
+                            "kind": "null"
+                        },
+                        "aclApprovals": {
+                            "kind": "null"
+                        },
+                        "schemaApprovals": {
+                            "kind": "null"
+                        },
+                        "connectApprovals": {
+                            "kind": "null"
+                        },
+                        "mailService": {
+                            "kind": "mock",
+                            "typeName": "io.aiven.klaw.service.MailUtils",
+                            "methods": [],
+                            "isSpy": false,
+                            "id": 1
+                        },
+                        "commonUtilsService": {
+                            "kind": "mock",
+                            "typeName": "io.aiven.klaw.service.CommonUtilsService",
+                            "methods": [],
+                            "isSpy": false,
+                            "id": 2
+                        },
+                        "manageDatabase": {
+                            "kind": "mock",
+                            "typeName": "io.aiven.klaw.config.ManageDatabase",
+                            "methods": [],
+                            "isSpy": false,
+                            "id": 3
+                        },
+                        "allowMultiApproval": {
+                            "kind": "boolean",
+                            "value": true
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "list",
+                        "isShallow": false,
+                        "size": 2,
+                        "elements": [
+                            {
+                                "kind": "object",
+                                "typeName": "io.aiven.klaw.dao.Approval",
+                                "fields": {
+                                    "approvalId": {
+                                        "kind": "int",
+                                        "value": 1
+                                    },
+                                    "approvalType": {
+                                        "kind": "enum",
+                                        "typeName": "io.aiven.klaw.model.enums.ApprovalType",
+                                        "value": "TOPIC_TEAM_OWNER"
+                                    },
+                                    "requiredApprover": {
+                                        "kind": "string",
+                                        "value": "Octopus"
+                                    },
+                                    "approverName": {
+                                        "kind": "string",
+                                        "value": "James"
+                                    },
+                                    "approverTeamId": {
+                                        "kind": "int",
+                                        "value": 11
+                                    },
+                                    "approverTeamName": {
+                                        "kind": "string",
+                                        "value": "Octopus"
+                                    }
+                                },
+                                "id": 4
+                            },
+                            {
+                                "kind": "object",
+                                "typeName": "io.aiven.klaw.dao.Approval",
+                                "fields": {
+                                    "approvalId": {
+                                        "kind": "int",
+                                        "value": 2
+                                    },
+                                    "approvalType": {
+                                        "kind": "enum",
+                                        "typeName": "io.aiven.klaw.model.enums.ApprovalType",
+                                        "value": "TOPIC_TEAM_OWNER"
+                                    },
+                                    "requiredApprover": {
+                                        "kind": "string",
+                                        "value": "Octopus"
+                                    },
+                                    "approverName": {
+                                        "kind": "null"
+                                    },
+                                    "approverTeamId": {
+                                        "kind": "int",
+                                        "value": 0
+                                    },
+                                    "approverTeamName": {
+                                        "kind": "null"
+                                    }
+                                },
+                                "id": 5
+                            }
+                        ]
+                    },
+                    {
+                        "kind": "string",
+                        "value": "James"
+                    },
+                    {
+                        "kind": "int",
+                        "value": 11
+                    },
+                    {
+                        "kind": "null"
+                    }
+                ],
+                "returnValue": {
+                    "kind": "exception",
+                    "typeName": "io.aiven.klaw.error.KlawBadRequestException"
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "addApproval",
+                    "fullName": "addApproval(List<Approval>, String, Integer, Integer)",
+                    "argumentsSize": 4,
+                    "returnTypeName": "List<Approval>",
+                    "containingClass": "io.aiven.klaw.service.ApprovalService"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "io.aiven.klaw.service.ApprovalService",
+                    "fields": {
+                        "topicApprovals": {
+                            "kind": "null"
+                        },
+                        "aclApprovals": {
+                            "kind": "null"
+                        },
+                        "schemaApprovals": {
+                            "kind": "null"
+                        },
+                        "connectApprovals": {
+                            "kind": "null"
+                        },
+                        "mailService": {
+                            "kind": "mock",
+                            "typeName": "io.aiven.klaw.service.MailUtils",
+                            "methods": [],
+                            "isSpy": false,
+                            "id": 1
+                        },
+                        "commonUtilsService": {
+                            "kind": "mock",
+                            "typeName": "io.aiven.klaw.service.CommonUtilsService",
+                            "methods": [],
+                            "isSpy": false,
+                            "id": 2
+                        },
+                        "manageDatabase": {
+                            "kind": "mock",
+                            "typeName": "io.aiven.klaw.config.ManageDatabase",
+                            "methods": [
+                                {
+                                    "method": {
+                                        "methodName": "selectAllCachedUserInfo",
+                                        "fullName": "io.aiven.klaw.config.ManageDatabase.selectAllCachedUserInfo()Ljava/util/List;",
+                                        "argumentsSize": 0,
+                                        "returnTypeName": "java.util.List",
+                                        "containingClass": "io.aiven.klaw.config.ManageDatabase"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "list",
+                                                "isShallow": false,
+                                                "size": 3,
+                                                "elements": [
+                                                    {
+                                                        "kind": "object",
+                                                        "typeName": "io.aiven.klaw.dao.UserInfo",
+                                                        "fields": {
+                                                            "pwd": {
+                                                                "kind": "null"
+                                                            },
+                                                            "role": {
+                                                                "kind": "string",
+                                                                "value": "USER"
+                                                            },
+                                                            "mailid": {
+                                                                "kind": "string",
+                                                                "value": "John@klaw.mailid"
+                                                            },
+                                                            "switchTeams": {
+                                                                "kind": "boolean",
+                                                                "value": false
+                                                            },
+                                                            "otherParams": {
+                                                                "kind": "null"
+                                                            },
+                                                            "resetTokenGeneratedAt": {
+                                                                "kind": "null"
+                                                            },
+                                                            "username": {
+                                                                "kind": "string",
+                                                                "value": "John"
+                                                            },
+                                                            "tenantId": {
+                                                                "kind": "int",
+                                                                "value": 101
+                                                            },
+                                                            "teamId": {
+                                                                "kind": "int",
+                                                                "value": 10
+                                                            },
+                                                            "fullname": {
+                                                                "kind": "null"
+                                                            },
+                                                            "switchAllowedTeamIds": {
+                                                                "kind": "null"
+                                                            },
+                                                            "resetToken": {
+                                                                "kind": "null"
+                                                            }
+                                                        },
+                                                        "id": 4
+                                                    },
+                                                    {
+                                                        "kind": "object",
+                                                        "typeName": "io.aiven.klaw.dao.UserInfo",
+                                                        "fields": {
+                                                            "pwd": {
+                                                                "kind": "null"
+                                                            },
+                                                            "role": {
+                                                                "kind": "string",
+                                                                "value": "USER"
+                                                            },
+                                                            "mailid": {
+                                                                "kind": "string",
+                                                                "value": "James@klaw.mailid"
+                                                            },
+                                                            "switchTeams": {
+                                                                "kind": "boolean",
+                                                                "value": false
+                                                            },
+                                                            "otherParams": {
+                                                                "kind": "null"
+                                                            },
+                                                            "resetTokenGeneratedAt": {
+                                                                "kind": "null"
+                                                            },
+                                                            "username": {
+                                                                "kind": "string",
+                                                                "value": "James"
+                                                            },
+                                                            "tenantId": {
+                                                                "kind": "int",
+                                                                "value": 101
+                                                            },
+                                                            "teamId": {
+                                                                "kind": "int",
+                                                                "value": 11
+                                                            },
+                                                            "fullname": {
+                                                                "kind": "null"
+                                                            },
+                                                            "switchAllowedTeamIds": {
+                                                                "kind": "null"
+                                                            },
+                                                            "resetToken": {
+                                                                "kind": "null"
+                                                            }
+                                                        },
+                                                        "id": 5
+                                                    },
+                                                    {
+                                                        "kind": "object",
+                                                        "typeName": "io.aiven.klaw.dao.UserInfo",
+                                                        "fields": {
+                                                            "pwd": {
+                                                                "kind": "null"
+                                                            },
+                                                            "role": {
+                                                                "kind": "string",
+                                                                "value": "USER"
+                                                            },
+                                                            "mailid": {
+                                                                "kind": "string",
+                                                                "value": "Jackie@klaw.mailid"
+                                                            },
+                                                            "switchTeams": {
+                                                                "kind": "boolean",
+                                                                "value": false
+                                                            },
+                                                            "otherParams": {
+                                                                "kind": "null"
+                                                            },
+                                                            "resetTokenGeneratedAt": {
+                                                                "kind": "null"
+                                                            },
+                                                            "username": {
+                                                                "kind": "string",
+                                                                "value": "Jackie"
+                                                            },
+                                                            "tenantId": {
+                                                                "kind": "int",
+                                                                "value": 101
+                                                            },
+                                                            "teamId": {
+                                                                "kind": "int",
+                                                                "value": 13
+                                                            },
+                                                            "fullname": {
+                                                                "kind": "null"
+                                                            },
+                                                            "switchAllowedTeamIds": {
+                                                                "kind": "null"
+                                                            },
+                                                            "resetToken": {
+                                                                "kind": "null"
+                                                            }
+                                                        },
+                                                        "id": 6
+                                                    }
+                                                ]
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "method": {
+                                        "methodName": "getTeamNameFromTeamId",
+                                        "fullName": "io.aiven.klaw.config.ManageDatabase.getTeamNameFromTeamId(II)Ljava/lang/String;",
+                                        "argumentsSize": 2,
+                                        "returnTypeName": "java.lang.String",
+                                        "containingClass": "io.aiven.klaw.config.ManageDatabase"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "string",
+                                                "value": "SUPPORT_TEAM"
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                }
+                            ],
+                            "isSpy": false,
+                            "id": 3
+                        },
+                        "allowMultiApproval": {
+                            "kind": "boolean",
+                            "value": true
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "list",
+                        "isShallow": false,
+                        "size": 2,
+                        "elements": [
+                            {
+                                "kind": "object",
+                                "typeName": "io.aiven.klaw.dao.Approval",
+                                "fields": {
+                                    "approvalId": {
+                                        "kind": "int",
+                                        "value": 1
+                                    },
+                                    "approvalType": {
+                                        "kind": "enum",
+                                        "typeName": "io.aiven.klaw.model.enums.ApprovalType",
+                                        "value": "TEAM"
+                                    },
+                                    "requiredApprover": {
+                                        "kind": "string",
+                                        "value": "ALICE"
+                                    },
+                                    "approverName": {
+                                        "kind": "null"
+                                    },
+                                    "approverTeamId": {
+                                        "kind": "int",
+                                        "value": 0
+                                    },
+                                    "approverTeamName": {
+                                        "kind": "null"
+                                    }
+                                },
+                                "id": 7
+                            },
+                            {
+                                "kind": "object",
+                                "typeName": "io.aiven.klaw.dao.Approval",
+                                "fields": {
+                                    "approvalId": {
+                                        "kind": "int",
+                                        "value": 2
+                                    },
+                                    "approvalType": {
+                                        "kind": "enum",
+                                        "typeName": "io.aiven.klaw.model.enums.ApprovalType",
+                                        "value": "ACL_TEAM_OWNER"
+                                    },
+                                    "requiredApprover": {
+                                        "kind": "string",
+                                        "value": "Octopus"
+                                    },
+                                    "approverName": {
+                                        "kind": "null"
+                                    },
+                                    "approverTeamId": {
+                                        "kind": "int",
+                                        "value": 0
+                                    },
+                                    "approverTeamName": {
+                                        "kind": "null"
+                                    }
+                                },
+                                "id": 8
+                            }
+                        ]
+                    },
+                    {
+                        "kind": "string",
+                        "value": "Jackie"
+                    },
+                    {
+                        "kind": "int",
+                        "value": 10
+                    },
+                    {
+                        "kind": "int",
+                        "value": 10
+                    }
+                ],
+                "returnValue": {
+                    "kind": "list",
+                    "isShallow": true,
+                    "size": 2,
+                    "elements": []
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "addApproval",
+                    "fullName": "addApproval(List<Approval>, String, Integer, Integer)",
+                    "argumentsSize": 4,
+                    "returnTypeName": "List<Approval>",
+                    "containingClass": "io.aiven.klaw.service.ApprovalService"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "io.aiven.klaw.service.ApprovalService",
+                    "fields": {
+                        "topicApprovals": {
+                            "kind": "null"
+                        },
+                        "aclApprovals": {
+                            "kind": "null"
+                        },
+                        "schemaApprovals": {
+                            "kind": "null"
+                        },
+                        "connectApprovals": {
+                            "kind": "null"
+                        },
+                        "mailService": {
+                            "kind": "mock",
+                            "typeName": "io.aiven.klaw.service.MailUtils",
+                            "methods": [],
+                            "isSpy": false,
+                            "id": 1
+                        },
+                        "commonUtilsService": {
+                            "kind": "mock",
+                            "typeName": "io.aiven.klaw.service.CommonUtilsService",
+                            "methods": [],
+                            "isSpy": false,
+                            "id": 2
+                        },
+                        "manageDatabase": {
+                            "kind": "mock",
+                            "typeName": "io.aiven.klaw.config.ManageDatabase",
+                            "methods": [
+                                {
+                                    "method": {
+                                        "methodName": "selectAllCachedUserInfo",
+                                        "fullName": "io.aiven.klaw.config.ManageDatabase.selectAllCachedUserInfo()Ljava/util/List;",
+                                        "argumentsSize": 0,
+                                        "returnTypeName": "java.util.List",
+                                        "containingClass": "io.aiven.klaw.config.ManageDatabase"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "list",
+                                                "isShallow": false,
+                                                "size": 3,
+                                                "elements": [
+                                                    {
+                                                        "kind": "object",
+                                                        "typeName": "io.aiven.klaw.dao.UserInfo",
+                                                        "fields": {
+                                                            "pwd": {
+                                                                "kind": "null"
+                                                            },
+                                                            "role": {
+                                                                "kind": "string",
+                                                                "value": "USER"
+                                                            },
+                                                            "mailid": {
+                                                                "kind": "string",
+                                                                "value": "John@klaw.mailid"
+                                                            },
+                                                            "switchTeams": {
+                                                                "kind": "boolean",
+                                                                "value": false
+                                                            },
+                                                            "otherParams": {
+                                                                "kind": "null"
+                                                            },
+                                                            "resetTokenGeneratedAt": {
+                                                                "kind": "null"
+                                                            },
+                                                            "username": {
+                                                                "kind": "string",
+                                                                "value": "John"
+                                                            },
+                                                            "tenantId": {
+                                                                "kind": "int",
+                                                                "value": 101
+                                                            },
+                                                            "teamId": {
+                                                                "kind": "int",
+                                                                "value": 10
+                                                            },
+                                                            "fullname": {
+                                                                "kind": "null"
+                                                            },
+                                                            "switchAllowedTeamIds": {
+                                                                "kind": "null"
+                                                            },
+                                                            "resetToken": {
+                                                                "kind": "null"
+                                                            }
+                                                        },
+                                                        "id": 4
+                                                    },
+                                                    {
+                                                        "kind": "object",
+                                                        "typeName": "io.aiven.klaw.dao.UserInfo",
+                                                        "fields": {
+                                                            "pwd": {
+                                                                "kind": "null"
+                                                            },
+                                                            "role": {
+                                                                "kind": "string",
+                                                                "value": "USER"
+                                                            },
+                                                            "mailid": {
+                                                                "kind": "string",
+                                                                "value": "James@klaw.mailid"
+                                                            },
+                                                            "switchTeams": {
+                                                                "kind": "boolean",
+                                                                "value": false
+                                                            },
+                                                            "otherParams": {
+                                                                "kind": "null"
+                                                            },
+                                                            "resetTokenGeneratedAt": {
+                                                                "kind": "null"
+                                                            },
+                                                            "username": {
+                                                                "kind": "string",
+                                                                "value": "James"
+                                                            },
+                                                            "tenantId": {
+                                                                "kind": "int",
+                                                                "value": 101
+                                                            },
+                                                            "teamId": {
+                                                                "kind": "int",
+                                                                "value": 11
+                                                            },
+                                                            "fullname": {
+                                                                "kind": "null"
+                                                            },
+                                                            "switchAllowedTeamIds": {
+                                                                "kind": "null"
+                                                            },
+                                                            "resetToken": {
+                                                                "kind": "null"
+                                                            }
+                                                        },
+                                                        "id": 5
+                                                    },
+                                                    {
+                                                        "kind": "object",
+                                                        "typeName": "io.aiven.klaw.dao.UserInfo",
+                                                        "fields": {
+                                                            "pwd": {
+                                                                "kind": "null"
+                                                            },
+                                                            "role": {
+                                                                "kind": "string",
+                                                                "value": "USER"
+                                                            },
+                                                            "mailid": {
+                                                                "kind": "string",
+                                                                "value": "Jackie@klaw.mailid"
+                                                            },
+                                                            "switchTeams": {
+                                                                "kind": "boolean",
+                                                                "value": false
+                                                            },
+                                                            "otherParams": {
+                                                                "kind": "null"
+                                                            },
+                                                            "resetTokenGeneratedAt": {
+                                                                "kind": "null"
+                                                            },
+                                                            "username": {
+                                                                "kind": "string",
+                                                                "value": "Jackie"
+                                                            },
+                                                            "tenantId": {
+                                                                "kind": "int",
+                                                                "value": 101
+                                                            },
+                                                            "teamId": {
+                                                                "kind": "int",
+                                                                "value": 13
+                                                            },
+                                                            "fullname": {
+                                                                "kind": "null"
+                                                            },
+                                                            "switchAllowedTeamIds": {
+                                                                "kind": "null"
+                                                            },
+                                                            "resetToken": {
+                                                                "kind": "null"
+                                                            }
+                                                        },
+                                                        "id": 6
+                                                    }
+                                                ]
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                }
+                            ],
+                            "isSpy": false,
+                            "id": 3
+                        },
+                        "allowMultiApproval": {
+                            "kind": "boolean",
+                            "value": true
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "list",
+                        "isShallow": false,
+                        "size": 2,
+                        "elements": [
+                            {
+                                "kind": "object",
+                                "typeName": "io.aiven.klaw.dao.Approval",
+                                "fields": {
+                                    "approvalId": {
+                                        "kind": "int",
+                                        "value": 1
+                                    },
+                                    "approvalType": {
+                                        "kind": "enum",
+                                        "typeName": "io.aiven.klaw.model.enums.ApprovalType",
+                                        "value": "TOPIC_TEAM_OWNER"
+                                    },
+                                    "requiredApprover": {
+                                        "kind": "string",
+                                        "value": "ALICE"
+                                    },
+                                    "approverName": {
+                                        "kind": "null"
+                                    },
+                                    "approverTeamId": {
+                                        "kind": "int",
+                                        "value": 0
+                                    },
+                                    "approverTeamName": {
+                                        "kind": "null"
+                                    }
+                                },
+                                "id": 7
+                            },
+                            {
+                                "kind": "object",
+                                "typeName": "io.aiven.klaw.dao.Approval",
+                                "fields": {
+                                    "approvalId": {
+                                        "kind": "int",
+                                        "value": 2
+                                    },
+                                    "approvalType": {
+                                        "kind": "enum",
+                                        "typeName": "io.aiven.klaw.model.enums.ApprovalType",
+                                        "value": "ACL_TEAM_OWNER"
+                                    },
+                                    "requiredApprover": {
+                                        "kind": "string",
+                                        "value": "Octopus"
+                                    },
+                                    "approverName": {
+                                        "kind": "null"
+                                    },
+                                    "approverTeamId": {
+                                        "kind": "int",
+                                        "value": 0
+                                    },
+                                    "approverTeamName": {
+                                        "kind": "null"
+                                    }
+                                },
+                                "id": 8
+                            }
+                        ]
+                    },
+                    {
+                        "kind": "string",
+                        "value": "James"
+                    },
+                    {
+                        "kind": "int",
+                        "value": 10
+                    },
+                    {
+                        "kind": "int",
+                        "value": 10
+                    }
+                ],
+                "returnValue": {
+                    "kind": "list",
+                    "isShallow": true,
+                    "size": 2,
+                    "elements": []
+                }
+            }
+        ]
+    }
+]

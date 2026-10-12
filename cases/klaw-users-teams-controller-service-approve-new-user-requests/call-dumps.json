@@ -1,0 +1,1330 @@
+[
+    {
+        "staticMethodMocks": [
+            {
+                "method": {
+                    "methodName": "ok",
+                    "fullName": "io.aiven.klaw.model.ApiResponse.ok(Ljava/lang/String;)Lio/aiven/klaw/model/ApiResponse;",
+                    "argumentsSize": 1,
+                    "returnTypeName": "io.aiven.klaw.model.ApiResponse",
+                    "containingClass": "io.aiven.klaw.model.ApiResponse"
+                },
+                "calls": [
+                    {
+                        "result": {
+                            "kind": "object",
+                            "typeName": "io.aiven.klaw.model.ApiResponse",
+                            "fields": {
+                                "success": {
+                                    "kind": "boolean",
+                                    "value": true
+                                },
+                                "errCode": {
+                                    "kind": "null"
+                                },
+                                "message": {
+                                    "kind": "string",
+                                    "value": "success"
+                                },
+                                "debugMessage": {
+                                    "kind": "null"
+                                },
+                                "data": {
+                                    "kind": "null"
+                                },
+                                "timestamp": {
+                                    "kind": "null"
+                                }
+                            },
+                            "id": 11
+                        },
+                        "args": []
+                    }
+                ]
+            }
+        ],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "approveNewUserRequests",
+                    "fullName": "approveNewUserRequests(String, boolean, int, String)",
+                    "argumentsSize": 4,
+                    "returnTypeName": "ApiResponse",
+                    "containingClass": "io.aiven.klaw.service.UsersTeamsControllerService"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "io.aiven.klaw.service.UsersTeamsControllerService",
+                    "fields": {
+                        "authenticationType": {
+                            "kind": "string",
+                            "value": "db"
+                        },
+                        "ssoEnabled": {
+                            "kind": "boolean",
+                            "value": false
+                        },
+                        "encryptorSecretKey": {
+                            "kind": "string",
+                            "value": "kw2021secretkey"
+                        },
+                        "kwInstallationType": {
+                            "kind": "string",
+                            "value": "onpremise"
+                        },
+                        "mailService": {
+                            "kind": "mock",
+                            "typeName": "io.aiven.klaw.service.MailUtils",
+                            "methods": [
+                                {
+                                    "method": {
+                                        "methodName": "getUserName",
+                                        "fullName": "io.aiven.klaw.service.MailUtils.getUserName(Ljava/lang/Object;)Ljava/lang/String;",
+                                        "argumentsSize": 1,
+                                        "returnTypeName": "java.lang.String",
+                                        "containingClass": "io.aiven.klaw.service.MailUtils"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "string",
+                                                "value": "superadmin"
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                }
+                            ],
+                            "isSpy": false,
+                            "id": 1
+                        },
+                        "commonUtilsService": {
+                            "kind": "mock",
+                            "typeName": "io.aiven.klaw.service.CommonUtilsService",
+                            "methods": [
+                                {
+                                    "method": {
+                                        "methodName": "getPrincipal",
+                                        "fullName": "io.aiven.klaw.service.CommonUtilsService.getPrincipal()Ljava/lang/Object;",
+                                        "argumentsSize": 0,
+                                        "returnTypeName": "java.lang.Object",
+                                        "containingClass": "io.aiven.klaw.service.CommonUtilsService"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "object",
+                                                "typeName": "org.springframework.security.core.userdetails.User",
+                                                "fields": {
+                                                    "password": {
+                                                        "kind": "string",
+                                                        "value": "WelcomeToKlaw321@"
+                                                    },
+                                                    "username": {
+                                                        "kind": "string",
+                                                        "value": "superadmin"
+                                                    },
+                                                    "authorities": {
+                                                        "kind": "set",
+                                                        "isShallow": false,
+                                                        "size": 1,
+                                                        "elements": [
+                                                            {
+                                                                "kind": "object",
+                                                                "typeName": "org.springframework.security.core.authority.SimpleGrantedAuthority",
+                                                                "fields": {
+                                                                    "role": {
+                                                                        "kind": "string",
+                                                                        "value": "ROLE_USER"
+                                                                    }
+                                                                },
+                                                                "id": 4
+                                                            }
+                                                        ]
+                                                    },
+                                                    "accountNonExpired": {
+                                                        "kind": "boolean",
+                                                        "value": true
+                                                    },
+                                                    "accountNonLocked": {
+                                                        "kind": "boolean",
+                                                        "value": true
+                                                    },
+                                                    "credentialsNonExpired": {
+                                                        "kind": "boolean",
+                                                        "value": true
+                                                    },
+                                                    "enabled": {
+                                                        "kind": "boolean",
+                                                        "value": true
+                                                    }
+                                                },
+                                                "id": 3
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "ref",
+                                                "typeName": "org.springframework.security.core.userdetails.User",
+                                                "refId": 3
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "ref",
+                                                "typeName": "org.springframework.security.core.userdetails.User",
+                                                "refId": 3
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "method": {
+                                        "methodName": "isNotAuthorizedUser",
+                                        "fullName": "io.aiven.klaw.service.CommonUtilsService.isNotAuthorizedUser(Ljava/lang/Object;Lio/aiven/klaw/model/enums/PermissionType;)Z",
+                                        "argumentsSize": 2,
+                                        "returnTypeName": "boolean",
+                                        "containingClass": "io.aiven.klaw.service.CommonUtilsService"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "method": {
+                                        "methodName": "getLoginUrl",
+                                        "fullName": "io.aiven.klaw.service.CommonUtilsService.getLoginUrl()Ljava/lang/String;",
+                                        "argumentsSize": 0,
+                                        "returnTypeName": "java.lang.String",
+                                        "containingClass": "io.aiven.klaw.service.CommonUtilsService"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "string",
+                                                "value": "http://localhost/login"
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                }
+                            ],
+                            "isSpy": false,
+                            "id": 2
+                        },
+                        "manageDatabase": {
+                            "kind": "mock",
+                            "typeName": "io.aiven.klaw.config.ManageDatabase",
+                            "methods": [
+                                {
+                                    "method": {
+                                        "methodName": "getHandleDbRequests",
+                                        "fullName": "io.aiven.klaw.config.ManageDatabase.getHandleDbRequests()Lio/aiven/klaw/helpers/db/rdbms/HandleDbRequestsJdbc;",
+                                        "argumentsSize": 0,
+                                        "returnTypeName": "io.aiven.klaw.helpers.db.rdbms.HandleDbRequestsJdbc",
+                                        "containingClass": "io.aiven.klaw.config.ManageDatabase"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "mock",
+                                                "typeName": "io.aiven.klaw.helpers.db.rdbms.HandleDbRequestsJdbc",
+                                                "methods": [
+                                                    {
+                                                        "method": {
+                                                            "methodName": "getPendingRegisterUsersInfo",
+                                                            "fullName": "io.aiven.klaw.helpers.db.rdbms.HandleDbRequestsJdbc.getPendingRegisterUsersInfo(Ljava/lang/String;)Lio/aiven/klaw/dao/RegisterUserInfo;",
+                                                            "argumentsSize": 1,
+                                                            "returnTypeName": "io.aiven.klaw.dao.RegisterUserInfo",
+                                                            "containingClass": "io.aiven.klaw.helpers.db.rdbms.HandleDbRequestsJdbc"
+                                                        },
+                                                        "calls": [
+                                                            {
+                                                                "result": {
+                                                                    "kind": "object",
+                                                                    "typeName": "io.aiven.klaw.dao.RegisterUserInfo",
+                                                                    "fields": {
+                                                                        "pwd": {
+                                                                            "kind": "string",
+                                                                            "value": "{bcrypt}$2a$10$5kmfW8zqyLZ49gC3ZPu/Z.qOg1LFpLFPRF1ZND9tLj8.CBka3JzQK"
+                                                                        },
+                                                                        "role": {
+                                                                            "kind": "string",
+                                                                            "value": "USER"
+                                                                        },
+                                                                        "mailid": {
+                                                                            "kind": "string",
+                                                                            "value": "test@test.com"
+                                                                        },
+                                                                        "registeredTime": {
+                                                                            "kind": "object",
+                                                                            "typeName": "java.sql.Timestamp",
+                                                                            "fields": {
+                                                                                "jcal": {
+                                                                                    "kind": "null"
+                                                                                },
+                                                                                "defaultCenturyStart": {
+                                                                                    "kind": "int",
+                                                                                    "value": 0
+                                                                                },
+                                                                                "nanos": {
+                                                                                    "kind": "int",
+                                                                                    "value": 583000000
+                                                                                },
+                                                                                "fastTime": {
+                                                                                    "kind": "long",
+                                                                                    "value": 1791753215000
+                                                                                },
+                                                                                "cdate": {
+                                                                                    "kind": "null"
+                                                                                }
+                                                                            },
+                                                                            "id": 8
+                                                                        },
+                                                                        "registrationId": {
+                                                                            "kind": "null"
+                                                                        },
+                                                                        "tenantId": {
+                                                                            "kind": "int",
+                                                                            "value": 101
+                                                                        },
+                                                                        "id": {
+                                                                            "kind": "int",
+                                                                            "value": 1
+                                                                        },
+                                                                        "username": {
+                                                                            "kind": "string",
+                                                                            "value": "kwuserg"
+                                                                        },
+                                                                        "teamId": {
+                                                                            "kind": "int",
+                                                                            "value": 1001
+                                                                        },
+                                                                        "fullname": {
+                                                                            "kind": "string",
+                                                                            "value": "New User"
+                                                                        },
+                                                                        "status": {
+                                                                            "kind": "string",
+                                                                            "value": "PENDING"
+                                                                        },
+                                                                        "approver": {
+                                                                            "kind": "null"
+                                                                        },
+                                                                        "team": {
+                                                                            "kind": "null"
+                                                                        }
+                                                                    },
+                                                                    "id": 7
+                                                                },
+                                                                "args": []
+                                                            }
+                                                        ]
+                                                    },
+                                                    {
+                                                        "method": {
+                                                            "methodName": "addNewUser",
+                                                            "fullName": "io.aiven.klaw.helpers.db.rdbms.HandleDbRequestsJdbc.addNewUser(Lio/aiven/klaw/dao/UserInfo;)Ljava/lang/String;",
+                                                            "argumentsSize": 1,
+                                                            "returnTypeName": "java.lang.String",
+                                                            "containingClass": "io.aiven.klaw.helpers.db.rdbms.HandleDbRequestsJdbc"
+                                                        },
+                                                        "calls": [
+                                                            {
+                                                                "result": {
+                                                                    "kind": "string",
+                                                                    "value": "success"
+                                                                },
+                                                                "args": []
+                                                            }
+                                                        ]
+                                                    }
+                                                ],
+                                                "isSpy": false,
+                                                "id": 6
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "ref",
+                                                "typeName": "io.aiven.klaw.helpers.db.rdbms.HandleDbRequestsJdbc",
+                                                "refId": 6
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "method": {
+                                        "methodName": "getRolesPermissionsPerTenant",
+                                        "fullName": "io.aiven.klaw.config.ManageDatabase.getRolesPermissionsPerTenant(I)Ljava/util/Map;",
+                                        "argumentsSize": 1,
+                                        "returnTypeName": "java.util.Map",
+                                        "containingClass": "io.aiven.klaw.config.ManageDatabase"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "map",
+                                                "isShallow": false,
+                                                "size": 2,
+                                                "elements": [
+                                                    {
+                                                        "key": {
+                                                            "kind": "string",
+                                                            "value": "SUPERADMIN"
+                                                        },
+                                                        "value": {
+                                                            "kind": "set",
+                                                            "isShallow": false,
+                                                            "size": 22,
+                                                            "elements": [
+                                                                {
+                                                                    "kind": "string",
+                                                                    "value": "ADD_EDIT_DELETE_ROLES"
+                                                                },
+                                                                {
+                                                                    "kind": "string",
+                                                                    "value": "UPDATE_SERVERCONFIG"
+                                                                },
+                                                                {
+                                                                    "kind": "string",
+                                                                    "value": "ADD_EDIT_DELETE_CLUSTERS"
+                                                                },
+                                                                {
+                                                                    "kind": "string",
+                                                                    "value": "ADD_EDIT_DELETE_USERS"
+                                                                },
+                                                                {
+                                                                    "kind": "string",
+                                                                    "value": "SYNC_SCHEMAS"
+                                                                },
+                                                                {
+                                                                    "kind": "string",
+                                                                    "value": "UPDATE_PERMISSIONS"
+                                                                },
+                                                                {
+                                                                    "kind": "string",
+                                                                    "value": "ALL_TEAMS_REPORTS"
+                                                                },
+                                                                {
+                                                                    "kind": "string",
+                                                                    "value": "SYNC_SUBSCRIPTIONS"
+                                                                },
+                                                                {
+                                                                    "kind": "string",
+                                                                    "value": "SYNC_BACK_SCHEMAS"
+                                                                },
+                                                                {
+                                                                    "kind": "string",
+                                                                    "value": "ADD_EDIT_DELETE_TEAMS"
+                                                                },
+                                                                {
+                                                                    "kind": "string",
+                                                                    "value": "MANAGE_CONNECTORS"
+                                                                },
+                                                                {
+                                                                    "kind": "string",
+                                                                    "value": "VIEW_CONNECTORS"
+                                                                },
+                                                                {
+                                                                    "kind": "string",
+                                                                    "value": "UPDATE_DELETE_MY_TENANT"
+                                                                },
+                                                                {
+                                                                    "kind": "string",
+                                                                    "value": "ADD_TENANT"
+                                                                },
+                                                                {
+                                                                    "kind": "string",
+                                                                    "value": "APPROVE_ALL_REQUESTS_TEAMS"
+                                                                },
+                                                                {
+                                                                    "kind": "string",
+                                                                    "value": "SYNC_TOPICS"
+                                                                },
+                                                                {
+                                                                    "kind": "string",
+                                                                    "value": "SYNC_BACK_SUBSCRIPTIONS"
+                                                                },
+                                                                {
+                                                                    "kind": "string",
+                                                                    "value": "ADD_EDIT_DELETE_ENVS"
+                                                                },
+                                                                {
+                                                                    "kind": "string",
+                                                                    "value": "SYNC_BACK_TOPICS"
+                                                                },
+                                                                {
+                                                                    "kind": "string",
+                                                                    "value": "SHUTDOWN_KLAW"
+                                                                },
+                                                                {
+                                                                    "kind": "string",
+                                                                    "value": "VIEW_TOPICS"
+                                                                },
+                                                                {
+                                                                    "kind": "string",
+                                                                    "value": "SYNC_CONNECTORS"
+                                                                }
+                                                            ]
+                                                        }
+                                                    },
+                                                    {
+                                                        "key": {
+                                                            "kind": "string",
+                                                            "value": "USER"
+                                                        },
+                                                        "value": {
+                                                            "kind": "set",
+                                                            "isShallow": false,
+                                                            "size": 17,
+                                                            "elements": [
+                                                                {
+                                                                    "kind": "string",
+                                                                    "value": "REQUEST_CREATE_SUBSCRIPTIONS"
+                                                                },
+                                                                {
+                                                                    "kind": "string",
+                                                                    "value": "REQUEST_DELETE_SCHEMAS"
+                                                                },
+                                                                {
+                                                                    "kind": "string",
+                                                                    "value": "REQUEST_CREATE_TOPICS"
+                                                                },
+                                                                {
+                                                                    "kind": "string",
+                                                                    "value": "REQUEST_DELETE_TOPICS"
+                                                                },
+                                                                {
+                                                                    "kind": "string",
+                                                                    "value": "REQUEST_CREATE_OPERATIONAL_CHANGES"
+                                                                },
+                                                                {
+                                                                    "kind": "string",
+                                                                    "value": "REQUEST_DELETE_CONNECTORS"
+                                                                },
+                                                                {
+                                                                    "kind": "string",
+                                                                    "value": "APPROVE_SCHEMAS"
+                                                                },
+                                                                {
+                                                                    "kind": "string",
+                                                                    "value": "VIEW_CONNECTORS"
+                                                                },
+                                                                {
+                                                                    "kind": "string",
+                                                                    "value": "REQUEST_CREATE_CONNECTORS"
+                                                                },
+                                                                {
+                                                                    "kind": "string",
+                                                                    "value": "REQUEST_DELETE_SUBSCRIPTIONS"
+                                                                },
+                                                                {
+                                                                    "kind": "string",
+                                                                    "value": "APPROVE_TOPICS"
+                                                                },
+                                                                {
+                                                                    "kind": "string",
+                                                                    "value": "REQUEST_EDIT_TOPICS"
+                                                                },
+                                                                {
+                                                                    "kind": "string",
+                                                                    "value": "APPROVE_SUBSCRIPTIONS"
+                                                                },
+                                                                {
+                                                                    "kind": "string",
+                                                                    "value": "REQUEST_CREATE_SCHEMAS"
+                                                                },
+                                                                {
+                                                                    "kind": "string",
+                                                                    "value": "APPROVE_CONNECTORS"
+                                                                },
+                                                                {
+                                                                    "kind": "string",
+                                                                    "value": "APPROVE_OPERATIONAL_CHANGES"
+                                                                },
+                                                                {
+                                                                    "kind": "string",
+                                                                    "value": "VIEW_TOPICS"
+                                                                }
+                                                            ]
+                                                        }
+                                                    }
+                                                ]
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                }
+                            ],
+                            "isSpy": false,
+                            "id": 5
+                        },
+                        "inMemoryUserDetailsManager": {
+                            "kind": "mock",
+                            "typeName": "org.springframework.security.provisioning.InMemoryUserDetailsManager",
+                            "methods": [],
+                            "isSpy": false,
+                            "id": 9
+                        },
+                        "passwordService": {
+                            "kind": "mock",
+                            "typeName": "io.aiven.klaw.service.PasswordService",
+                            "methods": [
+                                {
+                                    "method": {
+                                        "methodName": "getBcryptPassword",
+                                        "fullName": "io.aiven.klaw.service.PasswordService.getBcryptPassword(Ljava/lang/String;)Ljava/lang/String;",
+                                        "argumentsSize": 1,
+                                        "returnTypeName": "java.lang.String",
+                                        "containingClass": "io.aiven.klaw.service.PasswordService"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "string",
+                                                "value": "{bcrypt}$2a$10$5kmfW8zqyLZ49gC3ZPu/Z.qOg1LFpLFPRF1ZND9tLj8.CBka3JzQK"
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                }
+                            ],
+                            "isSpy": false,
+                            "id": 10
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "string",
+                        "value": "kwuserg"
+                    },
+                    {
+                        "kind": "boolean",
+                        "value": true
+                    },
+                    {
+                        "kind": "int",
+                        "value": 0
+                    },
+                    {
+                        "kind": "string",
+                        "value": ""
+                    }
+                ],
+                "returnValue": {
+                    "kind": "object",
+                    "typeName": "io.aiven.klaw.model.ApiResponse",
+                    "fields": {
+                        "success": {
+                            "kind": "boolean",
+                            "value": true
+                        },
+                        "errCode": {
+                            "kind": "unknown"
+                        },
+                        "message": {
+                            "kind": "string",
+                            "value": "success"
+                        },
+                        "debugMessage": {
+                            "kind": "unknown"
+                        },
+                        "data": {
+                            "kind": "unknown"
+                        },
+                        "timestamp": {
+                            "kind": "unknown"
+                        }
+                    },
+                    "id": 12
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [
+            {
+                "method": {
+                    "methodName": "ok",
+                    "fullName": "io.aiven.klaw.model.ApiResponse.ok(Ljava/lang/String;)Lio/aiven/klaw/model/ApiResponse;",
+                    "argumentsSize": 1,
+                    "returnTypeName": "io.aiven.klaw.model.ApiResponse",
+                    "containingClass": "io.aiven.klaw.model.ApiResponse"
+                },
+                "calls": [
+                    {
+                        "result": {
+                            "kind": "object",
+                            "typeName": "io.aiven.klaw.model.ApiResponse",
+                            "fields": {
+                                "success": {
+                                    "kind": "boolean",
+                                    "value": true
+                                },
+                                "errCode": {
+                                    "kind": "null"
+                                },
+                                "message": {
+                                    "kind": "string",
+                                    "value": "success"
+                                },
+                                "debugMessage": {
+                                    "kind": "null"
+                                },
+                                "data": {
+                                    "kind": "null"
+                                },
+                                "timestamp": {
+                                    "kind": "null"
+                                }
+                            },
+                            "id": 11
+                        },
+                        "args": []
+                    }
+                ]
+            }
+        ],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "approveNewUserRequests",
+                    "fullName": "approveNewUserRequests(String, boolean, int, String)",
+                    "argumentsSize": 4,
+                    "returnTypeName": "ApiResponse",
+                    "containingClass": "io.aiven.klaw.service.UsersTeamsControllerService"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "io.aiven.klaw.service.UsersTeamsControllerService",
+                    "fields": {
+                        "authenticationType": {
+                            "kind": "string",
+                            "value": "db"
+                        },
+                        "ssoEnabled": {
+                            "kind": "boolean",
+                            "value": false
+                        },
+                        "encryptorSecretKey": {
+                            "kind": "string",
+                            "value": "kw2021secretkey"
+                        },
+                        "kwInstallationType": {
+                            "kind": "string",
+                            "value": "onpremise"
+                        },
+                        "mailService": {
+                            "kind": "mock",
+                            "typeName": "io.aiven.klaw.service.MailUtils",
+                            "methods": [
+                                {
+                                    "method": {
+                                        "methodName": "getUserName",
+                                        "fullName": "io.aiven.klaw.service.MailUtils.getUserName(Ljava/lang/Object;)Ljava/lang/String;",
+                                        "argumentsSize": 1,
+                                        "returnTypeName": "java.lang.String",
+                                        "containingClass": "io.aiven.klaw.service.MailUtils"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "string",
+                                                "value": "superadmin"
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                }
+                            ],
+                            "isSpy": false,
+                            "id": 1
+                        },
+                        "commonUtilsService": {
+                            "kind": "mock",
+                            "typeName": "io.aiven.klaw.service.CommonUtilsService",
+                            "methods": [
+                                {
+                                    "method": {
+                                        "methodName": "getPrincipal",
+                                        "fullName": "io.aiven.klaw.service.CommonUtilsService.getPrincipal()Ljava/lang/Object;",
+                                        "argumentsSize": 0,
+                                        "returnTypeName": "java.lang.Object",
+                                        "containingClass": "io.aiven.klaw.service.CommonUtilsService"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "object",
+                                                "typeName": "org.springframework.security.core.userdetails.User",
+                                                "fields": {
+                                                    "password": {
+                                                        "kind": "string",
+                                                        "value": "WelcomeToKlaw321@"
+                                                    },
+                                                    "username": {
+                                                        "kind": "string",
+                                                        "value": "superadmin"
+                                                    },
+                                                    "authorities": {
+                                                        "kind": "set",
+                                                        "isShallow": false,
+                                                        "size": 1,
+                                                        "elements": [
+                                                            {
+                                                                "kind": "object",
+                                                                "typeName": "org.springframework.security.core.authority.SimpleGrantedAuthority",
+                                                                "fields": {
+                                                                    "role": {
+                                                                        "kind": "string",
+                                                                        "value": "ROLE_USER"
+                                                                    }
+                                                                },
+                                                                "id": 4
+                                                            }
+                                                        ]
+                                                    },
+                                                    "accountNonExpired": {
+                                                        "kind": "boolean",
+                                                        "value": true
+                                                    },
+                                                    "accountNonLocked": {
+                                                        "kind": "boolean",
+                                                        "value": true
+                                                    },
+                                                    "credentialsNonExpired": {
+                                                        "kind": "boolean",
+                                                        "value": true
+                                                    },
+                                                    "enabled": {
+                                                        "kind": "boolean",
+                                                        "value": true
+                                                    }
+                                                },
+                                                "id": 3
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "ref",
+                                                "typeName": "org.springframework.security.core.userdetails.User",
+                                                "refId": 3
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "ref",
+                                                "typeName": "org.springframework.security.core.userdetails.User",
+                                                "refId": 3
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "method": {
+                                        "methodName": "isNotAuthorizedUser",
+                                        "fullName": "io.aiven.klaw.service.CommonUtilsService.isNotAuthorizedUser(Ljava/lang/Object;Lio/aiven/klaw/model/enums/PermissionType;)Z",
+                                        "argumentsSize": 2,
+                                        "returnTypeName": "boolean",
+                                        "containingClass": "io.aiven.klaw.service.CommonUtilsService"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "method": {
+                                        "methodName": "getLoginUrl",
+                                        "fullName": "io.aiven.klaw.service.CommonUtilsService.getLoginUrl()Ljava/lang/String;",
+                                        "argumentsSize": 0,
+                                        "returnTypeName": "java.lang.String",
+                                        "containingClass": "io.aiven.klaw.service.CommonUtilsService"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "string",
+                                                "value": "http://localhost/login"
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                }
+                            ],
+                            "isSpy": false,
+                            "id": 2
+                        },
+                        "manageDatabase": {
+                            "kind": "mock",
+                            "typeName": "io.aiven.klaw.config.ManageDatabase",
+                            "methods": [
+                                {
+                                    "method": {
+                                        "methodName": "getHandleDbRequests",
+                                        "fullName": "io.aiven.klaw.config.ManageDatabase.getHandleDbRequests()Lio/aiven/klaw/helpers/db/rdbms/HandleDbRequestsJdbc;",
+                                        "argumentsSize": 0,
+                                        "returnTypeName": "io.aiven.klaw.helpers.db.rdbms.HandleDbRequestsJdbc",
+                                        "containingClass": "io.aiven.klaw.config.ManageDatabase"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "mock",
+                                                "typeName": "io.aiven.klaw.helpers.db.rdbms.HandleDbRequestsJdbc",
+                                                "methods": [
+                                                    {
+                                                        "method": {
+                                                            "methodName": "getPendingRegisterUsersInfo",
+                                                            "fullName": "io.aiven.klaw.helpers.db.rdbms.HandleDbRequestsJdbc.getPendingRegisterUsersInfo(Ljava/lang/String;)Lio/aiven/klaw/dao/RegisterUserInfo;",
+                                                            "argumentsSize": 1,
+                                                            "returnTypeName": "io.aiven.klaw.dao.RegisterUserInfo",
+                                                            "containingClass": "io.aiven.klaw.helpers.db.rdbms.HandleDbRequestsJdbc"
+                                                        },
+                                                        "calls": [
+                                                            {
+                                                                "result": {
+                                                                    "kind": "object",
+                                                                    "typeName": "io.aiven.klaw.dao.RegisterUserInfo",
+                                                                    "fields": {
+                                                                        "pwd": {
+                                                                            "kind": "string",
+                                                                            "value": "{bcrypt}$2a$10$ef7ne.bk/BWcudexr/zWqeDCqvGjmbEE0ealZiRfxaiBh408Uklye"
+                                                                        },
+                                                                        "role": {
+                                                                            "kind": "string",
+                                                                            "value": "USER"
+                                                                        },
+                                                                        "mailid": {
+                                                                            "kind": "string",
+                                                                            "value": "test@test.com"
+                                                                        },
+                                                                        "registeredTime": {
+                                                                            "kind": "object",
+                                                                            "typeName": "java.sql.Timestamp",
+                                                                            "fields": {
+                                                                                "jcal": {
+                                                                                    "kind": "null"
+                                                                                },
+                                                                                "defaultCenturyStart": {
+                                                                                    "kind": "int",
+                                                                                    "value": 0
+                                                                                },
+                                                                                "nanos": {
+                                                                                    "kind": "int",
+                                                                                    "value": 349000000
+                                                                                },
+                                                                                "fastTime": {
+                                                                                    "kind": "long",
+                                                                                    "value": 1791753219000
+                                                                                },
+                                                                                "cdate": {
+                                                                                    "kind": "null"
+                                                                                }
+                                                                            },
+                                                                            "id": 8
+                                                                        },
+                                                                        "registrationId": {
+                                                                            "kind": "null"
+                                                                        },
+                                                                        "tenantId": {
+                                                                            "kind": "int",
+                                                                            "value": 101
+                                                                        },
+                                                                        "id": {
+                                                                            "kind": "int",
+                                                                            "value": 3
+                                                                        },
+                                                                        "username": {
+                                                                            "kind": "string",
+                                                                            "value": "kwuserh"
+                                                                        },
+                                                                        "teamId": {
+                                                                            "kind": "int",
+                                                                            "value": 1001
+                                                                        },
+                                                                        "fullname": {
+                                                                            "kind": "string",
+                                                                            "value": "New User"
+                                                                        },
+                                                                        "status": {
+                                                                            "kind": "string",
+                                                                            "value": "PENDING"
+                                                                        },
+                                                                        "approver": {
+                                                                            "kind": "null"
+                                                                        },
+                                                                        "team": {
+                                                                            "kind": "null"
+                                                                        }
+                                                                    },
+                                                                    "id": 7
+                                                                },
+                                                                "args": []
+                                                            }
+                                                        ]
+                                                    },
+                                                    {
+                                                        "method": {
+                                                            "methodName": "addNewUser",
+                                                            "fullName": "io.aiven.klaw.helpers.db.rdbms.HandleDbRequestsJdbc.addNewUser(Lio/aiven/klaw/dao/UserInfo;)Ljava/lang/String;",
+                                                            "argumentsSize": 1,
+                                                            "returnTypeName": "java.lang.String",
+                                                            "containingClass": "io.aiven.klaw.helpers.db.rdbms.HandleDbRequestsJdbc"
+                                                        },
+                                                        "calls": [
+                                                            {
+                                                                "result": {
+                                                                    "kind": "string",
+                                                                    "value": "success"
+                                                                },
+                                                                "args": []
+                                                            }
+                                                        ]
+                                                    }
+                                                ],
+                                                "isSpy": false,
+                                                "id": 6
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "ref",
+                                                "typeName": "io.aiven.klaw.helpers.db.rdbms.HandleDbRequestsJdbc",
+                                                "refId": 6
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "method": {
+                                        "methodName": "getRolesPermissionsPerTenant",
+                                        "fullName": "io.aiven.klaw.config.ManageDatabase.getRolesPermissionsPerTenant(I)Ljava/util/Map;",
+                                        "argumentsSize": 1,
+                                        "returnTypeName": "java.util.Map",
+                                        "containingClass": "io.aiven.klaw.config.ManageDatabase"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "map",
+                                                "isShallow": false,
+                                                "size": 2,
+                                                "elements": [
+                                                    {
+                                                        "key": {
+                                                            "kind": "string",
+                                                            "value": "SUPERADMIN"
+                                                        },
+                                                        "value": {
+                                                            "kind": "set",
+                                                            "isShallow": false,
+                                                            "size": 22,
+                                                            "elements": [
+                                                                {
+                                                                    "kind": "string",
+                                                                    "value": "ADD_EDIT_DELETE_ROLES"
+                                                                },
+                                                                {
+                                                                    "kind": "string",
+                                                                    "value": "UPDATE_SERVERCONFIG"
+                                                                },
+                                                                {
+                                                                    "kind": "string",
+                                                                    "value": "ADD_EDIT_DELETE_CLUSTERS"
+                                                                },
+                                                                {
+                                                                    "kind": "string",
+                                                                    "value": "ADD_EDIT_DELETE_USERS"
+                                                                },
+                                                                {
+                                                                    "kind": "string",
+                                                                    "value": "SYNC_SCHEMAS"
+                                                                },
+                                                                {
+                                                                    "kind": "string",
+                                                                    "value": "UPDATE_PERMISSIONS"
+                                                                },
+                                                                {
+                                                                    "kind": "string",
+                                                                    "value": "ALL_TEAMS_REPORTS"
+                                                                },
+                                                                {
+                                                                    "kind": "string",
+                                                                    "value": "SYNC_SUBSCRIPTIONS"
+                                                                },
+                                                                {
+                                                                    "kind": "string",
+                                                                    "value": "SYNC_BACK_SCHEMAS"
+                                                                },
+                                                                {
+                                                                    "kind": "string",
+                                                                    "value": "ADD_EDIT_DELETE_TEAMS"
+                                                                },
+                                                                {
+                                                                    "kind": "string",
+                                                                    "value": "MANAGE_CONNECTORS"
+                                                                },
+                                                                {
+                                                                    "kind": "string",
+                                                                    "value": "VIEW_CONNECTORS"
+                                                                },
+                                                                {
+                                                                    "kind": "string",
+                                                                    "value": "UPDATE_DELETE_MY_TENANT"
+                                                                },
+                                                                {
+                                                                    "kind": "string",
+                                                                    "value": "ADD_TENANT"
+                                                                },
+                                                                {
+                                                                    "kind": "string",
+                                                                    "value": "APPROVE_ALL_REQUESTS_TEAMS"
+                                                                },
+                                                                {
+                                                                    "kind": "string",
+                                                                    "value": "SYNC_TOPICS"
+                                                                },
+                                                                {
+                                                                    "kind": "string",
+                                                                    "value": "SYNC_BACK_SUBSCRIPTIONS"
+                                                                },
+                                                                {
+                                                                    "kind": "string",
+                                                                    "value": "ADD_EDIT_DELETE_ENVS"
+                                                                },
+                                                                {
+                                                                    "kind": "string",
+                                                                    "value": "SYNC_BACK_TOPICS"
+                                                                },
+                                                                {
+                                                                    "kind": "string",
+                                                                    "value": "SHUTDOWN_KLAW"
+                                                                },
+                                                                {
+                                                                    "kind": "string",
+                                                                    "value": "VIEW_TOPICS"
+                                                                },
+                                                                {
+                                                                    "kind": "string",
+                                                                    "value": "SYNC_CONNECTORS"
+                                                                }
+                                                            ]
+                                                        }
+                                                    },
+                                                    {
+                                                        "key": {
+                                                            "kind": "string",
+                                                            "value": "USER"
+                                                        },
+                                                        "value": {
+                                                            "kind": "set",
+                                                            "isShallow": false,
+                                                            "size": 17,
+                                                            "elements": [
+                                                                {
+                                                                    "kind": "string",
+                                                                    "value": "REQUEST_CREATE_SUBSCRIPTIONS"
+                                                                },
+                                                                {
+                                                                    "kind": "string",
+                                                                    "value": "REQUEST_DELETE_SCHEMAS"
+                                                                },
+                                                                {
+                                                                    "kind": "string",
+                                                                    "value": "REQUEST_CREATE_TOPICS"
+                                                                },
+                                                                {
+                                                                    "kind": "string",
+                                                                    "value": "REQUEST_DELETE_TOPICS"
+                                                                },
+                                                                {
+                                                                    "kind": "string",
+                                                                    "value": "REQUEST_CREATE_OPERATIONAL_CHANGES"
+                                                                },
+                                                                {
+                                                                    "kind": "string",
+                                                                    "value": "REQUEST_DELETE_CONNECTORS"
+                                                                },
+                                                                {
+                                                                    "kind": "string",
+                                                                    "value": "APPROVE_SCHEMAS"
+                                                                },
+                                                                {
+                                                                    "kind": "string",
+                                                                    "value": "VIEW_CONNECTORS"
+                                                                },
+                                                                {
+                                                                    "kind": "string",
+                                                                    "value": "REQUEST_CREATE_CONNECTORS"
+                                                                },
+                                                                {
+                                                                    "kind": "string",
+                                                                    "value": "REQUEST_DELETE_SUBSCRIPTIONS"
+                                                                },
+                                                                {
+                                                                    "kind": "string",
+                                                                    "value": "APPROVE_TOPICS"
+                                                                },
+                                                                {
+                                                                    "kind": "string",
+                                                                    "value": "REQUEST_EDIT_TOPICS"
+                                                                },
+                                                                {
+                                                                    "kind": "string",
+                                                                    "value": "APPROVE_SUBSCRIPTIONS"
+                                                                },
+                                                                {
+                                                                    "kind": "string",
+                                                                    "value": "REQUEST_CREATE_SCHEMAS"
+                                                                },
+                                                                {
+                                                                    "kind": "string",
+                                                                    "value": "APPROVE_CONNECTORS"
+                                                                },
+                                                                {
+                                                                    "kind": "string",
+                                                                    "value": "APPROVE_OPERATIONAL_CHANGES"
+                                                                },
+                                                                {
+                                                                    "kind": "string",
+                                                                    "value": "VIEW_TOPICS"
+                                                                }
+                                                            ]
+                                                        }
+                                                    }
+                                                ]
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                }
+                            ],
+                            "isSpy": false,
+                            "id": 5
+                        },
+                        "inMemoryUserDetailsManager": {
+                            "kind": "mock",
+                            "typeName": "org.springframework.security.provisioning.InMemoryUserDetailsManager",
+                            "methods": [],
+                            "isSpy": false,
+                            "id": 9
+                        },
+                        "passwordService": {
+                            "kind": "mock",
+                            "typeName": "io.aiven.klaw.service.PasswordService",
+                            "methods": [
+                                {
+                                    "method": {
+                                        "methodName": "getBcryptPassword",
+                                        "fullName": "io.aiven.klaw.service.PasswordService.getBcryptPassword(Ljava/lang/String;)Ljava/lang/String;",
+                                        "argumentsSize": 1,
+                                        "returnTypeName": "java.lang.String",
+                                        "containingClass": "io.aiven.klaw.service.PasswordService"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "string",
+                                                "value": "{bcrypt}$2a$10$ef7ne.bk/BWcudexr/zWqeDCqvGjmbEE0ealZiRfxaiBh408Uklye"
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                }
+                            ],
+                            "isSpy": false,
+                            "id": 10
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "string",
+                        "value": "kwuserh"
+                    },
+                    {
+                        "kind": "boolean",
+                        "value": true
+                    },
+                    {
+                        "kind": "int",
+                        "value": 0
+                    },
+                    {
+                        "kind": "string",
+                        "value": ""
+                    }
+                ],
+                "returnValue": {
+                    "kind": "object",
+                    "typeName": "io.aiven.klaw.model.ApiResponse",
+                    "fields": {
+                        "success": {
+                            "kind": "boolean",
+                            "value": true
+                        },
+                        "errCode": {
+                            "kind": "unknown"
+                        },
+                        "message": {
+                            "kind": "string",
+                            "value": "success"
+                        },
+                        "debugMessage": {
+                            "kind": "unknown"
+                        },
+                        "data": {
+                            "kind": "unknown"
+                        },
+                        "timestamp": {
+                            "kind": "unknown"
+                        }
+                    },
+                    "id": 12
+                }
+            }
+        ]
+    }
+]

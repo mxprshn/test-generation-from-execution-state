@@ -1,0 +1,938 @@
+[
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "visitToken",
+                    "fullName": "visitToken(DetailAST)",
+                    "argumentsSize": 1,
+                    "returnTypeName": "void",
+                    "containingClass": "com.puppycrawl.tools.checkstyle.checks.whitespace.WhitespaceAfterCheck"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "com.puppycrawl.tools.checkstyle.checks.whitespace.WhitespaceAfterCheck",
+                    "fields": {
+                        "context": {
+                            "kind": "mock",
+                            "typeName": "java.lang.ThreadLocal$SuppliedThreadLocal",
+                            "methods": [
+                                {
+                                    "method": {
+                                        "methodName": "get",
+                                        "fullName": "java.lang.ThreadLocal.get()Ljava/lang/Object;",
+                                        "argumentsSize": 0,
+                                        "returnTypeName": "java.lang.Object",
+                                        "containingClass": "java.lang.ThreadLocal"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "mock",
+                                                "typeName": "java.lang.Object",
+                                                "methods": [],
+                                                "isSpy": false,
+                                                "id": 2
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                }
+                            ],
+                            "isSpy": false,
+                            "id": 1
+                        },
+                        "tokens": {
+                            "kind": "set",
+                            "isShallow": false,
+                            "size": 0,
+                            "elements": []
+                        },
+                        "tabWidth": {
+                            "kind": "int",
+                            "value": 8
+                        },
+                        "severityLevel": {
+                            "kind": "enum",
+                            "typeName": "com.puppycrawl.tools.checkstyle.api.SeverityLevel",
+                            "value": "ERROR"
+                        },
+                        "id": {
+                            "kind": "null"
+                        },
+                        "configuration": {
+                            "kind": "object",
+                            "typeName": "com.puppycrawl.tools.checkstyle.DefaultConfiguration",
+                            "fields": {
+                                "name": {
+                                    "kind": "string",
+                                    "value": "com.puppycrawl.tools.checkstyle.checks.whitespace.WhitespaceAfterCheck"
+                                },
+                                "children": {
+                                    "kind": "list",
+                                    "isShallow": false,
+                                    "size": 0,
+                                    "elements": []
+                                },
+                                "propertyMap": {
+                                    "kind": "map",
+                                    "isShallow": false,
+                                    "size": 0,
+                                    "elements": []
+                                },
+                                "messages": {
+                                    "kind": "map",
+                                    "isShallow": false,
+                                    "size": 0,
+                                    "elements": []
+                                },
+                                "threadModeSettings": {
+                                    "kind": "object",
+                                    "typeName": "com.puppycrawl.tools.checkstyle.ThreadModeSettings",
+                                    "fields": {
+                                        "checkerThreadsNumber": {
+                                            "kind": "int",
+                                            "value": 1
+                                        },
+                                        "treeWalkerThreadsNumber": {
+                                            "kind": "int",
+                                            "value": 1
+                                        }
+                                    },
+                                    "id": 4
+                                }
+                            },
+                            "id": 3
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "mock",
+                        "typeName": "com.puppycrawl.tools.checkstyle.DetailAstImpl",
+                        "methods": [
+                            {
+                                "method": {
+                                    "methodName": "getType",
+                                    "fullName": "com.puppycrawl.tools.checkstyle.DetailAstImpl.getType()I",
+                                    "argumentsSize": 0,
+                                    "returnTypeName": "int",
+                                    "containingClass": "com.puppycrawl.tools.checkstyle.DetailAstImpl"
+                                },
+                                "calls": [
+                                    {
+                                        "result": {
+                                            "kind": "int",
+                                            "value": 45
+                                        },
+                                        "args": []
+                                    },
+                                    {
+                                        "result": {
+                                            "kind": "int",
+                                            "value": 45
+                                        },
+                                        "args": []
+                                    }
+                                ]
+                            },
+                            {
+                                "method": {
+                                    "methodName": "getLineNo",
+                                    "fullName": "com.puppycrawl.tools.checkstyle.DetailAstImpl.getLineNo()I",
+                                    "argumentsSize": 0,
+                                    "returnTypeName": "int",
+                                    "containingClass": "com.puppycrawl.tools.checkstyle.DetailAstImpl"
+                                },
+                                "calls": [
+                                    {
+                                        "result": {
+                                            "kind": "int",
+                                            "value": 26
+                                        },
+                                        "args": []
+                                    }
+                                ]
+                            },
+                            {
+                                "method": {
+                                    "methodName": "getColumnNo",
+                                    "fullName": "com.puppycrawl.tools.checkstyle.DetailAstImpl.getColumnNo()I",
+                                    "argumentsSize": 0,
+                                    "returnTypeName": "int",
+                                    "containingClass": "com.puppycrawl.tools.checkstyle.DetailAstImpl"
+                                },
+                                "calls": [
+                                    {
+                                        "result": {
+                                            "kind": "int",
+                                            "value": 50
+                                        },
+                                        "args": []
+                                    }
+                                ]
+                            },
+                            {
+                                "method": {
+                                    "methodName": "getText",
+                                    "fullName": "com.puppycrawl.tools.checkstyle.DetailAstImpl.getText()Ljava/lang/String;",
+                                    "argumentsSize": 0,
+                                    "returnTypeName": "java.lang.String",
+                                    "containingClass": "com.puppycrawl.tools.checkstyle.DetailAstImpl"
+                                },
+                                "calls": [
+                                    {
+                                        "result": {
+                                            "kind": "string",
+                                            "value": ";"
+                                        },
+                                        "args": []
+                                    }
+                                ]
+                            }
+                        ],
+                        "isSpy": false,
+                        "id": 5
+                    }
+                ],
+                "returnValue": {
+                    "kind": "unknown"
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "visitToken",
+                    "fullName": "visitToken(DetailAST)",
+                    "argumentsSize": 1,
+                    "returnTypeName": "void",
+                    "containingClass": "com.puppycrawl.tools.checkstyle.checks.whitespace.WhitespaceAfterCheck"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "com.puppycrawl.tools.checkstyle.checks.whitespace.WhitespaceAfterCheck",
+                    "fields": {
+                        "context": {
+                            "kind": "mock",
+                            "typeName": "java.lang.ThreadLocal$SuppliedThreadLocal",
+                            "methods": [
+                                {
+                                    "method": {
+                                        "methodName": "get",
+                                        "fullName": "java.lang.ThreadLocal.get()Ljava/lang/Object;",
+                                        "argumentsSize": 0,
+                                        "returnTypeName": "java.lang.Object",
+                                        "containingClass": "java.lang.ThreadLocal"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "mock",
+                                                "typeName": "java.lang.Object",
+                                                "methods": [],
+                                                "isSpy": false,
+                                                "id": 2
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "ref",
+                                                "typeName": "java.lang.Object",
+                                                "refId": 2
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "ref",
+                                                "typeName": "java.lang.Object",
+                                                "refId": 2
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                }
+                            ],
+                            "isSpy": false,
+                            "id": 1
+                        },
+                        "tokens": {
+                            "kind": "set",
+                            "isShallow": false,
+                            "size": 0,
+                            "elements": []
+                        },
+                        "tabWidth": {
+                            "kind": "int",
+                            "value": 8
+                        },
+                        "severityLevel": {
+                            "kind": "enum",
+                            "typeName": "com.puppycrawl.tools.checkstyle.api.SeverityLevel",
+                            "value": "ERROR"
+                        },
+                        "id": {
+                            "kind": "null"
+                        },
+                        "configuration": {
+                            "kind": "object",
+                            "typeName": "com.puppycrawl.tools.checkstyle.DefaultConfiguration",
+                            "fields": {
+                                "name": {
+                                    "kind": "string",
+                                    "value": "com.puppycrawl.tools.checkstyle.checks.whitespace.WhitespaceAfterCheck"
+                                },
+                                "children": {
+                                    "kind": "list",
+                                    "isShallow": false,
+                                    "size": 0,
+                                    "elements": []
+                                },
+                                "propertyMap": {
+                                    "kind": "map",
+                                    "isShallow": false,
+                                    "size": 0,
+                                    "elements": []
+                                },
+                                "messages": {
+                                    "kind": "map",
+                                    "isShallow": false,
+                                    "size": 0,
+                                    "elements": []
+                                },
+                                "threadModeSettings": {
+                                    "kind": "object",
+                                    "typeName": "com.puppycrawl.tools.checkstyle.ThreadModeSettings",
+                                    "fields": {
+                                        "checkerThreadsNumber": {
+                                            "kind": "int",
+                                            "value": 1
+                                        },
+                                        "treeWalkerThreadsNumber": {
+                                            "kind": "int",
+                                            "value": 1
+                                        }
+                                    },
+                                    "id": 4
+                                }
+                            },
+                            "id": 3
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "mock",
+                        "typeName": "com.puppycrawl.tools.checkstyle.DetailAstImpl",
+                        "methods": [
+                            {
+                                "method": {
+                                    "methodName": "getType",
+                                    "fullName": "com.puppycrawl.tools.checkstyle.DetailAstImpl.getType()I",
+                                    "argumentsSize": 0,
+                                    "returnTypeName": "int",
+                                    "containingClass": "com.puppycrawl.tools.checkstyle.DetailAstImpl"
+                                },
+                                "calls": [
+                                    {
+                                        "result": {
+                                            "kind": "int",
+                                            "value": 83
+                                        },
+                                        "args": []
+                                    },
+                                    {
+                                        "result": {
+                                            "kind": "int",
+                                            "value": 83
+                                        },
+                                        "args": []
+                                    },
+                                    {
+                                        "result": {
+                                            "kind": "int",
+                                            "value": 83
+                                        },
+                                        "args": []
+                                    }
+                                ]
+                            },
+                            {
+                                "method": {
+                                    "methodName": "getLineNo",
+                                    "fullName": "com.puppycrawl.tools.checkstyle.DetailAstImpl.getLineNo()I",
+                                    "argumentsSize": 0,
+                                    "returnTypeName": "int",
+                                    "containingClass": "com.puppycrawl.tools.checkstyle.DetailAstImpl"
+                                },
+                                "calls": [
+                                    {
+                                        "result": {
+                                            "kind": "int",
+                                            "value": 29
+                                        },
+                                        "args": []
+                                    },
+                                    {
+                                        "result": {
+                                            "kind": "int",
+                                            "value": 29
+                                        },
+                                        "args": []
+                                    },
+                                    {
+                                        "result": {
+                                            "kind": "int",
+                                            "value": 29
+                                        },
+                                        "args": []
+                                    }
+                                ]
+                            },
+                            {
+                                "method": {
+                                    "methodName": "getColumnNo",
+                                    "fullName": "com.puppycrawl.tools.checkstyle.DetailAstImpl.getColumnNo()I",
+                                    "argumentsSize": 0,
+                                    "returnTypeName": "int",
+                                    "containingClass": "com.puppycrawl.tools.checkstyle.DetailAstImpl"
+                                },
+                                "calls": [
+                                    {
+                                        "result": {
+                                            "kind": "int",
+                                            "value": 8
+                                        },
+                                        "args": []
+                                    },
+                                    {
+                                        "result": {
+                                            "kind": "int",
+                                            "value": 8
+                                        },
+                                        "args": []
+                                    },
+                                    {
+                                        "result": {
+                                            "kind": "int",
+                                            "value": 8
+                                        },
+                                        "args": []
+                                    }
+                                ]
+                            },
+                            {
+                                "method": {
+                                    "methodName": "getText",
+                                    "fullName": "com.puppycrawl.tools.checkstyle.DetailAstImpl.getText()Ljava/lang/String;",
+                                    "argumentsSize": 0,
+                                    "returnTypeName": "java.lang.String",
+                                    "containingClass": "com.puppycrawl.tools.checkstyle.DetailAstImpl"
+                                },
+                                "calls": [
+                                    {
+                                        "result": {
+                                            "kind": "string",
+                                            "value": "if"
+                                        },
+                                        "args": []
+                                    },
+                                    {
+                                        "result": {
+                                            "kind": "string",
+                                            "value": "if"
+                                        },
+                                        "args": []
+                                    }
+                                ]
+                            }
+                        ],
+                        "isSpy": false,
+                        "id": 5
+                    }
+                ],
+                "returnValue": {
+                    "kind": "unknown"
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "visitToken",
+                    "fullName": "visitToken(DetailAST)",
+                    "argumentsSize": 1,
+                    "returnTypeName": "void",
+                    "containingClass": "com.puppycrawl.tools.checkstyle.checks.whitespace.WhitespaceAfterCheck"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "com.puppycrawl.tools.checkstyle.checks.whitespace.WhitespaceAfterCheck",
+                    "fields": {
+                        "context": {
+                            "kind": "mock",
+                            "typeName": "java.lang.ThreadLocal$SuppliedThreadLocal",
+                            "methods": [
+                                {
+                                    "method": {
+                                        "methodName": "get",
+                                        "fullName": "java.lang.ThreadLocal.get()Ljava/lang/Object;",
+                                        "argumentsSize": 0,
+                                        "returnTypeName": "java.lang.Object",
+                                        "containingClass": "java.lang.ThreadLocal"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "mock",
+                                                "typeName": "java.lang.Object",
+                                                "methods": [],
+                                                "isSpy": false,
+                                                "id": 2
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                }
+                            ],
+                            "isSpy": false,
+                            "id": 1
+                        },
+                        "tokens": {
+                            "kind": "set",
+                            "isShallow": false,
+                            "size": 0,
+                            "elements": []
+                        },
+                        "tabWidth": {
+                            "kind": "int",
+                            "value": 8
+                        },
+                        "severityLevel": {
+                            "kind": "enum",
+                            "typeName": "com.puppycrawl.tools.checkstyle.api.SeverityLevel",
+                            "value": "ERROR"
+                        },
+                        "id": {
+                            "kind": "null"
+                        },
+                        "configuration": {
+                            "kind": "object",
+                            "typeName": "com.puppycrawl.tools.checkstyle.DefaultConfiguration",
+                            "fields": {
+                                "name": {
+                                    "kind": "string",
+                                    "value": "com.puppycrawl.tools.checkstyle.checks.whitespace.WhitespaceAfterCheck"
+                                },
+                                "children": {
+                                    "kind": "list",
+                                    "isShallow": false,
+                                    "size": 0,
+                                    "elements": []
+                                },
+                                "propertyMap": {
+                                    "kind": "map",
+                                    "isShallow": false,
+                                    "size": 0,
+                                    "elements": []
+                                },
+                                "messages": {
+                                    "kind": "map",
+                                    "isShallow": false,
+                                    "size": 0,
+                                    "elements": []
+                                },
+                                "threadModeSettings": {
+                                    "kind": "object",
+                                    "typeName": "com.puppycrawl.tools.checkstyle.ThreadModeSettings",
+                                    "fields": {
+                                        "checkerThreadsNumber": {
+                                            "kind": "int",
+                                            "value": 1
+                                        },
+                                        "treeWalkerThreadsNumber": {
+                                            "kind": "int",
+                                            "value": 1
+                                        }
+                                    },
+                                    "id": 4
+                                }
+                            },
+                            "id": 3
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "mock",
+                        "typeName": "com.puppycrawl.tools.checkstyle.DetailAstImpl",
+                        "methods": [
+                            {
+                                "method": {
+                                    "methodName": "getType",
+                                    "fullName": "com.puppycrawl.tools.checkstyle.DetailAstImpl.getType()I",
+                                    "argumentsSize": 0,
+                                    "returnTypeName": "int",
+                                    "containingClass": "com.puppycrawl.tools.checkstyle.DetailAstImpl"
+                                },
+                                "calls": [
+                                    {
+                                        "result": {
+                                            "kind": "int",
+                                            "value": 45
+                                        },
+                                        "args": []
+                                    },
+                                    {
+                                        "result": {
+                                            "kind": "int",
+                                            "value": 45
+                                        },
+                                        "args": []
+                                    }
+                                ]
+                            },
+                            {
+                                "method": {
+                                    "methodName": "getLineNo",
+                                    "fullName": "com.puppycrawl.tools.checkstyle.DetailAstImpl.getLineNo()I",
+                                    "argumentsSize": 0,
+                                    "returnTypeName": "int",
+                                    "containingClass": "com.puppycrawl.tools.checkstyle.DetailAstImpl"
+                                },
+                                "calls": [
+                                    {
+                                        "result": {
+                                            "kind": "int",
+                                            "value": 26
+                                        },
+                                        "args": []
+                                    }
+                                ]
+                            },
+                            {
+                                "method": {
+                                    "methodName": "getColumnNo",
+                                    "fullName": "com.puppycrawl.tools.checkstyle.DetailAstImpl.getColumnNo()I",
+                                    "argumentsSize": 0,
+                                    "returnTypeName": "int",
+                                    "containingClass": "com.puppycrawl.tools.checkstyle.DetailAstImpl"
+                                },
+                                "calls": [
+                                    {
+                                        "result": {
+                                            "kind": "int",
+                                            "value": 50
+                                        },
+                                        "args": []
+                                    }
+                                ]
+                            },
+                            {
+                                "method": {
+                                    "methodName": "getText",
+                                    "fullName": "com.puppycrawl.tools.checkstyle.DetailAstImpl.getText()Ljava/lang/String;",
+                                    "argumentsSize": 0,
+                                    "returnTypeName": "java.lang.String",
+                                    "containingClass": "com.puppycrawl.tools.checkstyle.DetailAstImpl"
+                                },
+                                "calls": [
+                                    {
+                                        "result": {
+                                            "kind": "string",
+                                            "value": ";"
+                                        },
+                                        "args": []
+                                    }
+                                ]
+                            }
+                        ],
+                        "isSpy": false,
+                        "id": 5
+                    }
+                ],
+                "returnValue": {
+                    "kind": "unknown"
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "visitToken",
+                    "fullName": "visitToken(DetailAST)",
+                    "argumentsSize": 1,
+                    "returnTypeName": "void",
+                    "containingClass": "com.puppycrawl.tools.checkstyle.checks.whitespace.WhitespaceAfterCheck"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "com.puppycrawl.tools.checkstyle.checks.whitespace.WhitespaceAfterCheck",
+                    "fields": {
+                        "context": {
+                            "kind": "mock",
+                            "typeName": "java.lang.ThreadLocal$SuppliedThreadLocal",
+                            "methods": [
+                                {
+                                    "method": {
+                                        "methodName": "get",
+                                        "fullName": "java.lang.ThreadLocal.get()Ljava/lang/Object;",
+                                        "argumentsSize": 0,
+                                        "returnTypeName": "java.lang.Object",
+                                        "containingClass": "java.lang.ThreadLocal"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "mock",
+                                                "typeName": "java.lang.Object",
+                                                "methods": [],
+                                                "isSpy": false,
+                                                "id": 2
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "ref",
+                                                "typeName": "java.lang.Object",
+                                                "refId": 2
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "ref",
+                                                "typeName": "java.lang.Object",
+                                                "refId": 2
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                }
+                            ],
+                            "isSpy": false,
+                            "id": 1
+                        },
+                        "tokens": {
+                            "kind": "set",
+                            "isShallow": false,
+                            "size": 0,
+                            "elements": []
+                        },
+                        "tabWidth": {
+                            "kind": "int",
+                            "value": 8
+                        },
+                        "severityLevel": {
+                            "kind": "enum",
+                            "typeName": "com.puppycrawl.tools.checkstyle.api.SeverityLevel",
+                            "value": "ERROR"
+                        },
+                        "id": {
+                            "kind": "null"
+                        },
+                        "configuration": {
+                            "kind": "object",
+                            "typeName": "com.puppycrawl.tools.checkstyle.DefaultConfiguration",
+                            "fields": {
+                                "name": {
+                                    "kind": "string",
+                                    "value": "com.puppycrawl.tools.checkstyle.checks.whitespace.WhitespaceAfterCheck"
+                                },
+                                "children": {
+                                    "kind": "list",
+                                    "isShallow": false,
+                                    "size": 0,
+                                    "elements": []
+                                },
+                                "propertyMap": {
+                                    "kind": "map",
+                                    "isShallow": false,
+                                    "size": 0,
+                                    "elements": []
+                                },
+                                "messages": {
+                                    "kind": "map",
+                                    "isShallow": false,
+                                    "size": 0,
+                                    "elements": []
+                                },
+                                "threadModeSettings": {
+                                    "kind": "object",
+                                    "typeName": "com.puppycrawl.tools.checkstyle.ThreadModeSettings",
+                                    "fields": {
+                                        "checkerThreadsNumber": {
+                                            "kind": "int",
+                                            "value": 1
+                                        },
+                                        "treeWalkerThreadsNumber": {
+                                            "kind": "int",
+                                            "value": 1
+                                        }
+                                    },
+                                    "id": 4
+                                }
+                            },
+                            "id": 3
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [
+                    {
+                        "kind": "mock",
+                        "typeName": "com.puppycrawl.tools.checkstyle.DetailAstImpl",
+                        "methods": [
+                            {
+                                "method": {
+                                    "methodName": "getType",
+                                    "fullName": "com.puppycrawl.tools.checkstyle.DetailAstImpl.getType()I",
+                                    "argumentsSize": 0,
+                                    "returnTypeName": "int",
+                                    "containingClass": "com.puppycrawl.tools.checkstyle.DetailAstImpl"
+                                },
+                                "calls": [
+                                    {
+                                        "result": {
+                                            "kind": "int",
+                                            "value": 83
+                                        },
+                                        "args": []
+                                    },
+                                    {
+                                        "result": {
+                                            "kind": "int",
+                                            "value": 83
+                                        },
+                                        "args": []
+                                    },
+                                    {
+                                        "result": {
+                                            "kind": "int",
+                                            "value": 83
+                                        },
+                                        "args": []
+                                    }
+                                ]
+                            },
+                            {
+                                "method": {
+                                    "methodName": "getLineNo",
+                                    "fullName": "com.puppycrawl.tools.checkstyle.DetailAstImpl.getLineNo()I",
+                                    "argumentsSize": 0,
+                                    "returnTypeName": "int",
+                                    "containingClass": "com.puppycrawl.tools.checkstyle.DetailAstImpl"
+                                },
+                                "calls": [
+                                    {
+                                        "result": {
+                                            "kind": "int",
+                                            "value": 29
+                                        },
+                                        "args": []
+                                    },
+                                    {
+                                        "result": {
+                                            "kind": "int",
+                                            "value": 29
+                                        },
+                                        "args": []
+                                    },
+                                    {
+                                        "result": {
+                                            "kind": "int",
+                                            "value": 29
+                                        },
+                                        "args": []
+                                    }
+                                ]
+                            },
+                            {
+                                "method": {
+                                    "methodName": "getColumnNo",
+                                    "fullName": "com.puppycrawl.tools.checkstyle.DetailAstImpl.getColumnNo()I",
+                                    "argumentsSize": 0,
+                                    "returnTypeName": "int",
+                                    "containingClass": "com.puppycrawl.tools.checkstyle.DetailAstImpl"
+                                },
+                                "calls": [
+                                    {
+                                        "result": {
+                                            "kind": "int",
+                                            "value": 8
+                                        },
+                                        "args": []
+                                    },
+                                    {
+                                        "result": {
+                                            "kind": "int",
+                                            "value": 8
+                                        },
+                                        "args": []
+                                    },
+                                    {
+                                        "result": {
+                                            "kind": "int",
+                                            "value": 8
+                                        },
+                                        "args": []
+                                    }
+                                ]
+                            },
+                            {
+                                "method": {
+                                    "methodName": "getText",
+                                    "fullName": "com.puppycrawl.tools.checkstyle.DetailAstImpl.getText()Ljava/lang/String;",
+                                    "argumentsSize": 0,
+                                    "returnTypeName": "java.lang.String",
+                                    "containingClass": "com.puppycrawl.tools.checkstyle.DetailAstImpl"
+                                },
+                                "calls": [
+                                    {
+                                        "result": {
+                                            "kind": "string",
+                                            "value": "if"
+                                        },
+                                        "args": []
+                                    },
+                                    {
+                                        "result": {
+                                            "kind": "string",
+                                            "value": "if"
+                                        },
+                                        "args": []
+                                    }
+                                ]
+                            }
+                        ],
+                        "isSpy": false,
+                        "id": 5
+                    }
+                ],
+                "returnValue": {
+                    "kind": "unknown"
+                }
+            }
+        ]
+    }
+]

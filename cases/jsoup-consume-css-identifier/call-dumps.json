@@ -1,0 +1,1730 @@
+[
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "consumeCssIdentifier",
+                    "fullName": "consumeCssIdentifier()",
+                    "argumentsSize": 0,
+                    "returnTypeName": "String",
+                    "containingClass": "org.jsoup.parser.TokenQueue"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "org.jsoup.parser.TokenQueue",
+                    "fields": {
+                        "reader": {
+                            "kind": "mock",
+                            "typeName": "org.jsoup.parser.CharacterReader",
+                            "methods": [
+                                {
+                                    "method": {
+                                        "methodName": "isEmpty",
+                                        "fullName": "org.jsoup.parser.CharacterReader.isEmpty()Z",
+                                        "argumentsSize": 0,
+                                        "returnTypeName": "boolean",
+                                        "containingClass": "org.jsoup.parser.CharacterReader"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": true
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "method": {
+                                        "methodName": "consumeMatching",
+                                        "fullName": "org.jsoup.parser.CharacterReader.consumeMatching(Lorg/jsoup/parser/CharacterReader$CharPredicate;)Ljava/lang/String;",
+                                        "argumentsSize": 1,
+                                        "returnTypeName": "java.lang.String",
+                                        "containingClass": "org.jsoup.parser.CharacterReader"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "string",
+                                                "value": "-"
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "method": {
+                                        "methodName": "current",
+                                        "fullName": "org.jsoup.parser.CharacterReader.current()C",
+                                        "argumentsSize": 0,
+                                        "returnTypeName": "char",
+                                        "containingClass": "org.jsoup.parser.CharacterReader"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "char",
+                                                "value": "\\"
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "char",
+                                                "value": "\\"
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "char",
+                                                "value": "3"
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "char",
+                                                "value": " "
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "char",
+                                                "value": "a"
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "method": {
+                                        "methodName": "consume",
+                                        "fullName": "org.jsoup.parser.CharacterReader.consume()C",
+                                        "argumentsSize": 0,
+                                        "returnTypeName": "char",
+                                        "containingClass": "org.jsoup.parser.CharacterReader"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "char",
+                                                "value": "3"
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "char",
+                                                "value": "a"
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "method": {
+                                        "methodName": "consumeMatching",
+                                        "fullName": "org.jsoup.parser.CharacterReader.consumeMatching(Lorg/jsoup/parser/CharacterReader$CharPredicate;I)Ljava/lang/String;",
+                                        "argumentsSize": 2,
+                                        "returnTypeName": "java.lang.String",
+                                        "containingClass": "org.jsoup.parser.CharacterReader"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "string",
+                                                "value": "34"
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                }
+                            ],
+                            "isSpy": false,
+                            "id": 1
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [],
+                "returnValue": {
+                    "kind": "string",
+                    "value": "-4a"
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "consumeCssIdentifier",
+                    "fullName": "consumeCssIdentifier()",
+                    "argumentsSize": 0,
+                    "returnTypeName": "String",
+                    "containingClass": "org.jsoup.parser.TokenQueue"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "org.jsoup.parser.TokenQueue",
+                    "fields": {
+                        "reader": {
+                            "kind": "mock",
+                            "typeName": "org.jsoup.parser.CharacterReader",
+                            "methods": [
+                                {
+                                    "method": {
+                                        "methodName": "isEmpty",
+                                        "fullName": "org.jsoup.parser.CharacterReader.isEmpty()Z",
+                                        "argumentsSize": 0,
+                                        "returnTypeName": "boolean",
+                                        "containingClass": "org.jsoup.parser.CharacterReader"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": true
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "method": {
+                                        "methodName": "consumeMatching",
+                                        "fullName": "org.jsoup.parser.CharacterReader.consumeMatching(Lorg/jsoup/parser/CharacterReader$CharPredicate;)Ljava/lang/String;",
+                                        "argumentsSize": 1,
+                                        "returnTypeName": "java.lang.String",
+                                        "containingClass": "org.jsoup.parser.CharacterReader"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "string",
+                                                "value": "-"
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "method": {
+                                        "methodName": "current",
+                                        "fullName": "org.jsoup.parser.CharacterReader.current()C",
+                                        "argumentsSize": 0,
+                                        "returnTypeName": "char",
+                                        "containingClass": "org.jsoup.parser.CharacterReader"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "char",
+                                                "value": "\\"
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "char",
+                                                "value": "\\"
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "char",
+                                                "value": "3"
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "char",
+                                                "value": " "
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "char",
+                                                "value": "a"
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "method": {
+                                        "methodName": "consume",
+                                        "fullName": "org.jsoup.parser.CharacterReader.consume()C",
+                                        "argumentsSize": 0,
+                                        "returnTypeName": "char",
+                                        "containingClass": "org.jsoup.parser.CharacterReader"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "char",
+                                                "value": "3"
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "char",
+                                                "value": "a"
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "method": {
+                                        "methodName": "consumeMatching",
+                                        "fullName": "org.jsoup.parser.CharacterReader.consumeMatching(Lorg/jsoup/parser/CharacterReader$CharPredicate;I)Ljava/lang/String;",
+                                        "argumentsSize": 2,
+                                        "returnTypeName": "java.lang.String",
+                                        "containingClass": "org.jsoup.parser.CharacterReader"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "string",
+                                                "value": "34"
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                }
+                            ],
+                            "isSpy": false,
+                            "id": 1
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [],
+                "returnValue": {
+                    "kind": "string",
+                    "value": "-4a"
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "consumeCssIdentifier",
+                    "fullName": "consumeCssIdentifier()",
+                    "argumentsSize": 0,
+                    "returnTypeName": "String",
+                    "containingClass": "org.jsoup.parser.TokenQueue"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "org.jsoup.parser.TokenQueue",
+                    "fields": {
+                        "reader": {
+                            "kind": "mock",
+                            "typeName": "org.jsoup.parser.CharacterReader",
+                            "methods": [
+                                {
+                                    "method": {
+                                        "methodName": "isEmpty",
+                                        "fullName": "org.jsoup.parser.CharacterReader.isEmpty()Z",
+                                        "argumentsSize": 0,
+                                        "returnTypeName": "boolean",
+                                        "containingClass": "org.jsoup.parser.CharacterReader"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": true
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "method": {
+                                        "methodName": "consumeMatching",
+                                        "fullName": "org.jsoup.parser.CharacterReader.consumeMatching(Lorg/jsoup/parser/CharacterReader$CharPredicate;)Ljava/lang/String;",
+                                        "argumentsSize": 1,
+                                        "returnTypeName": "java.lang.String",
+                                        "containingClass": "org.jsoup.parser.CharacterReader"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "string",
+                                                "value": "-"
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "method": {
+                                        "methodName": "current",
+                                        "fullName": "org.jsoup.parser.CharacterReader.current()C",
+                                        "argumentsSize": 0,
+                                        "returnTypeName": "char",
+                                        "containingClass": "org.jsoup.parser.CharacterReader"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "char",
+                                                "value": "\\"
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "char",
+                                                "value": "\\"
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "char",
+                                                "value": "3"
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "char",
+                                                "value": " "
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "char",
+                                                "value": "a"
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "method": {
+                                        "methodName": "consume",
+                                        "fullName": "org.jsoup.parser.CharacterReader.consume()C",
+                                        "argumentsSize": 0,
+                                        "returnTypeName": "char",
+                                        "containingClass": "org.jsoup.parser.CharacterReader"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "char",
+                                                "value": "3"
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "char",
+                                                "value": "a"
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "method": {
+                                        "methodName": "consumeMatching",
+                                        "fullName": "org.jsoup.parser.CharacterReader.consumeMatching(Lorg/jsoup/parser/CharacterReader$CharPredicate;I)Ljava/lang/String;",
+                                        "argumentsSize": 2,
+                                        "returnTypeName": "java.lang.String",
+                                        "containingClass": "org.jsoup.parser.CharacterReader"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "string",
+                                                "value": "34"
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                }
+                            ],
+                            "isSpy": false,
+                            "id": 1
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [],
+                "returnValue": {
+                    "kind": "string",
+                    "value": "-4a"
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "consumeCssIdentifier",
+                    "fullName": "consumeCssIdentifier()",
+                    "argumentsSize": 0,
+                    "returnTypeName": "String",
+                    "containingClass": "org.jsoup.parser.TokenQueue"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "org.jsoup.parser.TokenQueue",
+                    "fields": {
+                        "reader": {
+                            "kind": "mock",
+                            "typeName": "org.jsoup.parser.CharacterReader",
+                            "methods": [
+                                {
+                                    "method": {
+                                        "methodName": "isEmpty",
+                                        "fullName": "org.jsoup.parser.CharacterReader.isEmpty()Z",
+                                        "argumentsSize": 0,
+                                        "returnTypeName": "boolean",
+                                        "containingClass": "org.jsoup.parser.CharacterReader"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": true
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "method": {
+                                        "methodName": "consumeMatching",
+                                        "fullName": "org.jsoup.parser.CharacterReader.consumeMatching(Lorg/jsoup/parser/CharacterReader$CharPredicate;)Ljava/lang/String;",
+                                        "argumentsSize": 1,
+                                        "returnTypeName": "java.lang.String",
+                                        "containingClass": "org.jsoup.parser.CharacterReader"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "string",
+                                                "value": "-"
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "method": {
+                                        "methodName": "current",
+                                        "fullName": "org.jsoup.parser.CharacterReader.current()C",
+                                        "argumentsSize": 0,
+                                        "returnTypeName": "char",
+                                        "containingClass": "org.jsoup.parser.CharacterReader"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "char",
+                                                "value": "\\"
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "char",
+                                                "value": "\\"
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "char",
+                                                "value": "3"
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "char",
+                                                "value": " "
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "char",
+                                                "value": "a"
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "method": {
+                                        "methodName": "consume",
+                                        "fullName": "org.jsoup.parser.CharacterReader.consume()C",
+                                        "argumentsSize": 0,
+                                        "returnTypeName": "char",
+                                        "containingClass": "org.jsoup.parser.CharacterReader"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "char",
+                                                "value": "3"
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "char",
+                                                "value": "a"
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "method": {
+                                        "methodName": "consumeMatching",
+                                        "fullName": "org.jsoup.parser.CharacterReader.consumeMatching(Lorg/jsoup/parser/CharacterReader$CharPredicate;I)Ljava/lang/String;",
+                                        "argumentsSize": 2,
+                                        "returnTypeName": "java.lang.String",
+                                        "containingClass": "org.jsoup.parser.CharacterReader"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "string",
+                                                "value": "34"
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                }
+                            ],
+                            "isSpy": false,
+                            "id": 1
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [],
+                "returnValue": {
+                    "kind": "string",
+                    "value": "-4a"
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "consumeCssIdentifier",
+                    "fullName": "consumeCssIdentifier()",
+                    "argumentsSize": 0,
+                    "returnTypeName": "String",
+                    "containingClass": "org.jsoup.parser.TokenQueue"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "org.jsoup.parser.TokenQueue",
+                    "fields": {
+                        "reader": {
+                            "kind": "mock",
+                            "typeName": "org.jsoup.parser.CharacterReader",
+                            "methods": [
+                                {
+                                    "method": {
+                                        "methodName": "isEmpty",
+                                        "fullName": "org.jsoup.parser.CharacterReader.isEmpty()Z",
+                                        "argumentsSize": 0,
+                                        "returnTypeName": "boolean",
+                                        "containingClass": "org.jsoup.parser.CharacterReader"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": true
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "method": {
+                                        "methodName": "consumeMatching",
+                                        "fullName": "org.jsoup.parser.CharacterReader.consumeMatching(Lorg/jsoup/parser/CharacterReader$CharPredicate;)Ljava/lang/String;",
+                                        "argumentsSize": 1,
+                                        "returnTypeName": "java.lang.String",
+                                        "containingClass": "org.jsoup.parser.CharacterReader"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "string",
+                                                "value": "-"
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "method": {
+                                        "methodName": "current",
+                                        "fullName": "org.jsoup.parser.CharacterReader.current()C",
+                                        "argumentsSize": 0,
+                                        "returnTypeName": "char",
+                                        "containingClass": "org.jsoup.parser.CharacterReader"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "char",
+                                                "value": "\\"
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "char",
+                                                "value": "\\"
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "char",
+                                                "value": "3"
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "char",
+                                                "value": " "
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "char",
+                                                "value": "a"
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "method": {
+                                        "methodName": "consume",
+                                        "fullName": "org.jsoup.parser.CharacterReader.consume()C",
+                                        "argumentsSize": 0,
+                                        "returnTypeName": "char",
+                                        "containingClass": "org.jsoup.parser.CharacterReader"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "char",
+                                                "value": "3"
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "char",
+                                                "value": "a"
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "method": {
+                                        "methodName": "consumeMatching",
+                                        "fullName": "org.jsoup.parser.CharacterReader.consumeMatching(Lorg/jsoup/parser/CharacterReader$CharPredicate;I)Ljava/lang/String;",
+                                        "argumentsSize": 2,
+                                        "returnTypeName": "java.lang.String",
+                                        "containingClass": "org.jsoup.parser.CharacterReader"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "string",
+                                                "value": "34"
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                }
+                            ],
+                            "isSpy": false,
+                            "id": 1
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [],
+                "returnValue": {
+                    "kind": "string",
+                    "value": "-4a"
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "consumeCssIdentifier",
+                    "fullName": "consumeCssIdentifier()",
+                    "argumentsSize": 0,
+                    "returnTypeName": "String",
+                    "containingClass": "org.jsoup.parser.TokenQueue"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "org.jsoup.parser.TokenQueue",
+                    "fields": {
+                        "reader": {
+                            "kind": "mock",
+                            "typeName": "org.jsoup.parser.CharacterReader",
+                            "methods": [
+                                {
+                                    "method": {
+                                        "methodName": "isEmpty",
+                                        "fullName": "org.jsoup.parser.CharacterReader.isEmpty()Z",
+                                        "argumentsSize": 0,
+                                        "returnTypeName": "boolean",
+                                        "containingClass": "org.jsoup.parser.CharacterReader"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": true
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "method": {
+                                        "methodName": "consumeMatching",
+                                        "fullName": "org.jsoup.parser.CharacterReader.consumeMatching(Lorg/jsoup/parser/CharacterReader$CharPredicate;)Ljava/lang/String;",
+                                        "argumentsSize": 1,
+                                        "returnTypeName": "java.lang.String",
+                                        "containingClass": "org.jsoup.parser.CharacterReader"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "string",
+                                                "value": "-"
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "method": {
+                                        "methodName": "current",
+                                        "fullName": "org.jsoup.parser.CharacterReader.current()C",
+                                        "argumentsSize": 0,
+                                        "returnTypeName": "char",
+                                        "containingClass": "org.jsoup.parser.CharacterReader"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "char",
+                                                "value": "\\"
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "char",
+                                                "value": "\\"
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "char",
+                                                "value": "3"
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "char",
+                                                "value": " "
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "char",
+                                                "value": "a"
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "method": {
+                                        "methodName": "consume",
+                                        "fullName": "org.jsoup.parser.CharacterReader.consume()C",
+                                        "argumentsSize": 0,
+                                        "returnTypeName": "char",
+                                        "containingClass": "org.jsoup.parser.CharacterReader"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "char",
+                                                "value": "3"
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "char",
+                                                "value": "a"
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "method": {
+                                        "methodName": "consumeMatching",
+                                        "fullName": "org.jsoup.parser.CharacterReader.consumeMatching(Lorg/jsoup/parser/CharacterReader$CharPredicate;I)Ljava/lang/String;",
+                                        "argumentsSize": 2,
+                                        "returnTypeName": "java.lang.String",
+                                        "containingClass": "org.jsoup.parser.CharacterReader"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "string",
+                                                "value": "34"
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                }
+                            ],
+                            "isSpy": false,
+                            "id": 1
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [],
+                "returnValue": {
+                    "kind": "string",
+                    "value": "-4a"
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "consumeCssIdentifier",
+                    "fullName": "consumeCssIdentifier()",
+                    "argumentsSize": 0,
+                    "returnTypeName": "String",
+                    "containingClass": "org.jsoup.parser.TokenQueue"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "org.jsoup.parser.TokenQueue",
+                    "fields": {
+                        "reader": {
+                            "kind": "mock",
+                            "typeName": "org.jsoup.parser.CharacterReader",
+                            "methods": [
+                                {
+                                    "method": {
+                                        "methodName": "isEmpty",
+                                        "fullName": "org.jsoup.parser.CharacterReader.isEmpty()Z",
+                                        "argumentsSize": 0,
+                                        "returnTypeName": "boolean",
+                                        "containingClass": "org.jsoup.parser.CharacterReader"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": true
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "method": {
+                                        "methodName": "consumeMatching",
+                                        "fullName": "org.jsoup.parser.CharacterReader.consumeMatching(Lorg/jsoup/parser/CharacterReader$CharPredicate;)Ljava/lang/String;",
+                                        "argumentsSize": 1,
+                                        "returnTypeName": "java.lang.String",
+                                        "containingClass": "org.jsoup.parser.CharacterReader"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "string",
+                                                "value": "-"
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "method": {
+                                        "methodName": "current",
+                                        "fullName": "org.jsoup.parser.CharacterReader.current()C",
+                                        "argumentsSize": 0,
+                                        "returnTypeName": "char",
+                                        "containingClass": "org.jsoup.parser.CharacterReader"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "char",
+                                                "value": "\\"
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "char",
+                                                "value": "\\"
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "char",
+                                                "value": "3"
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "char",
+                                                "value": " "
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "char",
+                                                "value": "a"
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "method": {
+                                        "methodName": "consume",
+                                        "fullName": "org.jsoup.parser.CharacterReader.consume()C",
+                                        "argumentsSize": 0,
+                                        "returnTypeName": "char",
+                                        "containingClass": "org.jsoup.parser.CharacterReader"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "char",
+                                                "value": "3"
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "char",
+                                                "value": "a"
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "method": {
+                                        "methodName": "consumeMatching",
+                                        "fullName": "org.jsoup.parser.CharacterReader.consumeMatching(Lorg/jsoup/parser/CharacterReader$CharPredicate;I)Ljava/lang/String;",
+                                        "argumentsSize": 2,
+                                        "returnTypeName": "java.lang.String",
+                                        "containingClass": "org.jsoup.parser.CharacterReader"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "string",
+                                                "value": "34"
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                }
+                            ],
+                            "isSpy": false,
+                            "id": 1
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [],
+                "returnValue": {
+                    "kind": "string",
+                    "value": "-4a"
+                }
+            }
+        ]
+    },
+    {
+        "staticMethodMocks": [],
+        "calls": [
+            {
+                "type": "commonCall",
+                "methodDump": {
+                    "methodName": "consumeCssIdentifier",
+                    "fullName": "consumeCssIdentifier()",
+                    "argumentsSize": 0,
+                    "returnTypeName": "String",
+                    "containingClass": "org.jsoup.parser.TokenQueue"
+                },
+                "thisDump": {
+                    "kind": "object",
+                    "typeName": "org.jsoup.parser.TokenQueue",
+                    "fields": {
+                        "reader": {
+                            "kind": "mock",
+                            "typeName": "org.jsoup.parser.CharacterReader",
+                            "methods": [
+                                {
+                                    "method": {
+                                        "methodName": "isEmpty",
+                                        "fullName": "org.jsoup.parser.CharacterReader.isEmpty()Z",
+                                        "argumentsSize": 0,
+                                        "returnTypeName": "boolean",
+                                        "containingClass": "org.jsoup.parser.CharacterReader"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": false
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "boolean",
+                                                "value": true
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "method": {
+                                        "methodName": "consumeMatching",
+                                        "fullName": "org.jsoup.parser.CharacterReader.consumeMatching(Lorg/jsoup/parser/CharacterReader$CharPredicate;)Ljava/lang/String;",
+                                        "argumentsSize": 1,
+                                        "returnTypeName": "java.lang.String",
+                                        "containingClass": "org.jsoup.parser.CharacterReader"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "string",
+                                                "value": "-"
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "method": {
+                                        "methodName": "current",
+                                        "fullName": "org.jsoup.parser.CharacterReader.current()C",
+                                        "argumentsSize": 0,
+                                        "returnTypeName": "char",
+                                        "containingClass": "org.jsoup.parser.CharacterReader"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "char",
+                                                "value": "\\"
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "char",
+                                                "value": "\\"
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "char",
+                                                "value": "3"
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "char",
+                                                "value": " "
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "char",
+                                                "value": "a"
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "method": {
+                                        "methodName": "consume",
+                                        "fullName": "org.jsoup.parser.CharacterReader.consume()C",
+                                        "argumentsSize": 0,
+                                        "returnTypeName": "char",
+                                        "containingClass": "org.jsoup.parser.CharacterReader"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "char",
+                                                "value": "3"
+                                            },
+                                            "args": []
+                                        },
+                                        {
+                                            "result": {
+                                                "kind": "char",
+                                                "value": "a"
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "method": {
+                                        "methodName": "consumeMatching",
+                                        "fullName": "org.jsoup.parser.CharacterReader.consumeMatching(Lorg/jsoup/parser/CharacterReader$CharPredicate;I)Ljava/lang/String;",
+                                        "argumentsSize": 2,
+                                        "returnTypeName": "java.lang.String",
+                                        "containingClass": "org.jsoup.parser.CharacterReader"
+                                    },
+                                    "calls": [
+                                        {
+                                            "result": {
+                                                "kind": "string",
+                                                "value": "34"
+                                            },
+                                            "args": []
+                                        }
+                                    ]
+                                }
+                            ],
+                            "isSpy": false,
+                            "id": 1
+                        }
+                    },
+                    "id": -1
+                },
+                "args": [],
+                "returnValue": {
+                    "kind": "string",
+                    "value": "-4a"
+                }
+            }
+        ]
+    }
+]
