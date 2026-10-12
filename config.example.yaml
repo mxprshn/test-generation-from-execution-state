@@ -26,6 +26,8 @@ min_free_mem_gb: 3                     # wait before starting a cell below this
 paths:
   projects: ../projects                # checkouts of the subject projects (scripts/setup.sh)
   results: ../results/v2               # cells, references, evaluation records, logs, report
+  work: null                           # scratch space (workspaces, traces, PIT); outside results and
+                                       # the repository; null: a fresh directory in the system temp dir
   tools: .tools                        # Node.js, Pi, BTrace (scripts/setup.sh)
   java_home: null                      # JDK 21; null: $JAVA_HOME
   maven_repository: ~/.m2/repository   # also where setup.sh puts PIT
@@ -36,7 +38,8 @@ evaluation:
   reference_runs: 2                    # reference traces per case (nondeterminism audit)
   trace_depth: 5                       # depth of the field graphs in traces
 
-# extra environment of build and test commands, e.g. a Maven repository outside $HOME:
+# Build and test commands get only an allowlist of the runner's environment (PATH, HOME, locale,
+# TMPDIR, MAVEN_*, GRADLE_*; runner/config.py) plus these variables, e.g. a Maven repository outside $HOME:
 # env:
 #   MAVEN_OPTS: "-Dmaven.repo.local=/data/m2"
 env: {}
