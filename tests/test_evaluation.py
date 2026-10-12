@@ -228,6 +228,28 @@ class CompareTest(unittest.TestCase):
         mock = {"$t": "a.Repo$MockitoMock$1", "$opaque": True}
         self.assertEqual(C.compare([inv([mock])], [inv([None])], ND, "p")["io_hits"], 0)
 
+    def test_masked_value_equals_null_at_every_level(self):
+        nd = {"types": ["java.util.Date"], "type_prefixes": [], "fields": {}}
+        date = {"$t": "java.util.Date", "$str": "Mon Oct 12 10:00:00 UTC 2026"}
+        ref = {"$t": "a.Item", "$fields": {"key": "k", "created": date}}
+        cand = {"$t": "a.Item", "$fields": {"key": "k", "created": None}}
+        for a, b in ((ref, cand), (cand, ref)):
+            r = C.compare([inv([a], self=a)], [inv([b], self=b)], nd, "p")
+            self.assertEqual((r["io_hits"], r["state_hits"], r["strict_hits"]), (1, 1, 1))
+        r = C.compare([inv([date])], [inv([None])], nd, "p")
+        self.assertEqual(r["io_hits"], 1)
+
+    def test_plain_value_against_null_is_a_difference(self):
+        ref = {"$t": "a.Item", "$fields": {"key": "k", "comment": "c"}}
+        cand = {"$t": "a.Item", "$fields": {"key": "k", "comment": None}}
+        r = C.compare([inv([ref], self=ref)], [inv([cand], self=cand)], ND, "p")
+        self.assertEqual((r["io_hits"], r["state_hits"], r["strict_hits"]), (0, 0, 0))
+
+    def test_infrastructure_prefix_is_not_masked_against_null(self):
+        # type prefixes mark collaborators (null bit kept), not nondeterministic values
+        session = {"$t": "org.h2.Session", "$fields": {"n": 1}}
+        self.assertEqual(C.compare([inv([session])], [inv([None])], ND, "p")["io_hits"], 0)
+
     def test_nested_collaborator_in_argument(self):
         real = {"$t": "a.Req", "$fields": {"tx": {"$t": "org.h2.Session", "$fields": {"n": 1}}, "v": 3}}
         cand = {"$t": "a.Req", "$fields": {"tx": {"$t": "a.Tx$MockitoMock$1", "$opaque": True}, "v": 3}}

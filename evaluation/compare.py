@@ -95,8 +95,15 @@ EPOCH_MS = re.compile(r"(?<!\d)1[789]\d{11}(?!\d)")
 # the name of the outer class.
 TEST_NAME = re.compile(r"(Test|Tests|TestCase|IT)$")
 
-def collaborator_marker(v: Any) -> dict[str, Any]:
+def collaborator_marker(v: Any, keep_null: bool = True) -> dict[str, Any]:
+    """Marker of a collaborator position. The null bit is dropped at masked positions (see
+    masked_positions): a masked value carries no data, so it equals null too."""
+    if not keep_null:
+        return {"$t": "$collaborator"}
     return {"$t": "$collaborator", "null": v is None}
+
+
+MASKED = {"$masked": True}
 
 
 def norm_str(s: str) -> str:
@@ -183,13 +190,20 @@ class Normaliser:
         self.fields = set(fields.get("*", [])) | set(fields.get(project or "", []))
         self.masked = 0
         self.cuts = 0
+        # paths (args..., value..., self...) holding a masked value on some side: there a masked
+        # value and null compare equal (masked_positions); set by compare() for the pair of traces
+        self.masked_paths: set[str] = set()
 
     def value(self, v: Any, deps: "set[str] | None" = None, path: str = "") -> Any:
         """Canonical form: identities dropped (a back reference becomes a marker), JDK collections by
         interface, identity hash codes and masked values removed. Positions listed in deps (paths
         inside arguments and results, see value_dependencies) become a collaborator marker."""
         if deps and path in deps:
-            return collaborator_marker(v)
+            return collaborator_marker(v, keep_null=path not in self.masked_paths)
+        if path and path in self.masked_paths and (v is None or self.is_nondet_type(v)):
+            if v is not None:
+                self.masked += 1
+            return dict(MASKED)
         if isinstance(v, list):
             return [self.value(x, deps, f"{path}[{i}]") for i, x in enumerate(v)]
         if isinstance(v, str):
@@ -248,6 +262,11 @@ class Normaliser:
         t = norm_type(v.get("$t", ""))
         return t in self.types or bool(self.prefixes and t.startswith(self.prefixes))
 
+    def is_nondet_type(self, v: Any) -> bool:
+        """A value of a nondeterministic type listed by name in nondeterminism.json (time, UUID, ...).
+        Type prefixes (infrastructure objects) are collaborators, not nondeterministic data."""
+        return isinstance(v, dict) and "$t" in v and norm_type(v.get("$t", "")) in self.types
+
     def is_value_collaborator(self, v: Any) -> bool:
         """A value inside arguments or a result that is a collaborator rather than data on its own:
         a mock or proxy, an object of a masked type (JDBC driver, ...), a lambda, a component.
@@ -277,10 +296,14 @@ class Normaliser:
     def receiver(self, v: Any, deps: set[str]) -> Any:
         """Receiver with dependency fields reduced to a marker (level B)."""
         if not (isinstance(v, dict) and "$fields" in v) or not deps:
-            return self.value(v)
-        fields = {name: (collaborator_marker(fv) if field_name(name, v["$fields"]) in deps else fv)
-                  for name, fv in v["$fields"].items()}
-        return self.value({**v, "$fields": fields})
+            return self.value(v, path="self")
+        fields = {}
+        for name, fv in v["$fields"].items():
+            short = field_name(name, v["$fields"])
+            if short in deps:
+                fv = collaborator_marker(fv, keep_null=f"self.{short}" not in self.masked_paths)
+            fields[name] = fv
+        return self.value({**v, "$fields": fields}, path="self")
 
 
 def field_name(name: str, fields: dict[str, Any]) -> str:
@@ -305,6 +328,43 @@ def _is_object(v: Any) -> bool:
     if "$ref" in v or v.get("$opaque"):
         return True
     return ("$fields" in v or bool(v.get("$cut"))) and not norm_type(v.get("$t", "")).startswith("java.")
+
+
+def masked_positions(sides: Iterable[list[dict[str, Any]]], norm: Normaliser) -> set[str]:
+    """Paths (args..., value..., self...) where some invocation on any side holds a value of a type
+    listed by name in the nondeterminism list (time, UUID, ...; not the infrastructure prefixes). At these paths a masked value and null compare equal at every level
+    (symmetric, pairwise like the dependency rules): a scenario with a timestamp and a test that
+    leaves it null differ only in a value the comparison ignores anyway. Paths inside unordered
+    collections and map entries are not tracked; fields masked by name already ignore null."""
+    out: set[str] = set()
+
+    def walk(v: Any, path: str) -> None:
+        if isinstance(v, list):
+            for i, x in enumerate(v):
+                walk(x, f"{path}[{i}]")
+            return
+        if not isinstance(v, dict) or "$ref" in v or v.get("$t") == "$collaborator":
+            return
+        if norm.is_nondet_type(v):
+            out.add(path)
+            return
+        if norm.is_masked_type(v):
+            return
+        t = norm_type(v.get("$t", ""))
+        if "$fields" in v:
+            for raw, fv in v["$fields"].items():
+                walk(fv, f"{path}.{field_name(raw, v['$fields'])}")
+        if "$items" in v and collection_kind(t, v) not in ("Set", "Map", "Collection"):
+            for i, x in enumerate(v["$items"]):
+                walk(x, f"{path}[{i}]")
+
+    for invocations in sides:
+        for inv in invocations or []:
+            walk(inv.get("args", []), "args")
+            if inv.get("outcome") == "return":
+                walk(inv.get("value"), "value")
+            walk(inv.get("self"), "self")
+    return out
 
 
 def dependency_fields(sides: Iterable[list[dict[str, Any]]], norm: Normaliser) -> set[str]:
@@ -430,7 +490,8 @@ def state_key(inv: dict[str, Any], norm: Normaliser, deps: set[str], vdeps: set[
 def strict_key(inv: dict[str, Any], norm: Normaliser) -> str:
     """Level C: no collaborator markers anywhere. It is also the scenario unit, so the number of
     reference scenarios does not depend on the candidate."""
-    return json.dumps([json.loads(io_key(inv, norm)), norm.value(inv.get("self"))], sort_keys=True)
+    return json.dumps([json.loads(io_key(inv, norm)), norm.value(inv.get("self"), path="self")],
+                      sort_keys=True)
 
 
 def data_key(inv: dict[str, Any], norm: Normaliser, strict: bool = False) -> str:
@@ -446,6 +507,7 @@ def scenarios(invocations: list[dict[str, Any]], norm: Normaliser,
     """strict key -> (structure key, io key, state key), for distinct scenarios."""
     if deps is None:
         deps = dependency_fields([invocations], norm)
+        norm.masked_paths = norm.masked_paths | masked_positions([invocations], norm)
     if vdeps is None:
         vdeps = value_dependencies([invocations], norm)
     out: dict[str, tuple[str, str, str]] = {}
@@ -462,6 +524,7 @@ def compare(reference: list[dict[str, Any]], candidate: list[dict[str, Any]] | N
     norm = Normaliser(nondet if nondet is not None else load_nondet(), project, components, test_classes)
     deps = dependency_fields([reference, candidate or []], norm)
     vdeps = value_dependencies([reference, candidate or []], norm)
+    norm.masked_paths = masked_positions([reference, candidate or []], norm)
     ref = scenarios(reference, norm, deps, vdeps)
     n = len(ref)
     out: dict[str, Any] = {"scenarios": n}
