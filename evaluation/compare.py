@@ -24,8 +24,16 @@ string, number or collection against a value is a data difference, not a collabo
 field keeps one bit: whether it was null. A null collaborator therefore does not match an object
 (a mock or a real one), while a mock matches a real object of any content.
 
+Level A applies the same idea to the arguments and the result: a position inside them that holds a
+collaborator on either side (mock or proxy, object of a masked type, lambda, component, test-source
+class) is compared by presence only, keeping the null bit (value_dependencies, pairwise).
+Level C is the receiver, arguments and result without any markers; it is also the scenario unit.
+
 Normalisation, the same for every level and mode:
   * BTrace-internal pseudo calls (``##...``) are dropped;
+  * JDK dynamic proxy names (jdk.proxyN.$ProxyM) are reduced to $Proxy;
+  * workspace paths: an absolute path into the workspace equals the same path relative to it;
+  * inherited field names lose the declaring-class prefix the tracer adds, unless they would clash;
   * synthetic proxy / mock class suffixes are reduced to the declared class name;
   * object identities ($id/$ref) are dropped, back references become a marker;
   * strings: workspace paths, JUnit / java.io temporary directories, identity hash codes,
@@ -53,6 +61,9 @@ PROXY_RE = re.compile(
     r"(\$MockitoMock\$\w+|\$\$EnhancerBySpringCGLIB\$\$\w+|\$\$SpringCGLIB\$\$\d+|\$HibernateProxy\$\w+"
     r"|\$ByteBuddy\$\w+|\$\$Lambda[\$/][\w/\.\$]*|\$Proxy\d+)"
 )
+# JDK dynamic proxies live in numbered modules/packages: jdk.proxy2.$Proxy17 -> $Proxy
+JDK_PROXY = re.compile(r"^(?:jdk\.proxy\d+\.|com\.sun\.proxy\.)?\$Proxy\d*$")
+LAMBDA = re.compile(r"\$\$Lambda")
 HERE = Path(__file__).resolve().parent
 DEFAULT_NONDET = HERE / "nondeterminism.json"
 DEFAULT_COMPONENTS = HERE / "components.json"
@@ -65,6 +76,9 @@ UUID_RE = re.compile(r"\b[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f
 # Every trace runs in its own copy of the checkout (<work>/ws/<case>-<tag>), so absolute paths into
 # the workspace differ between the reference and any candidate by construction.
 WORKSPACE_PATH = re.compile(r"(?:/private)?/[^\s\"',;]*?/work/ws/[^/\s\"',;]+")
+# The same file given as an absolute path into the workspace and as a path relative to it compare
+# equal: "<ws>/src/test/resources/x" and "src/test/resources/x" both become "src/test/resources/x".
+WS_PREFIX = re.compile(r"<ws>/")
 # JUnit temporary folders with the directory created inside them, named after the running test
 # method: junit16315607296389577792/testDiff-1753139585, junit123/indexWithGitmodules1987433262.
 # The test method name differs between the scenario and any generated test, so the pair is replaced
@@ -90,12 +104,16 @@ def norm_str(s: str) -> str:
     s = JUNIT_DIR.sub("<tmp>", s)
     if "<ws>" in s or "<tmp>" in s or TEMP_DIR.search(s):
         s = TEMP_SUFFIX.sub("<n>", s)
+    s = WS_PREFIX.sub("", s)
     s = EPOCH_MS.sub("<millis>", s)
     return UUID_RE.sub("<uuid>", TIMESTAMP.sub("<time>", IDENTITY_HASH.sub("@#", s)))
 
 
 def norm_type(name: str) -> str:
-    return PROXY_RE.sub("", name or "")
+    name = name or ""
+    if JDK_PROXY.match(name):
+        return "$Proxy"
+    return PROXY_RE.sub("", name)
 
 
 def norm_sig(sig: str) -> str:
@@ -166,11 +184,14 @@ class Normaliser:
         self.masked = 0
         self.cuts = 0
 
-    def value(self, v: Any) -> Any:
+    def value(self, v: Any, deps: "set[str] | None" = None, path: str = "") -> Any:
         """Canonical form: identities dropped (a back reference becomes a marker), JDK collections by
-        interface, identity hash codes and masked values removed."""
+        interface, identity hash codes and masked values removed. Positions listed in deps (paths
+        inside arguments and results, see value_dependencies) become a collaborator marker."""
+        if deps and path in deps:
+            return collaborator_marker(v)
         if isinstance(v, list):
-            return [self.value(x) for x in v]
+            return [self.value(x, deps, f"{path}[{i}]") for i, x in enumerate(v)]
         if isinstance(v, str):
             return norm_str(v)
         if not isinstance(v, dict):
@@ -202,7 +223,9 @@ class Normaliser:
             # which elements were written depends on the iteration order: compare the size only
             out["$truncated"] = True
         elif "$items" in v:
-            items = [self.value(x) for x in v["$items"]]
+            # positions inside unordered collections are not stable: no per-position markers there
+            sub = None if unordered else deps
+            items = [self.value(x, sub, f"{path}[{i}]") for i, x in enumerate(v["$items"])]
             out["$items"] = sorted(items, key=_sort_key) if unordered else items
         elif "$entries" in v:
             entries = [[self.value(a), self.value(b)] for a, b in v["$entries"]]
@@ -210,14 +233,29 @@ class Normaliser:
         if "$fields" in v:
             fs = {}
             for name, fv in v["$fields"].items():
-                short = name.split(".")[-1]
+                short = field_name(name, v["$fields"])
                 if short in self.fields or f"{t}.{short}" in self.fields:
                     self.masked += 1
-                    fs[name] = {"$masked": True}
+                    fs[short] = {"$masked": True}
                 else:
-                    fs[name] = self.value(fv)
+                    fs[short] = self.value(fv, deps, f"{path}.{short}")
             out["$fields"] = fs
         return out
+
+    def is_masked_type(self, v: Any) -> bool:
+        if not isinstance(v, dict) or "$t" not in v:
+            return False
+        t = norm_type(v.get("$t", ""))
+        return t in self.types or bool(self.prefixes and t.startswith(self.prefixes))
+
+    def is_value_collaborator(self, v: Any) -> bool:
+        """A value inside arguments or a result that is a collaborator rather than data: a mock or
+        proxy, an object of a masked type (JDBC driver, ...), a lambda, a component, an instance of
+        a test-source class."""
+        if not isinstance(v, dict) or "$ref" in v:
+            return False
+        t = v.get("$t", "")
+        return self.is_collaborator(v) or self.is_masked_type(v) or bool(LAMBDA.search(t))
 
     # -- dependency fields of the receiver (level B) --------------------------------------------
 
@@ -237,8 +275,19 @@ class Normaliser:
         """Receiver with dependency fields reduced to a marker (level B)."""
         if not (isinstance(v, dict) and "$fields" in v) or not deps:
             return self.value(v)
-        fields = {name: (collaborator_marker(fv) if name in deps else fv) for name, fv in v["$fields"].items()}
+        fields = {name: (collaborator_marker(fv) if field_name(name, v["$fields"]) in deps else fv)
+                  for name, fv in v["$fields"].items()}
         return self.value({**v, "$fields": fields})
+
+
+def field_name(name: str, fields: dict[str, Any]) -> str:
+    """Field name without the declaring-class prefix the tracer adds for inherited fields
+    ("Base.count" -> "count"), unless that would clash with another field of the same object."""
+    if "." not in name:
+        return name
+    short = name.rsplit(".", 1)[-1]
+    clash = sum(1 for other in fields if other.rsplit(".", 1)[-1] == short) > 1
+    return name if clash else short
 
 
 def _sort_key(x: Any) -> str:
@@ -267,8 +316,9 @@ def dependency_fields(sides: Iterable[list[dict[str, Any]]], norm: Normaliser) -
             self_ = inv.get("self")
             if not (isinstance(self_, dict) and "$fields" in self_):
                 continue
-            for name, fv in self_["$fields"].items():
-                if norm.is_collaborator(fv):
+            for raw, fv in self_["$fields"].items():
+                name = field_name(raw, self_["$fields"])
+                if norm.is_collaborator(fv) or norm.is_masked_type(fv):
                     deps.add(name)
                 if fv is None:
                     seen_null.setdefault(name, True)
@@ -285,6 +335,59 @@ def dependency_fields(sides: Iterable[list[dict[str, Any]]], norm: Normaliser) -
     return deps
 
 
+def value_dependencies(sides: Iterable[list[dict[str, Any]]], norm: Normaliser) -> set[str]:
+    """Positions inside arguments and results (paths such as args[0].dataSource or value) that hold
+    a collaborator on any side: a mock or proxy, an object of a masked type, a lambda, a component or
+    a test-source class. Pairwise like dependency_fields: computed from the reference and one
+    candidate together, and a position that is null in every invocation on one side and an object on
+    the other is a dependency too (the marker keeps the null bit, so null still differs from an
+    object). Positions inside unordered collections are not tracked."""
+    deps: set[str] = set()
+    null_only: list[set[str]] = []
+    objects: list[set[str]] = []
+
+    def walk(v: Any, path: str, coll: set[str], nulls: dict[str, bool], objs: set[str]) -> None:
+        if v is None:
+            nulls.setdefault(path, True)
+            return
+        nulls[path] = False
+        if isinstance(v, list):
+            for i, x in enumerate(v):
+                walk(x, f"{path}[{i}]", coll, nulls, objs)
+            return
+        if not isinstance(v, dict) or "$ref" in v:
+            return
+        if norm.is_value_collaborator(v):
+            coll.add(path)
+            return
+        if _is_object(v):
+            objs.add(path)
+        t = norm_type(v.get("$t", ""))
+        if "$fields" in v:
+            for raw, fv in v["$fields"].items():
+                walk(fv, f"{path}.{field_name(raw, v['$fields'])}", coll, nulls, objs)
+        if "$items" in v and collection_kind(t, v) not in ("Set", "Map", "Collection"):
+            for i, x in enumerate(v["$items"]):
+                walk(x, f"{path}[{i}]", coll, nulls, objs)
+
+    for invocations in sides:
+        coll: set[str] = set()
+        nulls: dict[str, bool] = {}
+        objs: set[str] = set()
+        for inv in invocations or []:
+            walk(inv.get("args", []), "args", coll, nulls, objs)
+            if inv.get("outcome") == "return":
+                walk(inv.get("value"), "value", coll, nulls, objs)
+        deps |= coll
+        null_only.append({p for p, only in nulls.items() if only})
+        objects.append(objs)
+    for i, ns in enumerate(null_only):
+        for j, objs in enumerate(objects):
+            if i != j:
+                deps |= ns & objs
+    return deps
+
+
 def outcome(inv: dict[str, Any]) -> str | None:
     """'return', or 'throw <exception class>' ('throw' when the class is unknown)."""
     if inv.get("outcome") == "throw" and inv.get("exception"):
@@ -297,22 +400,25 @@ def structure_key(inv: dict[str, Any]) -> str:
     return json.dumps([outcome(inv), calls])
 
 
-def io_key(inv: dict[str, Any], norm: Normaliser) -> str:
+def io_key(inv: dict[str, Any], norm: Normaliser, vdeps: set[str] | None = None) -> str:
     return json.dumps(
         [
             json.loads(structure_key(inv)),
-            norm.value(inv.get("args", [])),
-            norm.value(inv.get("value")) if inv.get("outcome") == "return" else None,
+            norm.value(inv.get("args", []), vdeps, "args"),
+            norm.value(inv.get("value"), vdeps, "value") if inv.get("outcome") == "return" else None,
         ],
         sort_keys=True,
     )
 
 
-def state_key(inv: dict[str, Any], norm: Normaliser, deps: set[str]) -> str:
-    return json.dumps([json.loads(io_key(inv, norm)), norm.receiver(inv.get("self"), deps)], sort_keys=True)
+def state_key(inv: dict[str, Any], norm: Normaliser, deps: set[str], vdeps: set[str] | None = None) -> str:
+    return json.dumps([json.loads(io_key(inv, norm, vdeps)), norm.receiver(inv.get("self"), deps)],
+                      sort_keys=True)
 
 
 def strict_key(inv: dict[str, Any], norm: Normaliser) -> str:
+    """Level C: no collaborator markers anywhere. It is also the scenario unit, so the number of
+    reference scenarios does not depend on the candidate."""
     return json.dumps([json.loads(io_key(inv, norm)), norm.value(inv.get("self"))], sort_keys=True)
 
 
@@ -325,13 +431,16 @@ LEVELS = ("structure", "io", "state", "strict")
 
 
 def scenarios(invocations: list[dict[str, Any]], norm: Normaliser,
-              deps: set[str] | None = None) -> dict[str, tuple[str, str, str]]:
+              deps: set[str] | None = None, vdeps: set[str] | None = None) -> dict[str, tuple[str, str, str]]:
     """strict key -> (structure key, io key, state key), for distinct scenarios."""
     if deps is None:
         deps = dependency_fields([invocations], norm)
+    if vdeps is None:
+        vdeps = value_dependencies([invocations], norm)
     out: dict[str, tuple[str, str, str]] = {}
     for inv in invocations:
-        out.setdefault(strict_key(inv, norm), (structure_key(inv), io_key(inv, norm), state_key(inv, norm, deps)))
+        out.setdefault(strict_key(inv, norm),
+                       (structure_key(inv), io_key(inv, norm, vdeps), state_key(inv, norm, deps, vdeps)))
     return out
 
 
@@ -341,7 +450,8 @@ def compare(reference: list[dict[str, Any]], candidate: list[dict[str, Any]] | N
     """Recall/precision at levels S, A, B, C. candidate=None means the test did not run."""
     norm = Normaliser(nondet if nondet is not None else load_nondet(), project, components, test_classes)
     deps = dependency_fields([reference, candidate or []], norm)
-    ref = scenarios(reference, norm, deps)
+    vdeps = value_dependencies([reference, candidate or []], norm)
+    ref = scenarios(reference, norm, deps, vdeps)
     n = len(ref)
     out: dict[str, Any] = {"scenarios": n}
     if candidate is None:
@@ -352,7 +462,7 @@ def compare(reference: list[dict[str, Any]], candidate: list[dict[str, Any]] | N
             out[f"precision_{level}"] = None
         out["candidate_scenarios"] = 0
     else:
-        cand = scenarios(candidate, norm, deps)
+        cand = scenarios(candidate, norm, deps, vdeps)
         m = len(cand)
         ref_keys = {"strict": set(ref)}
         cand_keys = {"strict": set(cand)}
@@ -379,6 +489,8 @@ def compare(reference: list[dict[str, Any]], candidate: list[dict[str, Any]] | N
     out["precision_data"] = out["precision_io"]
     out["dependency_fields"] = sorted(deps)
     out["dependency_fields_count"] = len(deps)
+    out["value_dependencies"] = sorted(vdeps)
+    out["value_dependencies_count"] = len(vdeps)
     out["masked"] = norm.masked
     out["cuts"] = norm.cuts
     return out

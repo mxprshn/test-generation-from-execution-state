@@ -89,11 +89,11 @@ A scenario is a distinct invocation of the target method in the reference. A lev
 | Level | Compared |
 |---|---|
 | S, structure | outcome (return, or the class of the thrown exception) and the ordered signatures of the calls the target method makes |
-| A, input and output | S + arguments + returned value (main data level) |
+| A, input and output | S + arguments + returned value (main data level); a value inside the arguments or the result that is a collaborator on either side (mock or proxy, an object of an infrastructure type such as a JDBC driver, a lambda, a component, a stub from test sources) is compared by presence only, keeping whether it was null |
 | B, with state | A + receiver; receiver fields holding collaborators (mocks, proxies, Spring components, stubs from test sources, `null` against an object) are compared by presence only, keeping whether they were null; decided for each pair of reference and candidate trace |
-| C, strict | A + full receiver |
+| C, strict | arguments, returned value and the full receiver, without any collaborator markers |
 
-The same normalisation applies to every level and mode: time values, UUIDs, identity hash codes, workspace and JUnit temporary paths, JDK collections by interface, and the values listed in `evaluation/nondeterminism.json`. The tracer writes at most 200 elements of a collection in iteration order; a truncated Set or Map is compared by its interface and size only. A reference is used only if both recordings exit with 0, record the target and agree on every level.
+The same normalisation applies to every level and mode: time values, UUIDs, identity hash codes, workspace and JUnit temporary paths (a path inside the workspace is compared relative to it), JDK collections by interface, JDK proxy class names, field names without the declaring-class prefix of inherited fields (unless two fields would clash), and the types, type prefixes and fields listed in `evaluation/nondeterminism.json`. Inline Mockito mocks of concrete classes are recorded as mocks. The tracer writes at most 200 elements of a collection in iteration order; a truncated Set or Map is compared by its interface and size only. A reference is used only if both recordings exit with 0, record the target and agree on every level.
 
 Tables (`evaluation/aggregate.py`): applicability (cases with input per mode) separately from quality; recall per case (mean over rounds), averaged over cases and over projects; every mode paired with baseline on the cases where both have input (mean difference, bootstrap 95% interval, Wilcoxon signed-rank test); scenario-pooled shares for reference only. RQ2 reports, per mode, the oracle strength (killed / covered mutants of the target class) and the mutants killed in addition to the baseline test of the same case and round (a baseline test that does not pass has killed nothing).
 

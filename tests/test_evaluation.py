@@ -207,6 +207,69 @@ class CompareTest(unittest.TestCase):
         self.assertIn("/args[0]", d)
         self.assertTrue(any(k.startswith("[invocation count]") for k in d))
 
+    # -- normalisation refinements fixed before the v2 run (manual check of round-1 matches) --------
+
+    def test_collaborator_argument_matches_mock_level_a(self):
+        nd = {"types": [], "type_prefixes": ["org.hsqldb."], "fields": {}}
+        real = {"$t": "org.hsqldb.jdbc.JDBCPreparedStatement", "$fields": {"sql": "insert"}}
+        mock = {"$t": "java.sql.PreparedStatement$MockitoMock$1", "$opaque": True}
+        r = C.compare([inv([real, "x"])], [inv([mock, "x"])], nd, "p")
+        self.assertEqual(r["io_hits"], 1)
+        self.assertIn("args[0]", r["value_dependencies"])
+        # plain data next to it still counts
+        self.assertEqual(C.compare([inv([real, "x"])], [inv([mock, "y"])], nd, "p")["io_hits"], 0)
+
+    def test_lambda_argument_matches_test_function(self):
+        lam = {"$t": "io.k.ScenarioTest$$Lambda/0x1", "$opaque": True}
+        fn = {"$t": "io.k.GeneratedTest$Fn", "$fields": {}}
+        self.assertEqual(C.compare([inv([lam])], [inv([fn])], ND, "p")["io_hits"], 1)
+
+    def test_collaborator_argument_keeps_null_bit(self):
+        mock = {"$t": "a.Repo$MockitoMock$1", "$opaque": True}
+        self.assertEqual(C.compare([inv([mock])], [inv([None])], ND, "p")["io_hits"], 0)
+
+    def test_nested_collaborator_in_argument(self):
+        real = {"$t": "a.Req", "$fields": {"tx": {"$t": "org.h2.Session", "$fields": {"n": 1}}, "v": 3}}
+        cand = {"$t": "a.Req", "$fields": {"tx": {"$t": "a.Tx$MockitoMock$1", "$opaque": True}, "v": 3}}
+        self.assertEqual(C.compare([inv([real])], [inv([cand])], ND, "p")["io_hits"], 1)
+        cand["$fields"]["v"] = 4
+        self.assertEqual(C.compare([inv([real])], [inv([cand])], ND, "p")["io_hits"], 0)
+
+    def test_value_dependencies_symmetric(self):
+        real = {"$t": "org.h2.Conn", "$fields": {}}
+        mock = {"$t": "java.sql.Connection$MockitoMock$1", "$opaque": True}
+        a = C.compare([inv([real])], [inv([mock])], ND, "p")
+        b = C.compare([inv([mock])], [inv([real])], ND, "p")
+        self.assertEqual((a["io_hits"], a["value_dependencies"]), (b["io_hits"], b["value_dependencies"]))
+
+    def test_scenario_count_does_not_depend_on_candidate(self):
+        ref = [inv([{"$t": "org.h2.C", "$fields": {"n": 1}}]), inv([{"$t": "org.h2.C", "$fields": {"n": 2}}])]
+        mock = {"$t": "a.C$MockitoMock$1", "$opaque": True}
+        self.assertEqual(C.compare(ref, [inv([mock])], ND, "p")["scenarios"],
+                         C.compare(ref, [inv(["x"])], ND, "p")["scenarios"])
+
+    def test_relative_and_absolute_workspace_paths_equal(self):
+        a = inv(["/home/u/work/ws/w1a2b/src/test/resources/x.java"])
+        b = inv(["src/test/resources/x.java"])
+        self.assertEqual(C.compare([a], [b], ND, "p")["io_hits"], 1)
+
+    def test_inherited_field_names_without_class_prefix(self):
+        a = inv([], self={"$t": "x.T", "$fields": {"Base.count": 1}})
+        b = inv([], self={"$t": "x.T", "$fields": {"count": 1}})
+        self.assertEqual(C.compare([a], [b], ND, "p")["strict_hits"], 1)
+        clash = {"$t": "x.T", "$fields": {"Base.count": 1, "count": 2}}
+        self.assertEqual(set(C.Normaliser(ND, "p").value(clash)["$fields"]), {"Base.count", "count"})
+
+    def test_jdk_proxy_names_normalised(self):
+        self.assertEqual(C.norm_type("jdk.proxy2.$Proxy17"), C.norm_type("jdk.proxy3.$Proxy4"))
+        self.assertEqual(C.norm_type("com.sun.proxy.$Proxy9"), "$Proxy")
+
+    def test_shipped_list_masks_spring_transactions_not_apollo_id(self):
+        nd = C.load_nondet()
+        self.assertNotIn("id", nd["fields"]["apollo"])
+        self.assertIn("org.springframework.transaction.", nd["type_prefixes"])
+        self.assertIn("org.springframework.orm.", nd["type_prefixes"])
+
     def test_btrace_internal_calls_dropped(self):
         a = inv(["a"], calls=("virtual int A#b()", "static void ##mc$test:timed"))
         self.assertEqual(C.structure_key(a), C.structure_key(inv(["a"])))

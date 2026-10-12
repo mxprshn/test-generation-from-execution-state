@@ -28,7 +28,9 @@
     "com.zaxxer.hikari.",
     "org.springframework.context.",
     "org.springframework.beans.factory.",
-    "org.springframework.boot."
+    "org.springframework.boot.",
+    "org.springframework.transaction.",
+    "org.springframework.orm."
   ],
   "fields": {
     "*": [
@@ -42,7 +44,6 @@
     "apollo": [
       "dataChangeCreatedTime",
       "dataChangeLastModifiedTime",
-      "id",
       "releaseKey",
       "deletedAt"
     ],
