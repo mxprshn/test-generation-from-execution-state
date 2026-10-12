@@ -6,6 +6,19 @@ This check looks for signs that the agent or its test reached outside the worksp
 input of the mode at run time. A flagged cell is not excluded; the flag is reported next to the
 metrics.
 
+Every finding has a class:
+
+  escape   the agent or its test reached outside the workspace or read the mode input at run time:
+           tool or command paths outside the workspace, harness locations, and every finding in
+           the generated test;
+  denied   the guard refused an action that stays inside the workspace (a shell command line
+           instead of a named case command, for example); the attempt is recorded, nothing left
+           the workspace. A refused action that aimed outside the workspace is an escape.
+
+The status of a cell is `escape` if there is any escape finding, `denied_only` if there are only
+denied findings, and `clean` otherwise. `denied_types` counts the refused actions by kind
+(`bash: ls`, `read`, ...).
+
 Rules (all modes):
 
   agent tool calls (session.jsonl)
@@ -189,19 +202,83 @@ def tool_calls(events: list[dict]) -> list[dict]:
     return calls
 
 
+VERSION = 2
+DENIED_KINDS = {"denied by the guard", "shell syntax in a command"}
+STATUSES = ("clean", "denied_only", "escape")
+
+
+def finding_class(kind: str) -> str:
+    return "denied" if kind in DENIED_KINDS else "escape"
+
+
+def status_of(findings: list[dict[str, str]]) -> str:
+    classes = {f.get("class") or finding_class(f.get("kind", "")) for f in findings}
+    if "escape" in classes:
+        return "escape"
+    return "denied_only" if classes else "clean"
+
+
+def check_status(check: dict[str, Any] | None) -> str | None:
+    """Status of a stored check, also for checks written before the classes existed."""
+    if not check:
+        return None
+    if check.get("status") in STATUSES:
+        return check["status"]
+    return status_of(check.get("findings") or [])
+
+
+SEGMENT = re.compile(r"&&|\|\||[;|&\n]")
+
+
+def denied_type(row: dict[str, Any]) -> str:
+    """`bash: <program>` (the first program of the command line other than `cd`), or the tool."""
+    kind = str(row.get("kind") or "?")
+    if kind != "bash":
+        return kind
+    for part in SEGMENT.split(str(row.get("path") or "")):
+        words = part.strip().split()
+        if words and words[0] != "cd":
+            return f"bash: {Path(words[0]).name}"
+    return "bash"
+
+
+def _denial_leaves(row: dict[str, Any], harness_roots: list[str], workspace: str | None) -> bool:
+    """A refused action that aimed outside the workspace: its path, or a path or harness location in
+    its command line (shell syntax alone stays inside)."""
+    target = str(row.get("path") or "")
+    if not target:
+        return False
+    kind = str(row.get("kind") or "?")
+    args = {"command": target} if kind == "bash" else {"path": target}
+    found = check_tool_calls([{"name": kind, "arguments": args}], harness_roots, workspace)
+    return any(finding_class(f["kind"]) == "escape" for f in found)
+
+
 def check_cell(cell: Path, harness_roots: list[str], workspace: str | None = None) -> dict[str, Any]:
     """Escape check of a generation cell: result.diff, artifacts/session.jsonl, artifacts/denied.jsonl.
     `workspace` is the absolute path of the cell's workspace (summary.json: workspace)."""
     if workspace is None and (cell / "summary.json").is_file():
         workspace = json.loads((cell / "summary.json").read_text()).get("workspace")
     findings: list[dict[str, str]] = []
+    denied_types: dict[str, int] = {}
     for row in _jsonl(cell / "artifacts" / "denied.jsonl"):
-        findings.append({"kind": "denied by the guard", "where": str(row.get("kind") or "?"),
-                         "evidence": str(row.get("path") or row.get("reason") or row)[:160]})
+        finding = {"kind": "denied by the guard", "where": str(row.get("kind") or "?"),
+                   "evidence": str(row.get("path") or row.get("reason") or row)[:160]}
+        if _denial_leaves(row, harness_roots, workspace):
+            # refused, but it was an attempt to reach outside the workspace
+            finding["class"] = "escape"
+        findings.append(finding)
+        t = denied_type(row)
+        denied_types[t] = denied_types.get(t, 0) + 1
     findings += check_tool_calls(tool_calls(_jsonl(cell / "artifacts" / "session.jsonl")), harness_roots, workspace)
     diff = cell / "result.diff"
     if diff.is_file():
         for name, code in added_code(diff.read_text(encoding="utf-8", errors="replace")).items():
             if name.endswith((".java", ".kt", ".groovy")):
                 findings += check_code(code, name)
-    return {"status": "flagged" if findings else "clean", "findings": findings}
+    for f in findings:
+        f.setdefault("class", finding_class(f["kind"]))
+    return {"version": VERSION, "status": status_of(findings), "findings": findings,
+            "escape_findings": sum(1 for f in findings if f["class"] == "escape"),
+            "denied_findings": sum(1 for f in findings if f["class"] == "denied"),
+            "denied_types": dict(sorted(denied_types.items()))}

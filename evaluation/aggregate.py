@@ -8,7 +8,8 @@ are not). Applicability and quality are reported separately: a cell without inpu
 
 Tables:
   * applicability      : per mode, cases with input, cells generated, verified (compiles, passes),
-                         flagged by the escape check, evaluation errors;
+                         with an escape finding and with denied actions only (escape check),
+                         evaluation errors;
   * rq1_by_mode        : recall at levels S, A (main), B, C as the mean over cases and the mean over
                          projects (each case: mean over rounds); cells whose test did not pass count 0;
   * rq1_paired         : every mode against baseline on the cases where both have input: mean
@@ -20,7 +21,7 @@ Tables:
                          the same (case, round): a baseline without a passing test has killed nothing;
   * rq3_by_mode        : compile/pass, tests run, cost, time, tool calls, preservation (rendered);
   * quality_by_mode    : mock statistics and readability indicators;
-  * escape_check_by_mode and the flagged cells; cells whose RQ1 ran into an error or that run the
+  * escape_check_by_mode (escape / denied only) and the cells with an escape finding; cells whose RQ1 ran into an error or that run the
     scenario (runs_scenario).
 """
 from __future__ import annotations
@@ -35,6 +36,7 @@ from typing import Any
 
 from evaluation import mutation as M
 from evaluation import stats as ST
+from runner import escape_check as X
 from runner.cases import case_rows
 from runner.config import Config, load_config
 
@@ -112,7 +114,8 @@ def applicability_rows(recs: list[dict[str, Any]], cases: dict[str, dict[str, st
             "pass_rate": (sum(1 for r in verified if (r.get("verify") or {}).get("passes")) / len(verified)
                           if verified else None),
             "runner_timed_out": sum(1 for r in rs if r.get("status") == "timed_out"),
-            "flagged": sum(1 for r in rs if (r.get("escape_check") or {}).get("status") == "flagged"),
+            "escape": sum(1 for r in rs if X.check_status(r.get("escape_check")) == "escape"),
+            "denied_only": sum(1 for r in rs if X.check_status(r.get("escape_check")) == "denied_only"),
             "runs_scenario": sum(1 for r in rs if (r.get("rq1") or {}).get("runs_scenario")),
             "rq1_missing": sum(1 for r in verified if not r.get("rq1")),
         })
@@ -288,29 +291,38 @@ def dependency_rows(recs: list[dict[str, Any]]) -> list[dict[str, Any]]:
 
 
 def escape_rows(recs: list[dict[str, Any]]) -> list[dict[str, Any]]:
-    """Escape check per mode: cells checked and flagged, by kind of finding."""
+    """Escape check per mode: cells with an escape (listed below the table) and cells with denied
+    actions only (counted, with the kinds of refused actions)."""
     by: dict[str, list] = defaultdict(list)
     for r in recs:
         by[r["mode"]].append(r.get("escape_check"))
     out = []
     for mode, checks in by.items():
         done = [c for c in checks if c]
-        flagged = [c for c in done if c.get("status") == "flagged"]
-        kinds: dict[str, int] = defaultdict(int)
-        for c in flagged:
-            for k in {f["kind"] for f in c.get("findings") or []}:
-                kinds[k] += 1
-        out.append({"key": mode, "cells": len(checks), "checked": len(done), "flagged": len(flagged),
-                    "kinds": "; ".join(f"{k}: {v}" for k, v in sorted(kinds.items())) or None})
+        status = [X.check_status(c) for c in done]
+        escape_kinds: dict[str, int] = defaultdict(int)
+        denied: dict[str, int] = defaultdict(int)
+        for c, st in zip(done, status):
+            if st == "escape":
+                for k in {f["kind"] for f in c.get("findings") or []
+                          if (f.get("class") or X.finding_class(f.get("kind", ""))) == "escape"}:
+                    escape_kinds[k] += 1
+            for t, n in (c.get("denied_types") or {}).items():
+                denied[t] += n
+        out.append({"key": mode, "cells": len(checks), "checked": len(done),
+                    "escape": status.count("escape"), "denied_only": status.count("denied_only"),
+                    "escape_kinds": "; ".join(f"{k}: {v}" for k, v in sorted(escape_kinds.items())) or None,
+                    "denied_actions": "; ".join(f"{k}: {v}" for k, v in sorted(denied.items())) or None})
     return out
 
 
 def listed_cells(recs: list[dict[str, Any]]) -> str:
     md = []
-    flagged = [r for r in recs if (r.get("escape_check") or {}).get("status") == "flagged"]
-    md.append("Flagged cells (evaluated as usual):" if flagged else "Flagged cells: none.")
-    for r in sorted(flagged, key=lambda r: (r["case_id"], r["mode"], r["run_id"])):
-        f = r["escape_check"]["findings"]
+    escaped = [r for r in recs if X.check_status(r.get("escape_check")) == "escape"]
+    md.append("Cells with an escape finding (evaluated as usual):" if escaped else "Cells with an escape finding: none.")
+    for r in sorted(escaped, key=lambda r: (r["case_id"], r["mode"], r["run_id"])):
+        f = [x for x in r["escape_check"]["findings"]
+             if (x.get("class") or X.finding_class(x.get("kind", ""))) == "escape"]
         md.append(f"- `{r['case_id']}` {r['mode']}/{r['run_id']}: "
                   + "; ".join(sorted({x['kind'] for x in f})) + f" (e.g. {f[0]['where']}: `{f[0]['evidence']}`)")
     scen = [r for r in recs if (r.get("rq1") or {}).get("runs_scenario")]

@@ -6,7 +6,8 @@ For every case of the config:
      that failed for an infrastructure reason (model gateway error, workspace preparation) is moved
      aside and rerun once, on the fallback API key if the failure was a gateway error;
   3. escape check of the cell (runner/escape_check.py) and evaluation of every cell right after it
-     is generated (verify, rq1, rq2, quality); a flagged cell is evaluated as usual and reported.
+     is generated (verify, rq1, rq2, quality); a cell with escape or denied findings is evaluated as
+     usual and reported.
 
 Everything is resumable: an existing cell is not regenerated and a filled evaluation step is not
 recomputed, as long as the inputs recorded with it (harness code, case, mode input, prompts, config,
@@ -138,12 +139,16 @@ class Runner:
 
     def escape_check(self, case_id: str, mode: str, run_id: str, s: dict[str, Any]) -> dict[str, Any]:
         cell = self.cfg.cell_dir(case_id, mode, run_id)
-        if "escape_check" not in s:
+        if (s.get("escape_check") or {}).get("version") != X.VERSION:
             s["escape_check"] = X.check_cell(cell, self.harness_roots())
             (cell / "summary.json").write_text(json.dumps(s, indent=2, default=str))
-            if s["escape_check"]["status"] == "flagged":
-                kinds = sorted({f["kind"] for f in s["escape_check"]["findings"]})
-                self.log(case_id, f"{mode}/{run_id}: escape check flagged: {', '.join(kinds)}")
+            ec = s["escape_check"]
+            if ec["status"] == "escape":
+                kinds = sorted({f["kind"] for f in ec["findings"] if f["class"] == "escape"})
+                self.log(case_id, f"{mode}/{run_id}: escape check: ESCAPE: {', '.join(kinds)}")
+            elif ec["status"] == "denied_only":
+                types = ", ".join(f"{k} x{v}" for k, v in ec["denied_types"].items())
+                self.log(case_id, f"{mode}/{run_id}: escape check: denied actions only ({types})")
         return s["escape_check"]
 
     def check_inputs(self, case_id: str, mode: str, s: dict[str, Any]) -> None:
@@ -187,8 +192,9 @@ class Runner:
     def process(self, case_id: str) -> bool:
         """Run one case; False if it stopped on an error (e.g. a stale result)."""
         cells = cells_of(self.cfg, case_id)
-        self.status(case_id, stage="start", total=len(cells), generated=0, evaluated=0, errors=0, flagged=0)
-        errors = flagged = 0
+        self.status(case_id, stage="start", total=len(cells), generated=0, evaluated=0, errors=0, escape=0,
+                    denied_only=0)
+        errors = escaped = denied_only = 0
         try:
             self.wait_resources(case_id)
             if not R.reference_exists(self.cfg, case_id):
@@ -213,11 +219,15 @@ class Runner:
                     continue
                 generated += 1
                 outcomes[f"{mode}/{run_id}"] = s["status"]
-                if self.escape_check(case_id, mode, run_id, s)["status"] == "flagged":
-                    flagged += 1
-                    outcomes[f"{mode}/{run_id}"] += " (flagged)"
+                check = self.escape_check(case_id, mode, run_id, s)["status"]
+                if check == "escape":
+                    escaped += 1
+                    outcomes[f"{mode}/{run_id}"] += " (escape)"
+                elif check == "denied_only":
+                    denied_only += 1
+                    outcomes[f"{mode}/{run_id}"] += " (denied)"
                 self.status(case_id, stage=f"evaluate {mode}/{run_id}", generated=generated, cells=outcomes,
-                            flagged=flagged)
+                            escape=escaped, denied_only=denied_only)
                 try:
                     rec = E.evaluate_cell(self.cfg, cell)
                     evaluated += 1
@@ -255,7 +265,7 @@ class Runner:
 
 
 def print_status(cfg: Config, cases: list[str]) -> None:
-    total = {"cells": 0, "generated": 0, "evaluated": 0, "errors": 0, "flagged": 0}
+    total = {"cells": 0, "generated": 0, "evaluated": 0, "errors": 0, "escape": 0, "denied_only": 0}
     for cid in cases:
         p = cfg.results_dir / "status" / f"{cid}.json"
         n = len(cells_of(cfg, cid))
@@ -264,13 +274,14 @@ def print_status(cfg: Config, cases: list[str]) -> None:
             print(f"{cid:62} pending")
             continue
         s = json.loads(p.read_text())
-        for k in ("generated", "evaluated", "errors", "flagged"):
+        for k in ("generated", "evaluated", "errors", "escape", "denied_only"):
             total[k] += int(s.get(k) or 0)
         print(f"{cid:62} {str(s.get('stage')):30.30} gen {s.get('generated', 0)}/{n} "
-              f"eval {s.get('evaluated', 0)} err {s.get('errors', 0)} flagged {s.get('flagged', 0)}")
+              f"eval {s.get('evaluated', 0)} err {s.get('errors', 0)} "
+              f"escape {s.get('escape', 0)} denied {s.get('denied_only', 0)}")
     disk = shutil.disk_usage(cfg.results_dir).free / 1e9 if cfg.results_dir.exists() else float("nan")
     print(f"TOTAL gen {total['generated']}/{total['cells']} eval {total['evaluated']} err {total['errors']} "
-          f"flagged {total['flagged']} | "
+          f"escape {total['escape']} denied {total['denied_only']} | "
           f"disk {disk:.0f} GB free" + (f", mem {_mem_available_gb()} GB" if _mem_available_gb() else ""))
 
 

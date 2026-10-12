@@ -145,21 +145,52 @@ class Cell(unittest.TestCase):
     def test_clean_cell(self):
         with tempfile.TemporaryDirectory() as t:
             cell = cell_with(Path(t), CLEAN, [{"name": "read", "arguments": {"path": "pom.xml"}}], [])
-            self.assertEqual(X.check_cell(cell, ["/srv/exp"]), {"status": "clean", "findings": []})
+            r = X.check_cell(cell, ["/srv/exp"])
+            self.assertEqual((r["status"], r["findings"], r["denied_types"]), ("clean", [], {}))
 
-    def test_guard_denial_flags(self):
+    def test_guard_denial_of_a_path_outside_is_an_escape(self):
         with tempfile.TemporaryDirectory() as t:
             cell = cell_with(Path(t), CLEAN, [], [{"kind": "read", "path": "/srv/exp/cases", "reason": "outside"}])
             r = X.check_cell(cell, ["/srv/exp"])
-            self.assertEqual(r["status"], "flagged")
+            self.assertEqual(r["status"], "escape")
             self.assertEqual(r["findings"][0]["kind"], "denied by the guard")
+            self.assertEqual(r["findings"][0]["class"], "escape")
 
-    def test_test_reading_dump_flags(self):
+    def test_shell_command_inside_the_workspace_is_denied_only(self):
+        ws = "/tmp/tg-1/cells/w0/workspace"
+        cmd = f"cd {ws} && ls src/test/java && sed -n '1,40p' src/test/java/a/FooTest.java"
         with tempfile.TemporaryDirectory() as t:
-            cell = cell_with(Path(t), 'var s = Files.readString(Path.of("carving/call-dumps.json"));')
+            cell = cell_with(Path(t), CLEAN, [{"name": "bash", "arguments": {"command": cmd}},
+                                              {"name": "bash", "arguments": {"command": "git log -3"}}],
+                             [{"kind": "bash", "path": cmd, "reason": "only the named case commands"},
+                              {"kind": "bash", "path": "git log -3", "reason": "only the named case commands"}])
+            r = X.check_cell(cell, ["/srv/exp"], ws)
+            self.assertEqual(r["status"], "denied_only")
+            self.assertEqual({f["class"] for f in r["findings"]}, {"denied"})
+            self.assertEqual(r["denied_types"], {"bash: git": 1, "bash: ls": 1})
+            self.assertEqual((r["escape_findings"], r["denied_findings"]), (0, len(r["findings"])))
+
+    def test_shell_command_reaching_outside_is_an_escape(self):
+        ws = "/tmp/tg-1/cells/w0/workspace"
+        cmd = "cat /srv/exp/cases/x/call-dumps.json"
+        with tempfile.TemporaryDirectory() as t:
+            cell = cell_with(Path(t), CLEAN, [{"name": "bash", "arguments": {"command": cmd}}],
+                             [{"kind": "bash", "path": cmd, "reason": "only the named case commands"}])
+            self.assertEqual(X.check_cell(cell, ["/srv/exp"], ws)["status"], "escape")
+
+    def test_test_reading_dump_is_an_escape(self):
+        with tempfile.TemporaryDirectory() as t:
+            cell = cell_with(Path(t), 'var s = Files.readString(Path.of("carving/executions/0001.json"));')
             r = X.check_cell(cell, [])
-            self.assertEqual(r["status"], "flagged")
+            self.assertEqual(r["status"], "escape")
             self.assertTrue(r["findings"][0]["where"].startswith(TEST + ":"))
+
+    def test_status_of_old_checks(self):
+        self.assertEqual(X.check_status({"status": "flagged", "findings": [{"kind": "denied by the guard"}]}),
+                         "denied_only")
+        self.assertEqual(X.check_status({"status": "flagged", "findings": [{"kind": "absolute path"}]}), "escape")
+        self.assertEqual(X.check_status({"status": "clean", "findings": []}), "clean")
+        self.assertIsNone(X.check_status(None))
 
     def test_only_added_lines_are_checked(self):
         d = (f"--- a/{TEST}\n+++ b/{TEST}\n@@ -1,2 +1,2 @@\n-String h = System.getenv(\"HOME\");\n+String h = \"x\";\n")
