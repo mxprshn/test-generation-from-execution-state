@@ -187,6 +187,36 @@ def quality_rows(recs: list[dict[str, Any]]) -> list[dict[str, Any]]:
     return out
 
 
+def escape_rows(recs: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Escape check per mode: cells checked and flagged, by kind of finding."""
+    by: dict[str, list] = defaultdict(list)
+    for r in recs:
+        by[r["mode"]].append(r.get("escape_check"))
+    out = []
+    for mode, checks in by.items():
+        done = [c for c in checks if c]
+        flagged = [c for c in done if c.get("status") == "flagged"]
+        kinds: dict[str, int] = defaultdict(int)
+        for c in flagged:
+            for k in {f["kind"] for f in c.get("findings") or []}:
+                kinds[k] += 1
+        out.append({"key": mode, "cells": len(checks), "checked": len(done), "flagged": len(flagged),
+                    "kinds": "; ".join(f"{k}: {v}" for k, v in sorted(kinds.items())) or None})
+    return out
+
+
+def flagged_cells(recs: list[dict[str, Any]]) -> str:
+    rows = [r for r in recs if (r.get("escape_check") or {}).get("status") == "flagged"]
+    if not rows:
+        return "Flagged cells: none.\n"
+    md = ["Flagged cells (evaluated as usual):", ""]
+    for r in sorted(rows, key=lambda r: (r["case_id"], r["mode"], r["run_id"])):
+        f = r["escape_check"]["findings"]
+        md.append(f"- `{r['case_id']}` {r['mode']}/{r['run_id']}: "
+                  + "; ".join(sorted({x['kind'] for x in f})) + f" (e.g. {f[0]['where']}: `{f[0]['evidence']}`)")
+    return "\n".join(md) + "\n"
+
+
 def write(rows: list[dict[str, Any]], name: str, out: Path, order=MODES) -> str:
     if not rows:
         return f"### {name}\n\n(no data)\n"
@@ -219,6 +249,8 @@ def main(argv: list[str] | None = None) -> int:
     parts.append(write(rq2_rows(recs), "rq2_by_mode", out))
     parts.append(write(rq3_rows(recs), "rq3_by_mode", out))
     parts.append(write(quality_rows(recs), "quality_by_mode", out))
+    parts.append(write(escape_rows(recs), "escape_check_by_mode", out))
+    parts.append(flagged_cells(recs))
     (out / "report.md").write_text("\n".join(parts))
     print(out / "report.md")
     return 0

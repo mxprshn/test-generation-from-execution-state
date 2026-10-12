@@ -5,7 +5,8 @@ For every case of the config:
   2. generation cells, modes x rounds (+ once_modes in the first round), one after another; a cell
      that failed for an infrastructure reason (model gateway error, workspace preparation) is moved
      aside and rerun once, on the fallback API key if the failure was a gateway error;
-  3. evaluation of every cell right after it is generated (verify, rq1, rq2, quality).
+  3. escape check of the cell (runner/escape_check.py) and evaluation of every cell right after it
+     is generated (verify, rq1, rq2, quality); a flagged cell is evaluated as usual and reported.
 
 Everything is resumable: an existing cell is not regenerated and a filled evaluation step is not
 recomputed. Several cases run at the same time (parallel_cases); the steps of a case run in order.
@@ -36,6 +37,7 @@ from evaluation import evaluate as E  # noqa: E402
 from evaluation import reference as R  # noqa: E402
 from runner import agent as A  # noqa: E402
 from runner import cell as G  # noqa: E402
+from runner import escape_check as X  # noqa: E402
 from runner.cases import case_ids  # noqa: E402
 from runner.config import Config, load_config  # noqa: E402
 
@@ -111,6 +113,20 @@ class Runner:
             self.status(case_id, stage=f"waiting for memory ({mem} GB available)")
             time.sleep(30)
 
+    def harness_roots(self) -> list[str]:
+        """Locations the agent and its test have no business with (escape check)."""
+        return [str(p) for p in (self.cfg.results_dir, self.cfg.cases_dir, ROOT, Path.home())]
+
+    def escape_check(self, case_id: str, mode: str, run_id: str, s: dict[str, Any]) -> dict[str, Any]:
+        cell = self.cfg.cell_dir(case_id, mode, run_id)
+        if "escape_check" not in s:
+            s["escape_check"] = X.check_cell(cell, self.harness_roots())
+            (cell / "summary.json").write_text(json.dumps(s, indent=2, default=str))
+            if s["escape_check"]["status"] == "flagged":
+                kinds = sorted({f["kind"] for f in s["escape_check"]["findings"]})
+                self.log(case_id, f"{mode}/{run_id}: escape check flagged: {', '.join(kinds)}")
+        return s["escape_check"]
+
     def generate(self, case_id: str, mode: str, run_id: str) -> dict[str, Any] | None:
         cell = self.cfg.cell_dir(case_id, mode, run_id)
         key = self.cfg.api_key_env
@@ -141,8 +157,8 @@ class Runner:
 
     def process(self, case_id: str) -> None:
         cells = cells_of(self.cfg, case_id)
-        self.status(case_id, stage="start", total=len(cells), generated=0, evaluated=0, errors=0)
-        errors = 0
+        self.status(case_id, stage="start", total=len(cells), generated=0, evaluated=0, errors=0, flagged=0)
+        errors = flagged = 0
         try:
             self.wait_resources(case_id)
             if not R.reference_exists(self.cfg, case_id):
@@ -167,7 +183,11 @@ class Runner:
                     continue
                 generated += 1
                 outcomes[f"{mode}/{run_id}"] = s["status"]
-                self.status(case_id, stage=f"evaluate {mode}/{run_id}", generated=generated, cells=outcomes)
+                if self.escape_check(case_id, mode, run_id, s)["status"] == "flagged":
+                    flagged += 1
+                    outcomes[f"{mode}/{run_id}"] += " (flagged)"
+                self.status(case_id, stage=f"evaluate {mode}/{run_id}", generated=generated, cells=outcomes,
+                            flagged=flagged)
                 try:
                     rec = E.evaluate_cell(self.cfg, cell)
                     evaluated += 1
@@ -198,7 +218,7 @@ class Runner:
 
 
 def print_status(cfg: Config, cases: list[str]) -> None:
-    total = {"cells": 0, "generated": 0, "evaluated": 0, "errors": 0}
+    total = {"cells": 0, "generated": 0, "evaluated": 0, "errors": 0, "flagged": 0}
     for cid in cases:
         p = cfg.results_dir / "status" / f"{cid}.json"
         n = len(cells_of(cfg, cid))
@@ -207,12 +227,13 @@ def print_status(cfg: Config, cases: list[str]) -> None:
             print(f"{cid:62} pending")
             continue
         s = json.loads(p.read_text())
-        for k in ("generated", "evaluated", "errors"):
+        for k in ("generated", "evaluated", "errors", "flagged"):
             total[k] += int(s.get(k) or 0)
         print(f"{cid:62} {str(s.get('stage')):30.30} gen {s.get('generated', 0)}/{n} "
-              f"eval {s.get('evaluated', 0)} err {s.get('errors', 0)}")
+              f"eval {s.get('evaluated', 0)} err {s.get('errors', 0)} flagged {s.get('flagged', 0)}")
     disk = shutil.disk_usage(cfg.results_dir).free / 1e9 if cfg.results_dir.exists() else float("nan")
-    print(f"TOTAL gen {total['generated']}/{total['cells']} eval {total['evaluated']} err {total['errors']} | "
+    print(f"TOTAL gen {total['generated']}/{total['cells']} eval {total['evaluated']} err {total['errors']} "
+          f"flagged {total['flagged']} | "
           f"disk {disk:.0f} GB free" + (f", mem {_mem_available_gb()} GB" if _mem_available_gb() else ""))
 
 

@@ -34,11 +34,14 @@ def record_path(cell: Path) -> Path:
 
 def load_record(cell: Path) -> dict[str, Any]:
     p = record_path(cell)
-    if p.is_file():
-        return json.loads(p.read_text())
     s = json.loads((cell / "summary.json").read_text())
+    if p.is_file():
+        rec = json.loads(p.read_text())
+        rec["escape_check"] = s.get("escape_check")  # the check may run after the first evaluation
+        return rec
     return {k: s.get(k) for k in ("case_id", "project", "group", "mode", "run_id", "status", "error",
-                                  "model", "thinking", "agent_seconds", "tool_calls", "usage")}
+                                  "model", "thinking", "agent_seconds", "tool_calls", "usage",
+                                  "escape_check")}
 
 
 def save_record(cell: Path, rec: dict[str, Any]) -> None:

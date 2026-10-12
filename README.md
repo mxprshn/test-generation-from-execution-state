@@ -21,7 +21,7 @@ The repository contains the data set of the experiment (70 target methods in 7 o
 | `projects.yaml` | the subject projects: repository, commit, JDK, license |
 | `prompts/` | system prompt and task prompts (common part + one per mode) |
 | `pi/provider.ts`, `pi/guard.ts` | Pi extensions: the model provider from the config; the workspace guard |
-| `runner/` | one generation cell: workspace, scenario check, agent, result diff |
+| `runner/` | one generation cell: workspace, scenario check, agent, result diff; escape check (`runner/escape_check.py`) |
 | `evaluation/` | reference traces (BTrace), RQ1 levels, PIT, quality statistics, tables |
 | `scripts/setup.sh` | tools (Node.js, Pi, BTrace, PIT) and the subject projects |
 | `scripts/run.py` | the experiment, case by case: references, generation, evaluation; status |
@@ -62,6 +62,7 @@ For every case, `scripts/run.py`:
 
 1. records **reference traces**: the scenario test runs twice under BTrace on a copy of the project with the hidden tests removed; every invocation of the target method is recorded (receiver and argument field graphs up to depth 5, outgoing call signatures, outcome, returned value). The two runs are compared to audit nondeterminism.
 2. generates the **cells**: every mode in every round, plus `rendered-raw` once. A cell is a fresh export of the project commit with the existing tests of the target class removed (`hidden_paths`) and no git history. The scenario test must pass in it. The agent gets the prompts and may read the workspace, write only the output test class and run only three commands: `build`, `scenario` (the scenario test) and `generated_test`. It has no debugger and no access outside the workspace through its tools. The result is `result.diff` against the original commit.
+   After the agent, the **escape check** (`runner/escape_check.py`) looks for signs that the agent or its test reached outside the workspace (see Known limitations). It records `escape_check` in the cell summary; a flagged cell is evaluated as usual and listed in the report.
 3. **evaluates** every cell right after it is generated, on a fresh copy of the compiled project with the diff applied (no execution input, nothing else from the agent run):
    - `verify`: `build` and `generated_test`; this is the compile/pass of the paper, independent of the runner status (a test left by an agent that timed out is evaluated the same way);
    - `rq1`: the generated test runs under the tracer; its invocations of the target method are compared with the reference;
@@ -94,7 +95,7 @@ The same normalisation applies to every level and mode: time values, UUIDs, iden
 
 ## Known limitations
 
-- There is no operating-system sandbox. The Pi guard confines the agent's tools to the workspace, but the build and test commands the agent runs execute project code, which could read other files of the machine.
+- There is no operating-system sandbox. The Pi guard confines the agent's tools (read, write, search, bash) to the workspace and to the three case commands. The build and test commands execute project code, including the generated test, which could read other files of the machine. Every cell is therefore checked automatically (`runner/escape_check.py`): the agent's tool calls (absolute paths, `..` outside the workspace, harness locations), every action denied by the guard, and the generated test (reading the mode input such as `carving/call-dumps.json` at run time, absolute paths, `../` paths, environment and user locations, process execution, walking up or listing the file system from the working directory). Flags are reported per mode in `report.md` (`escape_check_by_mode` and the list of flagged cells); flagged cells are not excluded automatically.
 - BTrace does not record the arguments and results of the outgoing calls of the target method, nor the type of a thrown exception: the structure level compares call signatures and the outcome only.
 - Model latency counts against the wall-clock limit of a cell.
 
