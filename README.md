@@ -45,7 +45,7 @@ export TESTGEN_API_KEY=...               # the variable named in provider.api_ke
 
 scripts/setup.sh config.yaml             # tools + projects (about an hour, mostly Maven downloads)
 
-# smoke test: one case, one round, all modes, with evaluation
+# smoke test: one case, all modes and rounds of the config, with evaluation (~10 min per round)
 python3 scripts/run.py --config config.yaml --cases jsoup-normalise-whitespace
 
 # full run (in tmux or similar), progress, tables
