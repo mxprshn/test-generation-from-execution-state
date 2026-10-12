@@ -221,7 +221,7 @@ class CompareTest(unittest.TestCase):
 
     def test_lambda_argument_matches_test_function(self):
         lam = {"$t": "io.k.ScenarioTest$$Lambda/0x1", "$opaque": True}
-        fn = {"$t": "io.k.GeneratedTest$Fn", "$fields": {}}
+        fn = {"$t": "io.k.GeneratedTest$$Lambda/0x2", "$opaque": True}
         self.assertEqual(C.compare([inv([lam])], [inv([fn])], ND, "p")["io_hits"], 1)
 
     def test_collaborator_argument_keeps_null_bit(self):
@@ -234,6 +234,21 @@ class CompareTest(unittest.TestCase):
         self.assertEqual(C.compare([inv([real])], [inv([cand])], ND, "p")["io_hits"], 1)
         cand["$fields"]["v"] = 4
         self.assertEqual(C.compare([inv([real])], [inv([cand])], ND, "p")["io_hits"], 0)
+
+    def test_test_source_domain_object_is_data_when_types_agree(self):
+        old = C._TEST_CLASSES
+        C._TEST_CLASSES = {"p": ["m.Item"]}
+        try:
+            a = {"$t": "m.Item", "$fields": {"name": "x"}}
+            b = {"$t": "m.Item", "$fields": {"name": "y"}}
+            r = C.compare([inv([a])], [inv([b])], ND, "p")
+            self.assertEqual(r["io_hits"], 0)
+            self.assertEqual(r["value_dependencies"], [])
+            stub = {"$t": "m.Item", "$fields": {}}
+            other = {"$t": "m.RealItem", "$fields": {"name": "x"}}
+            self.assertEqual(C.compare([inv([other])], [inv([stub])], ND, "p")["io_hits"], 1)
+        finally:
+            C._TEST_CLASSES = old
 
     def test_value_dependencies_symmetric(self):
         real = {"$t": "org.h2.Conn", "$fields": {}}

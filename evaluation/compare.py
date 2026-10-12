@@ -249,13 +249,16 @@ class Normaliser:
         return t in self.types or bool(self.prefixes and t.startswith(self.prefixes))
 
     def is_value_collaborator(self, v: Any) -> bool:
-        """A value inside arguments or a result that is a collaborator rather than data: a mock or
-        proxy, an object of a masked type (JDBC driver, ...), a lambda, a component, an instance of
-        a test-source class."""
+        """A value inside arguments or a result that is a collaborator rather than data on its own:
+        a mock or proxy, an object of a masked type (JDBC driver, ...), a lambda, a component.
+        Test-source classes are handled pairwise in value_dependencies: in some projects (MyBatis)
+        the domain objects of the scenarios live in test sources, so they are data unless the two
+        sides hold different types there."""
         if not isinstance(v, dict) or "$ref" in v:
             return False
-        t = v.get("$t", "")
-        return self.is_collaborator(v) or self.is_masked_type(v) or bool(LAMBDA.search(t))
+        if v.get("$opaque") or self.is_masked_type(v) or LAMBDA.search(v.get("$t", "")):
+            return True
+        return norm_type(v.get("$t", "")) in self.components
 
     # -- dependency fields of the receiver (level B) --------------------------------------------
 
@@ -345,46 +348,54 @@ def value_dependencies(sides: Iterable[list[dict[str, Any]]], norm: Normaliser) 
     deps: set[str] = set()
     null_only: list[set[str]] = []
     objects: list[set[str]] = []
+    test_typed: list[set[str]] = []
+    types: list[dict[str, set[str]]] = []
 
-    def walk(v: Any, path: str, coll: set[str], nulls: dict[str, bool], objs: set[str]) -> None:
+    def walk(v: Any, path: str, st: dict[str, Any]) -> None:
         if v is None:
-            nulls.setdefault(path, True)
+            st["nulls"].setdefault(path, True)
             return
-        nulls[path] = False
+        st["nulls"][path] = False
         if isinstance(v, list):
             for i, x in enumerate(v):
-                walk(x, f"{path}[{i}]", coll, nulls, objs)
+                walk(x, f"{path}[{i}]", st)
             return
         if not isinstance(v, dict) or "$ref" in v:
             return
         if norm.is_value_collaborator(v):
-            coll.add(path)
+            st["coll"].add(path)
             return
-        if _is_object(v):
-            objs.add(path)
         t = norm_type(v.get("$t", ""))
+        st["types"].setdefault(path, set()).add(t)
+        if _is_object(v):
+            st["objs"].add(path)
+            if norm.is_test_class(t):
+                st["test"].add(path)
         if "$fields" in v:
             for raw, fv in v["$fields"].items():
-                walk(fv, f"{path}.{field_name(raw, v['$fields'])}", coll, nulls, objs)
+                walk(fv, f"{path}.{field_name(raw, v['$fields'])}", st)
         if "$items" in v and collection_kind(t, v) not in ("Set", "Map", "Collection"):
             for i, x in enumerate(v["$items"]):
-                walk(x, f"{path}[{i}]", coll, nulls, objs)
+                walk(x, f"{path}[{i}]", st)
 
     for invocations in sides:
-        coll: set[str] = set()
-        nulls: dict[str, bool] = {}
-        objs: set[str] = set()
+        st: dict[str, Any] = {"coll": set(), "nulls": {}, "objs": set(), "test": set(), "types": {}}
         for inv in invocations or []:
-            walk(inv.get("args", []), "args", coll, nulls, objs)
+            walk(inv.get("args", []), "args", st)
             if inv.get("outcome") == "return":
-                walk(inv.get("value"), "value", coll, nulls, objs)
-        deps |= coll
-        null_only.append({p for p, only in nulls.items() if only})
-        objects.append(objs)
+                walk(inv.get("value"), "value", st)
+        deps |= st["coll"]
+        null_only.append({p for p, only in st["nulls"].items() if only})
+        objects.append(st["objs"])
+        test_typed.append(st["test"])
+        types.append(st["types"])
     for i, ns in enumerate(null_only):
         for j, objs in enumerate(objects):
             if i != j:
                 deps |= ns & objs
+                # a stub from test sources on one side, another class on the other side
+                deps |= {p for p in test_typed[i]
+                         if p in types[j] and types[j][p] != types[i].get(p, set())}
     return deps
 
 
