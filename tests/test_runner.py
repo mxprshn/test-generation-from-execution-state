@@ -137,12 +137,18 @@ class CellLogicTest(unittest.TestCase):
         self.assertIn("package org.x;", out)
         self.assertIn("class YCarvedTest { YCarvedTest x; }", out)
 
-    def test_spotless_apply_only_for_format_violations(self):
-        argv = G.spotless_apply_argv(["mvn", "-q", "-o", "-pl", "core", "-DskipTests", "test-compile"],
-                                     "spotless-maven-plugin ... format violations", "core/src/test/java/a/ACarvedTest.java")
-        self.assertEqual(argv, ["mvn", "-q", "-o", "-pl", "core", "-DskipTests", "spotless:apply",
-                                "-DspotlessFiles=.*ACarvedTest[.]java"])
-        self.assertIsNone(G.spotless_apply_argv(["mvn", "test-compile"], "COMPILATION ERROR", "A.java"))
+    def test_eval_commands_skip_format_checks_agent_commands_unchanged(self):
+        from runner.cases import eval_command
+        case = load_case("klaw-util-methods-get-user-name")
+        for name in ("build", "generated_test", "scenario"):
+            argv = eval_command(case, name)
+            self.assertEqual(argv[0], case.commands[name][0])
+            self.assertIn("-Dspotless.check.skip=true", argv)
+            self.assertNotIn("-Dspotless.check.skip=true", case.commands[name])
+            self.assertEqual([a for a in argv if not a.startswith("-Dspotless")], case.commands[name])
+        jsoup = load_case("jsoup-normalise-whitespace")
+        self.assertEqual(eval_command(jsoup, "build"), jsoup.commands["build"])
+        self.assertFalse(hasattr(G, "spotless_apply_argv"))
 
     def test_infrastructure_failures(self):
         cell = Path("/nonexistent")

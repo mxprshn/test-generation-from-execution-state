@@ -1,4 +1,9 @@
 # Subject projects. Every case of a project uses the same commit.
+#
+# eval_maven_args: added to the build and test commands of the evaluation (verification, tracing,
+# PIT) and of rendered-raw, never to the commands of the agent. They switch off code-format checks
+# bound to early Maven phases, so that the format of a generated test does not decide whether it
+# compiles; the agent modes still see the project's checks through their own commands.
 
 apollo:
   url: https://github.com/apolloconfig/apollo.git
@@ -11,6 +16,7 @@ klaw:
   commit: 99f895322296ef5cbfcfb42684add6c52fe6e057
   jdk: 21
   license: Apache-2.0
+  eval_maven_args: [-Dspotless.check.skip=true, -Dspotless.apply.skip=true]
 
 mybatis:
   url: https://github.com/mybatis/mybatis-3.git

@@ -22,6 +22,7 @@ class Project:
     commit: str
     jdk: int
     license: str
+    eval_maven_args: tuple[str, ...] = ()
 
     @property
     def checkout_name(self) -> str:
@@ -107,8 +108,17 @@ def case_ids(cfg: Config, only: list[str] | None = None) -> list[str]:
 
 def load_projects(path: Path = ROOT / "projects.yaml") -> dict[str, Project]:
     data = yaml.safe_load(path.read_text(encoding="utf-8"))
-    return {name: Project(name=name, url=v["url"], commit=v["commit"], jdk=int(v["jdk"]), license=v["license"])
+    return {name: Project(name=name, url=v["url"], commit=v["commit"], jdk=int(v["jdk"]), license=v["license"],
+                          eval_maven_args=tuple(str(a) for a in v.get("eval_maven_args") or ()))
             for name, v in data.items()}
+
+
+def eval_command(case: Case, name: str) -> list[str]:
+    """A case command as the evaluation runs it (verification, tracing, PIT, rendered-raw): the
+    project's eval_maven_args added after the executable. The agent gets case.commands unchanged."""
+    argv = list(case.commands[name])
+    extra = list(load_projects()[case.project].eval_maven_args)
+    return argv[:1] + extra + argv[1:] if extra else argv
 
 
 def project_checkout(cfg: Config, project: str) -> Path:

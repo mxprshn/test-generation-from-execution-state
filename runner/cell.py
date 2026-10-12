@@ -27,8 +27,8 @@ from typing import Any
 
 from runner import agent as A
 from runner import workspace as W
-from runner.cases import Case, load_case, load_projects, project_checkout
-from runner.config import AGENT_COMMANDS, AGENT_MODES, Config
+from runner.cases import Case, eval_command, load_case, load_projects, project_checkout
+from runner.config import AGENT_COMMANDS, AGENT_MODES, Config, neutral_name
 from runner.process import resolve_argv, run
 from runner.prompts import EXECUTION_INPUT, render
 
@@ -67,29 +67,6 @@ def retarget_test_class(source: str, output_test_file: str) -> str:
     return text
 
 
-MAVEN_OPTIONS_WITH_VALUE = {"-pl", "--projects", "-f", "--file", "-s", "--settings"}
-
-
-def spotless_apply_argv(build_argv: list[str], build_output: str, output_test_file: str) -> list[str] | None:
-    """`spotless:apply` limited to the output file, if the build failed on spotless format violations."""
-    if "spotless-maven-plugin" not in build_output or "format violations" not in build_output:
-        return None
-    if not build_argv or Path(build_argv[0]).name not in ("mvn", "mvnw"):
-        return None
-    kept, take_value = [build_argv[0]], False
-    for token in build_argv[1:]:
-        if take_value:
-            kept.append(token)
-            take_value = False
-        elif token in MAVEN_OPTIONS_WITH_VALUE:
-            kept.append(token)
-            take_value = True
-        elif token.startswith("-"):
-            kept.append(token)
-    name = Path(output_test_file).name.replace(".", "[.]")
-    return kept + ["spotless:apply", f"-DspotlessFiles=.*{name}"]
-
-
 def final_failed_commands(entries: list[dict]) -> list[str]:
     """Agent commands whose last run failed (for the record; the status does not depend on it)."""
     last: dict[str, dict] = {}
@@ -120,7 +97,10 @@ def generate(cfg: Config, case_id: str, mode: str, run_id: str, api_key_env: str
         "api_key_env": api_key_env if mode in AGENT_MODES else None, "timeout": cfg.timeout,
         "commit": project.commit, "output_test_file": case.output_test_file,
     }
-    tmp = cfg.work_dir / "cells" / f"{case_id}-{mode}-{run_id}"
+    from evaluation.inputs import generation_inputs
+    summary["inputs"] = generation_inputs(cfg, case, mode)
+    # the directory name reveals neither the case nor the mode (it shows in build output)
+    tmp = cfg.work_dir / "cells" / neutral_name(case_id, mode, run_id)
     shutil.rmtree(tmp, ignore_errors=True)
     try:
         return _generate(cfg, case, mode, checkout, project.commit, cell, tmp, summary, api_key_env)
@@ -144,6 +124,7 @@ def _generate(cfg: Config, case: Case, mode: str, checkout: Path, commit: str, c
         return summary
 
     ws = W.export_commit(checkout, commit, tmp / "workspace")
+    summary["workspace"] = str(ws)  # for the escape check: absolute paths inside it are fine
     summary["hidden_paths_removed"] = W.hide_paths(ws, case.hidden_paths)
     support = W.install_tree(case.workspace_files, ws) if mode != "baseline" else []
     summary["support_files"] = support
@@ -156,14 +137,15 @@ def _generate(cfg: Config, case: Case, mode: str, checkout: Path, commit: str, c
     env = cfg.command_env()
 
     summary["phase"] = "scenario-check"
-    check = run(resolve_argv(case.commands["scenario"], ws), ws, env, cfg.command_timeout, "scenario")
+    # the harness's own check, run like the evaluation runs the scenario (format checks off)
+    check = run(resolve_argv(eval_command(case, "scenario"), ws), ws, env, cfg.command_timeout, "scenario")
     _write(cell / "artifacts" / "scenario-check.log", check.stdout[-20000:] + check.stderr[-5000:])
     summary["scenario_check"] = check.as_dict()
     if not check.ok:
         if support:
             for rel in support:
                 (ws / rel).unlink(missing_ok=True)
-            again = run(resolve_argv(case.commands["scenario"], ws), ws, env, cfg.command_timeout, "scenario")
+            again = run(resolve_argv(eval_command(case, "scenario"), ws), ws, env, cfg.command_timeout, "scenario")
             summary["scenario_check_without_support_files"] = again.as_dict()
             if again.ok:
                 summary["status"] = "method_failed"
@@ -210,16 +192,7 @@ def _generate(cfg: Config, case: Case, mode: str, checkout: Path, commit: str, c
         text = retarget_test_class(source.read_text(encoding="utf-8"), case.output_test_file)
         output.write_text(text, encoding="utf-8")
         _write(cell / "artifacts" / "generated" / "v1.txt", text)
-        # the project's build may check code format (spotless); the agent modes format their test
-        # themselves, so the preliminary test is formatted the same way before the diff is taken
-        build = run(resolve_argv(case.commands["build"], ws), ws, env, cfg.command_timeout, "build")
-        argv = None if build.ok else spotless_apply_argv(case.commands["build"], build.stdout + build.stderr,
-                                                          case.output_test_file)
-        if argv:
-            fmt = run(resolve_argv(argv, ws), ws, env, cfg.command_timeout, "format")
-            summary["formatted"] = fmt.ok
-            if fmt.ok:
-                _write(cell / "artifacts" / "generated" / "v2-formatted.txt", output.read_text(encoding="utf-8"))
+        # no post-processing: the test is evaluated as written, like the tests of the agent modes
         summary["status"] = "completed"
 
     summary["phase"] = "result"
