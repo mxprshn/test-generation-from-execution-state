@@ -1,14 +1,20 @@
 import { appendFileSync, existsSync, readFileSync, realpathSync } from "node:fs";
 import { isAbsolute, relative, resolve } from "node:path";
 import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
+import { createBashTool } from "@earendil-works/pi-coding-agent";
 
 /**
  * Pi extension that confines the agent to its workspace:
  *   - write/edit: only the generated test class;
  *   - read/grep/find/ls: only paths inside the workspace (symlinks resolved);
- *   - bash: only the named case commands, exactly as given (optionally backgrounded with "&").
+ *   - bash: only the named case commands, exactly as given: no redirection, no background, no
+ *     second command (the command string must equal an allowed argv joined by spaces, up to
+ *     repeated spaces or tabs; a line break is never accepted).
  * Denied calls return an error to the agent and are logged. Every command run and every version of
  * the generated class are logged for the runner.
+ *
+ * Commands run with an environment reduced to GUARD_ENV_ALLOW (the runner's command environment):
+ * no API key, no Pi or guard variables, no session metadata reach the project code.
  *
  * Environment (set by the runner): GUARD_CONFIG (JSON: workspace, output_test_file, commands),
  * GUARD_DENIED_LOG, GUARD_COMMAND_LOG, GUARD_OUTPUT_VERSION_LOG.
@@ -17,28 +23,46 @@ interface GuardConfig {
 	workspace: string;
 	output_test_file: string;
 	commands: Record<string, string[]>;
+	/** names of the environment variables that commands may see */
+	command_env: string[];
+}
+
+export function commandEnv(env: NodeJS.ProcessEnv, allowed: string[]): NodeJS.ProcessEnv {
+	const keep = new Set(allowed);
+	const out: NodeJS.ProcessEnv = {};
+	for (const [k, v] of Object.entries(env)) {
+		if (keep.has(k) && v !== undefined) {
+			out[k] = v;
+		}
+	}
+	return out;
 }
 
 function shellQuote(value: string): string {
 	return /^[A-Za-z0-9_@%+=:,./-]+$/.test(value) ? value : `'${value.replace(/'/g, "'\\''")}'`;
 }
 
-function normalize(command: string): string {
-	return command.trim().replace(/\s+/g, " ");
+/** Spaces and tabs collapsed; null when the command spans several lines (bash would run each). */
+export function canonicalCommand(command: string): string | null {
+	if (/[\r\n\u2028\u2029]/.test(command)) {
+		return null;
+	}
+	return command.trim().replace(/[ \t]+/g, " ");
 }
 
-function stripBackground(command: string): { core: string; background: boolean } {
-	let core = normalize(command);
-	let background = false;
-	if (core.endsWith("&") && !core.endsWith("&&")) {
-		background = true;
-		core = normalize(core.slice(0, -1));
+export function allowedCommands(commands: Record<string, string[]>): Map<string, string> {
+	const allowed = new Map<string, string>();
+	for (const [name, argv] of Object.entries(commands ?? {})) {
+		allowed.set(argv.map(shellQuote).join(" "), name);
+		allowed.set(argv.join(" "), name);
 	}
-	const redirect = /\s(?:>|>>)\s*\S+(?:\s+2>&1)?$/;
-	while (redirect.test(core)) {
-		core = normalize(core.replace(redirect, ""));
-	}
-	return { core, background };
+	return allowed;
+}
+
+/** Name of the allowed command that `command` is, or undefined (deny). */
+export function matchCommand(allowed: Map<string, string>, command: string): string | undefined {
+	const canonical = canonicalCommand(command);
+	return canonical === null ? undefined : allowed.get(canonical);
 }
 
 export default function (pi: ExtensionAPI) {
@@ -76,11 +100,17 @@ export default function (pi: ExtensionAPI) {
 		);
 	}
 
-	const allowed = new Map<string, string>();
-	for (const [name, argv] of Object.entries(config.commands ?? {})) {
-		allowed.set(normalize(argv.map(shellQuote).join(" ")), name);
-		allowed.set(normalize(argv.join(" ")), name);
-	}
+	const allowed = allowedCommands(config.commands);
+
+	// bash with the reduced environment (no session metadata, nothing outside command_env)
+	const bashTool = createBashTool(workspace, {
+		exposeSessionEnvironment: false,
+		spawnHook: ({ command, cwd, env }) => ({ command, cwd, env: commandEnv(env, config.command_env ?? []) }),
+	});
+	pi.registerTool({
+		...bashTool,
+		execute: async (id, params, signal, onUpdate) => bashTool.execute(id, params, signal, onUpdate),
+	});
 
 	const pending = new Map<string, { name: string; command: string; started: number }>();
 
@@ -155,18 +185,17 @@ export default function (pi: ExtensionAPI) {
 			return undefined;
 		}
 		if (event.toolName === "bash") {
-			const raw = normalize(String(event.input.command ?? ""));
-			const { core, background } = stripBackground(raw);
-			const name = allowed.get(core);
+			const raw = String(event.input.command ?? "");
+			const name = matchCommand(allowed, raw);
 			if (name === undefined) {
 				return deny(
 					"bash",
-					raw,
-					`only named case commands are allowed (optionally backgrounded with a trailing &): ${Object.keys(config.commands ?? {}).join(", ")}`,
+					raw.slice(0, 2000),
+					`only the named case commands are allowed, exactly as written: ${Object.keys(config.commands ?? {}).join(", ")}`,
 				);
 			}
 			pending.set(event.toolCallId, { name, command: raw, started: Date.now() });
-			record({ event: "start", name, command: raw, background, timestamp: Date.now() });
+			record({ event: "start", name, command: raw, timestamp: Date.now() });
 			return undefined;
 		}
 		return undefined;

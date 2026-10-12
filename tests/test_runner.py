@@ -94,6 +94,41 @@ class ConfigAndPiTest(unittest.TestCase):
             self.assertNotIn("TEST_KEY", env)
             self.assertEqual(env["TESTGEN_BASE_URL"], "https://example.invalid/v1")
 
+    def test_command_env_is_an_allowlist(self):
+        with tempfile.TemporaryDirectory() as d:
+            cfg = load_config(write_config(Path(d), env={"MAVEN_OPTS": "-Xmx1g"}))
+            saved = dict(os.environ)
+            os.environ.update({"TEST_KEY": "secret", "OPENAI_API_KEY": "s2", "AWS_SECRET_ACCESS_KEY": "s3",
+                               "LC_ALL": "C", "TESTGEN_API_KEY": "s4"})
+            try:
+                env = cfg.command_env()
+            finally:
+                os.environ.clear()
+                os.environ.update(saved)
+            for name in ("TEST_KEY", "OPENAI_API_KEY", "AWS_SECRET_ACCESS_KEY", "TESTGEN_API_KEY"):
+                self.assertNotIn(name, env)
+            self.assertEqual(env["LC_ALL"], "C")
+            self.assertEqual(env["MAVEN_OPTS"], "-Xmx1g")
+            self.assertTrue(env["PATH"].startswith(str(Path(d) / "bin")))
+            self.assertNotIn("secret", json.dumps(env))
+
+    def test_work_dir_outside_results_and_repository(self):
+        with tempfile.TemporaryDirectory() as d:
+            cfg = load_config(write_config(Path(d)))
+            work = cfg.work_dir
+            self.assertNotIn(cfg.results_dir, [work, *work.parents])
+            self.assertNotIn(ROOT, [work, *work.parents])
+            from runner.config import ConfigError
+            with self.assertRaises(ConfigError):
+                load_config(write_config(Path(d), paths={"java_home": d, "results": str(Path(d) / "r"),
+                                                         "work": str(Path(d) / "r" / "w")}))
+
+    def test_neutral_directory_names(self):
+        from runner.config import neutral_name
+        name = neutral_name("jsoup-normalise-whitespace", "dump", "r1")
+        self.assertRegex(name, r"^w[0-9a-f]{12}$")
+        self.assertNotEqual(name, neutral_name("jsoup-normalise-whitespace", "baseline", "r1"))
+
 
 class CellLogicTest(unittest.TestCase):
     def test_retarget_preliminary_test(self):
@@ -171,9 +206,41 @@ class PiExtensionsTest(unittest.TestCase):
     def test_provider_reads_only_environment(self):
         source = (ROOT / "pi" / "provider.ts").read_text()
         self.assertIn("TESTGEN_BASE_URL", source)
-        self.assertIn("$TESTGEN_API_KEY", source)
+        self.assertIn("delete process.env.TESTGEN_API_KEY", source)
         code = "\n".join(line for line in source.splitlines() if not line.lstrip().startswith(("*", "/*", "//")))
         self.assertNotRegex(code, r"https?://")
+
+    @staticmethod
+    def pi_package() -> Path | None:
+        import shutil
+        candidates = [ROOT / ".tools" / "pi" / "lib" / "node_modules" / "@earendil-works" / "pi-coding-agent"]
+        pi = shutil.which("pi")
+        if pi:
+            p = Path(pi).resolve()
+            for parent in p.parents:
+                if (parent / "package.json").is_file() and parent.name == "pi-coding-agent":
+                    candidates.append(parent)
+                    break
+        return next((c for c in candidates if (c / "node_modules" / "jiti").is_dir()), None)
+
+    def test_guard_and_provider_behaviour(self):
+        """The real extension code under node: command matching, environment of commands, key escaping."""
+        import shutil
+        pi = self.pi_package()
+        if pi is None or shutil.which("node") is None:
+            self.skipTest("node and an installed Pi package are needed")
+        r = subprocess.run(["node", str(ROOT / "tests" / "node" / "extensions.mjs"), str(pi), str(ROOT)],
+                           capture_output=True, text=True, timeout=120)
+        self.assertEqual(r.returncode, 0, r.stderr[-2000:])
+        out = json.loads(r.stdout)
+        self.assertEqual(out["exact"], "build")
+        self.assertEqual(out["extraSpaces"], "build")
+        self.assertEqual(out["quotedHash"], "scenario")
+        self.assertEqual(out["unquotedHash"], "scenario")
+        for bypass in ("bypassRedirect", "redirect", "background", "chained", "piped", "newline", "substitution"):
+            self.assertIsNone(out[bypass], bypass)
+        self.assertEqual(out["env"], {"PATH": "/bin", "HOME": "/h"})
+        self.assertEqual(out["literal"], ["plain-key", "a$$B", "$!rm"])
 
 
 if __name__ == "__main__":

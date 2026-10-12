@@ -61,7 +61,9 @@ def pi_version(cfg: Config) -> str | None:
 
 
 def agent_env(cfg: Config, api_key_env: str | None) -> dict[str, str]:
-    """Command environment plus the provider settings; no API key variable other than TESTGEN_API_KEY."""
+    """Command environment plus the provider settings. The key travels as TESTGEN_API_KEY to
+    pi/provider.ts, which removes it from the process environment; the guard runs the agent's
+    commands with the command environment only (cfg.command_env())."""
     env = cfg.command_env()
     node_bin = cfg.tools_dir / "node" / "bin"
     if node_bin.is_dir():
@@ -147,7 +149,8 @@ def run_agent(cfg: Config, workspace: Path, output_test_file: str, commands: dic
     session_dir.mkdir(exist_ok=True)
     guard_config = agent_dir / "guard.json"
     guard_config.write_text(json.dumps({"workspace": str(workspace), "output_test_file": output_test_file,
-                                        "commands": commands}, indent=2))
+                                        "commands": commands, "command_env": sorted(cfg.command_env())},
+                                       indent=2))
     env = agent_env(cfg, api_key_env)
     env.update({
         "PI_CODING_AGENT_DIR": str(agent_dir / "pi-home"),

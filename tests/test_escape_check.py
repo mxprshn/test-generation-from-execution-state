@@ -83,6 +83,13 @@ class CodeRules(unittest.TestCase):
     def test_environment(self):
         self.assertIn("environment or user location", kinds('String h = System.getenv("HOME");'))
         self.assertIn("environment or user location", kinds('String h = System.getProperty("user.home");'))
+        self.assertIn("environment or user location", kinds('String b = System.getProperty("basedir");'))
+
+    def test_real_path_and_dot_walk_up(self):
+        code = 'Path d = Path.of(".").toRealPath(); while (d != null) { d = d.getParent(); }'
+        self.assertIn("walks up from the working directory", kinds(code))
+        code = 'File d = new File("."); File p = d.getAbsoluteFile().getParentFile();'
+        self.assertIn("walks up from the working directory", kinds(code))
 
     def test_process(self):
         self.assertIn("runs a process", kinds('new ProcessBuilder("ls").start();'))
@@ -115,6 +122,23 @@ class ToolCalls(unittest.TestCase):
     def test_harness_root_in_command(self):
         self.assertIn("tool argument names a harness location",
                       self.check({"name": "bash", "arguments": {"command": "cat /srv/exp/repo/cases/x/case.yaml"}}))
+
+    def test_bash_command_shell_syntax_and_paths(self):
+        bypass = "mvn -q -Dtest=X test >x;cat${IFS}../../../../../repo/cases/C/call-dumps.json"
+        found = self.check({"name": "bash", "arguments": {"command": bypass}})
+        self.assertIn("shell syntax in a command", found)
+        self.assertIn("command path outside the workspace",
+                      self.check({"name": "bash", "arguments": {"command": "mvn -f ../../other/pom.xml test"}}))
+        self.assertEqual(self.check({"name": "bash", "arguments": {"command": "mvn -q -o -Dtest=A#b test"}}),
+                         set())
+
+    def test_absolute_paths_inside_the_workspace_are_fine(self):
+        ws = "/tmp/tg-1/cells/w0123456789ab/workspace"
+        calls = [{"name": "read", "arguments": {"path": f"{ws}/src/main/java/A.java"}},
+                 {"name": "read", "arguments": {"path": f"{ws}/../../other"}}]
+        found = [f["evidence"] for f in X.check_tool_calls(calls, self.ROOTS, ws)]
+        self.assertEqual(len(found), 1)
+        self.assertIn("other", found[0])
 
 
 class Cell(unittest.TestCase):

@@ -1,7 +1,12 @@
 """Experiment configuration (config.yaml) and the environment of build and test commands."""
 from __future__ import annotations
 
+import atexit
+import hashlib
 import os
+import shutil
+import tempfile
+import threading
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
@@ -15,9 +20,21 @@ MODES = AGENT_MODES + NO_AGENT_MODES
 AGENT_COMMANDS = ("build", "scenario", "generated_test")
 EVAL_STEPS = ("verify", "rq1", "rq2", "quality")
 
+# Environment of build and test commands: these variables of the runner's environment are passed
+# through, nothing else (no API keys, no credentials). config.yaml `env` adds or overrides variables.
+ENV_ALLOWLIST = ("PATH", "HOME", "USER", "LOGNAME", "SHELL", "TERM", "TZ", "LANG", "LANGUAGE", "TMPDIR",
+                 "MAVEN_OPTS", "MAVEN_ARGS", "MAVEN_HOME", "M2_HOME", "MAVEN_USER_HOME", "GRADLE_USER_HOME",
+                 "GRADLE_OPTS")
+ENV_ALLOWLIST_PREFIXES = ("LC_",)
+
 
 class ConfigError(Exception):
     pass
+
+
+def neutral_name(*parts: str) -> str:
+    """Directory name that does not reveal the case, mode or run (w + 12 hex digits)."""
+    return "w" + hashlib.sha256("\0".join(parts).encode()).hexdigest()[:12]
 
 
 def _path(value: Any, default: str | None = None) -> Path | None:
@@ -57,7 +74,9 @@ class Config:
     eval_steps: list[str]
     reference_runs: int
     trace_depth: int
+    work_root: Path | None = None
     extra_env: dict[str, str] = field(default_factory=dict)
+    _work_dir: Path | None = field(default=None, repr=False)
 
     @property
     def cases_dir(self) -> Path:
@@ -77,7 +96,21 @@ class Config:
 
     @property
     def work_dir(self) -> Path:
-        return self.results_dir / "work"
+        """Scratch space for workspaces and traces, outside the results tree and the repository:
+        paths.work of the config, or a fresh directory in the system temp directory (removed at exit).
+        A test run there cannot reach the results through a fixed relative path."""
+        with _WORK_LOCK:
+            return self._make_work_dir()
+
+    def _make_work_dir(self) -> Path:
+        if self._work_dir is None:
+            if self.work_root is not None:
+                self.work_root.mkdir(parents=True, exist_ok=True)
+                self._work_dir = Path(tempfile.mkdtemp(prefix="tg-", dir=self.work_root))
+            else:
+                self._work_dir = Path(tempfile.mkdtemp(prefix="tg-"))
+            atexit.register(shutil.rmtree, self._work_dir, True)
+        return self._work_dir
 
     def run_id(self, round_number: int) -> str:
         return self.run_id_format.format(round=round_number)
@@ -86,12 +119,17 @@ class Config:
         return self.cells_dir / case_id / mode / run_id
 
     def command_env(self) -> dict[str, str]:
-        """Environment of build/test commands: JDK first on PATH, plus `env` from the config."""
-        env = dict(os.environ)
+        """Environment of build/test commands: the allowlisted variables of the runner's environment,
+        `env` from the config, JDK first on PATH."""
+        env = {k: v for k, v in os.environ.items()
+               if k in ENV_ALLOWLIST or k.startswith(ENV_ALLOWLIST_PREFIXES)}
         env.update(self.extra_env)
         env["JAVA_HOME"] = str(self.java_home)
         env["PATH"] = f"{self.java_home / 'bin'}{os.pathsep}{env.get('PATH', '')}"
         return env
+
+
+_WORK_LOCK = threading.Lock()
 
 
 def configure_tools(cfg: "Config") -> None:
@@ -153,7 +191,12 @@ def load_config(path: str | Path) -> Config:
         eval_steps=steps,
         reference_runs=int(evaluation.get("reference_runs", 2)),
         trace_depth=int(evaluation.get("trace_depth", 5)),
+        work_root=_path(paths.get("work")),
         extra_env={str(k): os.path.expandvars(str(v)) for k, v in (raw.get("env") or {}).items()},
     )
+    if cfg.work_root is not None:
+        for inside in (cfg.results_dir, ROOT):
+            if cfg.work_root == inside or inside in cfg.work_root.parents:
+                raise ConfigError(f"paths.work must be outside {inside}: {cfg.work_root}")
     configure_tools(cfg)
     return cfg

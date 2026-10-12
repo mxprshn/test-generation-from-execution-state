@@ -4,7 +4,9 @@
  * The runner sets these variables from config.yaml:
  *   TESTGEN_PROVIDER_NAME   provider name used with `pi --provider` (default "custom")
  *   TESTGEN_BASE_URL        base URL of the OpenAI-compatible API, e.g. https://api.example.com/v1
- *   TESTGEN_API_KEY         API key (the runner copies it from the variable named in the config)
+ *   TESTGEN_API_KEY         API key (the runner copies it from the variable named in the config). The
+ *                           extension reads it once and removes it from the process environment, so
+ *                           that no command or test started by the agent inherits it.
  *   TESTGEN_MODELS          optional JSON list of models; when empty, the list is fetched from
  *                           <base URL>/models. An entry is a model id or an object with the fields of
  *                           RemoteModel below.
@@ -70,7 +72,16 @@ async function fetchModels(baseUrl: string, apiKey: string): Promise<RemoteModel
 	}
 }
 
+/** Pi reads `$NAME` in an API key as an environment reference and a leading `!` as a command:
+ * escape the key so that it is taken literally. */
+export function literalConfigValue(value: string): string {
+	const escaped = value.replace(/\$/g, "$$$$");
+	return escaped.startsWith("!") ? `$!${escaped.slice(1)}` : escaped;
+}
+
 export default async function (pi: ExtensionAPI) {
+	const apiKey = process.env.TESTGEN_API_KEY ?? "";
+	delete process.env.TESTGEN_API_KEY;
 	const baseUrl = (process.env.TESTGEN_BASE_URL ?? "").replace(/\/+$/, "");
 	if (!baseUrl) {
 		return;
@@ -79,11 +90,11 @@ export default async function (pi: ExtensionAPI) {
 	const configured = JSON.parse(process.env.TESTGEN_MODELS || "[]") as (string | RemoteModel)[];
 	const models = configured.length
 		? configured.map((m) => (typeof m === "string" ? { id: m, supports_reasoning: true } : m))
-		: await fetchModels(baseUrl, process.env.TESTGEN_API_KEY ?? "");
+		: await fetchModels(baseUrl, apiKey);
 	pi.registerProvider(name, {
 		name,
 		baseUrl,
-		apiKey: "$TESTGEN_API_KEY",
+		apiKey: literalConfigValue(apiKey),
 		api: "openai-completions",
 		models: models.map(toModelConfig),
 	});
