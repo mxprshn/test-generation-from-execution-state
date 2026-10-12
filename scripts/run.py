@@ -9,7 +9,10 @@ For every case of the config:
      is generated (verify, rq1, rq2, quality); a flagged cell is evaluated as usual and reported.
 
 Everything is resumable: an existing cell is not regenerated and a filled evaluation step is not
-recomputed. Several cases run at the same time (parallel_cases); the steps of a case run in order.
+recomputed, as long as the inputs recorded with it (harness code, case, mode input, prompts, config,
+project, normalisation lists; evaluation/inputs.py) equal the current ones. A cell or step computed
+from other inputs stops the case with a message instead of being reused. Several cases run at the
+same time (parallel_cases); the steps of a case run in order.
 
     python3 scripts/run.py --config config.yaml [--cases ID ...] [--dry-run]
     python3 scripts/run.py --config config.yaml --status
@@ -34,11 +37,12 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 from evaluation import evaluate as E  # noqa: E402
+from evaluation import inputs as I  # noqa: E402
 from evaluation import reference as R  # noqa: E402
 from runner import agent as A  # noqa: E402
 from runner import cell as G  # noqa: E402
 from runner import escape_check as X  # noqa: E402
-from runner.cases import case_ids  # noqa: E402
+from runner.cases import case_ids, load_case  # noqa: E402
 from runner.config import Config, load_config  # noqa: E402
 
 HASHED = ("runner", "evaluation", "pi", "prompts", "scripts")
@@ -56,6 +60,19 @@ def harness_revision() -> dict[str, Any]:
                 h.update(str(f.relative_to(ROOT)).encode())
                 h.update(f.read_bytes())
     return {"commit": git("rev-parse", "HEAD") or None, "dirty": bool(diff), "sources_sha256": h.hexdigest()}
+
+
+def tool_versions(cfg: Config) -> dict[str, Any]:
+    """Versions of the JDK and Maven the commands run with."""
+    def first_line(argv: list[str]) -> str | None:
+        try:
+            r = subprocess.run(argv, capture_output=True, text=True, env=cfg.command_env(), timeout=120)
+        except (OSError, subprocess.TimeoutExpired):
+            return None
+        text = (r.stdout or r.stderr).strip().splitlines()
+        return text[0] if text else None
+    return {"java": first_line([str(cfg.java_home / "bin" / "java"), "-version"]),
+            "maven": first_line(["mvn", "-v"])}
 
 
 def cells_of(cfg: Config, case_id: str) -> list[tuple[str, str]]:
@@ -86,7 +103,9 @@ class Runner:
         for d in (cfg.cells_dir, cfg.references_dir, cfg.work_dir, cfg.results_dir / "status", cfg.results_dir / "logs"):
             d.mkdir(parents=True, exist_ok=True)
         self.meta = {"harness": harness_revision(), "pi_version": A.pi_version(cfg), "model": cfg.model,
-                     "thinking": cfg.thinking, "provider": cfg.provider_name, "timeout": cfg.timeout}
+                     "thinking": cfg.thinking, "provider": cfg.provider_name, "timeout": cfg.timeout,
+                     "command_timeout": cfg.command_timeout, "trace_depth": cfg.trace_depth,
+                     "reference_runs": cfg.reference_runs, **tool_versions(cfg)}
 
     def log(self, case_id: str, msg: str) -> None:
         line = f"{G.now()} {msg}"
@@ -115,7 +134,7 @@ class Runner:
 
     def harness_roots(self) -> list[str]:
         """Locations the agent and its test have no business with (escape check)."""
-        return [str(p) for p in (self.cfg.results_dir, self.cfg.cases_dir, ROOT, Path.home())]
+        return [str(p) for p in (self.cfg.results_dir, self.cfg.cases_dir, ROOT, self.cfg.projects_dir, Path.home())]
 
     def escape_check(self, case_id: str, mode: str, run_id: str, s: dict[str, Any]) -> dict[str, Any]:
         cell = self.cfg.cell_dir(case_id, mode, run_id)
@@ -127,6 +146,15 @@ class Runner:
                 self.log(case_id, f"{mode}/{run_id}: escape check flagged: {', '.join(kinds)}")
         return s["escape_check"]
 
+    def check_inputs(self, case_id: str, mode: str, s: dict[str, Any]) -> None:
+        """Refuse to reuse a cell generated from other inputs than the current ones."""
+        current = I.generation_inputs(self.cfg, load_case(case_id, self.cfg.cases_dir), mode)
+        stored = s.get("inputs") or {}
+        changed = sorted(k for k in set(current) | set(stored) if stored.get(k) != current.get(k))
+        if changed:
+            raise E.StaleResult(f"{mode}/{s.get('run_id')}: the cell was generated from other inputs "
+                                f"({', '.join(changed)}); remove the cell directory to regenerate it")
+
     def generate(self, case_id: str, mode: str, run_id: str) -> dict[str, Any] | None:
         cell = self.cfg.cell_dir(case_id, mode, run_id)
         key = self.cfg.api_key_env
@@ -134,6 +162,7 @@ class Runner:
             summary_file = cell / "summary.json"
             if summary_file.is_file():
                 s = json.loads(summary_file.read_text())
+                self.check_inputs(case_id, mode, s)
                 if not G.is_infra_failure(s, cell) or attempt == 1:
                     return s
                 aside = cell.with_name(f"{run_id}.infra-{int(time.time())}")
@@ -191,14 +220,18 @@ class Runner:
                 try:
                     rec = E.evaluate_cell(self.cfg, cell)
                     evaluated += 1
-                    if isinstance(rec.get("rq2"), dict) and "error" in rec["rq2"]:
+                    for err in rec.get("transient_errors") or []:
                         errors += 1
-                        self.log(case_id, f"{mode}/{run_id}: rq2 error: {rec['rq2']['error'][:160]}")
+                        self.log(case_id, f"{mode}/{run_id}: transient, retried on the next run: {err[:160]}")
                     v = rec.get("verify") or {}
                     q = rec.get("rq1") or {}
                     self.log(case_id, f"{mode}/{run_id}: verify {v.get('compiles')}/{v.get('passes')} "
+                                      f"tests {v.get('tests_run')} "
                                       f"S/A/B/C {q.get('recall_structure')}/{q.get('recall_io')}/"
-                                      f"{q.get('recall_state')}/{q.get('recall_strict')}")
+                                      f"{q.get('recall_state')}/{q.get('recall_strict')}"
+                                      + (" runs_scenario" if q.get("runs_scenario") else ""))
+                except E.StaleResult:
+                    raise
                 except Exception as exc:
                     errors += 1
                     self.log(case_id, f"{mode}/{run_id}: evaluation error: {type(exc).__name__}: {exc}")

@@ -70,7 +70,8 @@ public class ClasspathProbe {
 """
 
 
-def classpath_from_surefire(workspace: Path, scenario_argv: list[str], out: Path, env: dict[str, str]) -> str | None:
+def classpath_from_surefire(workspace: Path, scenario_argv: list[str], out: Path, env: dict[str, str],
+                            timeout: int = 1800) -> str | None:
     """Run the case's own scenario command with -Dtest replaced by a probe test that writes the
     surefire classpath. Works wherever the scenario command works (reactor siblings included)."""
     cp_out = out / "surefire-cp.txt"
@@ -100,7 +101,7 @@ def classpath_from_surefire(workspace: Path, scenario_argv: list[str], out: Path
     e = dict(env)
     e["CLASSPATH_PROBE_OUT"] = str(cp_out)
     out.mkdir(parents=True, exist_ok=True)
-    res = subprocess.run(argv, cwd=workspace, env=e, capture_output=True, text=True, timeout=1800)
+    res = subprocess.run(argv, cwd=workspace, env=e, capture_output=True, text=True, timeout=timeout)
     probe.unlink(missing_ok=True)
     if not cp_out.is_file():
         (out / "cp-probe.log").write_text((res.stdout or "")[-6000:] + (res.stderr or "")[-3000:])
@@ -108,7 +109,8 @@ def classpath_from_surefire(workspace: Path, scenario_argv: list[str], out: Path
     return cp_out.read_text().strip()
 
 
-def build_classpath(module: Path, workspace: Path, out: Path, env: dict[str, str], mvn: str = "mvn") -> str:
+def build_classpath(module: Path, workspace: Path, out: Path, env: dict[str, str], mvn: str = "mvn",
+                    timeout: int = 1800) -> str:
     """Test-scope classpath of the module. With `-am` the sibling SNAPSHOT modules are reactor
     projects and resolve to their target/classes; the relative output name makes every reactor
     module write its own file, and the target module's file is read."""
@@ -125,7 +127,7 @@ def build_classpath(module: Path, workspace: Path, out: Path, env: dict[str, str
         args += ["-pl", rel, "-am"]
     args += ["org.apache.maven.plugins:maven-dependency-plugin:3.6.1:build-classpath",
              f"-Dmdep.outputFile={name}", "-DincludeScope=test"]
-    res = subprocess.run(args, cwd=workspace, env=env, capture_output=True, text=True)
+    res = subprocess.run(args, cwd=workspace, env=env, capture_output=True, text=True, timeout=timeout)
     produced = module / name
     if not produced.is_file():
         raise RuntimeError(f"build-classpath failed for {rel}:\n{res.stdout[-1500:]}\n{res.stderr[-1500:]}")
@@ -183,16 +185,16 @@ def compile_test(test_src: Path, cp: str, out: Path) -> Path:
 
 def run_pit(workspace: Path, test_files: list[str], target_class: str, out: Path,
             env: dict[str, str], extra_jvm: list[str] | None = None, mvn: str = "mvn",
-            scenario_argv: list[str] | None = None) -> dict[str, Any]:
+            scenario_argv: list[str] | None = None, timeout: int = 1800) -> dict[str, Any]:
     """Run PIT for one or more generated test files (union = one PIT run over all of them).
 
     The project classpath is taken from surefire (probe run of the scenario command); if that is not
     possible, from `dependency:build-classpath`."""
     out.mkdir(parents=True, exist_ok=True)
     module = module_dir_for(workspace, test_files[0])
-    project_cp = classpath_from_surefire(workspace, scenario_argv, out, env) if scenario_argv else None
+    project_cp = classpath_from_surefire(workspace, scenario_argv, out, env, timeout) if scenario_argv else None
     if project_cp is None:
-        project_cp = build_classpath(module, workspace, out, env, mvn)
+        project_cp = build_classpath(module, workspace, out, env, mvn, timeout)
     project_cp = ":".join(e for e in project_cp.split(":") if "surefire" not in Path(e).name and e)
     main_out, test_out = module / "target" / "classes", module / "target" / "test-classes"
     base_cp = ":".join([str(main_out), str(test_out), project_cp, *_platform_extras(project_cp)])
@@ -218,7 +220,8 @@ def run_pit(workspace: Path, test_files: list[str], target_class: str, out: Path
     if extra_jvm:
         cmd += ["--jvmArgs", ",".join(extra_jvm)]
     # surefire runs tests from the module directory; tests open fixtures by relative paths
-    res = subprocess.run(cmd, capture_output=True, text=True, env=env, cwd=module)
+    # PIT has its own per-mutant timeouts; the whole run gets several command timeouts
+    res = subprocess.run(cmd, capture_output=True, text=True, env=env, cwd=module, timeout=timeout * 4)
     (out / "pit-log.txt").write_text((res.stdout or "") + "\n--- STDERR ---\n" + (res.stderr or ""))
     xml = report / "mutations.xml"
     if not xml.is_file():

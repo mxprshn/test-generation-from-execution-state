@@ -17,13 +17,14 @@ NODE_VERSION=22.17.0
 PI_VERSION=0.84.1
 BTRACE_VERSION=2.2.6
 BTRACE_SHA256=aaa5ce8d5c4493775a11b2526d989d6e8444a14508de797fb0f99f9bcc574f82
-PIT_ARTIFACTS=(
-  org.pitest:pitest:1.15.8
-  org.pitest:pitest-entry:1.15.8
-  org.pitest:pitest-command-line:1.15.8
-  org.pitest:pitest-junit5-plugin:1.2.1
-  org.apache.commons:commons-text:1.11.0
-  org.apache.commons:commons-lang3:3.13.0
+# PIT jars (path in the Maven repository, sha256)
+PIT_JARS=(
+  "org/pitest/pitest/1.15.8/pitest-1.15.8.jar c4f8024a2faf52f3cf5d205b47b1e18fe3cdc30503aaa9ecf75fe67cf3b0ff76"
+  "org/pitest/pitest-entry/1.15.8/pitest-entry-1.15.8.jar 6cd71474c6bef7e05d7d53086253ded57c9f9a2e636ee99c39cfe96ec5131752"
+  "org/pitest/pitest-command-line/1.15.8/pitest-command-line-1.15.8.jar f1126c5b834b3c8c09f5d6c44a4e38929001283886f2328beaf6e12132d0af2e"
+  "org/pitest/pitest-junit5-plugin/1.2.1/pitest-junit5-plugin-1.2.1.jar 9d944887a583ebd4adc33d2d26b8b56639fd53fee93b4d068a90596705c072b5"
+  "org/apache/commons/commons-text/1.11.0/commons-text-1.11.0.jar 2acf30a070b19163d5a480eae411a281341e870020e3534c6d5d4c8472739e30"
+  "org/apache/commons/commons-lang3/3.13.0/commons-lang3-3.13.0.jar 82f528cf718c7a3c2f30fc5bc784e3c6a0a10b17605dadb9e16c82ede11e6064"
 )
 
 cd "$ROOT"
@@ -70,8 +71,15 @@ if [ ! -f "$TOOLS/btrace/libs/btrace-agent.jar" ]; then
 fi
 
 echo "== PIT"
-for a in "${PIT_ARTIFACTS[@]}"; do
-  mvn -q -Dmaven.repo.local="$M2_REPO" org.apache.maven.plugins:maven-dependency-plugin:3.6.1:get -Dartifact="$a" -Dtransitive=false
+for entry in "${PIT_JARS[@]}"; do
+  read -r path sum <<<"$entry"
+  IFS=/ read -ra parts <<<"$path"
+  n=${#parts[@]}
+  group=$(IFS=.; echo "${parts[*]:0:n-3}")
+  artifact="$group:${parts[n-3]}:${parts[n-2]}"
+  [ -f "$M2_REPO/$path" ] || mvn -q -Dmaven.repo.local="$M2_REPO" \
+    org.apache.maven.plugins:maven-dependency-plugin:3.6.1:get -Dartifact="$artifact" -Dtransitive=false
+  echo "$sum  $M2_REPO/$path" | shasum -a 256 -c - >/dev/null || { echo "checksum mismatch: $path"; exit 1; }
 done
 
 echo "== projects in $PROJECTS"

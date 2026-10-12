@@ -103,7 +103,14 @@ class CompareTest(unittest.TestCase):
         self.assertEqual(self.hits(self.cmp(ref, [inv([1], self=self.svc(stub, "a"))])), (1, 1, 1, 0))
         self.assertEqual(self.hits(self.cmp(ref, [inv([1], self=self.svc({"$t": "x.Stub", "$fields": {}}, "a"))],
                                             test_classes=["x.Stub"])), (1, 1, 1, 0))
-        self.assertEqual(self.hits(self.cmp(ref, [inv([1], self=self.svc(None, "a"))])), (1, 1, 1, 0))
+        # null against an object: the field is a dependency, but the null bit stays in the key
+        r = self.cmp(ref, [inv([1], self=self.svc(None, "a"))])
+        self.assertEqual((self.hits(r), r["dependency_fields"]), ((1, 1, 0, 0), ["dep"]))
+        # a mock and a real object of any content match at B; a null does not match a mock
+        mock = {"$t": "x.Repo$MockitoMock$1", "$opaque": True}
+        self.assertEqual(self.hits(self.cmp(ref, [inv([1], self=self.svc(mock, "a"))])), (1, 1, 1, 0))
+        self.assertEqual(self.hits(self.cmp([inv([1], self=self.svc(None, "a"))],
+                                            [inv([1], self=self.svc(mock, "a"))])), (1, 1, 0, 0))
         # a null string against a value is a data difference, not a dependency
         r = self.cmp([inv([1], self=self.svc("text", "a"))], [inv([1], self=self.svc(None, "a"))])
         self.assertEqual((self.hits(r), r["dependency_fields"]), ((1, 1, 0, 0), []))
@@ -154,6 +161,52 @@ class CompareTest(unittest.TestCase):
         lb = {"$t": "java.util.ArrayList", "$items": [2, 1]}
         self.assertEqual(C.compare([inv([la])], [inv([lb])], ND, "p")["data_hits"], 0)
 
+    def test_dependencies_are_per_pair(self):
+        real = {"$t": "x.Executor", "$id": 2, "$fields": {"n": 7}}
+        other = {"$t": "x.Executor", "$id": 2, "$fields": {"n": 8}}
+        mock = {"$t": "x.Executor$MockitoMock$1", "$opaque": True}
+        ref = [inv([1], self=self.svc(real, "a"))]
+        # a mock in one candidate does not make the field a dependency for another candidate
+        self.assertEqual(self.hits(self.cmp(ref, [inv([1], self=self.svc(mock, "a"))])), (1, 1, 1, 0))
+        r = self.cmp(ref, [inv([1], self=self.svc(other, "a"))])
+        self.assertEqual((self.hits(r), r["dependency_fields_count"]), ((1, 1, 0, 0), 0))
+
+    def test_exception_class_is_part_of_the_structure(self):
+        iae = {**inv(["a"], outcome="throw", value=None), "exception": "java.lang.IllegalArgumentException"}
+        npe = {**inv(["a"], outcome="throw", value=None), "exception": "java.lang.NullPointerException"}
+        self.assertEqual(self.hits(self.cmp([iae], [npe])), (0, 0, 0, 0))
+        self.assertEqual(self.hits(self.cmp([iae], [dict(iae)])), (1, 1, 1, 1))
+        # unknown class (fallback detection) stays "throw"
+        self.assertEqual(C.outcome(inv(["a"], outcome="throw")), "throw")
+
+    def test_truncated_unordered_collection_compared_by_size(self):
+        big = lambda items: {"$t": "java.util.HashSet", "$len": 500, "$items": items}
+        self.assertEqual(self.cmp([inv([big([1, 2])])], [inv([big([3, 4])])])["io_hits"], 1)
+        self.assertEqual(self.cmp([inv([big([1, 2])])], [inv([{**big([1, 2]), "$len": 499}])])["io_hits"], 0)
+        # a truncated list keeps its first elements, which are deterministic
+        lst = lambda items: {"$t": "java.util.ArrayList", "$len": 500, "$items": items}
+        self.assertEqual(self.cmp([inv([lst([1, 2])])], [inv([lst([3, 4])])])["io_hits"], 0)
+
+    def test_caller_stats(self):
+        own = {**inv(["a"]), "caller": "p.FooCarvedTest", "caller_effective": "p.FooCarvedTest"}
+        nested = {**inv(["b"]), "caller": "p.FooCarvedTest$Inner", "caller_effective": "p.FooCarvedTest$Inner"}
+        lib = {**inv(["c"]), "caller": "p.Parser", "caller_effective": "p.Parser"}
+        s = C.caller_stats([own, nested], "p.FooCarvedTest", "p.ScenarioTest#m")
+        self.assertEqual((s["called_from_test_class"], s["runs_scenario"]), (1.0, False))
+        s = C.caller_stats([own, lib, {**lib, "args": ["d"]}], "p.FooCarvedTest", "p.ScenarioTest")
+        self.assertAlmostEqual(s["called_from_test_class"], 1 / 3)
+        self.assertTrue(s["runs_scenario"])
+        s = C.caller_stats([{**own, "via_scenario": True}], "p.FooCarvedTest", "p.ScenarioTest")
+        self.assertTrue(s["runs_scenario"])
+
+    def test_unstable_between_runs_with_different_counts(self):
+        norm = C.Normaliser(self.NO_ND, "p")
+        a = [inv(["x"]), inv(["y"])]
+        b = [inv(["x"]), inv(["z"]), inv(["w"], calls=("virtual int A#c()",))]
+        d = C.unstable_between_runs(a, b, norm)
+        self.assertIn("/args[0]", d)
+        self.assertTrue(any(k.startswith("[invocation count]") for k in d))
+
     def test_btrace_internal_calls_dropped(self):
         a = inv(["a"], calls=("virtual int A#b()", "static void ##mc$test:timed"))
         self.assertEqual(C.structure_key(a), C.structure_key(inv(["a"])))
@@ -177,6 +230,42 @@ class TraceTest(unittest.TestCase):
         ]))
         t = T.read_trace(d)
         self.assertEqual([i["outcome"] for i in t["invocations"]], ["return", "throw"])
+
+    def test_read_trace_keeps_exception_and_caller(self):
+        import json, tempfile
+        from pathlib import Path
+        d = Path(tempfile.mkdtemp())
+        (d / "trace-1.jsonl").write_text("\n".join(json.dumps(e) for e in [
+            {"ev": "enter", "id": 1, "self": None, "args": [1], "caller": "a.T", "caller_effective": "a.T",
+             "via_scenario": False},
+            {"ev": "throw", "id": 1, "exception": "java.lang.IllegalStateException"},
+        ]))
+        inv_ = T.read_trace(d)["invocations"][0]
+        self.assertEqual((inv_["outcome"], inv_["exception"], inv_["caller"]),
+                         ("throw", "java.lang.IllegalStateException", "a.T"))
+
+    def test_remove_paths_removes_compiled_classes_of_directories_and_groovy(self):
+        import tempfile
+        from pathlib import Path
+        ws = Path(tempfile.mkdtemp())
+        for rel in ("src/test/java/org/x/sub/ATest.java", "target/test-classes/org/x/sub/ATest.class",
+                    "target/test-classes/org/x/sub/Mapper.class", "target/test-classes/org/x/Keep.class",
+                    "m/src/test/groovy/org/y/BTest.groovy", "m/target/test-classes/org/y/BTest.class",
+                    "m/target/test-classes/org/y/BTest$_closure1.class", "m/target/test-classes/org/y/BTester.class",
+                    "src/test/java/org/z/CTest.java", "target/test-classes/org/z/CTest.class",
+                    "target/test-classes/org/z/CTest$1.class", "target/test-classes/org/z/CTestUtil.class"):
+            (ws / rel).parent.mkdir(parents=True, exist_ok=True)
+            (ws / rel).write_text("")
+        removed = T.remove_paths(ws, ["src/test/java/org/x/sub", "m/src/test/groovy/org/y/BTest.groovy",
+                                      "src/test/java/org/z/CTest.java"])
+        self.assertFalse((ws / "target/test-classes/org/x/sub").exists())
+        self.assertTrue((ws / "target/test-classes/org/x/Keep.class").exists())
+        self.assertFalse((ws / "m/target/test-classes/org/y/BTest.class").exists())
+        self.assertFalse((ws / "m/target/test-classes/org/y/BTest$_closure1.class").exists())
+        self.assertTrue((ws / "m/target/test-classes/org/y/BTester.class").exists())
+        self.assertFalse((ws / "target/test-classes/org/z/CTest$1.class").exists())
+        self.assertTrue((ws / "target/test-classes/org/z/CTestUtil.class").exists())
+        self.assertEqual(len(removed), 6)
 
     def test_read_trace_drops_launcher_jvms(self):
         import json, tempfile
