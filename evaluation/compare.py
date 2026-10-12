@@ -1,7 +1,8 @@
 """RQ1 comparison: scenario keys, four nested levels, recall and precision.
 
 Levels (fixed before the final run):
-  S  structure       = outcome + ordered signatures of outgoing calls from the target body;
+  S  structure       = outcome (return, or the class of the thrown exception) + ordered signatures of
+                       outgoing calls from the target body;
   A  input/output    = S + arguments + returned value                       (main data level);
   B  with state      = A + receiver, where receiver fields that are collaborators are compared by
                        presence only (see "dependency fields" below)       (shown next to A);
@@ -11,14 +12,17 @@ Scenario = unique invocation of the target at level C (identical invocations col
 share one denominator: the number of distinct reference scenarios. B and C keys contain the A key,
 which contains the S key, so hits satisfy S >= A >= B >= C by construction.
 
-Dependency fields (level B) are decided pairwise, from the union of the reference and the candidate
-traces, before any key is built, and masked identically on both sides. A top-level receiver field is
-a dependency if, in some invocation on either side, it holds
+Dependency fields (level B) are decided for each pair (reference, one candidate trace), from the union
+of the two traces, before any key is built, and masked identically on both sides; candidates of other
+cells or modes play no part. A top-level receiver field is a dependency if, in some invocation on
+either side, it holds
   * a mock or proxy (the tracer marks it "$opaque"),
   * an instance of a framework component class (components.json: Spring stereotypes),
   * an instance of a class from the project's test sources or of a test class (a hand-written stub),
 or if it is null in every invocation on one side and a (non-JDK) object on the other side; a null
-string, number or collection against a value is a data difference, not a collaborator.
+string, number or collection against a value is a data difference, not a collaborator. A masked
+field keeps one bit: whether it was null. A null collaborator therefore does not match an object
+(a mock or a real one), while a mock matches a real object of any content.
 
 Normalisation, the same for every level and mode:
   * BTrace-internal pseudo calls (``##...``) are dropped;
@@ -27,7 +31,15 @@ Normalisation, the same for every level and mode:
   * strings: workspace paths, JUnit / java.io temporary directories, identity hash codes,
     timestamps, epoch milliseconds and UUIDs are replaced by placeholders;
   * JDK collections are compared by interface: List in order, Set and Map without order;
+  * the tracer writes at most 200 elements of a collection, in iteration order. For a List that is
+    the first 200 elements, which is deterministic. For a Set or Map the iteration order depends on
+    hash codes, so a truncated one is compared by its interface and size only;
   * values of types and fields listed in nondeterminism.json are masked.
+
+The tracer also records, per invocation, the class that called the target (`caller`, the immediate
+frame; `caller_effective`, the first frame that is not a mock, proxy or reflection frame) and whether
+the scenario test class was on the stack (`via_scenario`). They are not part of any key;
+caller_stats() reports them next to the levels.
 """
 from __future__ import annotations
 
@@ -69,7 +81,8 @@ EPOCH_MS = re.compile(r"(?<!\d)1[789]\d{11}(?!\d)")
 # the name of the outer class.
 TEST_NAME = re.compile(r"(Test|Tests|TestCase|IT)$")
 
-COLLABORATOR = {"$t": "$collaborator"}
+def collaborator_marker(v: Any) -> dict[str, Any]:
+    return {"$t": "$collaborator", "null": v is None}
 
 
 def norm_str(s: str) -> str:
@@ -164,6 +177,8 @@ class Normaliser:
             return v
         if "$ref" in v:
             return {"$ref": True}
+        if v.get("$t") == "$collaborator":
+            return dict(v)
         t = norm_type(v.get("$t", ""))
         if t in self.types or (self.prefixes and t.startswith(self.prefixes)):
             self.masked += 1
@@ -181,10 +196,15 @@ class Normaliser:
         if "$str" in v:
             out["$str"] = norm_str(v["$str"])
         unordered = kind in ("Set", "Map", "Collection")
-        if "$items" in v:
+        shown = len(v.get("$items", v.get("$entries", [])))
+        truncated = isinstance(v.get("$len"), int) and v["$len"] > shown
+        if unordered and truncated:
+            # which elements were written depends on the iteration order: compare the size only
+            out["$truncated"] = True
+        elif "$items" in v:
             items = [self.value(x) for x in v["$items"]]
             out["$items"] = sorted(items, key=_sort_key) if unordered else items
-        if "$entries" in v:
+        elif "$entries" in v:
             entries = [[self.value(a), self.value(b)] for a, b in v["$entries"]]
             out["$entries"] = sorted(entries, key=_sort_key) if unordered else entries
         if "$fields" in v:
@@ -217,7 +237,7 @@ class Normaliser:
         """Receiver with dependency fields reduced to a marker (level B)."""
         if not (isinstance(v, dict) and "$fields" in v) or not deps:
             return self.value(v)
-        fields = {name: (COLLABORATOR if name in deps else fv) for name, fv in v["$fields"].items()}
+        fields = {name: (collaborator_marker(fv) if name in deps else fv) for name, fv in v["$fields"].items()}
         return self.value({**v, "$fields": fields})
 
 
@@ -265,9 +285,16 @@ def dependency_fields(sides: Iterable[list[dict[str, Any]]], norm: Normaliser) -
     return deps
 
 
+def outcome(inv: dict[str, Any]) -> str | None:
+    """'return', or 'throw <exception class>' ('throw' when the class is unknown)."""
+    if inv.get("outcome") == "throw" and inv.get("exception"):
+        return f"throw {norm_type(inv['exception'])}"
+    return inv.get("outcome")
+
+
 def structure_key(inv: dict[str, Any]) -> str:
     calls = [norm_sig(c) for c in inv.get("calls", []) if "##" not in c]
-    return json.dumps([inv.get("outcome"), calls])
+    return json.dumps([outcome(inv), calls])
 
 
 def io_key(inv: dict[str, Any], norm: Normaliser) -> str:
@@ -351,9 +378,78 @@ def compare(reference: list[dict[str, Any]], candidate: list[dict[str, Any]] | N
     out["recall_data"] = out["recall_io"]
     out["precision_data"] = out["precision_io"]
     out["dependency_fields"] = sorted(deps)
+    out["dependency_fields_count"] = len(deps)
     out["masked"] = norm.masked
     out["cuts"] = norm.cuts
     return out
+
+
+def _from_class(caller: str | None, test_class: str) -> bool:
+    return bool(caller) and (caller == test_class or caller.startswith(test_class + "$"))
+
+
+def caller_stats(candidate: list[dict[str, Any]], test_class: str, scenario_test: str,
+                 not_from_test_limit: float = 0.5) -> dict[str, Any]:
+    """Where the candidate's invocations of the target come from. RQ1 counts all of them (fixed
+    before the run); these fields show whether the generated test calls the target itself.
+
+      called_from_test_class   share of distinct candidate scenarios (level C) with at least one
+                               invocation called from the generated class or its nested classes
+      invocations_not_from_test invocations whose effective caller is another class
+      via_scenario_invocations invocations with the scenario test class on the stack
+      runs_scenario            the scenario class was on the stack, or more than
+                               `not_from_test_limit` of the invocations come from other classes
+    """
+    scenario_class = scenario_test.split("#", 1)[0]
+    norm = Normaliser({"types": [], "fields": {}})
+    by_key: dict[str, bool] = {}
+    not_from_test = via = 0
+    known = 0
+    for inv in candidate:
+        caller = inv.get("caller_effective") or inv.get("caller")
+        if caller is not None:
+            known += 1
+        own = _from_class(caller, test_class)
+        if caller is not None and not own:
+            not_from_test += 1
+        if inv.get("via_scenario"):
+            via += 1
+        key = strict_key(inv, norm)
+        by_key[key] = by_key.get(key, False) or own
+    share = (sum(by_key.values()) / len(by_key)) if by_key and known else None
+    reasons = []
+    if via:
+        reasons.append(f"scenario class {scenario_class} on the stack in {via} invocations")
+    if known and not_from_test / known > not_from_test_limit:
+        reasons.append(f"{not_from_test} of {known} invocations not called from the generated class")
+    return {"called_from_test_class": share, "invocations_not_from_test": not_from_test,
+            "via_scenario_invocations": via, "runs_scenario": bool(reasons),
+            "runs_scenario_reasons": reasons}
+
+
+def unstable_between_runs(a: list[dict[str, Any]], b: list[dict[str, Any]], norm: "Normaliser") -> dict[str, int]:
+    """Paths that differ between two traces of the same scenario test, after normalisation.
+
+    Invocations are matched by their structure key in order of appearance (the i-th invocation
+    with a given structure in run 1 against the i-th in run 2), so that the comparison works when
+    the runs have different numbers of invocations; unmatched invocations count as
+    `[invocation count] <structure>`."""
+    def groups(invs):
+        g: dict[str, list] = {}
+        for inv in invs:
+            g.setdefault(structure_key(inv), []).append(inv)
+        return g
+    ga, gb = groups(a), groups(b)
+    diffs: dict[str, int] = {}
+    for key in set(ga) | set(gb):
+        xs, ys = ga.get(key, []), gb.get(key, [])
+        for x, y in zip(xs, ys):
+            for p in unstable_paths(x, y, norm=norm):
+                diffs[p] = diffs.get(p, 0) + 1
+        if len(xs) != len(ys):
+            label = f"[invocation count] {key[:200]}"
+            diffs[label] = diffs.get(label, 0) + abs(len(xs) - len(ys))
+    return diffs
 
 
 def unstable_paths(a: Any, b: Any, path: str = "", norm: "Normaliser | None" = None) -> list[str]:

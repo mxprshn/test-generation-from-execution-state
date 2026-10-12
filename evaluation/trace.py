@@ -2,8 +2,9 @@
 
 The BTrace script (tracer/TargetTrace.java.tmpl) instruments only the target method (class, name and
 exact type) and delegates to StateTrace (boot class path, tracer/StateTrace.java), which writes JSON
-lines: enter (receiver and argument field graphs), call (signature of every outgoing call site in the
-target body), return (result field graph) and throw (exit without a normal return).
+lines: enter (receiver and argument field graphs, the calling class, whether the scenario test is on
+the stack), call (signature of every outgoing call site in the target body), return (result field
+graph) and throw (exit by an exception, with its class when BTrace reports it).
 
 The tracer is independent of the mechanism that recorded the execution data of the cases.
 
@@ -17,6 +18,7 @@ so Maven does not rebuild the project from scratch. The caller decides what goes
 """
 from __future__ import annotations
 
+import fcntl
 import json
 import os
 import re
@@ -66,18 +68,28 @@ def _java(tool: str) -> str:
 
 
 def _build_jar(src: Path, jar: Path, manifest: str | None = None) -> Path:
-    if jar.is_file() and jar.stat().st_mtime >= src.stat().st_mtime:
-        return jar
-    out = BUILD / jar.stem
-    shutil.rmtree(out, ignore_errors=True)
-    out.mkdir(parents=True)
-    subprocess.run([_java("javac"), "--release", "11", "-d", str(out), str(src)], check=True)
-    if manifest:
-        mf = BUILD / f"{jar.stem}.mf"
-        mf.write_text(manifest)
-        subprocess.run([_java("jar"), "cfm", str(jar), str(mf), "-C", str(out), "."], check=True)
-    else:
-        subprocess.run([_java("jar"), "cf", str(jar), "-C", str(out), "."], check=True)
+    """Compile a helper into a jar once; a file lock serialises parallel cases."""
+    import hashlib
+    stamp = jar.with_suffix(".sha256")
+    digest = hashlib.sha256(src.read_bytes() + (manifest or "").encode()).hexdigest()
+    BUILD.mkdir(parents=True, exist_ok=True)
+    with (BUILD / ".lock").open("w") as lock:
+        fcntl.flock(lock, fcntl.LOCK_EX)
+        if jar.is_file() and stamp.is_file() and stamp.read_text() == digest:
+            return jar
+        out = BUILD / jar.stem
+        shutil.rmtree(out, ignore_errors=True)
+        out.mkdir(parents=True)
+        subprocess.run([_java("javac"), "--release", "11", "-d", str(out), str(src)], check=True)
+        tmp = jar.with_suffix(".tmp")
+        if manifest:
+            mf = BUILD / f"{jar.stem}.mf"
+            mf.write_text(manifest)
+            subprocess.run([_java("jar"), "cfm", str(tmp), str(mf), "-C", str(out), "."], check=True)
+        else:
+            subprocess.run([_java("jar"), "cf", str(tmp), "-C", str(out), "."], check=True)
+        os.replace(tmp, jar)
+        stamp.write_text(digest)
     return jar
 
 
@@ -127,6 +139,10 @@ def parse_signature(signature: str) -> tuple[list[str], str]:
     return params, _strip_generics(m.group(2))
 
 
+def btrace_jars() -> list[Path]:
+    return [BTRACE_LIBS / n for n in ("btrace-client.jar", "btrace-agent.jar", "btrace-boot.jar")]
+
+
 def compile_script(target_class: str, method: str, signature: str, out_dir: Path) -> Path:
     """Render and compile the BTrace script for one target; returns the .class path."""
     if not (BTRACE_LIBS / "btrace-agent.jar").is_file():
@@ -155,14 +171,15 @@ def compile_script(target_class: str, method: str, signature: str, out_dir: Path
 
 
 def agent_options(script_class: Path, trace_dir: Path, depth: int = DEFAULT_DEPTH,
-                  preload_class: str | None = None) -> str:
+                  preload_class: str | None = None, scenario_class: str | None = None) -> str:
     helper = ensure_helper()
     preload = [f"-javaagent:{ensure_preload()}={preload_class}"] if preload_class else []
     agent = (f"-javaagent:{BTRACE_LIBS / 'btrace-agent.jar'}=noServer=true,stdout=false,trusted=true,"
              f"script={script_class},scriptOutputFile={trace_dir / 'btrace.log'}")
+    scenario = [f"-Dstate.trace.scenario={scenario_class}"] if scenario_class else []
     return " ".join([*OPENS, f"-Xbootclasspath/a:{helper}", f"-Dstate.trace.dir={trace_dir}",
-                     f"-Dstate.trace.depth={depth}", "-XX:+IgnoreUnrecognizedVMOptions", "-Xshare:off",
-                     agent, *preload])
+                     f"-Dstate.trace.depth={depth}", *scenario, "-XX:+IgnoreUnrecognizedVMOptions",
+                     "-Xshare:off", agent, *preload])
 
 
 def clone_checkout(source: Path, dest: Path) -> Path:
@@ -178,28 +195,67 @@ def clone_checkout(source: Path, dest: Path) -> Path:
     return dest
 
 
-def remove_paths(workspace: Path, rels: list[str]) -> None:
-    """Remove hidden sources and their compiled classes from a copied checkout."""
+SOURCE_ROOTS = ("src/test/java", "src/test/groovy", "src/test/kotlin", "tst")
+SOURCE_SUFFIXES = (".java", ".groovy", ".kt")
+
+
+def _compiled_location(rel: str) -> tuple[Path, str] | None:
+    """(module directory, package path inside the class output) of a test source path or directory."""
+    for root in SOURCE_ROOTS:
+        marker = f"/{root}/" if not rel.startswith(f"{root}/") else f"{root}/"
+        idx = rel.find(marker)
+        if idx < 0:
+            continue
+        module = rel[:idx] if marker.startswith("/") else ""
+        inside = rel[idx + len(marker):]
+        return Path(module), inside
+    return None
+
+
+def remove_paths(workspace: Path, rels: list[str]) -> list[str]:
+    """Remove hidden sources (files or directories) and their compiled classes from a copied
+    checkout. Returns the removed class files (relative paths)."""
+    removed: list[str] = []
     for rel in rels or []:
         p = workspace / rel
-        if p.is_dir():
+        is_dir = p.is_dir()
+        if is_dir:
             shutil.rmtree(p)
         elif p.exists():
             p.unlink()
-        if rel.endswith(".java"):
-            stem = Path(rel).stem
-            for cls in workspace.rglob(f"{stem}*.class"):
-                if (cls.name == f"{stem}.class" or cls.name.startswith(f"{stem}$")) and "target" in cls.parts:
+        loc = _compiled_location(rel.rstrip("/"))
+        if loc is None:
+            continue
+        module, inside = loc
+        outputs = [workspace / module / "target" / "test-classes", workspace / module / "bin",
+                   workspace / module / "target" / "classes"]
+        if is_dir or not rel.endswith(SOURCE_SUFFIXES):
+            for out in outputs:
+                d = out / inside
+                if d.is_dir():
+                    removed += [str(c.relative_to(workspace)) for c in d.rglob("*.class")]
+                    shutil.rmtree(d)
+            continue
+        stem_path = Path(inside).with_suffix("")
+        for out in outputs:
+            d = out / stem_path.parent
+            if not d.is_dir():
+                continue
+            for cls in d.glob(f"{stem_path.name}*.class"):
+                if cls.name == f"{stem_path.name}.class" or cls.name.startswith(f"{stem_path.name}$"):
+                    removed.append(str(cls.relative_to(workspace)))
                     cls.unlink()
+    return removed
 
 
 def run_command(argv: list[str], cwd: Path, env: dict[str, str], trace_dir: Path, script_class: Path,
-                timeout: int = 1800, depth: int = DEFAULT_DEPTH, preload_class: str | None = None) -> dict[str, Any]:
+                timeout: int = 1800, depth: int = DEFAULT_DEPTH, preload_class: str | None = None,
+                scenario_class: str | None = None) -> dict[str, Any]:
     trace_dir.mkdir(parents=True, exist_ok=True)
     for old in trace_dir.glob("trace-*.jsonl"):
         old.unlink()
     env = dict(env)
-    env["JAVA_TOOL_OPTIONS"] = agent_options(script_class, trace_dir, depth, preload_class)
+    env["JAVA_TOOL_OPTIONS"] = agent_options(script_class, trace_dir, depth, preload_class, scenario_class)
     argv = list(argv)
     if argv and (cwd / argv[0]).is_file():
         argv[0] = str(cwd / argv[0])
@@ -254,7 +310,9 @@ def read_trace(trace_dir: Path) -> dict[str, Any]:
             key = (f.name, ev.get("id"))
             if ev["ev"] == "enter":
                 invocations[key] = {"self": ev.get("self"), "args": ev.get("args", []), "calls": [],
-                                    "outcome": None, "value": None, "thread": ev.get("thread")}
+                                    "outcome": None, "value": None, "thread": ev.get("thread"),
+                                    "caller": ev.get("caller"), "caller_effective": ev.get("caller_effective"),
+                                    "via_scenario": ev.get("via_scenario")}
                 order.append(key)
             elif key in invocations:
                 inv = invocations[key]
@@ -266,6 +324,8 @@ def read_trace(trace_dir: Path) -> dict[str, Any]:
                     inv["void"] = ev.get("void")
                 elif ev["ev"] == "throw" and inv["outcome"] is None:
                     inv["outcome"] = "throw"
+                    if ev.get("exception"):
+                        inv["exception"] = ev["exception"]
     result = [invocations[k] for k in order]
     for inv in result:
         if inv["outcome"] is None:
@@ -279,8 +339,10 @@ def trace_case_command(case, workspace: Path, command: str, out_dir: Path, env: 
     """Trace one case command (`scenario` or `generated_test`) in a prepared workspace."""
     script = compile_script(case.target["class"], case.target["method"], case.target["signature"],
                             out_dir / "script")
-    run = run_command(case.commands[command], workspace, env, out_dir / "trace", script,
-                      timeout, depth, preload_class=case.target["class"])
+    from runner.cases import eval_command
+    run = run_command(eval_command(case, command), workspace, env, out_dir / "trace", script,
+                      timeout, depth, preload_class=case.target["class"],
+                      scenario_class=case.scenario_test.split("#", 1)[0])
     trace = read_trace(out_dir / "trace")
     trace["run"] = run
     return trace

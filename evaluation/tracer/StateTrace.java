@@ -20,13 +20,19 @@ import java.util.concurrent.atomic.AtomicLong;
  * Recorder called from the trusted BTrace script (see TargetTrace.java.tmpl). Lives on the boot class
  * path so that it is visible from every class loader. Writes one JSON object per line:
  *
- *   {"ev":"enter","id":1,"thread":7,"self":{...},"args":[...]}
+ *   {"ev":"enter","id":1,"thread":7,"caller":"a.FooTest","caller_effective":"a.FooTest",
+ *    "via_scenario":false,"self":{...},"args":[...]}
  *   {"ev":"call","id":1,"sig":"java.util.List#add(Ljava/lang/Object;)Z"}
  *   {"ev":"return","id":1,"value":{...},"void":false}
- *   {"ev":"throw","id":1}                         (exit without a normal return)
+ *   {"ev":"throw","id":1,"exception":"java.lang.IllegalStateException"}
  *
- * Exceptional exits are detected structurally: BTrace 2.2.6 does not fire Kind.ERROR, so an open
- * invocation whose stack depth is no longer on the thread's stack is closed as "throw".
+ * caller is the class of the frame right above the target; caller_effective the first frame above
+ * it that is not a mock, proxy, lambda or reflection frame; via_scenario tells whether the scenario
+ * test class (system property state.trace.scenario) is on the stack.
+ *
+ * An exception leaving the target is reported by Kind.ERROR (error()), with its class. As a
+ * fallback, an open invocation whose stack depth is no longer on the thread's stack is closed as
+ * "throw" without a class.
  *
  * Values are serialised as a graph of fields up to depth D (system property state.trace.depth),
  * with identity-based cycle detection and a per-value node budget (state.trace.budget).
@@ -46,6 +52,7 @@ public final class StateTrace {
      * class is a build launcher records nothing. The list can be overridden with state.trace.skipMain
      * (comma-separated prefixes of sun.java.command).
      */
+    private static final String SCENARIO = System.getProperty("state.trace.scenario", "");
     private static final String MAIN = mainCommand();
     private static final boolean DISABLED = isLauncher(MAIN);
     private static BufferedWriter out;
@@ -137,6 +144,36 @@ public final class StateTrace {
         }
     }
 
+    private static boolean helperFrame(String cls) {
+        return cls.startsWith("org.openjdk.btrace.") || cls.equals("StateTrace") || cls.startsWith("StateTrace$")
+            || cls.startsWith("TargetTrace") || cls.startsWith("$btrace");
+    }
+
+    private static boolean indirectFrame(String cls) {
+        return Graph.opaqueType(cls) || cls.startsWith("java.lang.reflect.") || cls.startsWith("jdk.internal.reflect.")
+            || cls.startsWith("java.lang.invoke.") || cls.startsWith("sun.reflect.") || cls.startsWith("org.mockito.")
+            || cls.startsWith("net.bytebuddy.") || cls.contains("$$Lambda") || cls.contains("$MockitoMock$");
+    }
+
+    /** caller, caller_effective and via_scenario of the current invocation (see the class comment). */
+    private static void appendCaller(StringBuilder sb) {
+        StackTraceElement[] st = new Throwable().getStackTrace();
+        int i = 0;
+        while (i < st.length && helperFrame(st[i].getClassName())) i++;
+        // st[i] is the target method itself; its caller is the next frame
+        String caller = i + 1 < st.length ? st[i + 1].getClassName() : null;
+        String effective = null;
+        boolean viaScenario = false;
+        for (int j = i + 1; j < st.length; j++) {
+            String cls = st[j].getClassName();
+            if (effective == null && !indirectFrame(cls)) effective = cls;
+            if (!SCENARIO.isEmpty() && (cls.equals(SCENARIO) || cls.startsWith(SCENARIO + "$"))) viaScenario = true;
+        }
+        sb.append(",\"caller\":").append(caller == null ? "null" : Graph.quote(caller))
+          .append(",\"caller_effective\":").append(effective == null ? "null" : Graph.quote(effective))
+          .append(",\"via_scenario\":").append(viaScenario);
+    }
+
     public static void enter(Object self, Object[] args) {
         if (DISABLED || BUSY.get()) return;
         BUSY.set(Boolean.TRUE);
@@ -147,8 +184,9 @@ public final class StateTrace {
             long id = IDS.incrementAndGet();
             StringBuilder sb = new StringBuilder(256);
             sb.append("{\"ev\":\"enter\",\"id\":").append(id)
-              .append(",\"thread\":").append(Thread.currentThread().getId())
-              .append(",\"self\":");
+              .append(",\"thread\":").append(Thread.currentThread().getId());
+            appendCaller(sb);
+            sb.append(",\"self\":");
             new Graph().value(sb, self, 0);
             sb.append(",\"args\":[");
             if (args != null) {
@@ -202,6 +240,28 @@ public final class StateTrace {
             write(sb.toString());
         } catch (Throwable t) {
             write("{\"ev\":\"error\",\"where\":\"return\",\"msg\":" + Graph.quote(String.valueOf(t)) + "}");
+        } finally {
+            BUSY.set(Boolean.FALSE);
+        }
+    }
+
+    /** An exception leaves the target (Kind.ERROR): close the innermost open invocation with its class. */
+    public static void error(Throwable t) {
+        if (DISABLED || BUSY.get()) return;
+        BUSY.set(Boolean.TRUE);
+        try {
+            int d = depth();
+            Deque<long[]> open = OPEN.get();
+            closeStale(open, d, false);
+            if (open.isEmpty() || open.peek()[1] != d) {
+                return;
+            }
+            long id = open.pop()[0];
+            ALL_OPEN.remove(id);
+            String cls = t == null ? null : t.getClass().getName();
+            write("{\"ev\":\"throw\",\"id\":" + id + ",\"exception\":" + (cls == null ? "null" : Graph.quote(cls)) + "}");
+        } catch (Throwable e) {
+            write("{\"ev\":\"error\",\"where\":\"throw\",\"msg\":" + Graph.quote(String.valueOf(e)) + "}");
         } finally {
             BUSY.set(Boolean.FALSE);
         }
