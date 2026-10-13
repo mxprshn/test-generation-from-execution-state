@@ -478,6 +478,7 @@ class MutationTest(unittest.TestCase):
         ws = Path(tempfile.mkdtemp())
         module = ws / "integration-tests"
         module.mkdir()
+        (ws / "out").mkdir()
         calls = []
 
         def run(args, cwd, **kw):
