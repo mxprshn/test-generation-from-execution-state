@@ -12,7 +12,13 @@ Every step records the inputs it depends on (inputs.py); a stored step whose inp
 reused (an error asks for --force). A step that failed for a transient reason (a timeout, a tool
 error) is not stored and runs again next time.
 
-    python3 -m evaluation.evaluate --config config.yaml [--cases ...] [--run-ids ...] [--steps rq1 ...] [--force]
+RQ1 can be recomputed from the candidate trace kept in eval-artifacts/trace (--reuse-traces) after a
+change of the comparison or the normalisation: the generated test is not run again. The kept trace is
+used only if the stored rq1 step was computed from the same result, verification, case, project and
+configuration; a change of the tracer itself needs fresh traces (no --reuse-traces).
+
+    python3 -m evaluation.evaluate --config config.yaml [--cases ...] [--run-ids ...] [--steps rq1 ...]
+        [--force] [--reuse-traces]
 """
 from __future__ import annotations
 
@@ -135,10 +141,31 @@ def eval_verify(cfg: Config, case: Case, cell: Path, rec: dict[str, Any]) -> dic
     return out
 
 
-def eval_rq1(cfg: Config, case: Case, cell: Path, rec: dict[str, Any]) -> dict[str, Any]:
+# inputs of a stored rq1 step that must be unchanged to reuse its kept candidate trace
+TRACE_INPUTS = ("result", "verify", "case", "project", "config")
+
+
+def kept_trace(cfg: Config, case: Case, cell: Path, rec: dict[str, Any]) -> list[dict[str, Any]] | None:
+    """Candidate invocations from eval-artifacts/trace, if the stored rq1 step traced this very result."""
+    trace_dir = cell / "eval-artifacts" / "trace"
+    old = rec.get("rq1") or {}
+    stored = (rec.get("inputs") or {}).get("rq1") or {}
+    if not trace_dir.is_dir() or old.get("candidate_invocations") is None or not stored:
+        return None
+    current = I.step_inputs(cfg, case, cell, "rq1")
+    if any(stored.get(k) != current.get(k) for k in TRACE_INPUTS):
+        return None
+    invocations = T.read_trace(trace_dir)["invocations"]
+    return invocations if len(invocations) == old["candidate_invocations"] else None
+
+
+def eval_rq1(cfg: Config, case: Case, cell: Path, rec: dict[str, Any], reuse_trace: bool = False) -> dict[str, Any]:
     ref = load_reference(cfg, case.id)
     candidate, note, trace = None, None, None
-    if passes(rec):
+    reused = kept_trace(cfg, case, cell, rec) if reuse_trace and passes(rec) else None
+    if reused is not None:
+        candidate = reused
+    elif passes(rec):
         ws = result_workspace(cfg, case, cell, "rq1")
         out_dir = cfg.work_dir / "out" / neutral_name(case.id, cell.parent.name, cell.name, "rq1")
         try:
@@ -160,6 +187,7 @@ def eval_rq1(cfg: Config, case: Case, cell: Path, rec: dict[str, Any]) -> dict[s
     rq1 = C.compare(ref, candidate, C.load_nondet(), case.project)
     rq1["note"] = note
     rq1["candidate_invocations"] = None if candidate is None else len(candidate)
+    rq1["trace_reused"] = reused is not None
     if candidate is not None:
         rq1.update(C.caller_stats(candidate, S.test_class_name_from_diff(cell / "result.diff", case.output_test_file),
                                   case.scenario_test))
@@ -200,7 +228,8 @@ def eval_quality(cfg: Config, case: Case, cell: Path, rec: dict[str, Any]) -> di
 STEPS = {"verify": eval_verify, "rq1": eval_rq1, "rq2": eval_rq2, "quality": eval_quality}
 
 
-def evaluate_cell(cfg: Config, cell: Path, steps: list[str] | None = None, force: list[str] | None = None) -> dict[str, Any]:
+def evaluate_cell(cfg: Config, cell: Path, steps: list[str] | None = None, force: list[str] | None = None,
+                  reuse_traces: bool = False) -> dict[str, Any]:
     """Run the missing evaluation steps of one cell (the forced ones again); returns the record.
 
     A stored step is reused only if its recorded inputs equal the current ones; otherwise
@@ -220,7 +249,10 @@ def evaluate_cell(cfg: Config, cell: Path, steps: list[str] | None = None, force
                                   "rerun with --force")
             continue
         try:
-            rec[step] = STEPS[step](cfg, case, cell, rec)
+            if step == "rq1" and reuse_traces:
+                rec[step] = eval_rq1(cfg, case, cell, rec, reuse_trace=True)
+            else:
+                rec[step] = STEPS[step](cfg, case, cell, rec)
         except Transient as e:
             rec.pop(step, None)
             hashes.pop(step, None)
@@ -256,13 +288,15 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--modes", nargs="*", choices=list(MODES))
     ap.add_argument("--steps", nargs="*", choices=list(EVAL_STEPS))
     ap.add_argument("--force", action="store_true", help="recompute the selected steps")
+    ap.add_argument("--reuse-traces", action="store_true",
+                    help="rq1: compare the kept candidate trace instead of running the test again")
     a = ap.parse_args(argv)
     cfg = load_config(a.config)
     steps = a.steps or cfg.eval_steps
     failed = 0
     for cell in cells(cfg, case_ids(cfg, a.cases), a.run_ids, a.modes):
         try:
-            rec = evaluate_cell(cfg, cell, steps, steps if a.force else None)
+            rec = evaluate_cell(cfg, cell, steps, steps if a.force else None, a.reuse_traces)
             extra = f" (transient, rerun later: {'; '.join(rec['transient_errors'])})" if rec.get("transient_errors") else ""
             print(f"ok   {cell}{extra}", flush=True)
             failed += bool(extra)

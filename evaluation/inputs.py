@@ -5,7 +5,9 @@ the inputs of that step (eval.json: inputs.<step>). Reusing a stored result whos
 the current ones is refused with a message; --force recomputes it.
 
 Inputs:
-  harness      source of the runner, the Pi extensions, the evaluation code, the tracer (not tests/)
+  code         source files the result is computed by: generation hashes runner/ and pi/; every
+               evaluation step hashes evaluate.py, the shared runner and trace modules and the modules
+               of that step (STEP_CODE), so a change in one step does not invalidate the others
   case         case.yaml of the case
   mode_input   the execution input of the mode (call dump, preliminary test, workspace-files/)
   prompts      the prompt templates
@@ -25,8 +27,17 @@ from typing import Any
 
 from runner.config import ROOT, Config
 
-HARNESS_DIRS = ("runner", "pi", "evaluation")
-HARNESS_SKIP_SUFFIXES = (".pyc", ".json")  # evaluation data files are hashed separately
+GENERATION_CODE = ("runner", "pi")
+# evaluation code shared by every step: the record, the workspaces, the case commands
+EVAL_COMMON = ("evaluation/evaluate.py", "evaluation/trace.py", "runner/cases.py", "runner/config.py",
+               "runner/process.py")
+STEP_CODE = {
+    "verify": ("evaluation/surefire.py",),
+    "rq1": ("evaluation/compare.py", "evaluation/reference.py", "evaluation/tracer"),
+    "rq2": ("evaluation/mutation.py",),
+    "quality": ("evaluation/quality.py",),
+}
+SKIP_SUFFIXES = (".pyc", ".json")  # evaluation data files are hashed separately (normalisation)
 GENERATION_CONFIG = ("provider_name", "base_url", "model", "thinking", "timeout", "command_timeout")
 EVAL_CONFIG = ("command_timeout", "trace_depth", "reference_runs")
 
@@ -54,16 +65,27 @@ def tree_hash(root: Path | None) -> str | None:
     return files_hash([p for p in root.rglob("*") if p.is_file()], root)
 
 
-_HARNESS: str | None = None
+_CODE: dict[tuple[str, ...], str] = {}
 
 
-def harness_hash() -> str:
-    global _HARNESS
-    if _HARNESS is None:
-        files = [p for d in HARNESS_DIRS for p in (ROOT / d).rglob("*")
-                 if p.is_file() and "__pycache__" not in p.parts and not p.name.endswith(HARNESS_SKIP_SUFFIXES)]
-        _HARNESS = files_hash(files)
-    return _HARNESS
+def code_hash(paths: tuple[str, ...]) -> str:
+    """Hash of the source files under the given repository paths (files or directories)."""
+    if paths not in _CODE:
+        files = []
+        for rel in paths:
+            p = ROOT / rel
+            found = [p] if p.is_file() else [f for f in p.rglob("*") if f.is_file()]
+            files += [f for f in found if "__pycache__" not in f.parts and not f.name.endswith(SKIP_SUFFIXES)]
+        _CODE[paths] = files_hash(files)
+    return _CODE[paths]
+
+
+def generation_code_hash() -> str:
+    return code_hash(GENERATION_CODE)
+
+
+def step_code_hash(step: str) -> str:
+    return code_hash(EVAL_COMMON + STEP_CODE[step])
 
 
 def config_hash(cfg: Config, fields: tuple[str, ...]) -> str:
@@ -91,7 +113,7 @@ def mode_input_hash(case, mode: str) -> str | None:
 
 def generation_inputs(cfg: Config, case, mode: str) -> dict[str, Any]:
     return {
-        "harness": harness_hash(),
+        "code": generation_code_hash(),
         "case": tree_hash(case.dir / "case.yaml"),
         "mode_input": mode_input_hash(case, mode),
         "prompts": tree_hash(cfg.prompts_dir) if mode != "rendered-raw" else None,
@@ -102,7 +124,7 @@ def generation_inputs(cfg: Config, case, mode: str) -> dict[str, Any]:
 
 def step_inputs(cfg: Config, case, cell: Path, step: str) -> dict[str, Any]:
     out: dict[str, Any] = {
-        "harness": harness_hash(),
+        "code": step_code_hash(step),
         "case": tree_hash(case.dir / "case.yaml"),
         "project": project_hash(case.project),
         "config": config_hash(cfg, EVAL_CONFIG),
