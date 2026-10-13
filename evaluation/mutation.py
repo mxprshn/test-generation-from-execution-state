@@ -113,7 +113,10 @@ def build_classpath(module: Path, workspace: Path, out: Path, env: dict[str, str
                     timeout: int = 1800) -> str:
     """Test-scope classpath of the module. With `-am` the sibling SNAPSHOT modules are reactor
     projects and resolve to their target/classes; the relative output name makes every reactor
-    module write its own file, and the target module's file is read."""
+    module write its own file, and the target module's file is read. The `test-compile` phase runs
+    first (main compilation skipped, the checkout is already built): without a phase the reactor does
+    not resolve sibling modules and their test jars (Liquibase integration tests depend on
+    `liquibase-standard:tests`)."""
     cp_file = out / "cp.txt"
     if cp_file.is_file():
         return cp_file.read_text().strip()
@@ -125,7 +128,8 @@ def build_classpath(module: Path, workspace: Path, out: Path, env: dict[str, str
             "-Dspotless.skip=true"]
     if rel != ".":
         args += ["-pl", rel, "-am"]
-    args += ["org.apache.maven.plugins:maven-dependency-plugin:3.6.1:build-classpath",
+    args += ["test-compile", "-Dmaven.main.skip=true",
+             "org.apache.maven.plugins:maven-dependency-plugin:3.6.1:build-classpath",
              f"-Dmdep.outputFile={name}", "-DincludeScope=test"]
     res = subprocess.run(args, cwd=workspace, env=env, capture_output=True, text=True, timeout=timeout)
     produced = module / name
