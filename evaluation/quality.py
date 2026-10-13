@@ -24,6 +24,19 @@ FIXTURE = re.compile(r"getResource|Files\.read|new File\(|Paths\.get|\.json\"|\.
 STRING_LIT = re.compile(r"\"(?:[^\"\\]|\\.)*\"")
 NUM_LIT = re.compile(r"(?<![\w.])-?\d+(?:\.\d+)?[LlFfDd]?(?![\w.])")
 DTO_HINT = re.compile(r"\b(mock|spy)\s*\(\s*(String|Integer|Long|List|Map|Set|Optional|\w*(Dto|DTO|Entity|Model|Request|Response))\.class")
+CODE_NOISE = re.compile(r'"""(?:[^\\]|\\.)*?"""|"(?:[^"\\\n]|\\.)*"|\'(?:[^\'\\\n]|\\.)*\'|//[^\n]*|/\*.*?\*/', re.S)
+
+
+def _code_only(src: str) -> str:
+    """Source with string and character literals emptied and comments removed (line breaks kept)."""
+    def repl(m: re.Match) -> str:
+        t = m.group(0)
+        if t.startswith('"'):
+            return '""'
+        if t.startswith("'"):
+            return "' '"
+        return "\n" * t.count("\n")
+    return CODE_NOISE.sub(repl, src)
 
 
 def _methods(src: str) -> list[str]:
@@ -71,8 +84,9 @@ def readability(src: str) -> dict[str, Any]:
         "tests_without_assertions": sum(1 for a in asserts if a == 0),
         "reflection": len(REFLECT.findall(src)),
         "generated_names": len(set(GEN_NAME.findall(src))),
-        "casts": len(CAST.findall(src)),
-        "fully_qualified_names": len(FQN.findall("\n".join(l for l in src.splitlines() if not l.lstrip().startswith(("import", "package"))))),
+        "casts": len(CAST.findall(_code_only(src))),
+        "fully_qualified_names": len(FQN.findall("\n".join(
+            l for l in _code_only(src).splitlines() if not l.lstrip().startswith(("import", "package"))))),
         "fixture_files": len(FIXTURE.findall(src)),
     }
 
