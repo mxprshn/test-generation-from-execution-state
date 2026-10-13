@@ -471,6 +471,30 @@ class MutationTest(unittest.TestCase):
         finally:
             M.M2 = old
 
+    def test_build_classpath_runs_test_compile_without_main_compilation(self):
+        import tempfile
+        from pathlib import Path
+        from unittest import mock
+        ws = Path(tempfile.mkdtemp())
+        module = ws / "integration-tests"
+        module.mkdir()
+        (ws / "out").mkdir()
+        calls = []
+
+        def run(args, cwd, **kw):
+            calls.append(args)
+            (module / "test-classpath.txt").write_text("/m2/a.jar")
+            return mock.Mock(returncode=0, stdout="", stderr="")
+
+        with mock.patch.object(M.subprocess, "run", run):
+            cp = M.build_classpath(module, ws, ws / "out", {})
+        self.assertEqual(cp, "/m2/a.jar")
+        args = calls[0]
+        self.assertIn("-am", args)
+        self.assertLess(args.index("test-compile"), args.index(
+            "org.apache.maven.plugins:maven-dependency-plugin:3.6.1:build-classpath"))
+        self.assertIn("-Dmaven.main.skip=true", args)
+
 
 class QualityTest(unittest.TestCase):
     SRC = """
