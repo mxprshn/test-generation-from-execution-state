@@ -35,6 +35,11 @@ PIT_JARS=(
   "org/pitest/pitest-junit5-plugin/1.2.1/pitest-junit5-plugin-1.2.1.jar 9d944887a583ebd4adc33d2d26b8b56639fd53fee93b4d068a90596705c072b5"
   "org/apache/commons/commons-text/1.11.0/commons-text-1.11.0.jar 2acf30a070b19163d5a480eae411a281341e870020e3534c6d5d4c8472739e30"
   "org/apache/commons/commons-lang3/3.13.0/commons-lang3-3.13.0.jar 82f528cf718c7a3c2f30fc5bc784e3c6a0a10b17605dadb9e16c82ede11e6064"
+  # JUnit 4 projects (JGit) run under PIT through the vintage engine on the JUnit Platform
+  "org/junit/vintage/junit-vintage-engine/5.9.3/junit-vintage-engine-5.9.3.jar 6bc1b42282aed8b9eccdb40631cf45001af8ab3ad9d0d85cff86c45e85fc59d0"
+  "org/junit/platform/junit-platform-launcher/1.9.3/junit-platform-launcher-1.9.3.jar 8515e91808a09c8c9af5e359185b5991b5e76b8adcf185b9a3dab4ec8e5ba8ff"
+  "org/junit/platform/junit-platform-engine/1.9.3/junit-platform-engine-1.9.3.jar 0c39553d9a03510757227f5a1c6cc6530287b1a321ed6258450664874aa2a16a"
+  "org/junit/platform/junit-platform-commons/1.9.3/junit-platform-commons-1.9.3.jar 8519157df813c210e85fc1414b74109e3d85f43d7092563ed704c43c48f0d5e6"
 )
 
 cd "$ROOT"

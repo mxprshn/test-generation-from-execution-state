@@ -183,6 +183,31 @@ class ReferenceValidationTest(unittest.TestCase):
         self.assertTrue(any("no invocation" in p for p in R.problems(self.audit(inv=0), 2)))
         self.assertTrue(any("run 1 vs run 2" in p for p in R.problems(self.audit(recall=0.5), 2)))
 
+    def test_rejected_reference_keeps_its_traces_under_other_names(self):
+        tmp = Path(tempfile.mkdtemp())
+        cfg = load_config(config(tmp))
+        case = mock.Mock(id="c", project="p")
+        traces = [{"run": {"exit_code": 0, "seconds": 1}, "errors": [], "invocations": [], "n": i} for i in (1, 2)]
+        out = cfg.references_dir / "c"
+        out.mkdir(parents=True)
+        for i, t in enumerate(traces, start=1):  # traces of an earlier recording
+            (out / f"run{i}.json").write_text(json.dumps(t))
+        with mock.patch.object(R, "load_case", lambda *a: case):
+            with self.assertRaises(R.ReferenceError):
+                R.record(cfg, "c", reaudit=True)
+            self.assertFalse((out / "run1.json").exists())
+            self.assertTrue((out / "audit-failed.json").is_file())
+        with mock.patch.object(R, "load_case", lambda *a: case), \
+                mock.patch.object(R.T, "clone_checkout", lambda src, dest: dest), \
+                mock.patch.object(R.T, "remove_paths", lambda *a: None), \
+                mock.patch.object(R.T, "trace_case_command", side_effect=traces), \
+                mock.patch.object(R, "project_checkout", lambda *a: tmp):
+            with self.assertRaises(R.ReferenceError):  # no invocation recorded
+                R.record(cfg, "c", force=True)
+        self.assertFalse((out / "run1.json").exists())
+        self.assertEqual(json.loads((out / "failed-run2.json").read_text())["n"], 2)
+        self.assertFalse(R.reference_exists(cfg, "c"))
+
 
 def rec(case, mode, rnd, s=1.0, a=1.0, status="completed", project="p", group="indirect", rq2=None, passes=True):
     r = {"case_id": case, "mode": mode, "run_id": f"r{rnd}", "round": str(rnd), "status": status,

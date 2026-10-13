@@ -147,25 +147,52 @@ def build_classpath(module: Path, workspace: Path, out: Path, env: dict[str, str
     return cp
 
 
+def _version_key(v: str) -> tuple[int, ...]:
+    return tuple(int(x) if x.isdigit() else 0 for x in re.split(r"[.-]", v))
+
+
+def _platform_jar(art: str, ver: str) -> Path:
+    return M2 / f"org/junit/platform/junit-platform-{art}/{ver}/junit-platform-{art}-{ver}.jar"
+
+
+def _vintage_jar(ver: str) -> Path:
+    return M2 / f"org/junit/vintage/junit-vintage-engine/{ver}/junit-vintage-engine-{ver}.jar"
+
+
 def _platform_extras(cp: str) -> list[str]:
-    """JUnit Platform launcher (and vintage engine for JUnit 4) matching the project's platform."""
+    """JUnit Platform launcher (and vintage engine for JUnit 4) matching the project's platform.
+
+    A project on the JUnit Platform brings its platform version; the launcher of that version is
+    added. A JUnit 4 project has no platform: the newest 1.x platform whose launcher and vintage
+    engine (5.x) are both in the local repository is used (scripts/setup.sh fetches one). Versions
+    are compared numerically. Without a vintage engine PIT finds no test engine at all, so that is
+    an error, not an empty result."""
     extras: list[str] = []
     m = re.search(r"junit-platform-(?:engine|commons)/([0-9][0-9.]*)/", cp)
     ver = m.group(1) if m else None
+    junit4_only = ver is None and "junit/junit/4" in cp
     if ver is None:
-        cands = sorted(glob.glob(str(M2 / "org/junit/platform/junit-platform-launcher/1.*/*.jar")))
-        if cands:
-            ver = Path(cands[-1]).parent.name
+        cands = sorted((Path(p).name for p in glob.glob(str(M2 / "org/junit/platform/junit-platform-launcher/1.*"))),
+                       key=_version_key, reverse=True)
+        if junit4_only:
+            # the vintage engine 5.N runs on the platform 1.N
+            cands = [v for v in cands if glob.glob(str(M2 / f"org/junit/vintage/junit-vintage-engine/5.{v.split('.')[1]}.*/*.jar"))]
+            if not cands:
+                raise FileNotFoundError("JUnit 4 tests need a JUnit vintage engine 5.x with its platform 1.x in the "
+                                        f"local Maven repository ({M2}); run scripts/setup.sh")
+        ver = cands[0] if cands else None
     if ver:
         for art in ("launcher", "engine", "commons"):
-            j = M2 / f"org/junit/platform/junit-platform-{art}/{ver}/junit-platform-{art}-{ver}.jar"
+            j = _platform_jar(art, ver)
             if j.is_file() and f"junit-platform-{art}/" not in cp:
                 extras.append(str(j))
     if "junit/junit/4" in cp and "junit-vintage-engine" not in cp:
         major = int(ver.split(".")[1]) if ver else 10
-        vint = sorted(glob.glob(str(M2 / f"org/junit/vintage/junit-vintage-engine/5.{major}.*/*.jar")))
+        vint = sorted((Path(p).parent.name for p in
+                       glob.glob(str(M2 / f"org/junit/vintage/junit-vintage-engine/5.{major}.*/*.jar"))),
+                      key=_version_key)
         if vint:
-            extras.append(vint[-1])
+            extras.append(str(_vintage_jar(vint[-1])))
         opentest = sorted(glob.glob(str(M2 / "org/opentest4j/opentest4j/1.*/*.jar")))
         if opentest and "opentest4j" not in cp:
             extras.append(opentest[-1])

@@ -302,6 +302,22 @@ class CompareTest(unittest.TestCase):
         self.assertEqual(C.norm_str(v2.replace(rel, "target/junit16315607296389577792/t-1753139585/x")),
                          C.norm_str(tmp_work.replace(rel, "target/junit987654321/u-1987433262/x")))
 
+    def test_jgit_test_repository_paths_under_v2_work_directories(self):
+        r1 = ("/home/vps/ispras-eval/v2/work-a/tg-3hflh1vv/ws/w8269230a2a14/org.eclipse.jgit.test/target/"
+              "junit16795016498900921597/testDiff1464214632/tmp_15589098419987861741/.git/objects")
+        r2 = ("/home/vps/ispras-eval/v2/work-b/tg-vko__v_m/ws/w3889c6f42154/org.eclipse.jgit.test/target/"
+              "junit15181521996069582742/testDiff2003712137/tmp_8144109260320554822/.git/objects")
+        self.assertEqual(C.norm_str(r1), C.norm_str(r2))
+        self.assertEqual(C.norm_str(r1), "org.eclipse.jgit.test/target/<tmp>/tmp_<n>/.git/objects")
+        a = inv(["x"], self={"$t": "org.eclipse.jgit.internal.storage.file.ObjectDirectory",
+                              "$fields": {"objects": {"$t": "java.io.File", "$str": r1}}})
+        b = inv(["x"], self={"$t": "org.eclipse.jgit.internal.storage.file.ObjectDirectory",
+                              "$fields": {"objects": {"$t": "java.io.File", "$str": r2}}})
+        r = C.compare([a], [b], ND, "jgit")
+        self.assertEqual((r["recall_state"], r["recall_strict"]), (1.0, 1.0))
+        other = r1.replace("/.git/objects", "/.git/refs")
+        self.assertNotEqual(C.norm_str(r1), C.norm_str(other))
+
     def test_relative_and_absolute_workspace_paths_equal(self):
         a = inv(["/home/u/work/ws/w1a2b/src/test/resources/x.java"])
         b = inv(["src/test/resources/x.java"])
@@ -409,6 +425,51 @@ class MutationTest(unittest.TestCase):
         s = M.score({"a": "KILLED", "b": "SURVIVED", "c": "NO_COVERAGE"})
         self.assertEqual((s["covered"], s["killed"]), (2, 1))
         self.assertAlmostEqual(s["oracle_strength"], 0.5)
+
+    def _m2(self, launchers, vintages):
+        import tempfile
+        from pathlib import Path
+        root = Path(tempfile.mkdtemp())
+        for v in launchers:
+            for art in ("launcher", "engine", "commons"):
+                d = root / f"org/junit/platform/junit-platform-{art}/{v}"
+                d.mkdir(parents=True)
+                (d / f"junit-platform-{art}-{v}.jar").write_text("")
+        for v in vintages:
+            d = root / f"org/junit/vintage/junit-vintage-engine/{v}"
+            d.mkdir(parents=True)
+            (d / f"junit-vintage-engine-{v}.jar").write_text("")
+        return root
+
+    def test_junit4_project_gets_a_platform_with_a_vintage_engine(self):
+        old = M.M2
+        try:
+            M.M2 = self._m2(["1.9.3", "1.10.3", "1.14.4", "6.0.3"], ["5.10.2", "6.0.3"])
+            extras = M._platform_extras("/r/junit/junit/4.13.2/junit-4.13.2.jar")
+            names = sorted(e.rsplit("/", 1)[1] for e in extras)
+            self.assertIn("junit-platform-launcher-1.10.3.jar", names)
+            self.assertIn("junit-vintage-engine-5.10.2.jar", names)
+        finally:
+            M.M2 = old
+
+    def test_junit4_project_without_vintage_engine_is_an_error(self):
+        old = M.M2
+        try:
+            M.M2 = self._m2(["1.9.3", "1.14.4"], ["6.0.3"])
+            with self.assertRaises(FileNotFoundError):
+                M._platform_extras("/r/junit/junit/4.13.2/junit-4.13.2.jar")
+        finally:
+            M.M2 = old
+
+    def test_platform_project_keeps_its_platform_version(self):
+        old = M.M2
+        try:
+            M.M2 = self._m2(["1.9.3", "1.10.3"], ["5.9.3", "5.10.2"])
+            cp = "/r/org/junit/platform/junit-platform-engine/1.9.3/junit-platform-engine-1.9.3.jar"
+            names = [e.rsplit("/", 1)[1] for e in M._platform_extras(cp)]
+            self.assertEqual(sorted(names), ["junit-platform-commons-1.9.3.jar", "junit-platform-launcher-1.9.3.jar"])
+        finally:
+            M.M2 = old
 
 
 class QualityTest(unittest.TestCase):
