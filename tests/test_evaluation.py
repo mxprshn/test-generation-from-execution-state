@@ -513,6 +513,35 @@ class QualityTest(unittest.TestCase):
         m = Q.mock_stats(self.SRC)
         self.assertEqual((m["mocks"], m["stubbings"]), (1, 1))
 
+    def test_fqn_and_casts_ignore_literals_and_comments(self):
+        src = """
+        import org.example.pkg.Foo;
+        class T {
+          // see org.example.pkg.Foo and (Foo) x
+          /* org.example.other.Bar (Bar) y
+             spans lines */
+          /** Javadoc: {@link org.example.doc.Baz} (Baz) z */
+          @Test void a() {
+            String s = "org.example.str.Qux (Qux) w";
+            char c = '"';
+            String t = "escaped \\" org.example.esc.Esc";
+            Object o = (Foo) get();
+            org.example.real.Real r = new org.example.real.Real();
+            assertEquals("a.b.C", s);
+          }
+        }"""
+        r = Q.readability(src)
+        self.assertEqual(r["fully_qualified_names"], 2)
+        self.assertEqual(r["casts"], 1)
+        self.assertEqual(r["test_methods"], 1)
+        self.assertEqual(r["assertions"], 1)
+
+    def test_code_only_keeps_line_breaks(self):
+        src = 'a();\n/* x\ny */\nb("//not a comment");\n'
+        out = Q._code_only(src)
+        self.assertEqual(out.count("\n"), src.count("\n"))
+        self.assertIn('b("")', out)
+
     def test_preservation(self):
         final = self.SRC.replace("v0", "foo").replace("ReflectionTestUtils.setField(t, \"f\", 2);", "t.setF(2);")
         p = Q.preservation(self.SRC, final, "target")
