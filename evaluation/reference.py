@@ -6,7 +6,8 @@ level). Metrics compare candidate traces with run1.
 
 A reference is valid only if every run exits with 0, records at least one invocation of the target,
 and the runs agree on every level (S, A, B, C) after normalisation. An invalid reference is not kept:
-the case fails with the reason (audit-failed.json keeps the audit for inspection) and is recorded
+the case fails with the reason (audit-failed.json keeps the audit, failed-run<i>.json the traces, for
+inspection) and is recorded
 again next time.
 
     python3 -m evaluation.reference --config config.yaml [--cases ID ...] [--force]
@@ -103,12 +104,19 @@ def record(cfg: Config, case_id: str, force: bool = False, reaudit: bool = False
         audit_file.unlink(missing_ok=True)
         for i in range(1, runs + 1):
             (out / f"run{i}.json").unlink(missing_ok=True)
+        # the traces of a rejected reference are kept for inspection under other names, so that
+        # nothing takes them for a valid reference
+        for i, t in enumerate(traces, start=1):
+            if not reaudit:
+                (out / f"failed-run{i}.json").write_text(json.dumps(t))
         (out / "audit-failed.json").write_text(json.dumps({**audit, "problems": bad}, indent=1))
         raise ReferenceError(f"{case_id}: invalid reference: " + "; ".join(bad))
     for i, t in enumerate(traces, start=1):
         if not reaudit:
             (out / f"run{i}.json").write_text(json.dumps(t))
     (out / "audit-failed.json").unlink(missing_ok=True)
+    for i in range(1, runs + 1):
+        (out / f"failed-run{i}.json").unlink(missing_ok=True)
     audit_file.write_text(json.dumps(audit, indent=1))
     return audit
 
