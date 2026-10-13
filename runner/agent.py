@@ -181,7 +181,9 @@ def run_agent(cfg: Config, workspace: Path, output_test_file: str, commands: dic
 # reading a finished session: cost, gateway errors
 
 GATEWAY_ERROR_MARKERS = ("upstream_empty_response", "overloaded", "rate limit", "ECONNRESET", "socket hang up",
-                         "fetch failed", "Bad Gateway", "Service Unavailable", "Gateway Timeout")
+                         "fetch failed", "Bad Gateway", "Service Unavailable", "Gateway Timeout",
+                         "Request timed out", "Connection error", "connection reset", "ETIMEDOUT",
+                         "ECONNREFUSED", "Internal Server Error")
 GATEWAY_STATUS_PREFIXES = ("429", "500", "502", "503", "504")
 
 

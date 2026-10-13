@@ -73,9 +73,11 @@ IDENTITY_HASH = re.compile(r"@[0-9a-f]{4,}\b")
 # timestamps embedded in strings (JSON payloads, messages): 2026-10-11 23:57:39, 2026-10-11T23:57:39.123Z
 TIMESTAMP = re.compile(r"\d{4}-\d{2}-\d{2}[ T]\d{2}:\d{2}:\d{2}(?:[.,]\d+)?(?:Z|[+-]\d{2}:?\d{2})?")
 UUID_RE = re.compile(r"\b[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\b", re.I)
-# Every trace runs in its own copy of the checkout (<work>/ws/<case>-<tag>), so absolute paths into
-# the workspace differ between the reference and any candidate by construction.
-WORKSPACE_PATH = re.compile(r"(?:/private)?/[^\s\"',;]*?/work/ws/[^/\s\"',;]+")
+# Every trace runs in its own copy of the checkout (<work>/ws/<neutral name>, runner.config.neutral_name:
+# w + 12 hex digits), so absolute paths into the workspace differ between the reference and any
+# candidate by construction. The work directory can have any name (paths.work, or a temporary
+# directory when it is not set); older traces used <...>/work/ws/<name>.
+WORKSPACE_PATH = re.compile(r"(?:/private)?/[^\s\"',;]*?/(?:ws/w[0-9a-f]{12}(?![0-9A-Za-z_-])|work/ws/[^/\s\"',;]+)")
 # The same file given as an absolute path into the workspace and as a path relative to it compare
 # equal: "<ws>/src/test/resources/x" and "src/test/resources/x" both become "src/test/resources/x".
 WS_PREFIX = re.compile(r"<ws>/")

@@ -100,6 +100,52 @@ class StaleAndTransientTest(unittest.TestCase):
             now = I.step_inputs(self.cfg, load_case("jsoup-normalise-whitespace"), self.cell, "rq1")
         self.assertNotEqual(rec["inputs"]["rq1"]["normalisation"], now["normalisation"])
 
+    def test_code_hash_per_step(self):
+        from runner.cases import load_case
+        case = load_case("jsoup-normalise-whitespace")
+        I._CODE.clear()
+        base = {s: I.step_inputs(self.cfg, case, self.cell, s)["code"] for s in ("verify", "rq1", "rq2", "quality")}
+        gen = I.generation_inputs(self.cfg, case, "dump")["code"]
+        real = I.files_hash
+
+        def changed(paths, base_dir=I.ROOT):  # pretend evaluation/compare.py changed
+            return real(paths, base_dir) + ("*" if any(p.name == "compare.py" for p in paths) else "")
+        with mock.patch.object(I, "files_hash", changed):
+            I._CODE.clear()
+            now = {s: I.step_inputs(self.cfg, case, self.cell, s)["code"] for s in base}
+            gen_now = I.generation_inputs(self.cfg, case, "dump")["code"]
+        I._CODE.clear()
+        self.assertNotEqual(now["rq1"], base["rq1"])
+        self.assertEqual({s: now[s] for s in ("verify", "rq2", "quality")},
+                         {s: base[s] for s in ("verify", "rq2", "quality")})
+        self.assertEqual(gen_now, gen)
+
+    def test_rq1_from_kept_trace(self):
+        from runner.cases import load_case
+        case = load_case("jsoup-normalise-whitespace")
+        trace = self.cell / "eval-artifacts" / "trace"
+        trace.mkdir(parents=True)
+        lines = [{"ev": "jvm", "main": "surefirebooter.jar"},
+                 {"ev": "enter", "id": 1, "args": ["a  b"], "self": None},
+                 {"ev": "return", "id": 1, "value": "a b"}]
+        (trace / "trace-1-1.jsonl").write_text("\n".join(json.dumps(x) for x in lines))
+        rec = {"case_id": case.id, "mode": "dump", "run_id": "r1", "verify": {"passes": True},
+               "rq1": {"candidate_invocations": 1}}
+        (self.cell / "eval.json").write_text(json.dumps(rec))
+        rec["inputs"] = {"rq1": {**I.step_inputs(self.cfg, case, self.cell, "rq1"), "code": "old",
+                                 "normalisation": "old"}}
+        (self.cell / "eval.json").write_text(json.dumps(rec))
+        ref = [{"self": None, "args": ["a  b"], "calls": [], "outcome": "return", "value": "a b"}]
+        with mock.patch.object(E, "load_reference", lambda *a: ref), \
+                mock.patch.object(E, "result_workspace", side_effect=AssertionError("test run again")):
+            out = E.evaluate_cell(self.cfg, self.cell, ["rq1"], force=["rq1"], reuse_traces=True)
+        self.assertTrue(out["rq1"]["trace_reused"])
+        self.assertEqual(out["rq1"]["candidate_invocations"], 1)
+        self.assertEqual(out["inputs"]["rq1"], I.step_inputs(self.cfg, case, self.cell, "rq1"))
+        # another result: the kept trace belongs to the old test, so it is not reused
+        (self.cell / "result.diff").write_text("+other\n")
+        self.assertIsNone(E.kept_trace(self.cfg, case, self.cell, out))
+
     def test_transient_errors_are_not_stored(self):
         def boom(*a):
             raise E.Transient("rq2: PIT timed out")

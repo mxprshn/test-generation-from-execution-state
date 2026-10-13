@@ -285,6 +285,23 @@ class CompareTest(unittest.TestCase):
         self.assertEqual(C.compare(ref, [inv([mock])], ND, "p")["scenarios"],
                          C.compare(ref, [inv(["x"])], ND, "p")["scenarios"])
 
+    def test_workspace_paths_under_any_work_directory(self):
+        rel = "src/main/resources/com/puppycrawl/x.xml"
+        v2 = "/home/vps/ispras-eval/v2/work-a/tg-3m8bmih3/ws/w7e0dcf25d1f0/" + rel
+        other = "/home/vps/ispras-eval/v2/work-b/tg-vko__v_m/ws/w0123456789ab/" + rel
+        tmp_work = "/home/vps/ispras-eval/tmp/work/tg-abc/ws/wfedcba987654/" + rel
+        no_work = "/private/var/folders/x1/abc/T/tg-k2j3h4/ws/w00aa11bb22cc/" + rel  # paths.work: null
+        for p in (v2, other, tmp_work, no_work):
+            self.assertEqual(C.norm_str(p), rel, p)
+        self.assertEqual(C.norm_str(f"[{v2}, {other}]"), f"[{rel}, {rel}]")
+        # not a workspace: a project path outside the copies, a w-name of another length, a ws/ that is not ours
+        for p in ("/home/vps/ispras-eval/setup-check/projects/checkstyle/" + rel,
+                  "/data/ws/w7e0dcf25d1f0aa/" + rel, "/data/ws/wxyz/" + rel, "/data/ws/w7e0dcf25d1f0-x/" + rel):
+            self.assertEqual(C.norm_str(p), p, p)
+        # JUnit temporary directories keep their own normalisation
+        self.assertEqual(C.norm_str(v2.replace(rel, "target/junit16315607296389577792/t-1753139585/x")),
+                         C.norm_str(tmp_work.replace(rel, "target/junit987654321/u-1987433262/x")))
+
     def test_relative_and_absolute_workspace_paths_equal(self):
         a = inv(["/home/u/work/ws/w1a2b/src/test/resources/x.java"])
         b = inv(["src/test/resources/x.java"])
