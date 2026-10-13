@@ -25,7 +25,8 @@ min_free_mem_gb: 3                     # wait before starting a cell below this
 
 paths:
   projects: ../projects                # checkouts of the subject projects (scripts/setup.sh)
-  results: ../results/v2               # cells, references, evaluation records, logs, report
+  results: ../results/v2               # cells, references, evaluation records, logs, report (outside
+                                       # the repository, so a run never overwrites an unpacked results/)
   work: null                           # scratch space (workspaces, traces, PIT); outside results and
                                        # the repository; null: a fresh directory in the system temp dir
   tools: .tools                        # Node.js, Pi, BTrace (scripts/setup.sh)
