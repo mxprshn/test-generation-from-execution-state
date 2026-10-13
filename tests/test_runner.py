@@ -213,6 +213,31 @@ class CellLogicTest(unittest.TestCase):
         self.assertEqual((u["turns"], u["input_tokens"], u["cost_usd"]), (2, 10, 0.5))
         self.assertEqual(A.gateway_errors(events), (1, True))
 
+    def test_request_timeouts_mid_session_are_gateway_errors(self):
+        # the end of a v2 session (klaw-...-get-redirect-page baseline/r2): the gateway stopped answering
+        # after five tool calls; Pi retried and gave up, the agent exited 0 without a test class
+        ok = {"type": "message_end", "message": {"role": "assistant", "stopReason": "toolUse",
+                                                "usage": {"input": 900, "output": 40}}}
+        err = {"type": "message_end", "message": {
+            "role": "assistant", "content": [], "api": "openai-completions", "provider": "gateway",
+            "model": "OpenAI/gpt-6.1-sol", "usage": {"input": 0, "output": 0}, "stopReason": "error",
+            "errorMessage": "Request timed out."}}
+        events = [ok] * 5 + [err] * 12 + [{"type": "auto_retry_end", "success": False, "attempt": 3,
+                                           "finalError": "Request timed out."}, {"type": "agent_settled"}]
+        self.assertEqual(A.gateway_errors(events), (12, True))
+        with tempfile.TemporaryDirectory() as d:
+            s = {"status": "failed", "phase": "done", "error": "the agent left no test class",
+                 "tool_calls": 5, "agent_exit_code": 0}
+            s["gateway_errors"], s["ended_on_gateway_error"] = A.gateway_errors(events)
+            self.assertTrue(G.is_infra_failure(s, Path(d)))
+            # recovered: the session went on after the timeouts, so it did not end on them
+            n, last = A.gateway_errors([ok, err, err, ok])
+            self.assertEqual((n, last), (2, False))
+        for text in ("Connection error.", "500 Internal Server Error", "read ECONNRESET", "connect ETIMEDOUT 1.2.3.4"):
+            self.assertTrue(A.is_gateway_error(text), text)
+        for text in ("Context window exceeded", "Invalid tool call", "model refused"):
+            self.assertFalse(A.is_gateway_error(text), text)
+
     def test_final_failed_commands(self):
         entries = [{"event": "end", "name": "build", "succeeded": False},
                    {"event": "end", "name": "build", "succeeded": True},
