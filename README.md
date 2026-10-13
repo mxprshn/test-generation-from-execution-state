@@ -98,6 +98,39 @@ The same normalisation applies to every level and mode: time values, UUIDs, iden
 
 Tables (`evaluation/aggregate.py`): applicability (cases with input per mode) separately from quality; recall per case (mean over rounds), averaged over cases and over projects; every mode paired with baseline on the cases where both have input (mean difference, bootstrap 95% interval, Wilcoxon signed-rank test); scenario-pooled shares for reference only. RQ2 reports, per mode, the oracle strength (killed / covered mutants of the target class) and the mutants killed in addition to the baseline test of the same case and round (a baseline test that does not pass has killed nothing).
 
+## Results
+
+The results of the run reported in the paper are not in the repository: they are the asset `results.tar.gz` of the release `v2-results` (≈ 20 MB, ≈ 310 MB unpacked, sha256 `47a3855c25ed4defbff5634da35e52e474825e48bc237cab658d899cc4331264`). The run: model `OpenAI/gpt-6.1-sol`, thinking `medium`, 600 s per agent cell; 70 cases, rounds 1 and 2 of `baseline`, `dump`, `rendered` and one `rendered-raw` cell per case, 490 cells; 2026-10-12/13.
+
+```bash
+gh release download v2-results -p results.tar.gz     # or: curl -LO https://github.com/mxprshn/test-generation-from-execution-state/releases/download/v2-results/results.tar.gz
+shasum -a 256 results.tar.gz                         # must match the sha256 above
+mkdir -p results && tar -xzf results.tar.gz -C results
+```
+
+| Path in `results/` | What |
+|---|---|
+| `cells/<case>/<mode>/<run-id>/` | `summary.json` (generation: status, time, tokens, cost), `eval.json` (verify, RQ1, RQ2, quality, escape check, input hashes), `result.diff` and `artifacts/generated/` (the generated test), `prompts/` (as sent, incl. `system.effective.txt`), `artifacts/session.jsonl` (the agent session, cleaned, see below), `agent-commands.jsonl`, `denied.jsonl`, `pi-stderr.txt`, `scenario-check.log`, `eval-artifacts/` (verify logs, candidate traces, `mutations.xml`, PIT log) |
+| `cells/<case>/<mode>/<run-id>.redo-*` | earlier attempts of regenerated cells |
+| `references/<case>/` | reference traces (`run1.json`, `run2.json`) and their audit; `old-b978737/` for the 9 references rejected in the main run |
+| `status/`, `logs/` | per-case progress and log of the runner |
+| `report/` | the output of `python3 -m evaluation.aggregate` |
+| `provenance/` | distinct configs of the runs and every start (`runs.jsonl`), lane configs (`lane-configs/all.yaml` covers all 70 cases), regenerated cells with reasons (`moved.json`), load of the machine (`load/`) |
+
+To recompute the tables from the records, or RQ1 from the kept traces, use a config with the settings of `results/provenance/lane-configs/all.yaml` and `paths.results: results`:
+
+```bash
+python3 scripts/run.py --config config.yaml --status                    # 490 cells evaluated
+python3 -m evaluation.aggregate --config config.yaml                    # -> results/report, as published
+python3 -m evaluation.evaluate --config config.yaml --steps rq1 --force --reuse-traces
+```
+
+Left out: interrupted and infrastructure-failed attempts that were regenerated (`*.incomplete-*`, `*.infra-*`) and pre-migration copies of records. Agent sessions are kept without the redundant parts of Pi's event stream: streaming events, repeated message content and the opaque signatures of reasoning blocks (`scripts/export_results.py`); every message, tool call, tool result, usage and timestamp is kept. Three timeouts happened while the machine was overloaded (`mybatis-foreach-parameter-handler` dump/r2, `mybatis-keygen-jdbc3` dump/r1, `mybatis-prepared-statement-update` rendered/r2) and are kept as results.
+
+Redactions (every file): the root directory of the machine → `/<root>`, the home directory → `/<home>`, the user name in surefire reports → `<user>`, the host name → `<host>`, the provider's address → `https://<openai-compatible-gateway>/v1`, the names of the key variables → `TESTGEN_API_KEY`, `TESTGEN_API_KEY_FALLBACK`. Passwords, e-mail addresses and tokens that occur in the code and test data of the subject projects are left as they are.
+
+The generated tests, the traces, the sessions and the PIT reports contain code and data of the subject projects; they are distributed under the licenses of the respective projects (see Licenses). The archive is produced by `scripts/export_results.py`.
+
 ## Known limitations
 
 - There is no operating-system sandbox. The Pi guard confines the agent's tools (read, write, search, bash) to the workspace and to the three case commands. The build and test commands execute project code, including the generated test, which could read other files of the machine. Every cell is therefore checked automatically (`runner/escape_check.py`): the agent's tool calls (absolute paths, `..` outside the workspace, harness locations), every action denied by the guard, and the generated test (reading the mode input such as `carving/call-dumps.json` at run time, absolute paths, `../` paths, environment and user locations, process execution, walking up or listing the file system from the working directory). Findings fall into two classes: `escape` (paths or commands outside the workspace, harness locations, anything flagged in the generated test) and `denied` (an action the guard refused that stays inside the workspace, such as a shell command line instead of a named case command). `report.md` shows both per mode in `escape_check_by_mode`: cells with an escape are listed one by one, cells with denied actions only are counted with the kinds of refused actions. No cell is excluded automatically.
