@@ -21,6 +21,9 @@ Tables:
                          the same (case, round): a baseline without a passing test has killed nothing;
   * rq3_by_mode        : compile/pass, tests run, cost, time, tool calls, preservation (rendered);
   * quality_by_mode    : mock statistics and readability indicators;
+  * debugger_by_mode    : autonomous mode: tool calls by tool, JVM runs, stops (in the target
+                         method), plan revisions (breakpoints changed after the first stop), the
+                         size of the debugger answers, tokens including cache reads (medians);
   * escape_check_by_mode (escape / denied only) and the cells with an escape finding; cells whose RQ1 ran into an error or that run the
     scenario (runs_scenario).
 """
@@ -40,7 +43,7 @@ from runner import escape_check as X
 from runner.cases import case_rows
 from runner.config import Config, load_config
 
-MODES = ["baseline", "rendered-raw", "rendered", "dump"]
+MODES = ["baseline", "rendered-raw", "rendered", "dump", "autonomous"]
 LEVELS = (("structure", "S"), ("io", "A"), ("state", "B"), ("strict", "C"))
 
 
@@ -279,6 +282,37 @@ def quality_rows(recs: list[dict[str, Any]]) -> list[dict[str, Any]]:
     return out
 
 
+def debugger_rows(recs: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Medians over the cells of a mode with a debugger journal (summary.json: debugger)."""
+    by: dict[str, list] = defaultdict(list)
+    for r in recs:
+        if isinstance(r.get("debugger"), dict):
+            by[r["mode"]].append(r)
+    out = []
+    for mode, rs in by.items():
+        def med(f):
+            xs = [f(r) for r in rs if f(r) is not None]
+            return statistics.median(xs) if xs else None
+        tools = sorted({t for r in rs for t in (r["debugger"].get("calls") or {})})
+        row: dict[str, Any] = {
+            "key": mode, "cells": len(rs),
+            "cells_with_stop_in_target": sum(1 for r in rs if (r["debugger"].get("stops_in_target") or 0) > 0),
+            "median_jvm_runs": med(lambda r: r["debugger"].get("jvm_runs")),
+            "median_stops": med(lambda r: r["debugger"].get("stops")),
+            "median_stops_in_target": med(lambda r: r["debugger"].get("stops_in_target")),
+            "median_plan_revisions": med(lambda r: r["debugger"].get("plan_revisions")),
+            "median_answer_chars": med(lambda r: r["debugger"].get("answer_chars")),
+            "median_turns": med(lambda r: (r.get("usage") or {}).get("turns")),
+            "median_input_tokens": med(lambda r: (r.get("usage") or {}).get("input_tokens")),
+            "median_cache_read_tokens": med(lambda r: (r.get("usage") or {}).get("cache_read_tokens")),
+            "median_output_tokens": med(lambda r: (r.get("usage") or {}).get("output_tokens")),
+        }
+        for t in tools:
+            row[f"median_{t}"] = med(lambda r, t=t: (r["debugger"].get("calls") or {}).get(t, 0))
+        out.append(row)
+    return out
+
+
 def dependency_rows(recs: list[dict[str, Any]]) -> list[dict[str, Any]]:
     """Receiver fields compared by presence only at level B, per mode."""
     by: dict[str, list] = defaultdict(list)
@@ -379,6 +413,7 @@ def main(argv: list[str] | None = None) -> int:
     parts.append(write(rq2_rows(recs), "rq2_by_mode", out))
     parts.append(write(rq3_rows(recs), "rq3_by_mode", out))
     parts.append(write(quality_rows(recs), "quality_by_mode", out))
+    parts.append(write(debugger_rows(recs), "debugger_by_mode", out))
     parts.append(write(escape_rows(recs), "escape_check_by_mode", out))
     parts.append(listed_cells(recs))
     (out / "report.md").write_text("\n".join(parts))
