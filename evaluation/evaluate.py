@@ -62,7 +62,7 @@ def load_record(cell: Path) -> dict[str, Any]:
         return rec
     return {k: s.get(k) for k in ("case_id", "project", "group", "mode", "run_id", "status", "error",
                                   "model", "thinking", "agent_seconds", "tool_calls", "usage",
-                                  "escape_check")}
+                                  "debugger", "escape_check")}
 
 
 def save_record(cell: Path, rec: dict[str, Any]) -> None:

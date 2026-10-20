@@ -14,7 +14,7 @@ from typing import Any
 import yaml
 
 ROOT = Path(__file__).resolve().parents[1]
-AGENT_MODES = ("baseline", "dump", "rendered")
+AGENT_MODES = ("baseline", "dump", "rendered", "autonomous")
 NO_AGENT_MODES = ("rendered-raw",)
 MODES = AGENT_MODES + NO_AGENT_MODES
 AGENT_COMMANDS = ("build", "scenario", "generated_test")

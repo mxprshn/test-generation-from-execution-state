@@ -104,7 +104,7 @@ def normalisation_hash() -> str:
 
 
 def mode_input_hash(case, mode: str) -> str | None:
-    if mode == "baseline":
+    if mode in ("baseline", "autonomous"):
         return None
     src = case.dump if mode == "dump" else case.preliminary_test
     parts = [tree_hash(src), tree_hash(case.workspace_files)]

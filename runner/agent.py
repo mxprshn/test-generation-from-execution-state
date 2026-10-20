@@ -2,8 +2,9 @@
 
 Pi starts with nothing but the two prompts and two extensions: pi/provider.ts (the model provider
 from config.yaml) and pi/guard.ts (writes only to the generated test class, reads only inside the
-workspace, bash only for the named case commands). No user settings, skills, prompt templates or
-context files (AGENTS.md, CLAUDE.md) are loaded: Pi gets a fresh agent directory per cell.
+workspace, bash only for the named case commands). The autonomous mode adds pi/debugger.ts (the five
+debugger tools over the driving scenario). No user settings, skills, prompt templates or context
+files (AGENTS.md, CLAUDE.md) are loaded: Pi gets a fresh agent directory per cell.
 """
 from __future__ import annotations
 
@@ -19,6 +20,7 @@ from runner.process import run
 
 PI_DIR = ROOT / "pi"
 BUILTIN_TOOLS = ("read", "write", "edit", "bash", "grep", "find", "ls")
+DEBUGGER_TOOLS = ("debug_start", "set_breakpoint", "remove_breakpoint", "resume", "inspect")
 THINKING_LEVELS = ("off", "minimal", "low", "medium", "high", "xhigh")
 
 
@@ -36,6 +38,7 @@ class AgentResult:
     denied: list[dict]
     commands: list[dict]
     output_versions: list[str]
+    debug_log: list[dict] | None = None
 
 
 def pi_binary(cfg: Config) -> Path:
@@ -90,13 +93,17 @@ def effective_system_prompt(system: str, workspace: Path) -> str:
     return f"{system}\nCurrent working directory: {cwd}"
 
 
-def pi_argv(cfg: Config, prompts: dict[str, str], session_dir: Path) -> list[str]:
+def pi_argv(cfg: Config, prompts: dict[str, str], session_dir: Path, debugger: bool = False) -> list[str]:
     if cfg.thinking is not None and cfg.thinking not in THINKING_LEVELS:
         raise AgentError(f"unsupported thinking level: {cfg.thinking}")
+    extensions = ["-e", str(PI_DIR / "provider.ts"), "-e", str(PI_DIR / "guard.ts")]
+    tools = BUILTIN_TOOLS
+    if debugger:
+        extensions += ["-e", str(PI_DIR / "debugger.ts")]
+        tools = BUILTIN_TOOLS + DEBUGGER_TOOLS
     argv = [str(pi_binary(cfg)), "--no-extensions", "--no-skills", "--no-prompt-templates",
-            "--no-context-files", "--no-themes",
-            "-e", str(PI_DIR / "provider.ts"), "-e", str(PI_DIR / "guard.ts"),
-            "-t", ",".join(BUILTIN_TOOLS),
+            "--no-context-files", "--no-themes", *extensions,
+            "-t", ",".join(tools),
             "--provider", cfg.provider_name, "--model", cfg.model]
     if cfg.thinking is not None:
         argv += ["--thinking", str(cfg.thinking)]
@@ -150,8 +157,10 @@ def tool_calls(events: list[dict]) -> list[dict]:
 
 
 def run_agent(cfg: Config, workspace: Path, output_test_file: str, commands: dict[str, list[str]],
-              prompts: dict[str, str], agent_dir: Path, api_key_env: str) -> AgentResult:
-    """Run Pi with the cell's prompts; agent_dir holds Pi's own state and the guard logs."""
+              prompts: dict[str, str], agent_dir: Path, api_key_env: str,
+              debugger: dict | None = None) -> AgentResult:
+    """Run Pi with the cell's prompts; agent_dir holds Pi's own state and the guard logs.
+    `debugger` (autonomous mode): {"scenario": argv, "target": case target} for pi/debugger.ts."""
     agent_dir.mkdir(parents=True, exist_ok=True)
     session_dir = agent_dir / "session"
     session_dir.mkdir(exist_ok=True)
@@ -167,13 +176,27 @@ def run_agent(cfg: Config, workspace: Path, output_test_file: str, commands: dic
         "GUARD_COMMAND_LOG": str(agent_dir / "commands.jsonl"),
         "GUARD_OUTPUT_VERSION_LOG": str(agent_dir / "output-versions.jsonl"),
     })
-    result = run(pi_argv(cfg, prompts, session_dir), workspace, env, cfg.timeout, "pi")
+    if debugger is None:
+        result = run(pi_argv(cfg, prompts, session_dir), workspace, env, cfg.timeout, "pi")
+        debug_log = None
+    else:
+        from runner import debugger as D
+        with D.lease_port(cfg) as port:
+            config = D.write_config(cfg, workspace, agent_dir, debugger["scenario"], port, debugger["target"])
+            env.update({"DEBUGGER_CONFIG": str(config), "DEBUGGER_LOG": str(agent_dir / "debug-log.jsonl"),
+                        "DEBUGGER_PIDS": str(agent_dir / "debug-pids.txt")})
+            try:
+                result = run(pi_argv(cfg, prompts, session_dir, debugger=True), workspace, env, cfg.timeout, "pi")
+            finally:
+                D.kill_leftovers(agent_dir / "debug-pids.txt")
+        debug_log = D.read_journal(agent_dir / "debug-log.jsonl")
     return AgentResult(
         exit_code=result.exit_code, timed_out=result.timed_out, seconds=result.seconds,
         events=parse_events(result.stdout), stderr=result.stderr,
         denied=_jsonl(agent_dir / "denied.jsonl"), commands=_jsonl(agent_dir / "commands.jsonl"),
         output_versions=[r["content"] for r in _jsonl(agent_dir / "output-versions.jsonl")
                          if isinstance(r.get("content"), str)],
+        debug_log=debug_log,
     )
 
 

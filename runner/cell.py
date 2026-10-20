@@ -5,7 +5,8 @@
                 recorded data refer to) and, for dump/rendered, the execution input under carving/
     scenario    the driving scenario must run in the workspace (otherwise an infrastructure failure;
                 if it runs only without workspace-files/, the input is a method failure)
-    generation  Pi with the rendered prompts (baseline, dump, rendered), or the preliminary test
+    generation  Pi with the rendered prompts (baseline, dump, rendered, autonomous: with the debugger
+                tools of pi/debugger.ts over the driving scenario), or the preliminary test
                 installed as the output class (rendered-raw, no agent)
     result      result.diff: the generated class (and workspace-files/) against the original commit
 
@@ -119,7 +120,7 @@ def generate(cfg: Config, case_id: str, mode: str, run_id: str, api_key_env: str
 def _generate(cfg: Config, case: Case, mode: str, checkout: Path, commit: str, cell: Path, tmp: Path,
               summary: dict[str, Any], api_key_env: str) -> dict[str, Any]:
     source = method_input(case, mode)
-    if mode != "baseline" and source is None:
+    if mode not in ("baseline", "autonomous") and source is None:
         summary["status"] = "method_failed"
         summary["error"] = f"no {'call dump' if mode == 'dump' else 'preliminary test'} for this case"
         return summary
@@ -127,7 +128,7 @@ def _generate(cfg: Config, case: Case, mode: str, checkout: Path, commit: str, c
     ws = W.export_commit(checkout, commit, tmp / "workspace")
     summary["workspace"] = str(ws)  # for the escape check: absolute paths inside it are fine
     summary["hidden_paths_removed"] = W.hide_paths(ws, case.hidden_paths)
-    support = W.install_tree(case.workspace_files, ws) if mode != "baseline" else []
+    support = W.install_tree(case.workspace_files, ws) if mode not in ("baseline", "autonomous") else []
     summary["support_files"] = support
     execution_input = EXECUTION_INPUT.get(mode)
     if execution_input and mode == "dump":
@@ -171,8 +172,15 @@ def _generate(cfg: Config, case: Case, mode: str, checkout: Path, commit: str, c
             "system_effective": hashlib.sha256(effective.encode()).hexdigest(),
             "task": hashlib.sha256(prompts["task"].encode()).hexdigest(),
         }
-        res = A.run_agent(cfg, ws, case.output_test_file, commands, prompts, tmp / "agent", api_key_env)
+        debugger = {"scenario": case.commands["scenario"], "target": case.target} if mode == "autonomous" else None
+        res = A.run_agent(cfg, ws, case.output_test_file, commands, prompts, tmp / "agent", api_key_env, debugger)
         _jsonl(cell / "artifacts" / "session.jsonl", res.events)
+        if res.debug_log is not None:
+            from runner import debugger as D
+            _jsonl(cell / "artifacts" / "debug-log.jsonl", res.debug_log)
+            for log in sorted((tmp / "agent").glob("scenario-debug-run*.log")):
+                _write(cell / "artifacts" / log.name, log.read_text(encoding="utf-8", errors="replace")[-20000:])
+            summary["debugger"] = D.journal_summary(res.debug_log)
         _jsonl(cell / "artifacts" / "agent-commands.jsonl", res.commands)
         _jsonl(cell / "artifacts" / "denied.jsonl", res.denied)
         _write(cell / "artifacts" / "pi-stderr.txt", res.stderr[-20000:])

@@ -8,7 +8,8 @@
 #      dependency tree) into <tools>/node and <tools>/pi, unless already there;
 #   3. BTrace 2.2.6 into <tools>/btrace;
 #   4. PIT 1.15.8 into the local Maven repository;
-#   5. clones the subject projects at the commits of projects.yaml into paths.projects and builds them
+#   5. the JDI server of the autonomous mode (pi/debugger/JdiDapServer.java) into <tools>/debugger;
+#   6. clones the subject projects at the commits of projects.yaml into paths.projects and builds them
 #      (scripts/prepare_projects.py): the case commands run offline afterwards; projects whose
 #      build already succeeded at the pinned commit are not rebuilt (--rebuild to force).
 #
@@ -125,6 +126,9 @@ for entry in "${PIT_JARS[@]}"; do
     org.apache.maven.plugins:maven-dependency-plugin:3.6.1:get -Dartifact="$artifact" -Dtransitive=false
   sha256_check "$sum" "$M2_REPO/$path"
 done
+
+echo "== debugger"
+python3 -m runner.debugger --config "$CONFIG"
 
 echo "== projects in $PROJECTS"
 python3 scripts/prepare_projects.py --config "$CONFIG" "${@:2}"
