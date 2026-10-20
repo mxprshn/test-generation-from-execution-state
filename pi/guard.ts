@@ -11,7 +11,8 @@ import { createBashTool } from "@earendil-works/pi-coding-agent";
  *     second command (the command string must equal an allowed argv joined by spaces, up to
  *     repeated spaces or tabs; a line break is never accepted).
  * Denied calls return an error to the agent and are logged. Every command run and every version of
- * the generated class are logged for the runner.
+ * the generated class are logged for the runner. The debugger tools of the autonomous mode
+ * (pi/debugger.ts) are allowed and logged here too; that extension confines them itself.
  *
  * Commands run with an environment reduced to GUARD_ENV_ALLOW (the runner's command environment):
  * no API key, no Pi or guard variables, no session metadata reach the project code.
@@ -64,6 +65,9 @@ export function matchCommand(allowed: Map<string, string>, command: string): str
 	const canonical = canonicalCommand(command);
 	return canonical === null ? undefined : allowed.get(canonical);
 }
+
+/** Tools of pi/debugger.ts (autonomous mode); Pi offers them only when that extension is loaded. */
+export const DEBUGGER_TOOLS = ["debug_start", "set_breakpoint", "remove_breakpoint", "resume", "inspect"];
 
 export default function (pi: ExtensionAPI) {
 	const configPath = process.env.GUARD_CONFIG;
@@ -196,6 +200,10 @@ export default function (pi: ExtensionAPI) {
 			}
 			pending.set(event.toolCallId, { name, command: raw, started: Date.now() });
 			record({ event: "start", name, command: raw, timestamp: Date.now() });
+			return undefined;
+		}
+		if (DEBUGGER_TOOLS.includes(event.toolName)) {
+			record({ event: "debugger", tool: event.toolName, timestamp: Date.now() });
 			return undefined;
 		}
 		return undefined;
