@@ -12,5 +12,6 @@ class CounterScenarioTest {
         assertEquals(10, c.add("world"));
         assertEquals(-1, c.safeAdd(null));
         assertEquals(2, c.seen().size());
+        assertEquals(4, Counter.twice(2));
     }
 }

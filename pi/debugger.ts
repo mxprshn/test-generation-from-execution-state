@@ -11,6 +11,7 @@ import {
 	type Frame,
 	frameText,
 	localsText,
+	stopLocalsText,
 	matchLine,
 	type Node,
 	parseMethod,
@@ -384,7 +385,8 @@ export default function (pi: ExtensionAPI) {
 		if (b.reason === "exit" && b.returned !== undefined) lines.push(`returned = ${valueText(b.returned as Node, 0)}`);
 		if (b.exception) lines.push(`exception = ${valueText(b.exception as Node, 0)}`);
 		const locals = (b.locals ?? []).filter((l: any) => l.name !== "returned" && l.name !== "exception");
-		lines.push(locals.length ? `locals:\n${localsText(locals, 0)}` : "locals: none");
+		const head = lines.join("\n").length;
+		lines.push(locals.length ? `locals:\n${stopLocalsText(locals, Math.max(1000, ANSWER_CAP - head - 20))}` : "locals: none");
 		const event = {
 			kind: "stop", reason: b.reason, breakpoints: ids, place, in_target: inTarget(targetFrame),
 			frames: frames.length,
@@ -594,6 +596,7 @@ export default function (pi: ExtensionAPI) {
 			const depth = Math.max(0, Math.min(3, Number(p.depth ?? 1)));
 			const r = await c.request("evaluate", { expression: String(p.expr), frame: Number(p.frame ?? 0), depth });
 			if (!r.success) return { ok: false, text: `error: ${r.message}` };
+			if (r.body?.note) return { ok: true, text: String(r.body.note) };
 			if (r.body?.locals) {
 				const t = localsText(r.body.locals, depth);
 				return { ok: true, text: t.length ? t : "no local variables" };

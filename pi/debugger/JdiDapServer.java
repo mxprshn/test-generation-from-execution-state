@@ -55,6 +55,7 @@ public class JdiDapServer {
     private final Map<ThreadReference, Deque<Track>> tracks = new HashMap<>();
     private final Map<Long, ObjectReference> refs = new ConcurrentHashMap<>();
 
+    static final String NO_THIS = "static method: no this";
     static final int STR_CAP = 2000, LOCAL_STR_CAP = 300, ITEMS = 20, FIELDS = 40, MAX_DEPTH = 3, NODES = 800;
     static final int FRAMES = 200;
 
@@ -380,7 +381,9 @@ public class JdiDapServer {
         StackFrame sf = frames.get(frameIndex);
         Map<String, Object> body = new HashMap<>();
         Renderer r = new Renderer(t, STR_CAP);
-        if ("locals".equals(expression == null ? "" : expression.trim())) {
+        if ("this".equals(expression == null ? "" : expression.trim()) && sf.thisObject() == null) {
+            body.put("note", NO_THIS);
+        } else if ("locals".equals(expression == null ? "" : expression.trim())) {
             body.put("locals", r.locals(sf, depth, frameIndex == 0 ? stopExtras : Collections.emptyMap()));
         } else {
             Value value;
@@ -823,7 +826,7 @@ public class JdiDapServer {
             Value text = message != null ? ex.getValue(message) : null;
             if (text instanceof StringReference) body.put("message", ((StringReference) text).value());
         }
-        body.put("locals", r.locals(frames.get(0), 0, extras));
+        body.put("locals", r.stopLocals(frames.get(0), extras));
         stopExtras = extras;
         return body;
     }
@@ -843,17 +846,53 @@ public class JdiDapServer {
 
         List<Map<String, Object>> locals(StackFrame sf, int depth, Map<String, Value> extras) {
             List<Map<String, Object>> out = new ArrayList<>();
+            ObjectReference self = sf.thisObject();
+            List<LocalVariable> vars = null;
+            Map<LocalVariable, Value> values = null;
             try {
-                ObjectReference self = sf.thisObject();
-                if (self != null) out.add(named("this", render(self, depth)));
-                List<LocalVariable> vars = sf.visibleVariables();
-                Map<LocalVariable, Value> values = sf.getValues(vars);
-                for (LocalVariable lv : vars) out.add(named(lv.name(), render(values.get(lv), depth)));
+                vars = sf.visibleVariables();
+                values = sf.getValues(vars);
             } catch (AbsentInformationException e) {
-                out.add(named("<no local variable information>", null));
+                vars = null;
             }
+            if (self != null) out.add(named("this", render(self, depth)));
+            if (vars == null) out.add(named("<no local variable information>", null));
+            else for (LocalVariable lv : vars) out.add(named(lv.name(), render(values.get(lv), depth)));
             for (Map.Entry<String, Value> x : extras.entrySet()) out.add(named(x.getKey(), render(x.getValue(), depth)));
             return out;
+        }
+
+        /** Locals of a stop: fields of this one level deep, arguments to depth 1, other locals as Type@N. */
+        List<Map<String, Object>> stopLocals(StackFrame sf, Map<String, Value> extras) {
+            // all values are read before rendering: rendering may call JDK methods, which resumes the
+            // thread and invalidates the frame
+            List<Map<String, Object>> out = new ArrayList<>();
+            ObjectReference self = sf.thisObject();
+            List<LocalVariable> vars = null;
+            Map<LocalVariable, Value> values = null;
+            try {
+                vars = sf.visibleVariables();
+                values = sf.getValues(vars);
+            } catch (AbsentInformationException e) {
+                vars = null;
+            }
+            if (self != null) out.add(named("this", render(self, 1), 1));
+            if (vars == null) {
+                out.add(named("<no local variable information>", null));
+            } else {
+                for (LocalVariable lv : vars) {
+                    int d = lv.isArgument() ? 1 : 0;
+                    out.add(named(lv.name(), render(values.get(lv), d), d));
+                }
+            }
+            for (Map.Entry<String, Value> x : extras.entrySet()) out.add(named(x.getKey(), render(x.getValue(), 0)));
+            return out;
+        }
+
+        private Map<String, Object> named(String name, Map<String, Object> value, int depth) {
+            Map<String, Object> m = named(name, value);
+            m.put("depth", depth);
+            return m;
         }
 
         private Map<String, Object> named(String name, Map<String, Object> value) {
@@ -1678,7 +1717,7 @@ public class JdiDapServer {
                 case THIS: {
                     advance();
                     ObjectReference thisObj = frame.thisObject();
-                    if (thisObj == null) throw error("'this' not available in static context");
+                    if (thisObj == null) throw error(NO_THIS);
                     return thisObj;
                 }
                 case IDENT: {

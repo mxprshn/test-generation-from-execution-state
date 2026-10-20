@@ -27,4 +27,8 @@ public class Counter {
     public List<String> seen() {
         return seen;
     }
+
+    public static int twice(int x) {
+        return 2 * x;
+    }
 }

@@ -210,8 +210,22 @@ export function fitValue(n: Node | null | undefined, depth: number, cap = ANSWER
 	return { text: `${text.slice(0, cap)} …(cut at ${cap} characters)`, depth: 0 };
 }
 
-export function localsText(locals: Array<{ name: string; value: Node | null }>, depth = 0): string {
-	return locals.map((l) => `  ${l.name} = ${valueText(l.value, depth, "  ")}`).join("\n");
+/** Text of locals; an entry with its own `depth` (the locals of a stop) is shown to that depth. */
+export function localsText(locals: Array<{ name: string; value: Node | null; depth?: number }>, depth = 0): string {
+	return locals.map((l) => `  ${l.name} = ${valueText(l.value, l.depth ?? depth, "  ")}`).join("\n");
+}
+
+/** Locals of a stop under `cap` characters: expanded entries fall back to Type@N, the last first. */
+export function stopLocalsText(locals: Array<{ name: string; value: Node | null; depth?: number }>, cap: number): string {
+	const shown = locals.map((l) => ({ ...l }));
+	let t = localsText(shown, 0);
+	for (let i = shown.length - 1; t.length > cap && i >= 0; i--) {
+		if (shown[i].depth) {
+			shown[i].depth = 0;
+			t = localsText(shown, 0);
+		}
+	}
+	return t;
 }
 
 /** Patterns that have no place in a debugger expression (no file system, processes, class loaders). */

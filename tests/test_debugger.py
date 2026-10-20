@@ -118,6 +118,10 @@ class DebuggerHelpersTest(unittest.TestCase):
         self.assertEqual(v["list"], "ArrayList@9(size 25) [\"x\", …+24 more]")
         self.assertEqual(v["obj"], "T@3 {n=1, o=U@4, …+2 more fields}")
         self.assertLessEqual(out["fit"]["length"], 8000)
+        self.assertIn("this = T@3 {n=1}", out["stopLocals"])
+        self.assertIn("u = U@4 {\n    s=\"zzz", out["stopLocals"])
+        self.assertIn("this = T@3 {n=1}", out["stopLocalsCapped"])
+        self.assertIn("u = U@4\n", out["stopLocalsCapped"])
         self.assertEqual(out["outside"], [True, True, True, False, False, True])
 
 
@@ -161,6 +165,8 @@ class DebuggerIntegrationTest(unittest.TestCase):
         self.assertIn("run #1", out["start"])
         self.assertIn("stopped at breakpoint #1 (hit 1)", out["stop1"])
         self.assertIn("word = \"hello\"", out["stop1"])
+        self.assertIn("this = Counter@", out["stop1"])
+        self.assertIn("total=0", out["stop1"])
         self.assertIn("total=0", out["inspectThis"])
         self.assertEqual(out["inspectSize"], "1")
         self.assertIn("method calls on project classes are not allowed", out["inspectProjectCall"])
@@ -175,9 +181,13 @@ class DebuggerIntegrationTest(unittest.TestCase):
         self.assertIn("terminated: run #1 ended, 6 stops", out["stop7"])
         self.assertIn("run #2", out["restart"])
         self.assertIn("returned = 5", out["stopAfterRestart"])
+        self.assertIn("stopped at entry #4 (hit 1) of demo.Counter#twice", out["stopStatic"])
+        self.assertIn("x = 2", out["stopStatic"])
+        self.assertNotIn("this =", out["stopStatic"])
+        self.assertEqual(out["inspectStaticThis"], "static method: no this")
         self.assertIn("call debug_start", out["afterBash"])
         s = D.journal_summary(journal)
-        self.assertEqual((s["jvm_runs"], s["stops"], s["stops_in_target"]), (2, 7, 6))
+        self.assertEqual((s["jvm_runs"], s["stops"], s["stops_in_target"]), (2, 8, 6))
         self.assertTrue(any(r.get("event") == "run_end" and r.get("reason") == "bash" for r in journal))
         for answer in out.values():
             if isinstance(answer, str):

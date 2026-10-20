@@ -19,12 +19,12 @@ of breakpoints, phases, evidence files) is prescribed.
 | `debug_start` | none | starts the scenario command of the case with the JDWP agent (`-Dmaven.surefire.debug=…suspend=y`, a port of the cell) and attaches; the JVM waits before its first instruction. Called again: the current run is killed and the scenario runs again (run #2, …); breakpoints are kept. |
 | `set_breakpoint` | line form: `file`, `code` (the text of the line, at most 200 characters, compared with whitespace collapsed), optional `line`; method form: `method` (`pkg.Class#name`, argument types only for overloads), `on` = `entry` / `exit`; optional `condition` | `#id … set` / `pending (class not loaded yet)`. A text that occurs on several lines without `line` is an error listing the line numbers; a given `line` must hold the text. |
 | `remove_breakpoint` | `id` | |
-| `resume` | `timeout_s` (default 60) | the next stop: kind (breakpoint, entry, exit, exception), breakpoint ids with hit numbers, at most 5 project frames (`… (+N project frames)`), locals of the top frame one level deep, `returned = …` at an exit; `exception: X: "message" thrown out of <method>` when the method is left by an exception; `terminated: run #N ended, K stops` at the end of the run; `still running after N s` |
-| `inspect` | `expr`, `frame` (default 0), `depth` (0–3, default 1) | the value; `inspect("locals", frame)` lists the locals of a frame |
+| `resume` | `timeout_s` (default 60) | the next stop: kind (breakpoint, entry, exit, exception), breakpoint ids with hit numbers, at most 5 project frames (`… (+N project frames)`), the top frame: the fields of `this` one level deep (instance methods), the arguments to depth 1, other locals as values or `Type@N`; `returned = …` at an exit; `exception: X: "message" thrown out of <method>` when the method is left by an exception; `terminated: run #N ended, K stops` at the end of the run; `still running after N s` |
+| `inspect` | `expr`, `frame` (default 0), `depth` (0–3, default 1) | the value; `inspect("locals", frame)` lists the locals of a frame; `inspect("this")` in a static method answers `static method: no this` |
 
 Values: strings cut at 2000 characters (300 in the locals of a stop), collections and arrays at 20
 elements (`…+N more`), objects at 40 fields, an answer at about 8 KB (the depth is lowered until it
-fits). Objects are shown as `Type@N`; `@N` can be used in later expressions of the same JVM run.
+fits; in the locals of a stop, expanded entries fall back to `Type@N`, the last first). Objects are shown as `Type@N`; `@N` can be used in later expressions of the same JVM run.
 
 Expressions (`inspect`, `condition`): variables, `this`, `returned` / `exception` at an exit stop,
 field chains, array indices, `@N`, literals, comparisons, arithmetic, and only these method calls:
