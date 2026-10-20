@@ -1,0 +1,71 @@
+# Autonomous mode
+
+The fifth mode of the pipeline. The agent gets no recorded execution data; instead it can run the
+case's driving scenario under a debugger, observe the executions of the target method and use the
+observed values in the test. Everything else (prompts `system.txt` and `task-common.txt`, model,
+limits, guard, evaluation) is the same as in the other agent modes.
+
+## Prompt
+
+`prompts/task-autonomous.txt` (about 0.5 KB, the size of the dump block) names the tools and the
+condition: observed values are test data and expected results, invented values are not; when the data
+are not sufficient, the breakpoints may be changed and the scenario run again. No procedure (number
+of breakpoints, phases, evidence files) is prescribed.
+
+## Tools (pi/debugger.ts)
+
+| Tool | Arguments | Answer |
+|---|---|---|
+| `debug_start` | none | starts the scenario command of the case with the JDWP agent (`-Dmaven.surefire.debug=…suspend=y`, a port of the cell) and attaches; the JVM waits before its first instruction. Called again: the current run is killed and the scenario runs again (run #2, …); breakpoints are kept. |
+| `set_breakpoint` | line form: `file`, `code` (the text of the line, at most 200 characters, compared with whitespace collapsed), optional `line`; method form: `method` (`pkg.Class#name`, argument types only for overloads), `on` = `entry` / `exit`; optional `condition` | `#id … set` / `pending (class not loaded yet)`. A text that occurs on several lines without `line` is an error listing the line numbers; a given `line` must hold the text. |
+| `remove_breakpoint` | `id` | |
+| `resume` | `timeout_s` (default 60) | the next stop: kind (breakpoint, entry, exit, exception), breakpoint ids with hit numbers, at most 5 project frames (`… (+N project frames)`), locals of the top frame one level deep, `returned = …` at an exit; `exception: X: "message" thrown out of <method>` when the method is left by an exception; `terminated: run #N ended, K stops` at the end of the run; `still running after N s` |
+| `inspect` | `expr`, `frame` (default 0), `depth` (0–3, default 1) | the value; `inspect("locals", frame)` lists the locals of a frame |
+
+Values: strings cut at 2000 characters (300 in the locals of a stop), collections and arrays at 20
+elements (`…+N more`), objects at 40 fields, an answer at about 8 KB (the depth is lowered until it
+fits). Objects are shown as `Type@N`; `@N` can be used in later expressions of the same JVM run.
+
+Expressions (`inspect`, `condition`): variables, `this`, `returned` / `exception` at an exit stop,
+field chains, array indices, `@N`, literals, comparisons, arithmetic, and only these method calls:
+`size`, `isEmpty`, `get`, `containsKey` on `java.util` collections and maps, `length`, `charAt`,
+`isEmpty` on strings, `toString`, `equals` on strings and boxes, `getClass().getName()`. Any other call
+is refused (“method calls on project classes are not allowed”); the renderer itself calls only JDK
+methods (`toString` of a few JDK value types, `toArray`/`entrySet` of JDK containers).
+
+Frames: a frame belongs to the project when its source file exists under a `src/{main,test}/java`
+directory of the workspace; the top frame is always shown.
+
+The scenario JVM is killed before every bash command of the agent (two Maven processes in one
+workspace interfere) and when Pi exits; the runner kills what is left after a timeout.
+
+## Backend
+
+`pi/debugger/JdiDapServer.java` is derived from JdiDapServer.java of mcp-debugger (commit be84732):
+the DAP framing, the JSON reader/writer and the expression evaluator are kept. Changed: attach only
+(no launch, no class redefinition, no stepping), breakpoints on lines and on method entry/exit
+(`MethodExitRequest` with the return value, `ExceptionRequest` for the exit by an exception, both
+filtered to the thread and stack depth of the invocation), the method whitelist of the evaluator,
+rendering with limits on the server. Events raised while the evaluator runs a JDK method are resumed
+at once (they would otherwise deadlock the invocation). It is compiled by `scripts/setup.sh` or
+`python3 -m runner.debugger --config config.yaml` into `<tools>/debugger/<hash of the source>/`.
+
+## Journal and metrics
+
+`artifacts/debug-log.jsonl` of a cell: one line per tool call (arguments, ok, answer size, seconds,
+run number) and per stop (kind, place, whether the top frame — for an exception stop, the frame of
+the method left — is the target method), plus the ends of runs. `summary.json: debugger` and the
+report table `debugger_by_mode` give: calls by tool, JVM runs, failed starts, stops, stops in the
+target method, plan revisions (breakpoints set or removed after the first stop), answer characters;
+`debugger_by_mode` also gives turns and tokens including cache reads. The agent writes no evidence
+file. `artifacts/scenario-debug-run<N>.log` keeps the output of every scenario run.
+
+Escape check: every `inspect` expression and breakpoint condition is matched against file system,
+process, environment, class loader and reflection names (the server refuses such calls anyway).
+
+## Running
+
+`modes: [autonomous]` in the config; `paths.debug_ports` (default `5100-5199`) is the range of JDWP
+ports, one per cell at a time (lock files under the work directory). Cells of the other modes are
+unchanged; the mode's results can go to a separate results directory and be compared with the cells
+of a published run.

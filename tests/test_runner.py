@@ -59,7 +59,7 @@ class PromptsTest(unittest.TestCase):
                           p["task"])
             self.assertIn("Repository: mybatis-3 at commit ", p["task"])
             self.assertNotIn("{{", p["task"] + p["system"])
-            if mode != "baseline":
+            if mode in EXECUTION_INPUT:
                 self.assertIn(EXECUTION_INPUT[mode], p["task"])
 
     def test_effective_system_prompt_matches_pi(self):
