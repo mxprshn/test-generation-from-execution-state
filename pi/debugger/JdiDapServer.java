@@ -483,7 +483,9 @@ public class JdiDapServer {
         }
         if (matching.isEmpty()) {
             List<String> names = new ArrayList<>();
-            for (Method m : rt.methodsByName(s.method)) names.add(signature(m));
+            for (Method m : rt.methodsByName(s.method)) {
+                if (!m.isSynthetic() && !m.isBridge()) names.add(signature(m));
+            }
             s.notes.add(names.isEmpty() ? "no method " + s.method + " in " + name
                     : "no overload with these argument types; overloads: " + String.join(", ", names));
         }
@@ -491,6 +493,9 @@ public class JdiDapServer {
 
     private static boolean matches(Spec s, Method m) {
         if (!m.name().equals(s.method)) return false;
+        // A covariant override compiles to a synthetic bridge with the same name and parameters: it is
+        // never the method the agent means, and choosing it gives no stops in the real method.
+        if (m.isSynthetic() || m.isBridge()) return false;
         if (s.argTypes == null) return true;
         List<String> actual = m.argumentTypeNames();
         if (actual.size() != s.argTypes.size()) return false;

@@ -102,6 +102,8 @@ out.removeEntry = await step("remove_breakpoint", { id: 3 });
 out.bpStatic = await step("set_breakpoint", { method: "demo.Counter#twice", on: "entry" });
 out.stopStatic = await step("resume", {});
 out.inspectStaticThis = await step("inspect", { expr: "this" });
+out.bpBridge = await step("set_breakpoint", { method: "demo.Square#copy", on: "exit" });
+out.stopBridge = await step("resume", {});
 for (const h of handlers.tool_call ?? []) await h({ toolName: "bash", input: { command: "mvn" } });
 out.afterBash = await step("resume", {});
 for (const h of handlers.session_shutdown ?? []) await h({ reason: "quit" });

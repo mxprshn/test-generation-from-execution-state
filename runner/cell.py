@@ -39,6 +39,12 @@ def now() -> str:
     return datetime.now(timezone.utc).isoformat(timespec="seconds")
 
 
+def debugger_input(case: Case) -> dict:
+    """What pi/debugger.ts runs: the command of the scenario check (eval_maven_args included, e.g. the
+    spotless check skipped), so the agent's own test file cannot break a debugged run on a format check."""
+    return {"scenario": eval_command(case, "scenario"), "target": case.target}
+
+
 def _write(path: Path, text: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(text, encoding="utf-8")
@@ -172,7 +178,7 @@ def _generate(cfg: Config, case: Case, mode: str, checkout: Path, commit: str, c
             "system_effective": hashlib.sha256(effective.encode()).hexdigest(),
             "task": hashlib.sha256(prompts["task"].encode()).hexdigest(),
         }
-        debugger = {"scenario": case.commands["scenario"], "target": case.target} if mode == "autonomous" else None
+        debugger = debugger_input(case) if mode == "autonomous" else None
         res = A.run_agent(cfg, ws, case.output_test_file, commands, prompts, tmp / "agent", api_key_env, debugger)
         _jsonl(cell / "artifacts" / "session.jsonl", res.events)
         if res.debug_log is not None:

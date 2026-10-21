@@ -52,6 +52,11 @@ interface DebuggerConfig {
 	target: { class: string; method: string };
 }
 
+/** Default waits of resume, seconds: the first resume of a run covers the scenario reaching the target
+ * (Spring contexts and MyBatis need 100-150 s for that), later ones the gaps between calls. */
+export const FIRST_RESUME_TIMEOUT = 300;
+export const RESUME_TIMEOUT = 60;
+
 export const TOOLS = ["debug_start", "set_breakpoint", "remove_breakpoint", "resume", "inspect"] as const;
 
 export function debugArgv(scenario: string[], port: number): string[] {
@@ -167,6 +172,8 @@ export default function (pi: ExtensionAPI) {
 	let nextId = 1;
 	const hits = new Map<number, number>();
 	let stopsInRun = 0;
+	/** The first resume of a run also waits for the build and the startup of the scenario. */
+	let resumedInRun = false;
 	const queue: Msg[] = [];
 	let wake: (() => void) | undefined;
 	const bps = new Map<number, string>(); // id -> description
@@ -436,6 +443,7 @@ export default function (pi: ExtensionAPI) {
 			run++;
 			hits.clear();
 			stopsInRun = 0;
+			resumedInRun = false;
 			const argv = debugArgv(config.scenario, config.port);
 			const logFile = resolve(config.scenario_log_dir, `scenario-debug-run${run}.log`);
 			const fd = openSync(logFile, "a");
@@ -538,12 +546,14 @@ export default function (pi: ExtensionAPI) {
 	register(
 		"resume",
 		"Let the scenario JVM run until the next stop at a breakpoint, the end of the run, or timeout_s seconds. A stop shows the place, the project frames and the local variables of the top frame.",
-		Type.Object({ timeout_s: Type.Optional(Type.Integer({ minimum: 1, maximum: 600, description: "seconds to wait, default 60" })) }),
+		Type.Object({ timeout_s: Type.Optional(Type.Integer({ minimum: 1, maximum: 600, description: `seconds to wait; default ${FIRST_RESUME_TIMEOUT} for the first resume of a run, ${RESUME_TIMEOUT} later` })) }),
 		async (p, signal) => {
 			const c = await ensureServer();
 			if (state === "none") return { ok: false, text: "error: no scenario run; call debug_start" };
 			if (state === "over") return { ok: false, text: `error: run #${run} is over; call debug_start to run the scenario again` };
-			const timeout = Math.max(1, Math.min(600, Number(p.timeout_s ?? 60))) * 1000;
+			const fallback = resumedInRun ? RESUME_TIMEOUT : FIRST_RESUME_TIMEOUT;
+			resumedInRun = true;
+			const timeout = Math.max(1, Math.min(600, Number(p.timeout_s ?? fallback))) * 1000;
 			const deadline = Date.now() + timeout;
 			if (state === "suspended") {
 				const r = await c.request("resume");

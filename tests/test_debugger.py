@@ -49,6 +49,21 @@ class ModeWiringTest(unittest.TestCase):
         self.assertEqual(debug[debug.index("-t") + 1].split(","), list(A.BUILTIN_TOOLS + A.DEBUGGER_TOOLS))
         self.assertEqual(plain[plain.index("-t") + 1].split(","), list(A.BUILTIN_TOOLS))
 
+    def test_debugged_scenario_is_the_checked_scenario_command(self):
+        from runner.cases import eval_command
+        from runner.cell import debugger_input
+        klaw = load_case("klaw-util-methods-get-user-name")
+        d = debugger_input(klaw)
+        self.assertEqual(d["scenario"], eval_command(klaw, "scenario"))
+        self.assertIn("-Dspotless.check.skip=true", d["scenario"])
+        self.assertEqual(d["target"], klaw.target)
+
+    def test_resume_waits_longer_for_the_first_stop_of_a_run(self):
+        src = (ROOT / "pi" / "debugger.ts").read_text()
+        self.assertIn("export const FIRST_RESUME_TIMEOUT = 300;", src)
+        self.assertIn("export const RESUME_TIMEOUT = 60;", src)
+        self.assertIn("resumedInRun ? RESUME_TIMEOUT : FIRST_RESUME_TIMEOUT", src)
+
     def test_journal_summary_and_expressions(self):
         rows = [
             {"tool": "set_breakpoint", "ok": True, "args": {"method": "a.B#c", "on": "exit", "condition": "x > 1"}},
@@ -185,9 +200,12 @@ class DebuggerIntegrationTest(unittest.TestCase):
         self.assertIn("x = 2", out["stopStatic"])
         self.assertNotIn("this =", out["stopStatic"])
         self.assertEqual(out["inspectStaticThis"], "static method: no this")
+        self.assertNotIn("overloads", out["bpBridge"])
+        self.assertIn("stopped at exit #5 (hit 1) of demo.Square#copy", out["stopBridge"])
+        self.assertIn("returned = Square@", out["stopBridge"])
         self.assertIn("call debug_start", out["afterBash"])
         s = D.journal_summary(journal)
-        self.assertEqual((s["jvm_runs"], s["stops"], s["stops_in_target"]), (2, 8, 6))
+        self.assertEqual((s["jvm_runs"], s["stops"], s["stops_in_target"]), (2, 9, 6))
         self.assertTrue(any(r.get("event") == "run_end" and r.get("reason") == "bash" for r in journal))
         for answer in out.values():
             if isinstance(answer, str):

@@ -13,5 +13,7 @@ class CounterScenarioTest {
         assertEquals(-1, c.safeAdd(null));
         assertEquals(2, c.seen().size());
         assertEquals(4, Counter.twice(2));
+        Shape s = new Square(3);
+        assertEquals(Square.class, s.copy().getClass());
     }
 }
