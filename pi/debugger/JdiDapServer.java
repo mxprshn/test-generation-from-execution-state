@@ -997,7 +997,7 @@ public class JdiDapServer {
                 return container(n, o, depth, isMap);
             }
             n.put("t", "obj");
-            if (depth <= 0 || nodes > NODES) {
+            if (depth <= 0 || nodes > NODES || restricted(o.referenceType())) {
                 n.put("cut", true);
                 return n;
             }
@@ -1537,6 +1537,31 @@ public class JdiDapServer {
             }
             return a.equals(b);  // an enum constant: the same object
         }
+    }
+
+    static final String RESTRICTED = "the fields of %s are not shown: class objects, class loaders, threads, "
+            + "the system, reflection and JDK internals are not part of the state of the program";
+
+    /** Objects whose fields the debugger neither shows nor reads: they lead to the class path, the file
+     *  system or the environment, not to the state of the program. */
+    static boolean restricted(ReferenceType t) {
+        String n = t.name();
+        if (n.equals("java.lang.Class") || n.equals("java.lang.System") || n.equals("java.lang.Runtime")
+                || n.equals("java.lang.Module") || n.equals("java.lang.ModuleLayer") || n.equals("java.lang.Package")
+                || n.startsWith("java.lang.Process") || n.startsWith("java.lang.reflect.") || n.startsWith("java.lang.invoke.")
+                || n.startsWith("java.security.") || n.startsWith("jdk.internal.") || n.startsWith("sun.")
+                || n.startsWith("com.sun.") || n.startsWith("java.lang.ref.") || n.startsWith("java.lang.Thread")) {
+            return true;
+        }
+        if (t instanceof ClassType) {
+            for (ClassType c = (ClassType) t; c != null; c = c.superclass()) {
+                String s = c.name();
+                if (s.equals("java.lang.ClassLoader") || s.equals("java.lang.Thread") || s.equals("java.lang.ThreadGroup")) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     private static Value boxedValue(ObjectReference o) {
@@ -2269,6 +2294,7 @@ public class JdiDapServer {
             }
 
             ObjectReference obj = (ObjectReference) target;
+            if (restricted(obj.referenceType())) throw error(String.format(RESTRICTED, obj.referenceType().name()));
 
             // String.length() is common but 'length' is not a field — handle as special case
             Field field = obj.referenceType().fieldByName(fieldName);

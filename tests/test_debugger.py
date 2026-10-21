@@ -102,9 +102,13 @@ class ModeWiringTest(unittest.TestCase):
     def test_escape_check_reads_debugger_expressions(self):
         rows = [{"tool": "inspect", "args": {"expr": "java.nio.file.Files.readString(p)"}},
                 {"tool": "inspect", "args": {"expr": "this.seen.get(0)"}},
-                {"tool": "set_breakpoint", "args": {"condition": "Runtime.getRuntime() != null"}}]
+                {"tool": "set_breakpoint", "args": {"condition": "Runtime.getRuntime() != null"}},
+                {"tool": "inspect", "args": {"expr": "this.getClass().classLoader.ucp.path"}},
+                {"tool": "inspect", "args": {"expr": "this.files.size() + this.runtime.ok"}},
+                {"tool": "inspect", "args": {"expr": "this.loader.parent.name"}}]
         found = X.check_debugger(rows)
-        self.assertEqual([f["where"] for f in found], ["debug-log 1 (inspect)", "debug-log 3 (set_breakpoint)"])
+        self.assertEqual([f["where"] for f in found],
+                         ["debug-log 1 (inspect)", "debug-log 3 (set_breakpoint)", "debug-log 4 (inspect)"])
         self.assertEqual(X.finding_class(found[0]["kind"]), "escape")
 
     def test_ports_are_leased_once(self):
@@ -281,6 +285,12 @@ class DebuggerIntegrationTest(unittest.TestCase):
         self.assertRegex(out["concat"], r'^"t=demo\.Tag@\d+"$')
         self.assertRegex(out["last"], r"AtomicReference@\d+\(Tag@\d+")
         self.assertRegex(out["first"], r"Optional@\d+\(Tag@\d+ \{name=\"x\"\}\)")
+        for refused in ("loaderField", "classLoader", "threadName"):
+            self.assertIn("are not shown", out[refused])
+        self.assertRegex(out["ownerShown"], r"^Thread@\d+$")
+        self.assertEqual(out["outsideExisting"], out["outsideMissing"])
+        self.assertEqual(out["outsideExisting"], out["outsideRelative"])
+        self.assertIn("restricted to files in the workspace", out["outsideExisting"])
         self.assertIn("terminated", out["end"])
 
     def run_sample(self, test_class: str, env: dict[str, str], target: dict[str, str]) -> tuple[dict, str]:

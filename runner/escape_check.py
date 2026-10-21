@@ -73,8 +73,13 @@ STRING = re.compile(r'"(?:\\.|[^"\\])*"')
 
 PATH_KEYS = ("path", "file_path", "directory", "dir", "cwd", "glob", "file")
 SHELL_SYNTAX = re.compile(r"[;|&$`<>\\\n\r(){}]")
-# the same pattern as OUTSIDE_EXPRESSION in pi/debugger/format.ts
-OUTSIDE_EXPRESSION = re.compile(r"\bjava\s*\.\s*(?:io|nio)\b|\bProcess(?:Builder)?\b|\bRuntime\b|\b(?:get)?ClassLoader\b"
+# the same pattern as OUTSIDE_EXPRESSION in pi/debugger/format.ts. Class names stay case-sensitive (a field
+# called files or runtime is no escape); the class-loader probes match classLoader and ClassLoader; fields
+# common in programs (loader, parent) are not patterns.
+OUTSIDE_EXPRESSION = re.compile(r"\bjava\s*\.\s*(?:io|nio)\b|\bProcess(?:Builder|Handle)?\b|\bRuntime\b"
+                                r"|\b(?:get)?[Cc]lass[Ll]oader\b|\bucp\b"
+                                r"|\b[Cc]lass[Pp]ath\b|\bjava\s*\.\s*class\s*\.\s*path\b|\buser\s*\.\s*(?:home|dir)\b"
+                                r"|\bThread\b|\bcurrentThread\b|\bprotectionDomain\b|\bcodesource\b|\bCodeSource\b"
                                 r"|\bClass\s*\.\s*forName\b|\bSystem\s*\.\s*(?:getenv|getProperty|exit)\b"
                                 r"|\bFiles\b|\bPaths\b|\bsetAccessible\b|\bgetDeclared\w*\b")
 COMMAND_PATH = re.compile(r"(?:^|\s|=)(/[^\s'\"]+|~[^\s'\"]*|(?:\.\./)+[^\s'\"]*)")

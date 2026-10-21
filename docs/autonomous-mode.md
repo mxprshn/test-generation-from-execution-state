@@ -45,6 +45,15 @@ for the text of a few immutable JDK value types (`BigDecimal`, `java.time`, `UUI
 `StringBuilder`); a string concatenation shows an object as `Type@N`. The integration test
 `test_no_code_of_the_program_runs` checks this with keys that print a marker from these methods.
 
+The fields of class objects, class loaders, threads, `System`, `Runtime`, processes, modules,
+reflection, `java.security`, `java.lang.invoke`/`ref` and JDK internals (`jdk.internal.*`, `sun.*`,
+`com.sun.*`) are neither shown nor readable (“the fields of … are not shown”): they lead to the class
+path, the file system or the environment, not to the state of the program. A breakpoint file outside
+the workspace gets the same answer whether the file exists or not. The escape check
+(`runner/escape_check.py`) also flags expressions that probe class loaders, the class path, threads or
+the user directories; class names there are case-sensitive, so a field called `files` or `runtime` is
+not taken for an escape.
+
 Frames: a frame belongs to the project when its source file exists under a `src/{main,test}/java`
 directory of the workspace; the top frame is always shown.
 

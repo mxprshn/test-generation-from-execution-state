@@ -23,6 +23,8 @@ public class Shelf {
     private final AtomicReference<Tag> last = new AtomicReference<>();
     private Optional<Tag> first = Optional.empty();
     private final List<String> fixed = List.of("a", "b", "c");
+    private final Thread owner = Thread.currentThread();
+    private final ClassLoader loader = Shelf.class.getClassLoader();
 
     public int put(String name) {
         Tag t = new Tag(name);

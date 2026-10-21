@@ -237,9 +237,13 @@ export default function (pi: ExtensionAPI) {
 	function sourceFile(raw: string): { path: string; rel: string } | { error: string } {
 		const cleaned = raw.replace(/^@/, "");
 		const path = isAbsolute(cleaned) ? resolve(cleaned) : resolve(workspace, cleaned);
+		// a path outside the workspace gets the same answer whether it exists or not
+		const outside = { error: "breakpoints are restricted to files in the workspace" };
+		const lexical = relative(resolve(workspace), path);
+		if (lexical.startsWith("..") || isAbsolute(lexical)) return outside;
 		if (!existsSync(path)) return { error: `no file ${raw} in the workspace` };
 		const real = realpathSync(path);
-		if (!inWorkspace(real)) return { error: "breakpoints are restricted to files in the workspace" };
+		if (!inWorkspace(real)) return outside;
 		return { path: real, rel: relative(realpathSync(workspace), real) };
 	}
 

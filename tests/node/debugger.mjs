@@ -109,6 +109,13 @@ if (process.env.DEBUGGER_SHELF) {
 	out.concat = await step("inspect", { expr: "\"t=\" + this.order.get(0)" });
 	out.last = await step("inspect", { expr: "this.last" });
 	out.first = await step("inspect", { expr: "this.first", depth: 2 });
+	out.loaderField = await step("inspect", { expr: "this.loader.ucp" });
+	out.classLoader = await step("inspect", { expr: "this.getClass().classLoader" });
+	out.threadName = await step("inspect", { expr: "this.owner.name" });
+	out.ownerShown = await step("inspect", { expr: "this.owner", depth: 2 });
+	out.outsideExisting = await step("set_breakpoint", { file: "/etc/hostname", code: "x" });
+	out.outsideMissing = await step("set_breakpoint", { file: "/nonexistent/Nope.java", code: "x" });
+	out.outsideRelative = await step("set_breakpoint", { file: "../../etc/hostname", code: "x" });
 	out.end = await step("resume", {});
 	for (const h of handlers.session_shutdown ?? []) await h({ reason: "quit" });
 	process.stdout.write(JSON.stringify(out));

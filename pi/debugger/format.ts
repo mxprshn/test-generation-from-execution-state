@@ -234,4 +234,4 @@ export function stopLocalsText(locals: Array<{ name: string; value: Node | null;
 
 /** Patterns that have no place in a debugger expression (no file system, processes, class loaders). */
 export const OUTSIDE_EXPRESSION =
-	/\bjava\s*\.\s*(?:io|nio)\b|\bProcess(?:Builder)?\b|\bRuntime\b|\b(?:get)?ClassLoader\b|\bClass\s*\.\s*forName\b|\bSystem\s*\.\s*(?:getenv|getProperty|exit)\b|\bFiles\b|\bPaths\b|\bsetAccessible\b|\bgetDeclared\w*\b/;
+	/\bjava\s*\.\s*(?:io|nio)\b|\bProcess(?:Builder|Handle)?\b|\bRuntime\b|\b(?:get)?[Cc]lass[Ll]oader\b|\bucp\b|\b[Cc]lass[Pp]ath\b|\bjava\s*\.\s*class\s*\.\s*path\b|\buser\s*\.\s*(?:home|dir)\b|\bThread\b|\bcurrentThread\b|\bprotectionDomain\b|\bcodesource\b|\bCodeSource\b|\bClass\s*\.\s*forName\b|\bSystem\s*\.\s*(?:getenv|getProperty|exit)\b|\bFiles\b|\bPaths\b|\bsetAccessible\b|\bgetDeclared\w*\b/;
