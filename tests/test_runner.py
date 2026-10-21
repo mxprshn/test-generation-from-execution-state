@@ -6,6 +6,7 @@ import subprocess
 import tempfile
 import unittest
 from pathlib import Path
+from unittest import mock
 
 import yaml
 
@@ -41,6 +42,48 @@ class CasesTest(unittest.TestCase):
             self.assertEqual((row["dump"] == "yes"), case.dump is not None, case.id)
             self.assertEqual((row["preliminary_test"] == "yes"), case.preliminary_test is not None, case.id)
             self.assertIn(case.group, ("direct", "indirect"))
+
+    def test_tools_projects_cases_load_and_are_consistent(self):
+        """The cases of the tools' own projects (tools-projects.csv): autonomous mode only, no call dumps,
+        JDK 11 projects that are not in cases.csv; meta.yaml next to every case.yaml."""
+        rows = case_rows(case_list="tools-projects.csv")
+        self.assertEqual(len(rows), 31)
+        study = {r["id"] for r in case_rows()}
+        study_projects = {r["project"] for r in case_rows()}
+        projects = load_projects()
+        for row in rows:
+            case = load_case(row["id"])
+            self.assertNotIn(case.id, study)
+            self.assertEqual((case.project, case.group), (row["project"], row["group"]))
+            self.assertNotIn(case.project, study_projects)
+            self.assertEqual(projects[case.project].jdk, 11)
+            test_class = case.scenario_test.split("#")[0].rsplit(".", 1)[-1]
+            self.assertEqual(Path(case.scenario_source).stem, test_class, case.id)
+            self.assertEqual((row["dump"], row["preliminary_test"]), ("no", "no"))
+            self.assertIsNone(case.dump)
+            self.assertTrue((case.dir / "meta.yaml").is_file(), case.id)
+        self.assertEqual({p for p, v in projects.items() if v.prebuild}, {"lab-insurance"})
+
+    def test_case_list_of_the_config(self):
+        from runner.cases import case_ids
+        with tempfile.TemporaryDirectory() as d:
+            cfg = load_config(write_config(Path(d), case_list="tools-projects.csv"))
+            self.assertEqual(len(case_ids(cfg)), 31)
+            self.assertEqual(len(case_ids(load_config(write_config(Path(d))))), 70)
+            with self.assertRaises(Exception):
+                load_config(write_config(Path(d), case_list="../cases.csv"))
+
+    def test_check_jdk(self):
+        from runner import cases as CS
+        with tempfile.TemporaryDirectory() as d:
+            cfg = load_config(write_config(Path(d), jdk=11))
+            with mock.patch.object(CS, "java_major", lambda _h: 11), mock.patch.dict(os.environ, {"JAVA_HOME": d}):
+                CS.check_jdk(cfg, ["pdfbox-catalog-get-viewer-preferences"])
+                with self.assertRaisesRegex(CS.CaseError, "jsoup needs JDK 21"):
+                    CS.check_jdk(cfg, ["jsoup-normalise-whitespace"])
+            with mock.patch.object(CS, "java_major", lambda _h: 21):
+                with self.assertRaisesRegex(CS.CaseError, "is JDK 21"):
+                    CS.check_jdk(cfg, ["pdfbox-catalog-get-viewer-preferences"])
 
     def test_repository_has_no_local_paths(self):
         pattern = re.compile(r"/Users/|/home/|/private/var/|/var/folders/|\.\./dataset")

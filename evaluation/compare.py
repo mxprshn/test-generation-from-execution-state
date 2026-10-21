@@ -68,6 +68,9 @@ HERE = Path(__file__).resolve().parent
 DEFAULT_NONDET = HERE / "nondeterminism.json"
 DEFAULT_COMPONENTS = HERE / "components.json"
 DEFAULT_TEST_CLASSES = HERE / "test-classes.json"
+# per-project lists of projects outside cases.csv (components, test_classes, nondet_fields), kept apart so
+# that the normalisation hash of the 70 cases of the study does not change (components.py --extra writes it)
+DEFAULT_EXTRA = HERE / "normalisation-extra.json"
 
 IDENTITY_HASH = re.compile(r"@[0-9a-f]{4,}\b")
 # timestamps embedded in strings (JSON payloads, messages): 2026-10-11 23:57:39, 2026-10-11T23:57:39.123Z
@@ -161,14 +164,21 @@ _COMPONENTS: dict[str, list[str]] | None = None  # test hook: overrides componen
 _TEST_CLASSES: dict[str, list[str]] | None = None  # test hook: overrides test-classes.json
 
 
+def load_extra(project: str | None) -> dict[str, list[str]]:
+    """Entry of a project in normalisation-extra.json ({} for the projects of cases.csv)."""
+    return dict(_load_json(DEFAULT_EXTRA).get(project or "", {}))
+
+
 def load_components(project: str | None) -> set[str]:
-    data = _COMPONENTS if _COMPONENTS is not None else _load_json(DEFAULT_COMPONENTS)
-    return set(data.get(project or "", []))
+    if _COMPONENTS is not None:
+        return set(_COMPONENTS.get(project or "", []))
+    return set(_load_json(DEFAULT_COMPONENTS).get(project or "", [])) | set(load_extra(project).get("components", []))
 
 
 def load_test_classes(project: str | None) -> set[str]:
-    data = _TEST_CLASSES if _TEST_CLASSES is not None else _load_json(DEFAULT_TEST_CLASSES)
-    return set(data.get(project or "", []))
+    if _TEST_CLASSES is not None:
+        return set(_TEST_CLASSES.get(project or "", []))
+    return set(_load_json(DEFAULT_TEST_CLASSES).get(project or "", [])) | set(load_extra(project).get("test_classes", []))
 
 
 def load_nondet(path: Path | None = None) -> dict[str, Any]:
@@ -189,7 +199,7 @@ class Normaliser:
         self.types = set(nondet.get("types", []))
         self.prefixes = tuple(nondet.get("type_prefixes", []))
         fields = nondet.get("fields", {})
-        self.fields = set(fields.get("*", [])) | set(fields.get(project or "", []))
+        self.fields = set(fields.get("*", [])) | set(fields.get(project or "", [])) | set(load_extra(project).get("nondet_fields", []))
         self.masked = 0
         self.cuts = 0
         # paths (args..., value..., self...) holding a masked value on some side: there a masked

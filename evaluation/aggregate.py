@@ -40,7 +40,7 @@ from typing import Any
 from evaluation import mutation as M
 from evaluation import stats as ST
 from runner import escape_check as X
-from runner.cases import case_rows
+from runner.cases import config_case_rows
 from runner.config import Config, load_config
 
 MODES = ["baseline", "rendered-raw", "rendered", "dump", "autonomous"]
@@ -48,7 +48,7 @@ LEVELS = (("structure", "S"), ("io", "A"), ("state", "B"), ("strict", "C"))
 
 
 def load(cfg: Config) -> tuple[list[dict[str, Any]], dict[str, dict[str, str]]]:
-    cases = {r["id"]: r for r in case_rows(cfg.cases_dir)}
+    cases = {r["id"]: r for r in config_case_rows(cfg)}
     rounds = {cfg.run_id(r): str(r) for r in cfg.rounds}
     recs = []
     for p in sorted(cfg.cells_dir.glob("*/*/*/eval.json")):

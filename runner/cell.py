@@ -123,6 +123,45 @@ def generate(cfg: Config, case_id: str, mode: str, run_id: str, api_key_env: str
         shutil.rmtree(tmp, ignore_errors=True)
 
 
+def scenario_check(cfg: Config, case: Case, ws: Path, env: dict[str, str], logs: Path, summary: dict[str, Any]):
+    """The project's prebuild commands (if any), then the harness's own run of the driving scenario, run
+    like the evaluation runs it (eval_maven_args: format checks off). Returns the result of the scenario."""
+    for i, argv in enumerate(load_projects()[case.project].prebuild, start=1):
+        pre = run(resolve_argv(list(argv), ws), ws, env, cfg.command_timeout, "prebuild")
+        _write(logs / f"prebuild-{i}.log", pre.stdout[-20000:] + pre.stderr[-5000:])
+        summary.setdefault("prebuild", []).append(pre.as_dict())
+        if not pre.ok:
+            raise RuntimeError(f"driving scenario does not run: prebuild command {i} of the project failed")
+    check = run(resolve_argv(eval_command(case, "scenario"), ws), ws, env, cfg.command_timeout, "scenario")
+    _write(logs / "scenario-check.log", check.stdout[-20000:] + check.stderr[-5000:])
+    summary["scenario_check"] = check.as_dict()
+    return check
+
+
+def check_case_scenario(cfg: Config, case_id: str, logs: Path) -> dict[str, Any]:
+    """The preparation of a cell without the agent: exported commit, hidden tests removed, a fresh git
+    repository, prebuild and the scenario check (scripts/check_scenarios.py)."""
+    case = load_case(case_id, cfg.cases_dir)
+    project = load_projects()[case.project]
+    ws = cfg.work_dir / "check" / neutral_name(case_id, "scenario-check")
+    shutil.rmtree(ws, ignore_errors=True)
+    summary: dict[str, Any] = {"case_id": case_id, "started": now()}
+    started = time.time()
+    try:
+        W.export_commit(project_checkout(cfg, case.project), project.commit, ws)
+        summary["hidden_paths_removed"] = W.hide_paths(ws, case.hidden_paths)
+        W.init_repo(ws)
+        check = scenario_check(cfg, case, ws, cfg.command_env(), logs, summary)
+        summary["ok"] = check.ok
+    except Exception as exc:
+        summary["ok"] = False
+        summary["error"] = f"{type(exc).__name__}: {exc}"
+    finally:
+        shutil.rmtree(ws, ignore_errors=True)
+        summary["seconds"] = round(time.time() - started, 1)
+    return summary
+
+
 def _generate(cfg: Config, case: Case, mode: str, checkout: Path, commit: str, cell: Path, tmp: Path,
               summary: dict[str, Any], api_key_env: str) -> dict[str, Any]:
     source = method_input(case, mode)
@@ -147,10 +186,7 @@ def _generate(cfg: Config, case: Case, mode: str, checkout: Path, commit: str, c
     env = cfg.command_env()
 
     summary["phase"] = "scenario-check"
-    # the harness's own check, run like the evaluation runs the scenario (format checks off)
-    check = run(resolve_argv(eval_command(case, "scenario"), ws), ws, env, cfg.command_timeout, "scenario")
-    _write(cell / "artifacts" / "scenario-check.log", check.stdout[-20000:] + check.stderr[-5000:])
-    summary["scenario_check"] = check.as_dict()
+    check = scenario_check(cfg, case, ws, env, cell / "artifacts", summary)
     if not check.ok:
         if support:
             for rel in support:

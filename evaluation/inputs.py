@@ -95,12 +95,20 @@ def config_hash(cfg: Config, fields: tuple[str, ...]) -> str:
 def project_hash(project: str) -> str:
     from runner.cases import load_projects
     p = load_projects()[project]
-    return _sha(json.dumps([p.url, p.commit, p.jdk, list(p.eval_maven_args)]).encode())
+    parts: list[Any] = [p.url, p.commit, p.jdk, list(p.eval_maven_args)]
+    if p.prebuild:  # only projects with a prebuild: the hashes of the other projects stay as they were
+        parts.append([list(a) for a in p.prebuild])
+    return _sha(json.dumps(parts).encode())
 
 
-def normalisation_hash() -> str:
+def normalisation_hash(project: str | None = None) -> str:
+    """The normalisation lists; for a project of normalisation-extra.json also its entry there (the
+    projects of cases.csv have none, so their hash is that of the three files alone)."""
+    from evaluation import compare as C
     d = ROOT / "evaluation"
-    return files_hash([d / "nondeterminism.json", d / "components.json", d / "test-classes.json"])
+    base = files_hash([d / "nondeterminism.json", d / "components.json", d / "test-classes.json"])
+    extra = C.load_extra(project)
+    return _sha(json.dumps([base, extra], sort_keys=True).encode()) if extra else base
 
 
 def mode_input_hash(case, mode: str) -> str | None:
@@ -131,7 +139,7 @@ def step_inputs(cfg: Config, case, cell: Path, step: str) -> dict[str, Any]:
         "result": tree_hash(cell / "result.diff"),
     }
     if step == "rq1":
-        out["normalisation"] = normalisation_hash()
+        out["normalisation"] = normalisation_hash(case.project)
         out["reference"] = tree_hash(cfg.references_dir / case.id / "run1.json")
     if step in ("rq1", "rq2"):
         rec = cell / "eval.json"

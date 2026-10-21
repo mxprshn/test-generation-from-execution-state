@@ -92,10 +92,38 @@ class StaleAndTransientTest(unittest.TestCase):
             rec = E.evaluate_cell(self.cfg, self.cell, ["quality"], force=["quality"])
             self.assertEqual(rec["quality"], {"v": 1})
 
+    def test_inputs_of_the_study_cases_unchanged(self):
+        """The case, project and normalisation hashes of the cases of cases.csv are those recorded in the
+        released results (v2-results): adding projects, prebuild and normalisation-extra.json for the
+        cases of tools-projects.csv must not make the released cells stale."""
+        from runner.cases import load_case
+        released = {  # <case>: (case, project, normalisation) of eval.json inputs.rq1 in the release
+            "jsoup-normalise-whitespace": ("275f4b81d498a746", "2ee4636a41d78ea0"),
+            "mybatis-caching-executor-query": ("80bae378510587a9", "bf98b08c120e0dde"),
+            "klaw-util-methods-get-user-name": ("498237425d2caff5", "fd4f5a5472cf31be"),
+            "jgit-config-to-text": ("c0989df73bfe0ba8", "f2247507879a6c90"),
+            "apollo-release-service-publish": ("26f78d94b79cb532", "64a429ff69a0c078"),
+            "liquibase-history-command-h2": ("ec6d0e90cb42025f", "7d98c95392b5becc"),
+            "checkstyle-checker-process": ("4c0595666d2efeff", "f0f15f2bce5b0f8b"),
+        }
+        for case_id, (case_hash, project_hash) in released.items():
+            case = load_case(case_id)
+            now = I.step_inputs(self.cfg, case, self.cell, "rq1")
+            self.assertEqual((now["case"], now["project"], now["normalisation"]),
+                             (case_hash, project_hash, "ef4dccd86a6f779f"), case_id)
+            gen = I.generation_inputs(self.cfg, case, "baseline")
+            self.assertEqual((gen["case"], gen["project"]), (case_hash, project_hash), case_id)
+
+    def test_normalisation_extra_is_per_project(self):
+        from evaluation import compare as C
+        with mock.patch.object(C, "load_extra", lambda p: {"components": ["a.B"]} if p == "pdfbox" else {}):
+            self.assertEqual(I.normalisation_hash("jsoup"), I.normalisation_hash())
+            self.assertNotEqual(I.normalisation_hash("pdfbox"), I.normalisation_hash())
+
     def test_normalisation_change_invalidates_rq1(self):
         rec = {"inputs": {"rq1": I.step_inputs(self.cfg, __import__("runner.cases", fromlist=["x"]).load_case(
             "jsoup-normalise-whitespace"), self.cell, "rq1")}, "rq1": {}}
-        with mock.patch.object(I, "normalisation_hash", lambda: "changed"):
+        with mock.patch.object(I, "normalisation_hash", lambda project=None: "changed"):
             from runner.cases import load_case
             now = I.step_inputs(self.cfg, load_case("jsoup-normalise-whitespace"), self.cell, "rq1")
         self.assertNotEqual(rec["inputs"]["rq1"]["normalisation"], now["normalisation"])

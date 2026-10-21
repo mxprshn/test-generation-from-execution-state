@@ -75,6 +75,10 @@ class Config:
     reference_runs: int
     trace_depth: int
     work_root: Path | None = None
+    # cases/<case_list>: the case set of the run (cases.csv, the 70 cases of the study, by default)
+    case_list: str = "cases.csv"
+    # major version of the JDK at paths.java_home; every project of the case set must use it
+    jdk: int = 21
     extra_env: dict[str, str] = field(default_factory=dict)
     _work_dir: Path | None = field(default=None, repr=False)
 
@@ -149,7 +153,7 @@ def load_config(path: str | Path) -> Config:
     evaluation = raw.get("evaluation") or {}
     java_home = _path(paths.get("java_home")) or (Path(os.environ["JAVA_HOME"]) if os.environ.get("JAVA_HOME") else None)
     if java_home is None:
-        raise ConfigError("set paths.java_home in the config or JAVA_HOME in the environment (JDK 21)")
+        raise ConfigError("set paths.java_home in the config or JAVA_HOME in the environment (the JDK of `jdk`, 21 by default)")
     modes = list(raw.get("modes") or AGENT_MODES)
     once_modes = list(raw.get("once_modes") or [])
     unknown = sorted(set(modes + once_modes) - set(MODES))
@@ -193,7 +197,11 @@ def load_config(path: str | Path) -> Config:
         trace_depth=int(evaluation.get("trace_depth", 5)),
         work_root=_path(paths.get("work")),
         extra_env={str(k): os.path.expandvars(str(v)) for k, v in (raw.get("env") or {}).items()},
+        case_list=str(raw.get("case_list") or "cases.csv"),
+        jdk=int(raw.get("jdk", 21)),
     )
+    if Path(cfg.case_list).name != cfg.case_list or not cfg.case_list.endswith(".csv"):
+        raise ConfigError(f"case_list must be a .csv file name in cases/, got {cfg.case_list!r}")
     if cfg.work_root is not None:
         for inside in (cfg.results_dir, ROOT):
             if cfg.work_root == inside or inside in cfg.work_root.parents:

@@ -1,6 +1,6 @@
 """Clone the subject projects at their commits and build them, so that case commands run offline.
 
-For every project of projects.yaml: clone into <projects>/<repository name> (or reuse an existing
+For every project of the config's case list (cases.csv by default, config case_list): clone into <projects>/<repository name> (or reuse an existing
 checkout of the same commit), then run, online, the distinct `build` and `scenario` commands of the
 project's cases (Maven fills the local repository with everything the offline commands need).
 A project whose commands all succeeded at this commit is not rebuilt: a marker file next to the
@@ -21,7 +21,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from runner.cases import case_rows, load_case, load_projects  # noqa: E402
+from runner.cases import config_case_rows, load_case, load_projects  # noqa: E402
 from runner.config import load_config  # noqa: E402
 from runner.process import resolve_argv, run  # noqa: E402
 
@@ -50,17 +50,20 @@ def main(argv: list[str] | None = None) -> int:
     cfg = load_config(a.config)
     env = cfg.command_env()
     failed = 0
+    rows = config_case_rows(cfg)
+    used = {r["project"] for r in rows}
     for name, project in load_projects().items():
-        if a.projects and name not in a.projects:
+        if name not in used or (a.projects and name not in a.projects):
             continue
         dest = cfg.projects_dir / project.checkout_name
         checkout(project.url, project.commit, dest)
         print(f"{name}: {dest} at {project.commit[:12]}", flush=True)
         if a.skip_build:
             continue
-        plan: list[tuple[str, str, list[str]]] = []
+        plan: list[tuple[str, str, list[str]]] = [
+            ("-", "prebuild", [x for x in argv if x not in ONLINE_DROP]) for argv in project.prebuild]
         seen: set[tuple[str, ...]] = set()
-        for row in case_rows(cfg.cases_dir):
+        for row in rows:
             if row["project"] != name:
                 continue
             case = load_case(row["id"], cfg.cases_dir)

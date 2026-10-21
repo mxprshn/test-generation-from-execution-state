@@ -10,9 +10,14 @@ not test data, and is compared by presence only.
                        the jgit test-support modules org.eclipse.jgit.junit*).
 
 The lists are derived from the project sources mechanically, the same for every mode. The files in the
-repository were generated from the checkouts at the commits of projects.yaml:
+repository were generated from the checkouts at the commits of projects.yaml (the projects of cases.csv):
 
     python3 -m evaluation.components --config config.yaml
+
+The projects of another case list (config case_list, e.g. tools-projects.csv) get their lists in
+normalisation-extra.json instead, so that the files of the study and their hashes stay unchanged:
+
+    python3 -m evaluation.components --config tools-projects.yaml --extra
 """
 from __future__ import annotations
 
@@ -21,12 +26,13 @@ import json
 import re
 from pathlib import Path
 
-from runner.cases import load_projects
+from runner.cases import case_rows, config_case_rows, load_projects
 from runner.config import load_config
 
 HERE = Path(__file__).resolve().parent
 OUT = HERE / "components.json"
 OUT_TESTS = HERE / "test-classes.json"
+OUT_EXTRA = HERE / "normalisation-extra.json"
 
 STEREOTYPE = re.compile(
     r"^\s*@(?:org\.springframework\.\w+(?:\.\w+)*\.)?"
@@ -84,12 +90,23 @@ def test_classes(repo: Path) -> list[str]:
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
     ap.add_argument("--config", default="config.yaml")
-    cfg = load_config(ap.parse_args(argv).config)
-    repos = sorted((name, cfg.projects_dir / p.checkout_name) for name, p in load_projects().items())
+    ap.add_argument("--extra", action="store_true",
+                    help="the projects of the config's case list into normalisation-extra.json (merged)")
+    a = ap.parse_args(argv)
+    cfg = load_config(a.config)
+    names = {r["project"] for r in (config_case_rows(cfg) if a.extra else case_rows(cfg.cases_dir))}
+    repos = sorted((name, cfg.projects_dir / p.checkout_name) for name, p in load_projects().items() if name in names)
     comps = {project: components(repo) for project, repo in repos}
     tests = {project: test_classes(repo) for project, repo in repos}
-    OUT.write_text(json.dumps(comps, indent=1) + "\n")
-    OUT_TESTS.write_text(json.dumps(tests, indent=1) + "\n")
+    if a.extra:
+        extra = json.loads(OUT_EXTRA.read_text()) if OUT_EXTRA.is_file() else {}
+        for project, _ in repos:
+            entry = extra.setdefault(project, {})
+            entry["components"], entry["test_classes"] = comps[project], tests[project]
+        OUT_EXTRA.write_text(json.dumps(dict(sorted(extra.items())), indent=1) + "\n")
+    else:
+        OUT.write_text(json.dumps(comps, indent=1) + "\n")
+        OUT_TESTS.write_text(json.dumps(tests, indent=1) + "\n")
     for project, _ in repos:
         print(f"{project:12} components={len(comps[project]):4} test_classes={len(tests[project])}")
     return 0

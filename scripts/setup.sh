@@ -3,13 +3,18 @@
 #
 #   scripts/setup.sh [config.yaml]
 #
-#   1. checks JDK 21 (paths.java_home or JAVA_HOME), Maven 3.9, git, curl, python3 with PyYAML;
+#   1. checks the JDK of the config (`jdk`, 21 by default; paths.java_home or JAVA_HOME), Maven 3.9, git,
+#      curl, python3 with PyYAML (the cases of tools-projects.csv run on JDK 11: scripts/install_jdk11.sh);
 #   2. Node.js 22 (checksum verified) and Pi (pinned version; its npm-shrinkwrap.json pins the
 #      dependency tree) into <tools>/node and <tools>/pi, unless already there;
 #   3. BTrace 2.2.6 into <tools>/btrace;
 #   4. PIT 1.15.8 into the local Maven repository;
 #   5. the JDI server of the autonomous mode (pi/debugger/JdiDapServer.java) into <tools>/debugger;
-#   6. clones the subject projects at the commits of projects.yaml into paths.projects and builds them
+#   6. (cases of tools-projects.csv) JDK 11: scripts/install_jdk11.sh <dir>, then a config with `jdk: 11`,
+#      paths.java_home = <dir>/jdk-11.0.32.1+1 and `case_list: tools-projects.csv`; the steps below are
+#      the same (PIT, BTrace, the debugger compiled with that JDK);
+#   7. clones the subject projects of the config's case list (cases.csv, or case_list of the config) at
+#      the commits of projects.yaml into paths.projects and builds them
 #      (scripts/prepare_projects.py): the case commands run offline afterwards; projects whose
 #      build already succeeded at the pinned commit are not rebuilt (--rebuild to force).
 #
@@ -61,14 +66,14 @@ import shlex, sys
 from runner.config import load_config
 c = load_config(sys.argv[1])
 for k, v in {"TOOLS": c.tools_dir, "JAVA_HOME": c.java_home, "M2_REPO": c.maven_repository,
-             "PROJECTS": c.projects_dir}.items():
+             "PROJECTS": c.projects_dir, "JDK": c.jdk}.items():
     print(f"{k}={shlex.quote(str(v))}")
 EOF
 )"
 export JAVA_HOME PATH="$JAVA_HOME/bin:$PATH"
 
 echo "== checks"
-"$JAVA_HOME/bin/java" -version 2>&1 | head -1 | grep -q '"21' || { echo "JDK 21 required at $JAVA_HOME"; exit 1; }
+"$JAVA_HOME/bin/java" -version 2>&1 | head -1 | grep -q "\"$JDK[.\"]" || { echo "JDK $JDK required at $JAVA_HOME"; exit 1; }
 command -v mvn >/dev/null || { echo "Maven (mvn) required on PATH"; exit 1; }
 MAVEN_VERSION=$(mvn -v 2>/dev/null | sed -n 's/^Apache Maven \([0-9.]*\).*/\1/p' | head -1)
 case "$MAVEN_VERSION" in 3.9.*) ;; *) echo "Maven 3.9 required, found '${MAVEN_VERSION:-none}'"; exit 1 ;; esac

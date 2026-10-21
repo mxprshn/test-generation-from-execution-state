@@ -43,7 +43,7 @@ from evaluation import reference as R  # noqa: E402
 from runner import agent as A  # noqa: E402
 from runner import cell as G  # noqa: E402
 from runner import escape_check as X  # noqa: E402
-from runner.cases import case_ids, load_case  # noqa: E402
+from runner.cases import case_ids, check_jdk, load_case  # noqa: E402
 from runner.config import Config, load_config  # noqa: E402
 
 HASHED = ("runner", "evaluation", "pi", "prompts", "scripts")
@@ -294,6 +294,7 @@ def main(argv: list[str] | None = None) -> int:
     a = ap.parse_args(argv)
     cfg = load_config(a.config)
     cases = case_ids(cfg, a.cases)
+    check_jdk(cfg, cases)
     if a.status:
         print_status(cfg, cases)
         return 0
