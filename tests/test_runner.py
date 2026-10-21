@@ -216,6 +216,63 @@ class CellLogicTest(unittest.TestCase):
         self.assertFalse(G.is_infra_failure({"status": "completed"}, cell))
         self.assertFalse(G.is_infra_failure({"status": "method_failed"}, cell))
 
+    def test_provider_client_errors_before_any_tool_call_are_infrastructure(self):
+        # the autonomous trial on 2026-10-20: the gateway answered 400 invalid_request_error three times for a
+        # model it listed but did not serve; Pi exited 0 with one turn and no tool calls
+        err = {"type": "message_end", "message": {"role": "assistant", "stopReason": "error", "errorMessage":
+               '400: {"message":"Invalid request.","type":"invalid_request_error"}'}}
+        self.assertEqual(A.client_errors([err, err, err]), (3, True, False))
+        self.assertEqual(A.gateway_errors([err]), (0, False))
+        auth = {"type": "message_end", "message": {"role": "assistant", "stopReason": "error",
+                                                    "errorMessage": "401: invalid api key"}}
+        self.assertEqual(A.client_errors([auth]), (1, True, True))
+        rate = {"type": "message_end", "message": {"role": "assistant", "stopReason": "error",
+                                                    "errorMessage": "429 rate limit"}}
+        self.assertEqual(A.client_errors([rate]), (0, False, False))
+        cell = Path("/nonexistent")
+        failed = {"status": "failed", "phase": "done", "error": "the agent left no test class", "agent_exit_code": 0,
+                  "tool_calls": 0, "usage": {"turns": 1}, "gateway_errors": 0, "ended_on_gateway_error": False,
+                  "ended_on_provider_client_error": True}
+        self.assertTrue(G.is_infra_failure(failed, cell))
+        # after tool calls a 4xx may come from the session itself (too long a context): the cell's failure
+        self.assertFalse(G.is_infra_failure({**failed, "tool_calls": 7}, cell))
+        self.assertFalse(G.is_infra_failure({**failed, "ended_on_provider_client_error": False}, cell))
+        # summaries written before the field existed keep their meaning
+        old = {k: v for k, v in failed.items() if k != "ended_on_provider_client_error"}
+        self.assertFalse(G.is_infra_failure(old, cell))
+
+    def test_model_probe_gates_the_run(self):
+        import importlib.util
+        import io
+        import urllib.error
+        spec = importlib.util.spec_from_file_location("run_script", ROOT / "scripts" / "run.py")
+        run_script = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(run_script)
+        cfg = mock.Mock(model="m", base_url="https://gw/v1", api_key_env="K1", fallback_api_key_env="K2")
+
+        class Answer:
+            status = 200
+            def __enter__(self): return self
+            def __exit__(self, *a): return False
+
+        def refuse(req, timeout):
+            raise urllib.error.HTTPError(req.full_url, 400, "bad", {}, io.BytesIO(b'{"error":"invalid sk-secret"}'))
+        with mock.patch.dict(os.environ, {"K1": "sk-secret", "K2": "sk-other"}):
+            with mock.patch("urllib.request.urlopen", side_effect=refuse):
+                ok, notes = run_script.probe_model(cfg)
+            self.assertFalse(ok)
+            self.assertIn("K1: 400", notes)
+            self.assertNotIn("sk-secret", notes)
+            with mock.patch("urllib.request.urlopen", side_effect=[refuse, lambda *a, **k: None][0]) as m:
+                m.side_effect = [urllib.error.HTTPError("u", 503, "x", {}, io.BytesIO(b"busy")), Answer()]
+                ok, notes = run_script.probe_model(cfg)
+            self.assertTrue(ok)
+            self.assertIn("K2: 200", notes)
+        with mock.patch.dict(os.environ, {}, clear=True):
+            ok, notes = run_script.probe_model(cfg)
+            self.assertFalse(ok)
+            self.assertIn("K1: not set", notes)
+
     def test_provider_unreachable_before_first_turn(self):
         """Pi could not reach the provider (v2 run, 2026-10-12): stored with phase "done", 0 turns."""
         real = ('[provider] failed to fetch models: fetch failed\n'

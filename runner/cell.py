@@ -233,6 +233,8 @@ def _generate(cfg: Config, case: Case, mode: str, checkout: Path, commit: str, c
         summary["tool_calls"] = len(A.tool_calls(res.events))
         summary["usage"] = A.usage(res.events)
         summary["gateway_errors"], summary["ended_on_gateway_error"] = A.gateway_errors(res.events)
+        (summary["provider_client_errors"], summary["ended_on_provider_client_error"],
+         summary["provider_auth_error"]) = A.client_errors(res.events)
         summary["denied_actions"] = len(res.denied)
         summary["agent_commands_run"] = sum(1 for e in res.commands if e.get("event") == "end")
         summary["final_failed_agent_commands"] = final_failed_commands(res.commands)
@@ -297,6 +299,8 @@ def is_infra_failure(summary: dict[str, Any], cell: Path) -> bool:
         return False
     if summary.get("ended_on_gateway_error"):
         return True
+    if summary.get("ended_on_provider_client_error") and not summary.get("tool_calls"):
+        return True  # the gateway refused the request before the agent did anything (agent.client_errors)
     if status == "timed_out" and (summary.get("gateway_errors") or 0) >= 3:
         return True
     if status != "failed":

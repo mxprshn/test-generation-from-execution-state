@@ -9,6 +9,7 @@ files (AGENTS.md, CLAUDE.md) are loaded: Pi gets a fresh agent directory per cel
 from __future__ import annotations
 
 import json
+import re
 import os
 import shutil
 from dataclasses import dataclass
@@ -208,6 +209,11 @@ GATEWAY_ERROR_MARKERS = ("upstream_empty_response", "overloaded", "rate limit", 
                          "Request timed out", "Connection error", "connection reset", "ETIMEDOUT",
                          "ECONNREFUSED", "Internal Server Error")
 GATEWAY_STATUS_PREFIXES = ("429", "500", "502", "503", "504")
+# A 4xx answer of the gateway other than 429 (e.g. "400 invalid_request_error" for a model the gateway does
+# not serve) is a provider failure only while the agent has done nothing: a 4xx after tool calls may come
+# from the session itself (e.g. a context that grew too long), so it stays a failure of the cell.
+CLIENT_ERROR = re.compile(r"^4\d\d\b")
+AUTH_ERROR = re.compile(r"^(401|403)\b")
 
 
 def _assistant_messages(events: list[dict]):
@@ -236,6 +242,18 @@ def usage(events: list[dict]) -> dict[str, Any]:
 def is_gateway_error(text: str) -> bool:
     text = text.strip()
     return text.startswith(GATEWAY_STATUS_PREFIXES) or any(m in text for m in GATEWAY_ERROR_MARKERS)
+
+
+def client_errors(events: list[dict]) -> tuple[int, bool, bool]:
+    """(model calls that ended with an HTTP 4xx other than 429, whether the last one did, whether any was
+    an authentication or authorisation error, 401/403)."""
+    count, last, auth = 0, False, False
+    for message in _assistant_messages(events):
+        text = str(message.get("errorMessage") or "").strip()
+        last = message.get("stopReason") == "error" and bool(CLIENT_ERROR.match(text)) and not is_gateway_error(text)
+        count += last
+        auth = auth or (last and bool(AUTH_ERROR.match(text)))
+    return count, last, auth
 
 
 def gateway_errors(events: list[dict]) -> tuple[int, bool]:

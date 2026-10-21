@@ -49,6 +49,43 @@ from runner.config import Config, load_config  # noqa: E402
 HASHED = ("runner", "evaluation", "pi", "prompts", "scripts")
 
 
+class ProviderRefused(Exception):
+    """The gateway refused the API key (HTTP 401/403): every further cell would fail the same way."""
+
+
+def probe_model(cfg: Config, timeout: float = 120.0) -> tuple[bool, str]:
+    """One minimal chat request to the configured model on each configured key; (any key answered 200,
+    what each key got). Keys are read from the environment and never printed."""
+    import urllib.error
+    import urllib.request
+    body = json.dumps({"model": cfg.model, "messages": [{"role": "user", "content": "Reply with OK."}]}).encode()
+    notes, ok = [], False
+    secrets = [os.environ[e] for e in (cfg.api_key_env, cfg.fallback_api_key_env) if e and os.environ.get(e)]
+
+    def redact(text: str) -> str:
+        for secret in secrets:
+            text = text.replace(secret, "<key>")
+        return text
+    for env in [cfg.api_key_env, cfg.fallback_api_key_env]:
+        if not env:
+            continue
+        key = os.environ.get(env)
+        if not key:
+            notes.append(f"{env}: not set")
+            continue
+        req = urllib.request.Request(f"{cfg.base_url}/chat/completions", data=body, method="POST",
+                                     headers={"Authorization": f"Bearer {key}", "Content-Type": "application/json"})
+        try:
+            with urllib.request.urlopen(req, timeout=timeout) as r:
+                notes.append(f"{env}: {r.status}")
+                ok = ok or r.status == 200
+        except urllib.error.HTTPError as e:
+            notes.append(f"{env}: {e.code} {redact(e.read(300).decode('utf-8', 'replace'))}")
+        except (urllib.error.URLError, OSError) as e:
+            notes.append(f"{env}: {type(e).__name__}: {redact(str(e))}")
+    return ok, "; ".join(notes)
+
+
 def harness_revision() -> dict[str, Any]:
     def git(*args: str) -> str:
         r = subprocess.run(["git", *args], cwd=ROOT, capture_output=True, text=True)
@@ -187,6 +224,9 @@ class Runner:
             s["meta"] = self.meta
             summary_file.write_text(json.dumps(s, indent=2, default=str))
             self.log(case_id, f"{mode}/{run_id}: {s['status']} {s.get('seconds')}s {s.get('error') or ''}")
+            if s.get("provider_auth_error"):
+                raise ProviderRefused(f"{mode}/{run_id}: the gateway refused the API key {key} (HTTP 401/403); "
+                                      "the run stops, the cell is kept as is")
         return json.loads(summary_file.read_text())
 
     def process(self, case_id: str) -> bool:
@@ -249,6 +289,8 @@ class Runner:
                 self.status(case_id, evaluated=evaluated, errors=errors)
             self.status(case_id, stage="done", errors=errors)
             return True
+        except ProviderRefused:
+            raise
         except Exception as exc:  # keep the other cases going
             self.log(case_id, f"error: {type(exc).__name__}: {exc}\n{traceback.format_exc()}")
             self.status(case_id, stage=f"error: {type(exc).__name__}: {str(exc)[:120]}", errors=errors + 1)
@@ -291,6 +333,8 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--cases", nargs="*")
     ap.add_argument("--status", action="store_true", help="print the progress and exit")
     ap.add_argument("--dry-run", action="store_true", help="print the plan without running anything")
+    ap.add_argument("--skip-probe", action="store_true",
+                    help="do not send the request that checks the model answers before the run")
     a = ap.parse_args(argv)
     cfg = load_config(a.config)
     cases = case_ids(cfg, a.cases)
@@ -302,7 +346,18 @@ def main(argv: list[str] | None = None) -> int:
         n = sum(len(cells_of(cfg, c)) for c in cases)
         print(f"{len(cases)} cases, {n} cells, rounds {cfg.rounds}, modes {cfg.modes} + {cfg.once_modes} once; "
               f"results in {cfg.results_dir}")
-    return 0 if Runner(cfg, a.dry_run).run(cases) else 1
+    if not a.dry_run and not a.skip_probe and cfg.modes:
+        ok, notes = probe_model(cfg)
+        print(f"model probe {cfg.model}: {notes}", flush=True)
+        if not ok:
+            print(f"the model {cfg.model} does not answer on any configured key; the run does not start "
+                  "(--skip-probe to start anyway)", file=sys.stderr)
+            return 2
+    try:
+        return 0 if Runner(cfg, a.dry_run).run(cases) else 1
+    except ProviderRefused as exc:
+        print(f"stopped: {exc}", file=sys.stderr)
+        return 3
 
 
 if __name__ == "__main__":
