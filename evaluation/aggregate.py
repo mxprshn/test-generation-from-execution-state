@@ -298,6 +298,11 @@ def debugger_rows(recs: list[dict[str, Any]]) -> list[dict[str, Any]]:
             "key": mode, "cells": len(rs),
             "cells_with_stop_in_target": sum(1 for r in rs if (r["debugger"].get("stops_in_target") or 0) > 0),
             "median_jvm_runs": med(lambda r: r["debugger"].get("jvm_runs")),
+            "run_limit": med(lambda r: r["debugger"].get("run_limit")),
+            "cells_at_run_limit": sum(1 for r in rs if r["debugger"].get("run_limit") and
+                                      (r["debugger"].get("jvm_runs") or 0) + (r["debugger"].get("failed_starts") or 0)
+                                      >= r["debugger"]["run_limit"]),
+            "cells_with_refused_start": sum(1 for r in rs if (r["debugger"].get("refused_starts") or 0) > 0),
             "median_stops": med(lambda r: r["debugger"].get("stops")),
             "median_stops_in_target": med(lambda r: r["debugger"].get("stops_in_target")),
             "median_plan_revisions": med(lambda r: r["debugger"].get("plan_revisions")),

@@ -39,6 +39,8 @@ STEP_CODE = {
 }
 SKIP_SUFFIXES = (".pyc", ".json")  # evaluation data files are hashed separately (normalisation)
 GENERATION_CONFIG = ("provider_name", "base_url", "model", "thinking", "timeout", "command_timeout")
+# the autonomous mode also depends on its limit of scenario runs; the other modes keep their hashes
+AUTONOMOUS_CONFIG = GENERATION_CONFIG + ("debug_runs",)
 EVAL_CONFIG = ("command_timeout", "trace_depth", "reference_runs")
 
 
@@ -125,7 +127,8 @@ def generation_inputs(cfg: Config, case, mode: str) -> dict[str, Any]:
         "case": tree_hash(case.dir / "case.yaml"),
         "mode_input": mode_input_hash(case, mode),
         "prompts": tree_hash(cfg.prompts_dir) if mode != "rendered-raw" else None,
-        "config": config_hash(cfg, GENERATION_CONFIG) if mode != "rendered-raw" else None,
+        "config": (None if mode == "rendered-raw"
+                   else config_hash(cfg, AUTONOMOUS_CONFIG if mode == "autonomous" else GENERATION_CONFIG)),
         "project": project_hash(case.project),
     }
 

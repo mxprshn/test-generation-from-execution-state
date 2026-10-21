@@ -38,7 +38,9 @@ class ModeWiringTest(unittest.TestCase):
         commands = {n: case.commands[n] for n in ("build", "scenario", "generated_test")}
         p = render(ROOT / "prompts", case, "autonomous", commands)
         self.assertIn("Condition: debugger.", p["task"])
-        self.assertIn("run the scenario again", p["task"])
+        self.assertIn("run the scenario again, at most 3 runs in total.", p["task"])
+        p5 = render(ROOT / "prompts", case, "autonomous", commands, debug_runs=5)
+        self.assertIn("at most 5 runs in total.", p5["task"])
         self.assertLess(len((ROOT / "prompts" / "task-autonomous.txt").read_text()), 700)
         with tempfile.TemporaryDirectory() as d:
             cfg = load_config(write_config(Path(d), paths={"java_home": d, "pi": "/bin/echo", "results": d + "/r"}))
@@ -107,6 +109,29 @@ class ModeWiringTest(unittest.TestCase):
         self.assertIn("allowedCall", src)
 
 
+class RunLimitConfigTest(unittest.TestCase):
+    def test_debug_runs_enters_the_hash_of_the_autonomous_mode_only(self):
+        from evaluation import inputs as I
+        case = load_case("klaw-util-methods-get-user-name")
+        with tempfile.TemporaryDirectory() as d:
+            three = load_config(write_config(Path(d)))
+            self.assertEqual(three.debug_runs, 3)
+        with tempfile.TemporaryDirectory() as d:
+            five = load_config(write_config(Path(d), debug_runs=5))
+        for mode in ("baseline", "dump", "rendered"):
+            self.assertEqual(I.generation_inputs(three, case, mode)["config"],
+                             I.generation_inputs(five, case, mode)["config"], mode)
+        self.assertNotEqual(I.generation_inputs(three, case, "autonomous")["config"],
+                            I.generation_inputs(five, case, "autonomous")["config"])
+
+    def test_prompts_of_the_old_modes_unchanged(self):
+        """The prompt files other than task-autonomous.txt hash as in the released cells (v2-results)."""
+        from evaluation import inputs as I
+        d = ROOT / "prompts"
+        self.assertEqual(I.files_hash([p for p in d.rglob("*") if p.is_file() and p.name != "task-autonomous.txt"], d),
+                         "b50bbd4b4d1b363c")
+
+
 class DebuggerHelpersTest(unittest.TestCase):
     def test_line_matching_frames_values(self):
         out = node_run()
@@ -164,7 +189,7 @@ class DebuggerIntegrationTest(unittest.TestCase):
             config.write_text(json.dumps({
                 "workspace": str(ws), "java": str(java_home / "bin" / "java"), "server_classes": str(classes),
                 "scenario": ["mvn", "-q", "-o", f"-Dmaven.repo.local={m2}", "-Dtest=CounterScenarioTest", "test"],
-                "port": 5199, "command_env": ["PATH", "JAVA_HOME", "HOME"], "start_timeout": 180,
+                "port": 5199, "command_env": ["PATH", "JAVA_HOME", "HOME"], "start_timeout": 180, "debug_runs": 3,
                 "scenario_log_dir": str(agent), "target": {"class": "demo.Counter", "method": "add"}}))
             os.environ["DEBUGGER_LOG"] = str(agent / "log.jsonl")
             os.environ["DEBUGGER_PIDS"] = str(agent / "pids")
@@ -205,8 +230,15 @@ class DebuggerIntegrationTest(unittest.TestCase):
         self.assertIn("stopped at exit #5 (hit 1) of demo.Square#copy", out["stopBridge"])
         self.assertIn("returned = Square@", out["stopBridge"])
         self.assertIn("call debug_start", out["afterBash"])
-        s = D.journal_summary(journal)
-        self.assertEqual((s["jvm_runs"], s["stops"], s["stops_in_target"]), (2, 9, 6))
+        self.assertIn("run #3", out["third"])
+        self.assertEqual(out["refused"], "limit of 3 scenario runs reached; write the test from the data you have")
+        self.assertIn("At most 3 runs", out["description"])
+        self.assertIn("bash command ends the debug JVM", out["description"])
+        s = D.journal_summary(journal, 3)
+        self.assertEqual((s["jvm_runs"], s["stops"], s["stops_in_target"]), (3, 9, 6))
+        self.assertEqual((s["run_limit"], s["refused_starts"]), (3, 1))
+        self.assertTrue(any(isinstance(r.get("event"), dict) and r["event"].get("kind") == "start_refused"
+                            for r in journal))
         self.assertTrue(any(r.get("event") == "run_end" and r.get("reason") == "bash" for r in journal))
         for answer in out.values():
             if isinstance(answer, str):

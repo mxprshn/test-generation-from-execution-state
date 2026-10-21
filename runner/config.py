@@ -79,6 +79,8 @@ class Config:
     case_list: str = "cases.csv"
     # major version of the JDK at paths.java_home; every project of the case set must use it
     jdk: int = 21
+    # autonomous mode: how many times the agent may start the scenario under the debugger in a cell
+    debug_runs: int = 3
     extra_env: dict[str, str] = field(default_factory=dict)
     _work_dir: Path | None = field(default=None, repr=False)
 
@@ -199,7 +201,10 @@ def load_config(path: str | Path) -> Config:
         extra_env={str(k): os.path.expandvars(str(v)) for k, v in (raw.get("env") or {}).items()},
         case_list=str(raw.get("case_list") or "cases.csv"),
         jdk=int(raw.get("jdk", 21)),
+        debug_runs=int(raw.get("debug_runs", 3)),
     )
+    if cfg.debug_runs < 1:
+        raise ConfigError(f"debug_runs must be at least 1, got {cfg.debug_runs}")
     if Path(cfg.case_list).name != cfg.case_list or not cfg.case_list.endswith(".csv"):
         raise ConfigError(f"case_list must be a .csv file name in cases/, got {cfg.case_list!r}")
     if cfg.work_root is not None:

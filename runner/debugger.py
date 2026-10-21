@@ -109,7 +109,7 @@ def write_config(cfg: Config, workspace: Path, agent_dir: Path, scenario: list[s
     path.write_text(json.dumps({
         "workspace": str(workspace), "java": str(cfg.java_home / "bin" / "java"),
         "server_classes": str(server_classes(cfg)), "scenario": scenario, "port": port,
-        "command_env": sorted(cfg.command_env()), "start_timeout": START_TIMEOUT,
+        "command_env": sorted(cfg.command_env()), "start_timeout": START_TIMEOUT, "debug_runs": cfg.debug_runs,
         "scenario_log_dir": str(agent_dir), "target": {"class": target["class"], "method": target["method"]},
     }, indent=2))
     return path
@@ -142,11 +142,12 @@ def read_journal(path: Path) -> list[dict[str, Any]]:
     return rows
 
 
-def journal_summary(rows: list[dict[str, Any]]) -> dict[str, Any]:
-    """Counts of a cell: tool calls by tool, JVM runs, stops (in the target method), plan revisions
-    (breakpoints set or removed after the first stop of the cell), answer sizes."""
+def journal_summary(rows: list[dict[str, Any]], run_limit: int | None = None) -> dict[str, Any]:
+    """Counts of a cell: tool calls by tool, JVM runs (and the limit of runs, refused starts), stops
+    (in the target method), plan revisions (breakpoints set or removed after the first stop of the
+    cell), answer sizes."""
     calls: dict[str, int] = {}
-    stops = stops_in_target = runs = failed_starts = revisions = answer_chars = 0
+    stops = stops_in_target = runs = failed_starts = refused_starts = revisions = answer_chars = 0
     first_stop_seen = False
     for r in rows:
         tool = r.get("tool")
@@ -160,14 +161,16 @@ def journal_summary(rows: list[dict[str, Any]]) -> dict[str, Any]:
             runs += 1
         elif kind == "start_failed":
             failed_starts += 1
+        elif kind == "start_refused":
+            refused_starts += 1
         elif kind == "stop":
             stops += 1
             stops_in_target += bool(event.get("in_target"))
             first_stop_seen = True
         if tool in ("set_breakpoint", "remove_breakpoint") and r.get("ok") and first_stop_seen:
             revisions += 1
-    return {"calls": dict(sorted(calls.items())), "jvm_runs": runs, "failed_starts": failed_starts,
-            "stops": stops, "stops_in_target": stops_in_target, "plan_revisions": revisions,
+    return {"calls": dict(sorted(calls.items())), "jvm_runs": runs, "run_limit": run_limit,
+            "failed_starts": failed_starts, "refused_starts": refused_starts, "stops": stops, "stops_in_target": stops_in_target, "plan_revisions": revisions,
             "answer_chars": answer_chars}
 
 

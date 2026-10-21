@@ -5,4 +5,4 @@ debug_start, set_breakpoint, remove_breakpoint, resume and inspect: start it, se
 lines or on the entry or exit of methods, resume to the next stop, and inspect variables and objects.
 Observe the executions of the target method and use the observed values as test data and expected
 results; do not replace them with invented values. If the observed data are not sufficient, you may
-change the breakpoints and run the scenario again.
+change the breakpoints and run the scenario again, at most {{debug_runs}} runs in total.

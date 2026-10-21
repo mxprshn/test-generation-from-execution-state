@@ -116,6 +116,9 @@ out.bpBridge = await step("set_breakpoint", { method: "demo.Square#copy", on: "e
 out.stopBridge = await step("resume", {});
 for (const h of handlers.tool_call ?? []) await h({ toolName: "bash", input: { command: "mvn" } });
 out.afterBash = await step("resume", {});
+out.third = await step("debug_start", {});
+out.refused = await step("debug_start", {});
+out.description = tools.get("debug_start").description;
 for (const h of handlers.session_shutdown ?? []) await h({ reason: "quit" });
 process.stdout.write(JSON.stringify(out));
 process.exit(0);

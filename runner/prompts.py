@@ -35,7 +35,7 @@ def render_template(text: str, context: dict[str, Any], name: str) -> str:
     return out
 
 
-def context(case: Case, commands: dict[str, list[str]], mode: str) -> dict[str, Any]:
+def context(case: Case, commands: dict[str, list[str]], mode: str, debug_runs: int = 3) -> dict[str, Any]:
     """Placeholders of the templates. The scenario is given the same way for every case and mode:
     the id of the scenario test and the path of its source file."""
     project = load_projects()[case.project]
@@ -55,11 +55,13 @@ def context(case: Case, commands: dict[str, list[str]], mode: str) -> dict[str, 
         "commands": json.dumps(commands, indent=2),
         "command_names": ", ".join(sorted(commands)),
         "execution_input": EXECUTION_INPUT.get(mode, ""),
+        "debug_runs": debug_runs,
     }
 
 
-def render(prompts_dir: Path, case: Case, mode: str, commands: dict[str, list[str]]) -> dict[str, str]:
-    ctx = context(case, commands, mode)
+def render(prompts_dir: Path, case: Case, mode: str, commands: dict[str, list[str]],
+           debug_runs: int = 3) -> dict[str, str]:
+    ctx = context(case, commands, mode, debug_runs)
     files = ("system.txt", "task-common.txt", f"task-{mode}.txt")
     text = {}
     for name in files:

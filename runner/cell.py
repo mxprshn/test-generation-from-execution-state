@@ -204,7 +204,7 @@ def _generate(cfg: Config, case: Case, mode: str, checkout: Path, commit: str, c
     if mode in AGENT_MODES:
         summary["phase"] = "agent"
         commands = {n: case.commands[n] for n in AGENT_COMMANDS}
-        prompts = render(cfg.prompts_dir, case, mode, commands)
+        prompts = render(cfg.prompts_dir, case, mode, commands, cfg.debug_runs)
         _write(cell / "prompts" / "system.txt", prompts["system"])
         _write(cell / "prompts" / "task.txt", prompts["task"])
         effective = A.effective_system_prompt(prompts["system"], ws)
@@ -222,7 +222,7 @@ def _generate(cfg: Config, case: Case, mode: str, checkout: Path, commit: str, c
             _jsonl(cell / "artifacts" / "debug-log.jsonl", res.debug_log)
             for log in sorted((tmp / "agent").glob("scenario-debug-run*.log")):
                 _write(cell / "artifacts" / log.name, log.read_text(encoding="utf-8", errors="replace")[-20000:])
-            summary["debugger"] = D.journal_summary(res.debug_log)
+            summary["debugger"] = D.journal_summary(res.debug_log, cfg.debug_runs)
         _jsonl(cell / "artifacts" / "agent-commands.jsonl", res.commands)
         _jsonl(cell / "artifacts" / "denied.jsonl", res.denied)
         _write(cell / "artifacts" / "pi-stderr.txt", res.stderr[-20000:])

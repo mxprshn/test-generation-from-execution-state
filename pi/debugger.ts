@@ -48,6 +48,8 @@ interface DebuggerConfig {
 	port: number;
 	command_env: string[];
 	start_timeout: number;
+	/** How many times debug_start may start the scenario in the cell. */
+	debug_runs: number;
 	scenario_log_dir: string;
 	target: { class: string; method: string };
 }
@@ -199,6 +201,7 @@ export default function (pi: ExtensionAPI) {
 		return;
 	}
 	const config = JSON.parse(readFileSync(configPath, "utf-8")) as DebuggerConfig;
+	const maxRuns = Math.max(1, Number(config.debug_runs ?? 3));
 	const workspace = resolve(config.workspace);
 	const journal = process.env.DEBUGGER_LOG;
 	const pidsFile = process.env.DEBUGGER_PIDS;
@@ -457,9 +460,16 @@ export default function (pi: ExtensionAPI) {
 
 	register(
 		"debug_start",
-		"Start the driving scenario of the task under the debugger and attach to its JVM, which waits suspended before running. Set breakpoints, then call resume. Calling debug_start again stops the current run and starts the scenario again; breakpoints are kept.",
+		`Start the driving scenario of the task under the debugger and attach to its JVM, which waits suspended before running. Set breakpoints, then call resume. Calling debug_start again stops the current run and starts the scenario again; breakpoints are kept. At most ${maxRuns} runs. Any bash command ends the debug JVM, so the next debug_start uses up a run.`,
 		Type.Object({}),
 		async (_p, signal) => {
+			if (run >= maxRuns) {
+				return {
+					ok: false,
+					text: `limit of ${maxRuns} scenario runs reached; write the test from the data you have`,
+					extra: { event: { kind: "start_refused", runs: run, limit: maxRuns } },
+				};
+			}
 			const c = await ensureServer();
 			if (state !== "none") await endRun("restart");
 			queue.length = 0;
