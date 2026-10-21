@@ -1,0 +1,24 @@
+_comment: 'Selection metadata of the case (not read by the runner): which of Pankti, RICK and MicroTestCarver are expected
+  to apply, where the target comes from, and the debugger check of the scenario (JDI, Temurin 11) done when the case was selected.'
+repo_version: 2.7.3 (MicroTestCarver Table I)
+tools_expected:
+  pankti: true
+  rick: true
+  microtestcarver: true
+  note: 'owners.findPetTypes: repository field (Mockito mock in the scenario)'
+evidence: 'MicroTestCarver Table IV #9 PetTypeFormatterTest'
+debugger_check:
+  ok: true
+  hits_entry: 1
+  hits_exit: 1
+  exception_exits: 0
+  args_ok: true
+  this_ok: true
+  return_ok: true
+  wall_s: 37
+  jvm_attach_s: 16.091
+  debug_s: 20.475
+  jdk_used: Temurin 11.0.32
+  sample:
+  - 'entry#1 args=["hamster", Locale@6938, ] this{1 fields: owners=OwnerRepository$MockitoMock$9eVGTtqp@6941 } locals=2'
+  - exit#1 returned=PetType@6942

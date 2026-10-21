@@ -1,0 +1,24 @@
+_comment: 'Selection metadata of the case (not read by the runner): which of Pankti, RICK and MicroTestCarver are expected
+  to apply, where the target comes from, and the debugger check of the scenario (JDI, Temurin 11) done when the case was selected.'
+repo_version: '2.0.24 (RICK Table 1: SHA 8876e8e; Pankti used 2.0.21)'
+tools_expected:
+  pankti: true
+  rick: true
+  microtestcarver: true
+  note: dictionary.getNameAsString
+evidence: 'Pankti Table 3 #68'
+debugger_check:
+  ok: true
+  hits_entry: 8
+  hits_exit: 8
+  exception_exits: 0
+  args_ok: true
+  this_ok: true
+  return_ok: true
+  wall_s: 27
+  jvm_attach_s: 16.807
+  debug_s: 11.12
+  jdk_used: Temurin 11.0.32
+  sample:
+  - 'entry#1 args=[] this{1 fields: dictionary=COSDictionary@1359 } locals=0'
+  - exit#1 returned="Identity"

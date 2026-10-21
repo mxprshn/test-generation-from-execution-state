@@ -1,0 +1,25 @@
+_comment: 'Selection metadata of the case (not read by the runner): which of Pankti, RICK and MicroTestCarver are expected
+  to apply, where the target comes from, and the debugger check of the scenario (JDI, Temurin 11) done when the case was selected.'
+repo_version: '2.0.24 (RICK Table 1: SHA 8876e8e; Pankti used 2.0.21)'
+tools_expected:
+  pankti: true
+  rick: true
+  microtestcarver: true
+  note: 'cache.getExtGState: ResourceCache field'
+evidence: 'Pankti Table 3 #51 (pseudo-tested)'
+debugger_check:
+  ok: true
+  hits_entry: 4
+  hits_exit: 4
+  exception_exits: 0
+  args_ok: true
+  this_ok: true
+  return_ok: true
+  wall_s: 32
+  jvm_attach_s: 19.334
+  debug_s: 12.997
+  jdk_used: Temurin 11.0.32
+  sample:
+  - 'entry#1 args=[COSName@1578, ] this{3 fields: resources=COSDictionary@1581 cache=DefaultResourceCache@1582 directFontCache=HashMap@1583
+    } locals=1'
+  - exit#1 returned=PDExtendedGraphicsState@1588

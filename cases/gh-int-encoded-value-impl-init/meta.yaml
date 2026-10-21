@@ -1,0 +1,25 @@
+_comment: 'Selection metadata of the case (not read by the runner): which of Pankti, RICK and MicroTestCarver are expected
+  to apply, where the target comes from, and the debugger check of the scenario (JDI, Temurin 11) done when the case was selected.'
+repo_version: '5.3 (RICK Table 1: SHA af5ac0b)'
+tools_expected:
+  pankti: false
+  rick: false
+  microtestcarver: true
+  note: 'final method; the call is on the argument: Pankti instruments it, RICK not applicable'
+evidence: 'RICK replication package: TestIntEncodedValueImplRickGen (init)'
+debugger_check:
+  ok: true
+  hits_entry: 10
+  hits_exit: 10
+  exception_exits: 0
+  args_ok: true
+  this_ok: true
+  return_ok: true
+  wall_s: 21
+  jvm_attach_s: 12.956
+  debug_s: 7.722
+  jdk_used: Temurin 11.0.32
+  sample:
+  - 'entry#1 args=[EncodedValue$InitializerConfig@2094, ] this{12 fields: name="profile_subnetwork" fwdDataIndex=0 bwdDataIndex=0
+    storeTwoDirections=false } locals=1'
+  - exit#1 returned=1

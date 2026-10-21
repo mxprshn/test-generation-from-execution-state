@@ -1,0 +1,25 @@
+_comment: 'Selection metadata of the case (not read by the runner): which of Pankti, RICK and MicroTestCarver are expected
+  to apply, where the target comes from, and the debugger check of the scenario (JDI, Temurin 11) done when the case was selected.'
+repo_version: '5.3 (RICK Table 1: SHA af5ac0b)'
+tools_expected:
+  pankti: true
+  rick: true
+  microtestcarver: true
+  note: 'calc.calcNormalizedDist: DistanceCalc field (as in RICK''s own test)'
+evidence: 'RICK replication package: TestDouglasPeuckerRickGen (setMaxDistance)'
+debugger_check:
+  ok: true
+  hits_entry: 9
+  hits_exit: 9
+  exception_exits: 0
+  args_ok: true
+  this_ok: true
+  return_ok: true
+  wall_s: 27
+  jvm_attach_s: 16.107
+  debug_s: 11.285
+  jdk_used: Temurin 11.0.32
+  sample:
+  - 'entry#1 args=[1.0, ] this{5 fields: normedMaxDist=0.0 elevationMaxDistance=0.0 maxDistance=0.0 calc=DistancePlaneProjection@2539
+    } locals=1'
+  - exit#1 returned=DouglasPeucker@2537

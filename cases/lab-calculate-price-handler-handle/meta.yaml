@@ -1,0 +1,25 @@
+_comment: 'Selection metadata of the case (not read by the runner): which of Pankti, RICK and MicroTestCarver are expected
+  to apply, where the target comes from, and the debugger check of the scenario (JDI, Temurin 11) done when the case was selected.'
+repo_version: 'last commit on Java 8 / Micronaut 2.1 (MicroTestCarver Table I: Lab-Insurance 1.0.0)'
+tools_expected:
+  pankti: true
+  rick: true
+  microtestcarver: true
+  note: 'tariffs.getByCode: repository field; receiver is a Micronaut bean proxy'
+evidence: 'MicroTestCarver Table IV #33 CalculatePriceHandlerTest'
+debugger_check:
+  ok: true
+  hits_entry: 1
+  hits_exit: 1
+  exception_exits: 0
+  args_ok: true
+  this_ok: true
+  return_ok: true
+  wall_s: 30
+  jvm_attach_s: 8.722
+  debug_s: 21.026
+  jdk_used: Temurin 11.0.32
+  sample:
+  - 'entry#1 args=[CalculatePriceCommand@9207, ] this{3 fields: $interceptors=Interceptor[][]@9210 $proxyMethods=ExecutableMethod[]@9212
+    tariffs=Tariffs$Intercepted@9214 } locals=1'
+  - exit#1 returned=CalculatePriceResult@9429

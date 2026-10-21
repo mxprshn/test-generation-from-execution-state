@@ -1,0 +1,24 @@
+_comment: 'Selection metadata of the case (not read by the runner): which of Pankti, RICK and MicroTestCarver are expected
+  to apply, where the target comes from, and the debugger check of the scenario (JDI, Temurin 11) done when the case was selected.'
+repo_version: '5.3 (RICK Table 1: SHA af5ac0b)'
+tools_expected:
+  pankti: true
+  rick: true
+  microtestcarver: true
+  note: nodes/edges DataAccess calls
+evidence: 'RICK replication package: TestBaseGraphNodesAndEdgesRickGen (loadExisting)'
+debugger_check:
+  ok: true
+  hits_entry: 1
+  hits_exit: 1
+  exception_exits: 0
+  args_ok: true
+  this_ok: true
+  return_ok: true
+  wall_s: 70
+  jvm_attach_s: 15.362
+  debug_s: 55.411
+  jdk_used: Temurin 11.0.32
+  sample:
+  - 'entry#1 args=[] this{24 fields: nodes=RAMIntDataAccess@2900 N_EDGE_REF=0 N_LAT=4 N_LON=8 } locals=0'
+  - exit#1 returned=true

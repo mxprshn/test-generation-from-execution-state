@@ -1,0 +1,24 @@
+_comment: 'Selection metadata of the case (not read by the runner): which of Pankti, RICK and MicroTestCarver are expected
+  to apply, where the target comes from, and the debugger check of the scenario (JDI, Temurin 11) done when the case was selected.'
+repo_version: '5.3 (RICK Table 1: SHA af5ac0b)'
+tools_expected:
+  pankti: true
+  rick: true
+  microtestcarver: true
+  note: dataAccess.loadExisting/getHeader
+evidence: 'RICK replication package: TestLineIntIndexRickGen (loadExisting)'
+debugger_check:
+  ok: true
+  hits_entry: 2
+  hits_exit: 2
+  exception_exits: 0
+  args_ok: true
+  this_ok: true
+  return_ok: true
+  wall_s: 180
+  jvm_attach_s: 9.021
+  debug_s: 172.038
+  jdk_used: Temurin 11.0.32
+  sample:
+  - 'entry#1 args=[] this{11 fields: dataAccess=RAMIntDataAccess@2934 bounds=BBox@2935 minResolutionInMeter=300 size=0 } locals=0'
+  - exit#1 returned=false

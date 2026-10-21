@@ -1,0 +1,24 @@
+_comment: 'Selection metadata of the case (not read by the runner): which of Pankti, RICK and MicroTestCarver are expected
+  to apply, where the target comes from, and the debugger check of the scenario (JDI, Temurin 11) done when the case was selected.'
+repo_version: 2.7.3 (MicroTestCarver Table I)
+tools_expected:
+  pankti: true
+  rick: false
+  microtestcarver: true
+  note: errors.rejectValue is on an argument
+evidence: 'MicroTestCarver Table IV #8 PetTest (Pet validation); PetClinic used by MTC'
+debugger_check:
+  ok: true
+  hits_entry: 1
+  hits_exit: 1
+  exception_exits: 0
+  args_ok: true
+  this_ok: true
+  return_ok: true
+  wall_s: 27
+  jvm_attach_s: 10.501
+  debug_s: 16.031
+  jdk_used: Temurin 11.0.32
+  sample:
+  - 'entry#1 args=[Pet@6936, BeanPropertyBindingResult@6937, ] this{0 fields: } locals=2'
+  - exit#1 returned=<void value>

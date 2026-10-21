@@ -1,0 +1,25 @@
+_comment: 'Selection metadata of the case (not read by the runner): which of Pankti, RICK and MicroTestCarver are expected
+  to apply, where the target comes from, and the debugger check of the scenario (JDI, Temurin 11) done when the case was selected.'
+repo_version: '5.3 (RICK Table 1: SHA af5ac0b)'
+tools_expected:
+  pankti: true
+  rick: true
+  microtestcarver: true
+  note: properties/encodingManager/baseGraph field calls
+evidence: 'RICK replication package: TestGraphHopperStorageRickGen (loadExisting)'
+debugger_check:
+  ok: true
+  hits_entry: 1
+  hits_exit: 1
+  exception_exits: 0
+  args_ok: true
+  this_ok: true
+  return_ok: true
+  wall_s: 20
+  jvm_attach_s: 9.415
+  debug_s: 10.572
+  jdk_used: Temurin 11.0.32
+  sample:
+  - 'entry#1 args=[] this{5 fields: dir=GHDirectory@2800 encodingManager=EncodingManager@2801 properties=StorableProperties@2802
+    baseGraph=BaseGraph@2803 } locals=0'
+  - exit#1 returned=true

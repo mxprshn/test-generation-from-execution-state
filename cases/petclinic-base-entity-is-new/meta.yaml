@@ -1,0 +1,23 @@
+_comment: 'Selection metadata of the case (not read by the runner): which of Pankti, RICK and MicroTestCarver are expected
+  to apply, where the target comes from, and the debugger check of the scenario (JDI, Temurin 11) done when the case was selected.'
+repo_version: 2.7.3 (MicroTestCarver Table I)
+tools_expected:
+  pankti: true
+  rick: false
+  microtestcarver: true
+evidence: 'MicroTestCarver Table IV #6 BaseEntityTest'
+debugger_check:
+  ok: true
+  hits_entry: 3
+  hits_exit: 3
+  exception_exits: 0
+  args_ok: true
+  this_ok: true
+  return_ok: true
+  wall_s: 26
+  jvm_attach_s: 12.308
+  debug_s: 14.758
+  jdk_used: Temurin 11.0.32
+  sample:
+  - 'entry#1 args=[] this{5 fields: birthDate=null type=null visits=LinkedHashSet@6649 name=null } locals=0'
+  - exit#1 returned=true

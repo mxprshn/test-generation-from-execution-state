@@ -1,0 +1,25 @@
+_comment: 'Selection metadata of the case (not read by the runner): which of Pankti, RICK and MicroTestCarver are expected
+  to apply, where the target comes from, and the debugger check of the scenario (JDI, Temurin 11) done when the case was selected.'
+repo_version: 2.7.3 (MicroTestCarver Table I)
+tools_expected:
+  pankti: true
+  rick: false
+  microtestcarver: true
+  note: calls own getPet and Pet.addVisit on a local
+evidence: 'MicroTestCarver Table IV #13 OwnerTest'
+debugger_check:
+  ok: true
+  hits_entry: 1
+  hits_exit: 1
+  exception_exits: 0
+  args_ok: true
+  this_ok: true
+  return_ok: true
+  wall_s: 21
+  jvm_attach_s: 7.716
+  debug_s: 14.445
+  jdk_used: Temurin 11.0.32
+  sample:
+  - 'entry#1 args=[Integer@7044, Visit@7045, ] this{7 fields: address=null city=null telephone=null pets=ArrayList@7050 }
+    locals=2'
+  - exit#1 returned=Owner@7047

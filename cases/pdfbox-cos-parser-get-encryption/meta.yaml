@@ -1,0 +1,25 @@
+_comment: 'Selection metadata of the case (not read by the runner): which of Pankti, RICK and MicroTestCarver are expected
+  to apply, where the target comes from, and the debugger check of the scenario (JDI, Temurin 11) done when the case was selected.'
+repo_version: '2.0.24 (RICK Table 1: SHA 8876e8e; Pankti used 2.0.21)'
+tools_expected:
+  pankti: true
+  rick: false
+  microtestcarver: true
+  note: 'receiver holds an open RandomAccess stream: XStream serialisation risk'
+evidence: 'Pankti Table 3 #53 (pseudo-tested)'
+debugger_check:
+  ok: true
+  hits_entry: 4
+  hits_exit: 4
+  exception_exits: 0
+  args_ok: true
+  this_ok: true
+  return_ok: true
+  wall_s: 23
+  jvm_attach_s: 14.383
+  debug_s: 8.936
+  jdk_used: Temurin 11.0.32
+  sample:
+  - 'entry#1 args=[] this{23 fields: strmBuf=byte[]@1277 source=RandomAccessBufferedFileInputStream@1279 accessPermission=null
+    keyStoreInputStream=null } locals=0'
+  - exit#1 returned=null

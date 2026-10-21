@@ -1,0 +1,25 @@
+_comment: 'Selection metadata of the case (not read by the runner): which of Pankti, RICK and MicroTestCarver are expected
+  to apply, where the target comes from, and the debugger check of the scenario (JDI, Temurin 11) done when the case was selected.'
+repo_version: '2.0.24 (RICK Table 1: SHA 8876e8e; Pankti used 2.0.21)'
+tools_expected:
+  pankti: true
+  rick: false
+  microtestcarver: true
+  note: 'field is a java.util.Map (JDK type): mockable only if RICK mocks JDK types'
+evidence: 'Pankti Table 3 #37 (pseudo-tested)'
+debugger_check:
+  ok: true
+  hits_entry: 3
+  hits_exit: 3
+  exception_exits: 0
+  args_ok: true
+  this_ok: true
+  return_ok: true
+  wall_s: 21
+  jvm_attach_s: 17.355
+  debug_s: 3.34
+  jdk_used: Temurin 11.0.32
+  sample:
+  - 'entry#1 args=[COSObject@1307, ] this{7 fields: fonts=HashMap@1310 colorSpaces=HashMap@1312 xobjects=HashMap@1313 extGStates=HashMap@1314
+    } locals=1'
+  - exit#1 returned=null
