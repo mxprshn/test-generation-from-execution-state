@@ -14,9 +14,12 @@
  *     locals of the top frame, returned value);
  *   - values are rendered by the server with depth and size limits; objects are referred to as @N
  *     (the JDI unique id), valid until the JVM run ends;
- *   - the evaluator calls only a fixed list of JDK methods (size, isEmpty, get, containsKey on
- *     java.util types, length/charAt on String, toString/equals on String and boxes,
- *     getClass().getName()); calls of project methods and static calls are refused.
+ *   - no code of the program runs: values are read from fields (JDK collections and maps are walked
+ *     through their internal fields, JdkContainers); the evaluator allows a fixed list of calls
+ *     (size, isEmpty, get, containsKey, contains on JDK containers with JDK keys, length/charAt on
+ *     String, toString/equals on String and boxes, getClass().getName()) and answers them from
+ *     fields too (JdkCalls); calls of project methods and static calls are refused. JDK methods run
+ *     only for the text of a few immutable JDK value types (numbers, dates, URI, Locale).
  *
  * Usage: java JdiDapServer --port <port|0>   (0: an ephemeral port, printed as "LISTENING <port>")
  */
@@ -960,7 +963,14 @@ public class JdiDapServer {
                 n.put("v", ((ClassObjectReference) o).reflectedType().name());
                 return n;
             }
-            String text = safeToString(o, type);
+            Value[] wrapped = wrappedValue(o, type);
+            if (wrapped != null) {
+                n.put("t", "wrap");
+                n.put("value", render(wrapped[0], depth));
+                return n;
+            }
+            String text = fieldText(o, type);
+            if (text == null) text = safeToString(o, type);
             if (text != null) {
                 n.put("t", "val");
                 n.put("v", text.length() > strCap ? text.substring(0, strCap) : text);
@@ -982,11 +992,9 @@ public class JdiDapServer {
                 }
                 return n;
             }
-            if (type.startsWith("java.util.") && implementsType(o.referenceType(), "java.util.Map")) {
-                return container(n, o, depth, true);
-            }
-            if (type.startsWith("java.util.") && implementsType(o.referenceType(), "java.util.Collection")) {
-                return container(n, o, depth, false);
+            Boolean isMap = JdkContainers.kind(o);
+            if (isMap != null) {
+                return container(n, o, depth, isMap);
             }
             n.put("t", "obj");
             if (depth <= 0 || nodes > NODES) {
@@ -1005,38 +1013,24 @@ public class JdiDapServer {
             return n;
         }
 
+        /** A JDK collection or map read from its fields (JdkContainers): no method of the program runs. */
         private Map<String, Object> container(Map<String, Object> n, ObjectReference o, int depth, boolean isMap) {
             n.put("t", isMap ? "map" : "coll");
-            Value size = call(o, "size");
-            n.put("size", size instanceof IntegerValue ? ((IntegerValue) size).value() : -1);
-            if (depth <= 0 || nodes > NODES) {
+            JdkContainers.Content c = JdkContainers.read(o, ITEMS);
+            n.put("size", c == null ? -1 : c.size);
+            if (c == null || depth <= 0 || nodes > NODES) {
                 n.put("cut", true);
                 return n;
             }
-            Value array;
-            if (isMap) {
-                Value entries = call(o, "entrySet");
-                array = entries instanceof ObjectReference ? call((ObjectReference) entries, "toArray") : null;
-            } else {
-                array = call(o, "toArray");
-            }
-            if (!(array instanceof ArrayReference)) {
-                n.put("cut", true);
-                return n;
-            }
-            ArrayReference arr = (ArrayReference) array;
-            int shown = Math.min(ITEMS, arr.length());
             List<Object> items = new ArrayList<>();
-            for (int i = 0; i < shown; i++) {
-                Value item = arr.getValue(i);
-                if (isMap && item instanceof ObjectReference) {
-                    ObjectReference entry = (ObjectReference) item;
+            for (Value[] item : c.items) {
+                if (isMap) {
                     Map<String, Object> kv = new HashMap<>();
-                    kv.put("k", render(call(entry, "getKey"), Math.max(0, depth - 1)));
-                    kv.put("v", render(call(entry, "getValue"), Math.max(0, depth - 1)));
+                    kv.put("k", render(item[0], Math.max(0, depth - 1)));
+                    kv.put("v", render(item[1], Math.max(0, depth - 1)));
                     items.add(kv);
                 } else {
-                    items.add(render(item, Math.max(0, depth - 1)));
+                    items.add(render(item[0], Math.max(0, depth - 1)));
                 }
             }
             n.put("items", items);
@@ -1070,16 +1064,478 @@ public class JdiDapServer {
             }
         }
 
+        /** The text of a file or a pattern: their path and pattern fields. */
+        private String fieldText(ObjectReference o, String type) {
+            String field = type.equals("java.io.File") ? "path" : type.equals("java.util.regex.Pattern") ? "pattern" : null;
+            if (field == null) return null;
+            Field f = o.referenceType().fieldByName(field);
+            Value v = f == null ? null : o.getValue(f);
+            return v instanceof StringReference ? ((StringReference) v).value() : null;
+        }
+
+        /** The value of a JDK holder (atomic references and numbers, Optional), read from its field. */
+        private Value[] wrappedValue(ObjectReference o, String type) {
+            String field;
+            switch (type) {
+                case "java.util.concurrent.atomic.AtomicReference": case "java.util.concurrent.atomic.AtomicInteger":
+                case "java.util.concurrent.atomic.AtomicLong": case "java.util.concurrent.atomic.AtomicBoolean":
+                case "java.util.Optional": case "java.util.OptionalInt": case "java.util.OptionalLong":
+                case "java.util.OptionalDouble":
+                    field = "value";
+                    break;
+                default:
+                    return null;
+            }
+            Field f = o.referenceType().fieldByName(field);
+            if (f == null) return null;
+            Value v = o.getValue(f);
+            if (type.equals("java.util.concurrent.atomic.AtomicBoolean") && v instanceof IntegerValue) {
+                return new Value[] {o.virtualMachine().mirrorOf(((IntegerValue) v).value() != 0)};
+            }
+            return new Value[] {v};
+        }
+
+        /** toString of a JDK value class whose text depends on its own JDK fields only (never on objects of
+         *  the program): numbers, dates and times, identifiers, character buffers. */
         private String safeToString(ObjectReference o, String type) {
-            boolean safe = type.startsWith("java.math.") || type.startsWith("java.time.") || type.equals("java.util.UUID")
-                    || type.equals("java.net.URI") || type.equals("java.net.URL") || type.equals("java.io.File")
-                    || type.equals("java.util.regex.Pattern") || type.equals("java.lang.StringBuilder")
-                    || type.equals("java.lang.StringBuffer") || type.startsWith("java.util.concurrent.atomic.")
+            boolean safe = type.equals("java.math.BigDecimal") || type.equals("java.math.BigInteger")
+                    || type.startsWith("java.time.") && !type.startsWith("java.time.chrono.") && !type.startsWith("java.time.format.")
+                    && !type.startsWith("java.time.temporal.") && !type.equals("java.time.Clock")
+                    || type.equals("java.util.UUID")
+                    || type.equals("java.net.URI") || type.equals("java.lang.StringBuilder")
+                    || type.equals("java.lang.StringBuffer")
                     || type.equals("sun.nio.fs.UnixPath") || type.equals("sun.nio.fs.WindowsPath")
                     || type.equals("java.util.Locale") || type.startsWith("sun.nio.cs.");
-            if (!safe) return null;
+            if (!safe || !o.referenceType().name().equals(type)) return null;
             Value s = call(o, "toString");
             return s instanceof StringReference ? ((StringReference) s).value() : null;
+        }
+    }
+
+    /** JDK collections and maps read from their fields: the debugger shows and searches them without
+     *  calling a method, so no code of the program (hashCode, equals, compareTo, toString) runs. */
+    static final class JdkContainers {
+        static final int WALK = 1_000_000;
+
+        static final class Content {
+            int size;
+            final List<Value[]> items = new ArrayList<>();
+        }
+
+        private static final class Acc {
+            final int keep, stopAt;
+            boolean keysOnly;
+            int seen;
+            final Content c = new Content();
+            Acc(int keep, int stopAt) { this.keep = keep; this.stopAt = stopAt; }
+            /** false: stop walking */
+            boolean add(Value k, Value v, boolean map) {
+                if (seen < keep) c.items.add(map && !keysOnly ? new Value[] {k, v} : new Value[] {k});
+                seen++;
+                return seen < stopAt;
+            }
+        }
+
+        private static boolean wrapper(String t) {
+            return t.startsWith("java.util.Collections$Unmodifiable") || t.startsWith("java.util.Collections$Synchronized")
+                    || t.startsWith("java.util.Collections$Checked");
+        }
+
+        private static ObjectReference inner(ObjectReference o) {
+            ObjectReference m = ref(o, "m");
+            return m != null ? m : ref(o, "c");
+        }
+
+        /** TRUE a map, FALSE a collection, null: not a JDK container these methods can read. */
+        static Boolean kind(ObjectReference o) {
+            return kind(o, 0);
+        }
+
+        private static Boolean kind(ObjectReference o, int nest) {
+            if (o == null || o instanceof ArrayReference || o instanceof StringReference || nest > 8) return null;
+            String t = o.referenceType().name();
+            switch (t) {
+                case "java.util.HashMap": case "java.util.LinkedHashMap": case "java.util.TreeMap":
+                case "java.util.Hashtable": case "java.util.Properties": case "java.util.IdentityHashMap":
+                case "java.util.concurrent.ConcurrentHashMap": case "java.util.ImmutableCollections$Map1":
+                case "java.util.ImmutableCollections$MapN": case "java.util.Collections$EmptyMap":
+                case "java.util.Collections$SingletonMap":
+                    return Boolean.TRUE;
+                case "java.util.HashSet": case "java.util.LinkedHashSet":
+                    return kind(ref(o, "map"), nest + 1) == Boolean.TRUE ? Boolean.FALSE : null;
+                case "java.util.TreeSet":
+                    return kind(ref(o, "m"), nest + 1) == Boolean.TRUE ? Boolean.FALSE : null;
+                case "java.util.ArrayList": case "java.util.LinkedList": case "java.util.Vector": case "java.util.Stack":
+                case "java.util.ArrayDeque": case "java.util.Arrays$ArrayList":
+                case "java.util.concurrent.CopyOnWriteArrayList":
+                case "java.util.ImmutableCollections$List12": case "java.util.ImmutableCollections$ListN":
+                case "java.util.ImmutableCollections$Set12": case "java.util.ImmutableCollections$SetN":
+                case "java.util.Collections$EmptyList": case "java.util.Collections$EmptySet":
+                case "java.util.Collections$SingletonList": case "java.util.Collections$SingletonSet":
+                    return Boolean.FALSE;
+                default:
+                    return wrapper(t) ? kind(inner(o), nest + 1) : null;
+            }
+        }
+
+        static boolean isList(ObjectReference o) {
+            String t = o.referenceType().name();
+            if (wrapper(t)) return t.contains("List") && isList(inner(o));
+            switch (t) {
+                case "java.util.ArrayList": case "java.util.LinkedList": case "java.util.Vector": case "java.util.Stack":
+                case "java.util.Arrays$ArrayList": case "java.util.concurrent.CopyOnWriteArrayList":
+                case "java.util.ImmutableCollections$List12": case "java.util.ImmutableCollections$ListN":
+                case "java.util.Collections$EmptyList": case "java.util.Collections$SingletonList":
+                    return true;
+                default:
+                    return false;
+            }
+        }
+
+        /** Whether equality of keys decides membership: not a sorted map or set with a comparator. */
+        static boolean byEquality(ObjectReference o) {
+            String t = o.referenceType().name();
+            if (wrapper(t)) return byEquality(inner(o));
+            if (t.equals("java.util.TreeSet")) return byEquality(ref(o, "m"));
+            if (t.equals("java.util.TreeMap")) return ref(o, "comparator") == null;
+            return true;
+        }
+
+        /** The size and the first `keep` items; null if the object cannot be read. */
+        static Content read(ObjectReference o, int keep) {
+            int known;
+            try {
+                known = knownSize(o, 0);
+            } catch (RuntimeException e) {
+                known = -1;
+            }
+            Acc a = new Acc(keep, known >= 0 ? Math.max(1, keep) : WALK);
+            try {
+                if (!walk(o, a, 0)) return null;
+            } catch (RuntimeException e) {
+                return null;
+            }
+            a.c.size = known >= 0 ? known : a.seen;
+            return a.c;
+        }
+
+        /** All items (up to WALK). */
+        static Content readAll(ObjectReference o) {
+            Acc a = new Acc(WALK, WALK);
+            try {
+                if (!walk(o, a, 0)) return null;
+            } catch (RuntimeException e) {
+                return null;
+            }
+            a.c.size = a.seen;
+            return a.c;
+        }
+
+        private static int knownSize(ObjectReference o, int nest) {
+            if (o == null || nest > 8) return -1;
+            String t = o.referenceType().name();
+            switch (t) {
+                case "java.util.ArrayList": case "java.util.LinkedList": case "java.util.HashMap":
+                case "java.util.LinkedHashMap": case "java.util.TreeMap": case "java.util.IdentityHashMap":
+                case "java.util.ImmutableCollections$MapN": case "java.util.ImmutableCollections$SetN":
+                    return num(o, "size");
+                case "java.util.Vector": case "java.util.Stack":
+                    return num(o, "elementCount");
+                case "java.util.Hashtable":
+                    return num(o, "count");
+                case "java.util.HashSet": case "java.util.LinkedHashSet":
+                    return knownSize(ref(o, "map"), nest + 1);
+                case "java.util.TreeSet":
+                    return knownSize(ref(o, "m"), nest + 1);
+                case "java.util.Arrays$ArrayList": {
+                    ArrayReference a = arr(o, "a");
+                    return a == null ? -1 : a.length();
+                }
+                case "java.util.concurrent.CopyOnWriteArrayList": {
+                    ArrayReference a = arr(o, "array");
+                    return a == null ? -1 : a.length();
+                }
+                case "java.util.ImmutableCollections$ListN": {
+                    ArrayReference a = arr(o, "elements");
+                    return a == null ? -1 : a.length();
+                }
+                case "java.util.Collections$EmptyList": case "java.util.Collections$EmptySet":
+                case "java.util.Collections$EmptyMap":
+                    return 0;
+                case "java.util.Collections$SingletonList": case "java.util.Collections$SingletonSet":
+                case "java.util.Collections$SingletonMap": case "java.util.ImmutableCollections$Map1":
+                    return 1;
+                default:
+                    return wrapper(t) ? knownSize(inner(o), nest + 1) : -1;
+            }
+        }
+
+        private static boolean walk(ObjectReference o, Acc a, int nest) {
+            if (o == null || nest > 8) return false;
+            String t = o.referenceType().name();
+            switch (t) {
+                case "java.util.ArrayList":
+                    return array(arr(o, "elementData"), num(o, "size"), a);
+                case "java.util.Vector": case "java.util.Stack":
+                    return array(arr(o, "elementData"), num(o, "elementCount"), a);
+                case "java.util.Arrays$ArrayList":
+                    return array(arr(o, "a"), -1, a);
+                case "java.util.concurrent.CopyOnWriteArrayList":
+                    return array(arr(o, "array"), -1, a);
+                case "java.util.ImmutableCollections$ListN":
+                    return array(arr(o, "elements"), -1, a);
+                case "java.util.ImmutableCollections$SetN": {
+                    ArrayReference es = arr(o, "elements");
+                    if (es == null) return false;
+                    for (Value v : es.getValues()) if (v != null && !a.add(v, null, false)) break;
+                    return true;
+                }
+                case "java.util.ImmutableCollections$List12": case "java.util.ImmutableCollections$Set12": {
+                    Value e0 = val(o, "e0"), e1 = val(o, "e1");
+                    if (!a.add(e0, null, false)) return true;
+                    if (e1 != null && !isEmptyMarker(o.virtualMachine(), e1)) a.add(e1, null, false);
+                    return true;
+                }
+                case "java.util.ImmutableCollections$Map1":
+                    a.add(val(o, "k0"), val(o, "v0"), true);
+                    return true;
+                case "java.util.ImmutableCollections$MapN": {
+                    ArrayReference tab = arr(o, "table");
+                    if (tab == null) return false;
+                    List<Value> vs = tab.getValues();
+                    for (int i = 0; i + 1 < vs.size(); i += 2) {
+                        if (vs.get(i) != null && !a.add(vs.get(i), vs.get(i + 1), true)) break;
+                    }
+                    return true;
+                }
+                case "java.util.Collections$EmptyList": case "java.util.Collections$EmptySet":
+                case "java.util.Collections$EmptyMap":
+                    return true;
+                case "java.util.Collections$SingletonList": case "java.util.Collections$SingletonSet":
+                    a.add(val(o, "element"), null, false);
+                    return true;
+                case "java.util.Collections$SingletonMap":
+                    a.add(val(o, "k"), val(o, "v"), true);
+                    return true;
+                case "java.util.LinkedList": {
+                    ObjectReference n = ref(o, "first");
+                    for (int guard = 0; n != null && guard < WALK; guard++) {
+                        if (!a.add(val(n, "item"), null, false)) break;
+                        n = ref(n, "next");
+                    }
+                    return true;
+                }
+                case "java.util.ArrayDeque": {
+                    ArrayReference es = arr(o, "elements");
+                    if (es == null) return false;
+                    int len = es.length(), head = num(o, "head"), tail = num(o, "tail");
+                    for (int i = head, guard = 0; len > 0 && i != tail && guard < len; i = (i + 1) % len, guard++) {
+                        if (!a.add(es.getValue(i), null, false)) break;
+                    }
+                    return true;
+                }
+                case "java.util.LinkedHashMap": {
+                    ObjectReference e = ref(o, "head");
+                    for (int guard = 0; e != null && guard < WALK; guard++) {
+                        if (!a.add(val(e, "key"), val(e, "value"), true)) break;
+                        e = ref(e, "after");
+                    }
+                    return true;
+                }
+                case "java.util.HashMap": case "java.util.Hashtable":
+                    return table(arr(o, "table"), "value", a);
+                case "java.util.Properties": {
+                    ObjectReference m = ref(o, "map");
+                    return m != null ? walk(m, a, nest + 1) : table(arr(o, "table"), "value", a);
+                }
+                case "java.util.concurrent.ConcurrentHashMap":
+                    return table(arr(o, "table"), "val", a);
+                case "java.util.IdentityHashMap": {
+                    ArrayReference tab = arr(o, "table");
+                    if (tab == null) return false;
+                    List<Value> vs = tab.getValues();
+                    for (int i = 0; i + 1 < vs.size(); i += 2) {
+                        if (vs.get(i) != null && !a.add(vs.get(i), vs.get(i + 1), true)) break;
+                    }
+                    return true;
+                }
+                case "java.util.TreeMap":
+                    inorder(ref(o, "root"), a);
+                    return true;
+                case "java.util.HashSet": case "java.util.LinkedHashSet": case "java.util.TreeSet": {
+                    ObjectReference m = ref(o, t.equals("java.util.TreeSet") ? "m" : "map");
+                    boolean before = a.keysOnly;
+                    a.keysOnly = true;
+                    try {
+                        return walk(m, a, nest + 1);
+                    } finally {
+                        a.keysOnly = before;
+                    }
+                }
+                default:
+                    return wrapper(t) && walk(inner(o), a, nest + 1);
+            }
+        }
+
+        /** Buckets of a hash table: chains of nodes with key, value and next (a tree bin of a concurrent
+         *  map through its list of nodes; forwarding and reservation nodes carry no entry). */
+        private static boolean table(ArrayReference tab, String value, Acc a) {
+            if (tab == null) return true;  // no table yet: empty
+            for (Value b : tab.getValues()) {
+                ObjectReference n = (ObjectReference) b;
+                if (n != null && n.referenceType().name().endsWith("$TreeBin")) n = ref(n, "first");
+                for (int guard = 0; n != null && guard < WALK; guard++) {
+                    String nt = n.referenceType().name();
+                    if (nt.endsWith("$ForwardingNode") || nt.endsWith("$ReservationNode")) break;
+                    if (!a.add(val(n, "key"), val(n, value), true)) return true;
+                    n = ref(n, "next");
+                }
+            }
+            return true;
+        }
+
+        private static void inorder(ObjectReference root, Acc a) {
+            Deque<ObjectReference> stack = new ArrayDeque<>();
+            ObjectReference n = root;
+            int guard = 0;
+            while ((n != null || !stack.isEmpty()) && guard++ < WALK) {
+                while (n != null) {
+                    stack.push(n);
+                    n = ref(n, "left");
+                }
+                n = stack.pop();
+                if (!a.add(val(n, "key"), val(n, "value"), true)) return;
+                n = ref(n, "right");
+            }
+        }
+
+        private static boolean array(ArrayReference arr, int size, Acc a) {
+            if (arr == null) return size <= 0;
+            int n = size < 0 ? arr.length() : Math.min(size, arr.length());
+            for (int i = 0; i < n; i += 256) {
+                for (Value v : arr.getValues(i, Math.min(256, n - i))) {
+                    if (!a.add(v, null, false)) return true;
+                }
+            }
+            return true;
+        }
+
+        /** ImmutableCollections.EMPTY: the second element of a one-element List12 or Set12 (JDK 17+). */
+        private static boolean isEmptyMarker(VirtualMachine vm, Value v) {
+            for (ReferenceType t : vm.classesByName("java.util.ImmutableCollections")) {
+                Field f = t.fieldByName("EMPTY");
+                if (f != null && f.isStatic()) return v.equals(t.getValue(f));
+            }
+            return false;
+        }
+
+        static Value val(ObjectReference o, String name) {
+            Field f = o.referenceType().fieldByName(name);
+            if (f == null) throw new IllegalStateException("no field " + name + " in " + o.referenceType().name());
+            return o.getValue(f);
+        }
+
+        static ObjectReference ref(ObjectReference o, String name) {
+            if (o == null) return null;
+            Field f = o.referenceType().fieldByName(name);
+            if (f == null) return null;
+            Value v = o.getValue(f);
+            return v instanceof ObjectReference ? (ObjectReference) v : null;
+        }
+
+        private static ArrayReference arr(ObjectReference o, String name) {
+            ObjectReference r = ref(o, name);
+            return r instanceof ArrayReference ? (ArrayReference) r : null;
+        }
+
+        private static int num(ObjectReference o, String name) {
+            Value v = val(o, name);
+            return v instanceof IntegerValue ? ((IntegerValue) v).value() : -1;
+        }
+    }
+
+    /** The calls the evaluator allows (ExprEvaluator.allowedCall), answered from fields and mirrors. */
+    static final class JdkCalls {
+        static Value answer(VirtualMachine vm, ObjectReference o, String name, List<Value> args) {
+            if (o instanceof StringReference) {
+                String s = ((StringReference) o).value();
+                switch (name) {
+                    case "length": return vm.mirrorOf(s.length());
+                    case "isEmpty": return vm.mirrorOf(s.isEmpty());
+                    case "toString": return o;
+                    case "equals": return vm.mirrorOf(jdkEquals(o, args.get(0)));
+                    case "charAt": {
+                        int i = index(args.get(0));
+                        if (i < 0 || i >= s.length()) throw new IllegalArgumentException("charAt(" + i + "): index out of bounds for length " + s.length());
+                        return vm.mirrorOf(s.charAt(i));
+                    }
+                    default: break;
+                }
+            }
+            Value boxed = boxedValue(o);
+            if (boxed != null) {
+                if (name.equals("toString")) {
+                    return vm.mirrorOf(boxed instanceof CharValue ? String.valueOf(((CharValue) boxed).value()) : boxed.toString());
+                }
+                if (name.equals("equals")) return vm.mirrorOf(jdkEquals(o, args.get(0)));
+            }
+            if (name.equals("getClass")) return o.referenceType().classObject();
+            if (o instanceof ClassObjectReference) {
+                String n = ((ClassObjectReference) o).reflectedType().name();
+                if (name.equals("getName")) return vm.mirrorOf(n);
+                if (name.equals("getSimpleName")) {
+                    String simple = n.substring(n.lastIndexOf('.') + 1);
+                    simple = simple.substring(simple.lastIndexOf('$') + 1);
+                    return vm.mirrorOf(simple.matches("\\d+") ? "" : simple);
+                }
+            }
+            Boolean map = JdkContainers.kind(o);
+            if (map != null) {
+                if (name.equals("size") || name.equals("isEmpty")) {
+                    JdkContainers.Content c = JdkContainers.read(o, 0);
+                    if (c == null) throw new IllegalArgumentException("cannot read " + o.referenceType().name());
+                    return name.equals("size") ? vm.mirrorOf(c.size) : vm.mirrorOf(c.size == 0);
+                }
+                if (name.equals("get") && !map) {
+                    int i = index(args.get(0));
+                    JdkContainers.Content c = JdkContainers.read(o, Math.max(0, i) + 1);
+                    if (c == null) throw new IllegalArgumentException("cannot read " + o.referenceType().name());
+                    if (i < 0 || i >= c.size) throw new IllegalArgumentException("get(" + i + "): index out of bounds for size " + c.size);
+                    return c.items.get(i)[0];
+                }
+                JdkContainers.Content c = JdkContainers.readAll(o);
+                if (c == null) throw new IllegalArgumentException("cannot read " + o.referenceType().name());
+                for (Value[] item : c.items) {
+                    if (jdkEquals(args.get(0), item[0])) {
+                        return name.equals("get") ? item[1] : vm.mirrorOf(true);
+                    }
+                }
+                return name.equals("get") ? null : vm.mirrorOf(false);
+            }
+            throw new IllegalArgumentException("no such call: " + name);
+        }
+
+        private static int index(Value v) {
+            Value u = v instanceof ObjectReference ? boxedValue((ObjectReference) v) : v;
+            if (u instanceof IntegerValue) return ((IntegerValue) u).value();
+            if (u instanceof ShortValue) return ((ShortValue) u).value();
+            if (u instanceof ByteValue) return ((ByteValue) u).value();
+            if (u instanceof CharValue) return ((CharValue) u).value();
+            throw new IllegalArgumentException("an int index is needed");
+        }
+
+        /** a.equals(b) for a string, a boxed value, a primitive (boxed by Java) or an enum constant. */
+        static boolean jdkEquals(Value a, Value b) {
+            if (a == null || b == null) return a == b;
+            Value pa = a instanceof PrimitiveValue ? a : a instanceof ObjectReference ? boxedValue((ObjectReference) a) : null;
+            if (a instanceof StringReference) {
+                return b instanceof StringReference && ((StringReference) a).value().equals(((StringReference) b).value());
+            }
+            if (pa != null) {
+                Value pb = b instanceof ObjectReference ? boxedValue((ObjectReference) b) : null;
+                return pb != null && pa.equals(pb);
+            }
+            return a.equals(b);  // an enum constant: the same object
         }
     }
 
@@ -1252,15 +1708,22 @@ public class JdiDapServer {
      */
     private static class ExprEvaluator {
 
-        static final String PROJECT_CALLS = "method calls on project classes are not allowed (allowed: size, "
-                + "isEmpty, get, containsKey on java.util collections and maps; length, charAt on strings; "
-                + "toString, equals on strings and boxed values; getClass().getName())";
+        static final String PROJECT_CALLS = "this call could run code of the program and is not allowed (allowed: "
+                + "size, isEmpty on JDK collections and maps; get(int) on JDK lists; get, containsKey, contains with "
+                + "a string, boxed or enum key on JDK hash maps and sets; length, charAt on strings; toString, equals "
+                + "on strings and boxed values; getClass().getName()); read fields instead";
 
-        /** The JDK methods the evaluator may call (the declaring class is also checked: java.*). */
-        static boolean allowedCall(ObjectReference obj, String name, int argc) {
+        /** The JDK methods the evaluator may call; none of them can run a method of the program. size and
+         *  isEmpty only on the JDK collections JdkContainers knows (a wrapper may delegate to a collection of
+         *  the program); get(int) on lists; get and containsKey on maps and contains on collections by a
+         *  string, boxed or enum key, except sorted ones with a comparator (it decides equality there).
+         *  JdkCalls answers them from fields. */
+        static boolean allowedCall(ObjectReference obj, String name, List<Value> args) {
+            int argc = args.size();
             if (obj instanceof StringReference) {
                 return (name.equals("length") || name.equals("isEmpty") || name.equals("toString")) && argc == 0
-                        || (name.equals("charAt") || name.equals("equals")) && argc == 1;
+                        || name.equals("charAt") && argc == 1
+                        || name.equals("equals") && argc == 1;  // String.equals compares strings only
             }
             if (boxedValue(obj) != null) {
                 return name.equals("toString") && argc == 0 || name.equals("equals") && argc == 1;
@@ -1269,12 +1732,24 @@ public class JdiDapServer {
             if (obj instanceof ClassObjectReference) {
                 return (name.equals("getName") || name.equals("getSimpleName")) && argc == 0;
             }
-            String type = obj.referenceType().name();
-            boolean container = type.startsWith("java.util.") || implementsType(obj.referenceType(), "java.util.Collection")
-                    || implementsType(obj.referenceType(), "java.util.Map");
-            if (!container) return false;
-            return (name.equals("size") || name.equals("isEmpty")) && argc == 0
-                    || (name.equals("get") || name.equals("containsKey")) && argc == 1;
+            Boolean map = JdkContainers.kind(obj);
+            if (map == null) return false;
+            if ((name.equals("size") || name.equals("isEmpty")) && argc == 0) return true;
+            if (name.equals("get") && argc == 1 && args.get(0) instanceof IntegerValue) {
+                return !map && JdkContainers.isList(obj);
+            }
+            if ((map ? name.equals("get") || name.equals("containsKey") : name.equals("contains")) && argc == 1) {
+                return JdkContainers.byEquality(obj) && jdkKey(args.get(0));
+            }
+            return false;
+        }
+
+        /** A key whose hashCode and equals are the JDK's own: a string, a boxed value or an enum constant. */
+        static boolean jdkKey(Value v) {
+            if (v == null || v instanceof PrimitiveValue || v instanceof StringReference) return true;
+            if (!(v instanceof ObjectReference)) return false;
+            ObjectReference o = (ObjectReference) v;
+            return boxedValue(o) != null || o.referenceType() instanceof ClassType && ((ClassType) o.referenceType()).isEnum();
         }
 
         // --- Token types ---
@@ -1810,40 +2285,13 @@ public class JdiDapServer {
             }
 
             ObjectReference obj = (ObjectReference) target;
-            ReferenceType type = obj.referenceType();
-            if (!allowedCall(obj, methodName, args.size())) throw error(PROJECT_CALLS);
-            List<Method> candidates = type.methodsByName(methodName);
-
-            if (candidates.isEmpty()) {
-                throw error("No method '" + methodName + "' on type " + type.name());
-            }
-
-            // Filter by argument count
-            List<Method> matching = new ArrayList<>();
-            for (Method m : candidates) {
-                try {
-                    if (m.argumentTypeNames().size() == args.size()) {
-                        matching.add(m);
-                    }
-                } catch (Exception e) { /* skip */ }
-            }
-
-            if (matching.isEmpty()) {
-                throw error("No method '" + methodName + "' on " + type.name()
-                    + " accepting " + args.size() + " argument(s)");
-            }
-
-            // If multiple matches, try best-effort type matching
-            Method method = matching.size() == 1 ? matching.get(0) : bestMatch(matching, args);
-            if (!method.declaringType().name().startsWith("java.")) throw error(PROJECT_CALLS);
-
+            if (!allowedCall(obj, methodName, args)) throw error(PROJECT_CALLS);
+            // every allowed call is answered from the fields of the object: no method runs in the JVM, so
+            // nothing of the program (hashCode, equals, compareTo, toString) runs either
             try {
-                return obj.invokeMethod(thread, method, args, ObjectReference.INVOKE_SINGLE_THREADED);
-            } catch (InvocationException ie) {
-                ObjectReference ex = ie.exception();
-                throw error("Method '" + methodName + "' threw " + ex.referenceType().name());
-            } catch (Exception e) {
-                throw error("Error invoking '" + methodName + "': " + e.getMessage());
+                return JdkCalls.answer(vm, obj, methodName, args);
+            } catch (IllegalArgumentException e) {
+                throw error(e.getMessage());
             }
         }
 

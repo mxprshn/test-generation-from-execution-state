@@ -627,7 +627,7 @@ export default function (pi: ExtensionAPI) {
 
 	register(
 		"inspect",
-		"Evaluate an expression at the current stop and show its value, objects expanded depth levels (0-3). Expressions: local variables, this, returned and exception at an exit stop, fields (a.b.c), array elements, @N for an object shown before, literals, comparisons, arithmetic, and the calls size(), isEmpty(), get(x), containsKey(x) on JDK collections and maps, length(), charAt(i) on strings, toString(), equals(x) on strings and boxed values, getClass().getName(). No other method calls. inspect(\"locals\", frame) lists the local variables of a frame.",
+		"Evaluate an expression at the current stop and show its value, objects expanded depth levels (0-3). Expressions: local variables, this, returned and exception at an exit stop, fields (a.b.c), array elements, @N for an object shown before, literals, comparisons, arithmetic, and the calls size(), isEmpty() on JDK collections and maps, get(i) on JDK lists, get(k), containsKey(k) on JDK maps and contains(k) on JDK sets with a string, number or enum key, length(), charAt(i) on strings, toString(), equals(x) on strings and boxed values, getClass().getName(). No other method calls: the debugger runs no code of the program, read fields instead. inspect(\"locals\", frame) lists the local variables of a frame.",
 		Type.Object({
 			expr: Type.String(),
 			frame: Type.Optional(Type.Integer({ minimum: 0, description: "stack frame index, 0 = top" })),

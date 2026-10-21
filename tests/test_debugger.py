@@ -20,6 +20,20 @@ from runner.prompts import render
 from tests.test_runner import PiExtensionsTest, write_config
 
 
+def free_test_port() -> int:
+    """A free port of TESTGEN_TEST_PORTS (default 5450-5499, outside the ranges of experiment runs)."""
+    import socket
+    lo, hi = (int(x) for x in os.environ.get("TESTGEN_TEST_PORTS", "5450-5499").split("-"))
+    for port in range(lo, hi + 1):
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+            try:
+                s.bind(("127.0.0.1", port))
+                return port
+            except OSError:
+                continue
+    raise unittest.SkipTest(f"no free port in {lo}-{hi}")
+
+
 def node_run(*args: str, timeout: int = 120) -> dict:
     pi = PiExtensionsTest.pi_package()
     if pi is None or shutil.which("node") is None:
@@ -189,7 +203,7 @@ class DebuggerIntegrationTest(unittest.TestCase):
             config.write_text(json.dumps({
                 "workspace": str(ws), "java": str(java_home / "bin" / "java"), "server_classes": str(classes),
                 "scenario": ["mvn", "-q", "-o", f"-Dmaven.repo.local={m2}", "-Dtest=CounterScenarioTest", "test"],
-                "port": 5199, "command_env": ["PATH", "JAVA_HOME", "HOME"], "start_timeout": 180, "debug_runs": 3,
+                "port": free_test_port(), "command_env": ["PATH", "JAVA_HOME", "HOME"], "start_timeout": 180, "debug_runs": 3,
                 "scenario_log_dir": str(agent), "target": {"class": "demo.Counter", "method": "add"}}))
             os.environ["DEBUGGER_LOG"] = str(agent / "log.jsonl")
             os.environ["DEBUGGER_PIDS"] = str(agent / "pids")
@@ -210,7 +224,7 @@ class DebuggerIntegrationTest(unittest.TestCase):
         self.assertIn("total=0", out["stop1"])
         self.assertIn("total=0", out["inspectThis"])
         self.assertEqual(out["inspectSize"], "1")
-        self.assertIn("method calls on project classes are not allowed", out["inspectProjectCall"])
+        self.assertIn("could run code of the program", out["inspectProjectCall"])
         self.assertIn("c = Counter@", out["inspectFrame1"])
         self.assertIn("stopped at exit #2 (hit 1)", out["stop2"])
         self.assertIn("returned = 5", out["stop2"])
@@ -243,6 +257,65 @@ class DebuggerIntegrationTest(unittest.TestCase):
         for answer in out.values():
             if isinstance(answer, str):
                 self.assertLess(len(answer), 8500)
+
+    def test_no_code_of_the_program_runs(self):
+        """Stops and inspect on containers of project keys (Tag prints a marker from hashCode, equals,
+        toString and compareTo once armed): the scenario log must show no marker."""
+        out, logs = self.run_sample("ShelfScenarioTest", {"DEBUGGER_SHELF": "1"},
+                                    {"class": "demo.Shelf", "method": "fixedSize"})
+        self.assertIn("SCENARIO_DONE", logs)
+        self.assertNotIn("PROJECT_", logs)
+        self.assertIn("stopped at breakpoint #1", out["stop"])
+        self.assertIn("counts=HashMap@", out["inspectThis"])
+        self.assertIn("name=\"x\"", out["inspectThis"])
+        self.assertEqual(out["countsSize"], "2")
+        self.assertIn("Tag@", out["byNameGet"])
+        self.assertEqual(out["plainGet"], "1")
+        self.assertEqual(out["plainHas"], "false")
+        self.assertIn("Tag@", out["orderGet"])
+        self.assertEqual(out["fixedGet"], "\"c\"")
+        self.assertEqual((out["tagsSize"], out["sortedSize"]), ("2", "2"))
+        for refused in ("tagsContains", "countsGet", "tagToString"):
+            self.assertIn("could run code of the program", out[refused])
+        self.assertEqual(out["tagEquals"], "false")
+        self.assertRegex(out["concat"], r'^"t=demo\.Tag@\d+"$')
+        self.assertRegex(out["last"], r"AtomicReference@\d+\(Tag@\d+")
+        self.assertRegex(out["first"], r"Optional@\d+\(Tag@\d+ \{name=\"x\"\}\)")
+        self.assertIn("terminated", out["end"])
+
+    def run_sample(self, test_class: str, env: dict[str, str], target: dict[str, str]) -> tuple[dict, str]:
+        java_home = Path(os.environ.get("JAVA_HOME", ""))
+        m2 = Path(os.environ.get("TESTGEN_M2", Path.home() / ".m2" / "repository"))
+        if not (java_home / "bin" / "javac").is_file() or shutil.which("mvn") is None or not m2.is_dir():
+            self.skipTest("JDK 21, Maven and a Maven repository with JUnit 5.10.3 are needed")
+        with tempfile.TemporaryDirectory() as d:
+            tmp = Path(d)
+            ws = tmp / "ws"
+            shutil.copytree(ROOT / "tests" / "debugger" / "sample", ws)
+            classes = tmp / "server"
+            classes.mkdir()
+            subprocess.run([str(java_home / "bin" / "javac"), "-Xlint:-options", "-d", str(classes), str(D.SERVER_SRC)],
+                           check=True)
+            agent = tmp / "agent"
+            agent.mkdir()
+            config = agent / "debugger.json"
+            config.write_text(json.dumps({
+                "workspace": str(ws), "java": str(java_home / "bin" / "java"), "server_classes": str(classes),
+                "scenario": ["mvn", "-q", "-o", f"-Dmaven.repo.local={m2}", f"-Dtest={test_class}", "test"],
+                "port": free_test_port(), "command_env": ["PATH", "JAVA_HOME", "HOME"], "start_timeout": 180,
+                "debug_runs": 3, "scenario_log_dir": str(agent), "target": target}))
+            saved = {k: os.environ.get(k) for k in [*env, "DEBUGGER_LOG", "DEBUGGER_PIDS"]}
+            os.environ.update(env, DEBUGGER_LOG=str(agent / "log.jsonl"), DEBUGGER_PIDS=str(agent / "pids"))
+            try:
+                out = node_run(str(config), timeout=600)
+            finally:
+                for k, v in saved.items():
+                    if v is None:
+                        os.environ.pop(k, None)
+                    else:
+                        os.environ[k] = v
+            logs = "".join(f.read_text(errors="replace") for f in sorted(agent.glob("scenario-debug-run*.log")))
+        return out, logs
 
 
 if __name__ == "__main__":

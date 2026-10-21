@@ -28,10 +28,22 @@ fits; in the locals of a stop, expanded entries fall back to `Type@N`, the last 
 
 Expressions (`inspect`, `condition`): variables, `this`, `returned` / `exception` at an exit stop,
 field chains, array indices, `@N`, literals, comparisons, arithmetic, and only these method calls:
-`size`, `isEmpty`, `get`, `containsKey` on `java.util` collections and maps, `length`, `charAt`,
-`isEmpty` on strings, `toString`, `equals` on strings and boxes, `getClass().getName()`. Any other call
-is refused (“method calls on project classes are not allowed”); the renderer itself calls only JDK
-methods (`toString` of a few JDK value types, `toArray`/`entrySet` of JDK containers).
+`size`, `isEmpty` on JDK collections and maps, `get(int)` on JDK lists, `get`, `containsKey` on JDK
+maps and `contains` on JDK sets with a string, boxed or enum key (not on a sorted container with a
+comparator), `length`, `charAt`, `isEmpty` on strings, `toString`, `equals` on strings and boxes,
+`getClass().getName()`. Any other call is refused (“this call could run code of the program and is not
+allowed”).
+
+No code of the program runs in the debugger: a method of the program could change the state being
+observed (a lazy load, a cache) or leave other traces. JDK collections and maps (`ArrayList`,
+`HashMap`, `LinkedHashMap`, `TreeMap`, `HashSet`, `ConcurrentHashMap`, immutable and unmodifiable
+collections, ...) are shown and searched by walking their internal fields (`JdkContainers`), so no
+`hashCode`, `equals`, `compareTo` or `toString` of a key runs; the allowed calls are answered from
+fields as well (`JdkCalls`). Other collection types are shown as objects with their fields. Holders
+(`AtomicReference`, `AtomicInteger`, `Optional`, ...) show the value they hold. JDK methods run only
+for the text of a few immutable JDK value types (`BigDecimal`, `java.time`, `UUID`, `URI`, `Locale`,
+`StringBuilder`); a string concatenation shows an object as `Type@N`. The integration test
+`test_no_code_of_the_program_runs` checks this with keys that print a marker from these methods.
 
 Frames: a frame belongs to the project when its source file exists under a `src/{main,test}/java`
 directory of the workspace; the top frame is always shown.

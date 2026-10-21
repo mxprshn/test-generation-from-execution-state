@@ -87,6 +87,33 @@ const step = async (name, args) => {
 	return text;
 };
 out.tools = [...tools.keys()];
+if (process.env.DEBUGGER_SHELF) {
+	// the debugger must run no code of the program: Tag prints a marker from hashCode, equals, toString and
+	// compareTo once the scenario has armed it (tests/debugger/sample, ShelfScenarioTest)
+	out.bp = await step("set_breakpoint", { file: "src/main/java/demo/Shelf.java", code: "return n;" });
+	out.start = await step("debug_start", {});
+	out.stop = await step("resume", { timeout_s: 120 });
+	out.inspectThis = await step("inspect", { expr: "this", depth: 2 });
+	out.countsSize = await step("inspect", { expr: "this.counts.size()" });
+	out.byNameGet = await step("inspect", { expr: "this.byName.get(\"x\")" });
+	out.plainGet = await step("inspect", { expr: "this.plain.get(\"y\")" });
+	out.plainHas = await step("inspect", { expr: "this.plain.containsKey(\"z\")" });
+	out.orderGet = await step("inspect", { expr: "this.order.get(1)" });
+	out.fixedGet = await step("inspect", { expr: "this.fixed.get(2)" });
+	out.tagsSize = await step("inspect", { expr: "this.tags.size()" });
+	out.sortedSize = await step("inspect", { expr: "this.sorted.size()" });
+	out.tagsContains = await step("inspect", { expr: "this.tags.contains(this.order.get(0))" });
+	out.countsGet = await step("inspect", { expr: "this.counts.get(this.order.get(0))" });
+	out.tagToString = await step("inspect", { expr: "this.order.get(0).toString()" });
+	out.tagEquals = await step("inspect", { expr: "\"x\".equals(this.order.get(0))" });
+	out.concat = await step("inspect", { expr: "\"t=\" + this.order.get(0)" });
+	out.last = await step("inspect", { expr: "this.last" });
+	out.first = await step("inspect", { expr: "this.first", depth: 2 });
+	out.end = await step("resume", {});
+	for (const h of handlers.session_shutdown ?? []) await h({ reason: "quit" });
+	process.stdout.write(JSON.stringify(out));
+	process.exit(0);
+}
 out.noSession = await step("resume", {});
 out.bpLine = await step("set_breakpoint", { file: "src/main/java/demo/Counter.java", code: "total += word.length();" });
 out.bpDuplicate = await step("set_breakpoint", { file: "src/main/java/demo/Counter.java", code: "}" });

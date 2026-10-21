@@ -129,6 +129,8 @@ export interface Node {
 	more?: number;
 	items?: Array<Node | { k: Node; v: Node }>;
 	fields?: Array<{ name: string; value: Node | null }>;
+	/** a JDK holder (AtomicReference, Optional, ...): the value it holds */
+	value?: Node | null;
 }
 
 function quote(s: string, q: string): string {
@@ -169,6 +171,8 @@ export function valueText(n: Node | null | undefined, depth = 99, indent = ""): 
 			return `${name}.${n.v}`;
 		case "val":
 			return `${name}(${n.v})`;
+		case "wrap":
+			return `${name}${at}(${valueText(n.value, depth, indent)})`;
 		case "arr":
 		case "coll":
 		case "map": {
