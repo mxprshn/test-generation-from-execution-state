@@ -313,6 +313,9 @@
    "pl.altkom.asc.lab.micronaut.poc.pricing.PricingTestClient",
    "pl.altkom.asc.lab.micronaut.poc.pricing.domain.TariffTest",
    "pl.altkom.asc.lab.micronaut.poc.pricing.domain.TariffsFactory"
+  ],
+  "nondet_fields": [
+   "hashCode"
   ]
  },
  "pdfbox": {
