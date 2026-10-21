@@ -9,6 +9,7 @@ import shutil
 import subprocess
 import tempfile
 import unittest
+from unittest import mock
 from pathlib import Path
 
 from runner import agent as A
@@ -112,12 +113,19 @@ class ModeWiringTest(unittest.TestCase):
         self.assertEqual(X.finding_class(found[0]["kind"]), "escape")
 
     def test_ports_are_leased_once(self):
-        with tempfile.TemporaryDirectory() as d:
-            cfg = load_config(write_config(Path(d), paths={"java_home": d, "results": d + "/r", "work": d + "/w",
-                                                            "debug_ports": "5190-5191"}))
-            with D.lease_port(cfg) as a, D.lease_port(cfg) as b:
+        """Two configs with different work directories share the lock files: no port is handed out twice."""
+        lo = free_test_port()
+        rng = f"{lo}-{lo + 1}"
+        with tempfile.TemporaryDirectory() as d, mock.patch.dict(os.environ, {"TESTGEN_PORT_LOCKS": d + "/locks"}):
+            (Path(d) / "a").mkdir()
+            (Path(d) / "b").mkdir()
+            one = load_config(write_config(Path(d) / "a", paths={"java_home": d, "results": d + "/r1", "work": d + "/w1",
+                                                                  "debug_ports": rng}))
+            two = load_config(write_config(Path(d) / "b", paths={"java_home": d, "results": d + "/r2", "work": d + "/w2",
+                                                                  "debug_ports": rng}))
+            with D.lease_port(one) as a, D.lease_port(two) as b:
                 self.assertNotEqual(a, b)
-                self.assertTrue({a, b} <= {5190, 5191})
+                self.assertTrue({a, b} <= {lo, lo + 1})
 
     def test_server_source_is_attach_only(self):
         src = D.SERVER_SRC.read_text()
@@ -167,6 +175,7 @@ class DebuggerHelpersTest(unittest.TestCase):
         self.assertEqual(out["className"], "a.b.X")
         self.assertEqual(out["method"]["argTypes"], ["int", "java.lang.String"])
         self.assertIsNone(out["methodAny"]["argTypes"])
+        self.assertEqual(out["methodGeneric"]["argTypes"], ["java.util.Map", "int", "String[]"])
         self.assertEqual(out["ctor"]["method"], "<init>")
         self.assertIn("error", out["badMethod"])
         self.assertEqual(out["frames"], {"shown": ["T.m:3", "U.u0:0", "U.u1:1", "U.u2:2", "U.u3:3"], "more": 3})

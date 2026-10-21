@@ -84,8 +84,38 @@ export function parseMethod(spec: string): MethodRef | { error: string } {
 	let method = m[2];
 	const simple = className.split(/[.$]/).pop();
 	if (method === simple) method = "<init>";
-	const argTypes = m[3] === undefined ? null : m[3].trim() === "" ? [] : m[3].split(",").map((t) => t.trim());
+	const argTypes = m[3] === undefined ? null : m[3].trim() === "" ? [] : splitTypes(m[3]);
 	return { className, method, argTypes };
+}
+
+/** Argument types split at the commas outside type arguments; type arguments dropped (JDI sees the erasure). */
+export function splitTypes(list: string): string[] {
+	const out: string[] = [];
+	let depth = 0;
+	let cur = "";
+	for (const ch of list) {
+		if (ch === "<") depth++;
+		else if (ch === ">") depth = Math.max(0, depth - 1);
+		if (ch === "," && depth === 0) {
+			out.push(cur);
+			cur = "";
+		} else {
+			cur += ch;
+		}
+	}
+	out.push(cur);
+	return out.map((t) => eraseType(t));
+}
+
+function eraseType(t: string): string {
+	let out = "";
+	let depth = 0;
+	for (const ch of t) {
+		if (ch === "<") depth++;
+		else if (ch === ">") depth = Math.max(0, depth - 1);
+		else if (depth === 0) out += ch;
+	}
+	return out.replace(/\s+/g, "").replace(/\.\.\.$/, "[]");
 }
 
 export interface Frame {

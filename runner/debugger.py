@@ -7,7 +7,7 @@ its own and the command environment; it starts the scenario JVM itself (the agen
 the debugger) and writes every call and stop to debug-log.jsonl.
 
 Ports: one per cell, from the range of paths.debug_ports (default 5100-5199), handed out by a lock
-file so that parallel cells and processes never share one.
+file in a place shared by every run of the machine, so that parallel cells and processes never share one.
 """
 from __future__ import annotations
 
@@ -81,9 +81,12 @@ def _free(port: int) -> bool:
 
 @contextmanager
 def lease_port(cfg: Config) -> Iterator[int]:
-    """A JDWP port of the range that no other cell holds (lock files under the work root)."""
+    """A JDWP port of the range that no other cell holds. The lock files live in one place for every run
+    of the machine (TESTGEN_PORT_LOCKS, default <temp dir>/testgen-debug-ports), so runs with different
+    work directories never share a port either."""
     lo, hi = port_range(cfg)
-    locks = (cfg.work_root or cfg.work_dir.parent) / "debug-ports"
+    import tempfile
+    locks = Path(os.environ.get("TESTGEN_PORT_LOCKS") or Path(tempfile.gettempdir()) / "testgen-debug-ports")
     locks.mkdir(parents=True, exist_ok=True)
     for port in range(lo, hi + 1):
         handle = (locks / f"{port}.lock").open("w")

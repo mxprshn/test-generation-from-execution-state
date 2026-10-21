@@ -503,7 +503,7 @@ public class JdiDapServer {
         List<String> actual = m.argumentTypeNames();
         if (actual.size() != s.argTypes.size()) return false;
         for (int i = 0; i < actual.size(); i++) {
-            String want = s.argTypes.get(i).trim().replace('$', '.');
+            String want = s.argTypes.get(i).replaceAll("<.*>", "").replaceAll("\\s+", "").replace('$', '.');
             String got = actual.get(i).replace('$', '.');
             if (!(got.equals(want) || got.endsWith("." + want))) return false;
         }
@@ -934,7 +934,7 @@ public class JdiDapServer {
                     return n;
                 }
             } catch (Exception e) { /* render what we can */ }
-            refs.put(o.uniqueID(), o);
+            pin(o);
             String type = o.referenceType().name();
             n.put("type", type);
             n.put("ref", o.uniqueID());
@@ -1562,6 +1562,20 @@ public class JdiDapServer {
             }
         }
         return false;
+    }
+
+    static final int PINNED = 10_000;
+
+    /** Remember an object shown to the agent as @N and keep it from being collected until the JVM run
+     *  ends (at most PINNED objects; later ones may show as <collected>). */
+    private void pin(ObjectReference o) {
+        if (refs.putIfAbsent(o.uniqueID(), o) == null && refs.size() <= PINNED) {
+            try {
+                o.disableCollection();
+            } catch (ObjectCollectedException | VMDisconnectedException | UnsupportedOperationException e) {
+                // gone already, or the JVM ended: nothing to pin
+            }
+        }
     }
 
     private static Value boxedValue(ObjectReference o) {

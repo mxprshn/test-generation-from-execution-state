@@ -44,6 +44,8 @@ fields as well (`JdkCalls`). Other collection types are shown as objects with th
 for the text of a few immutable JDK value types (`BigDecimal`, `java.time`, `UUID`, `URI`, `Locale`,
 `StringBuilder`); a string concatenation shows an object as `Type@N`. The integration test
 `test_no_code_of_the_program_runs` checks this with keys that print a marker from these methods.
+Objects shown as `@N` are kept from garbage collection until the JVM run ends (at most 10 000), so a
+later `inspect("@N")` finds them.
 
 The fields of class objects, class loaders, threads, `System`, `Runtime`, processes, modules,
 reflection, `java.security`, `java.lang.invoke`/`ref` and JDK internals (`jdk.internal.*`, `sun.*`,
@@ -90,6 +92,7 @@ process, environment, class loader and reflection names (the server refuses such
 `modes: [autonomous]` in the config; `debug_runs` (default 3) limits the scenario runs of a cell, is
 rendered into the prompt (`{{debug_runs}}`) and enters the config hash of the autonomous cells only;
 `paths.debug_ports` (default `5100-5199`) is the range of JDWP
-ports, one per cell at a time (lock files under the work directory). Cells of the other modes are
+ports, one per cell at a time (lock files in `$TESTGEN_PORT_LOCKS`, default `<temp dir>/testgen-debug-ports`,
+shared by every run of the machine). Cells of the other modes are
 unchanged; the mode's results can go to a separate results directory and be compared with the cells
 of a published run.

@@ -41,6 +41,7 @@ if (!configPath) {
 	out.methodAny = f.parseMethod("org.x.Foo#bar");
 	out.ctor = f.parseMethod("org.x.Foo#Foo()");
 	out.badMethod = f.parseMethod("Foo.bar");
+	out.methodGeneric = f.parseMethod("org.x.Foo#bar(java.util.Map<String, java.util.List<Integer>>, int, String...)");
 	const frames = [
 		{ index: 0, class: "a.T", method: "m", line: 3, source: "a/T.java" },
 		...Array.from({ length: 30 }, (_, i) => ({ index: i + 1, class: "java.lang.reflect.M", method: "invoke", line: i, source: "java/lang/reflect/M.java" })),
