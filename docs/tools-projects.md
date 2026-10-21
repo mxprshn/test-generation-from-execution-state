@@ -89,6 +89,8 @@ Project specifics:
   of the command environment (downloaded by the online build of setup).
 * **GraphHopper**: only the module `core` is used (`web-bundle` needs npm and `git://`).
 
+Caller on JDK 11: BTrace copies its handler into the traced class (`Owner.$btrace$…$onEntry`), and on JDK 11 that copy is a frame of its own between the tracer and the target, so the target class was recorded as the caller and `runs_scenario` was set for tests that call the target directly. The tracer skips these frames (`StateTrace.helperFrame`); on JDK 21 the frame does not exist and the records are unchanged (checked on jsoup-node-wrap and klaw-util-methods-get-user-name against the released references: equal except the thread id and the generated name of a Mockito mock class). The references of the 31 cases were recorded again after the fix.
+
 Evaluation on JDK 11: the BTrace tracer, its helper jars (compiled with `--release 11`), the JDI server of
 the autonomous mode and PIT 1.15.8 run on JDK 11 (checked: references of all 31 cases; PIT on PDFBox,
 GraphHopper, PetClinic and Lab-Insurance with an existing test of the target class). PIT needs the JUnit

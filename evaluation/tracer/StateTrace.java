@@ -144,6 +144,12 @@ public final class StateTrace {
         }
     }
 
+    /** A frame of the tracer: its classes, or a handler BTrace copied into the traced class (on JDK 11 the
+     *  copy, e.g. Owner.$btrace$...$onEntry, is a frame of its own between the tracer and the target). */
+    private static boolean helperFrame(StackTraceElement e) {
+        return helperFrame(e.getClassName()) || e.getMethodName().startsWith("$btrace$");
+    }
+
     private static boolean helperFrame(String cls) {
         return cls.startsWith("org.openjdk.btrace.") || cls.equals("StateTrace") || cls.startsWith("StateTrace$")
             || cls.startsWith("TargetTrace") || cls.startsWith("$btrace");
@@ -159,7 +165,7 @@ public final class StateTrace {
     private static void appendCaller(StringBuilder sb) {
         StackTraceElement[] st = new Throwable().getStackTrace();
         int i = 0;
-        while (i < st.length && helperFrame(st[i].getClassName())) i++;
+        while (i < st.length && helperFrame(st[i])) i++;
         // st[i] is the target method itself; its caller is the next frame
         String caller = i + 1 < st.length ? st[i + 1].getClassName() : null;
         String effective = null;
