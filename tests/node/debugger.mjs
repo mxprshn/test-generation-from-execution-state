@@ -16,6 +16,16 @@ const f = await jiti.import(`${root}/pi/debugger/format.ts`);
 const out = {};
 
 if (!configPath) {
+	const { mkdtempSync, mkdirSync, writeFileSync } = await import("node:fs");
+	const { tmpdir } = await import("node:os");
+	const ws = mkdtempSync(`${tmpdir()}/roots-`);
+	const put = (p, pkg) => { mkdirSync(`${ws}/${p}`, { recursive: true }); writeFileSync(`${ws}/${p}/A.java`, `package ${pkg};\nclass A {}\n`); };
+	put("core/src/main/java/a/b", "a.b");
+	put("core/src/test/java/a/b/c", "a.b.c");
+	put("jgit.test/tst/org/x", "org.x");
+	put("jgit.test/tst/org/x/y", "org.x.y");
+	const d = await jiti.import(`${root}/pi/debugger.ts`);
+	out.roots = d.findSourceRoots(ws).map((r) => r.slice(ws.length + 1)).sort();
 	const src = ["package a.b;", "", "class X {", "  int f() {", "    return 1;", "  }", "  int g() {", "    return 1;", "  }", "  // return 2;", "}"].join("\n");
 	out.unique = f.matchLine(src, "X.java", "int g() {");
 	out.trimmed = f.matchLine(src, "X.java", "   int   f()  {  ");

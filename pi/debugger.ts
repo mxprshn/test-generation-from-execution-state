@@ -57,6 +57,50 @@ interface DebuggerConfig {
 export const FIRST_RESUME_TIMEOUT = 300;
 export const RESUME_TIMEOUT = 60;
 
+/**
+ * Source roots of the workspace: for the first .java file met in a directory, its directory minus its
+ * package path. Covers Maven layouts (src/main/java) and others (JGit: src/, tst/, exttst/).
+ */
+export function findSourceRoots(workspace: string): string[] {
+	const roots = new Set<string>();
+	const walk = (dir: string, depth: number) => {
+		if (depth > 12) return;
+		let entries: Dirent[];
+		try {
+			entries = readdirSync(dir, { withFileTypes: true });
+		} catch {
+			return;
+		}
+		if ([...roots].some((r) => dir === r || dir.startsWith(r + "/"))) return;
+		const java = entries.find((e) => e.isFile() && e.name.endsWith(".java"));
+		if (java) {
+			let pkg = "";
+			try {
+				const m = /^\s*package\s+([\w.]+)\s*;/m.exec(readFileSync(resolve(dir, java.name), "utf8").slice(0, 20000));
+				pkg = m ? m[1] : "";
+			} catch {
+				/* unreadable: treat as the default package */
+			}
+			const parts = pkg ? pkg.split(".") : [];
+			const tail = dir.split("/").slice(-parts.length);
+			if (parts.length === 0) {
+				roots.add(dir);
+				return;
+			}
+			if (tail.join(".") === pkg) {
+				roots.add(dir.split("/").slice(0, -parts.length).join("/"));
+				return;
+			}
+		}
+		for (const e of entries) {
+			if (!e.isDirectory() || e.name.startsWith(".") || e.name === "target" || e.name === "node_modules" || e.name === "build") continue;
+			walk(resolve(dir, e.name), depth + 1);
+		}
+	};
+	walk(workspace, 0);
+	return roots.size ? [...roots] : [workspace];
+}
+
 export const TOOLS = ["debug_start", "set_breakpoint", "remove_breakpoint", "resume", "inspect"] as const;
 
 export function debugArgv(scenario: string[], port: number): string[] {
@@ -206,28 +250,7 @@ export default function (pi: ExtensionAPI) {
 
 	const sourceRoots: string[] = [];
 	function projectHas(source: string): boolean {
-		if (sourceRoots.length === 0) {
-			// directories named java that hold sources (src/main/java, module/src/test/java, ...)
-			const roots = new Set<string>();
-			const walk = (dir: string, depth: number) => {
-				if (depth > 5) return;
-				let entries: Dirent[];
-				try {
-					entries = readdirSync(dir, { withFileTypes: true });
-				} catch {
-					return;
-				}
-				for (const e of entries) {
-					if (!e.isDirectory() || e.name.startsWith(".") || e.name === "target" || e.name === "node_modules") continue;
-					const p = resolve(dir, e.name);
-					if (e.name === "java" && /[/\\](?:main|test)$/.test(dir)) roots.add(p);
-					else walk(p, depth + 1);
-				}
-			};
-			walk(workspace, 0);
-			sourceRoots.push(...roots);
-			if (sourceRoots.length === 0) sourceRoots.push(workspace);
-		}
+		if (sourceRoots.length === 0) sourceRoots.push(...findSourceRoots(workspace));
 		return sourceRoots.some((r) => existsSync(resolve(r, source)));
 	}
 

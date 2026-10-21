@@ -110,6 +110,7 @@ class ModeWiringTest(unittest.TestCase):
 class DebuggerHelpersTest(unittest.TestCase):
     def test_line_matching_frames_values(self):
         out = node_run()
+        self.assertEqual(out["roots"], ["core/src/main/java", "core/src/test/java", "jgit.test/tst"])
         self.assertEqual(out["unique"], {"line": 7, "text": "int g() {"})
         self.assertEqual(out["trimmed"]["line"], 4)
         self.assertIn("lines 5, 8", out["duplicate"]["error"])
