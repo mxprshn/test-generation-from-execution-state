@@ -1,0 +1,46 @@
+id: lab-percent-markup-rule-apply
+project: lab-insurance
+group: indirect
+target:
+  class: pl.altkom.asc.lab.micronaut.poc.pricing.domain.PercentMarkupRule
+  method: apply
+  signature: "(pl.altkom.asc.lab.micronaut.poc.pricing.domain.Calculation) -> pl.altkom.asc.lab.micronaut.poc.pricing.domain.Calculation"
+scenario:
+  test: "pl.altkom.asc.lab.micronaut.poc.pricing.PricingControllerTest#canCalculateHousePolicyPrice"
+  source: pricing-service/src/test/java/pl/altkom/asc/lab/micronaut/poc/pricing/PricingControllerTest.java
+output_test_file: pricing-service/src/test/java/pl/altkom/asc/lab/micronaut/poc/pricing/domain/PercentMarkupRuleCarvedTest.java
+hidden_paths:
+- pricing-service/src/test/java/pl/altkom/asc/lab/micronaut/poc/pricing/domain/TariffTest.java
+commands:
+  build: [mvn, "-q", "-o", "-pl", pricing-service, "-DskipTests", test-compile]
+  scenario: [mvn, "-q", "-o", "-pl", pricing-service, "-Dtest=PricingControllerTest#canCalculateHousePolicyPrice", "-Dsurefire.failIfNoTests=false", "-DfailIfNoTests=false", "-Dsurefire.failIfNoSpecifiedTests=false", test]
+  generated_test: [mvn, "-q", "-o", "-pl", pricing-service, "-Dtest=PercentMarkupRuleCarvedTest", "-Dsurefire.failIfNoTests=false", "-DfailIfNoTests=false", "-Dsurefire.failIfNoSpecifiedTests=false", test]
+repo:
+  url: "https://github.com/asc-lab/micronaut-microservices-poc.git"
+  commit: 79416dd5a2b17febaf67d0472f5d9f51f7059b01
+  version: "last commit on Java 8 / Micronaut 2.1 (MicroTestCarver Table I: Lab-Insurance 1.0.0)"
+  jdk: 11
+  prebuild:
+  - "['mvn', '-q', '-o', '-DskipTests', 'install', '-f', 'command-bus-api']"
+  - "['mvn', '-q', '-o', '-DskipTests', 'install', '-f', 'command-bus']"
+  - "['mvn', '-q', '-o', '-DskipTests', 'install', '-f', 'pricing-service-api']"
+jdk: 11
+tools_expected:
+  pankti: true
+  rick: false
+  microtestcarver: true
+  note: receiver holds a JPA entity (Tariff)
+evidence: "Lab-Insurance (MicroTestCarver subject); same pricing flow as Table IV #31-34"
+debugger_check:
+  ok: false
+  hits_entry: 0
+  hits_exit: 0
+  exception_exits: 0
+  args_ok: false
+  this_ok: false
+  return_ok: false
+  wall_s: 55
+  jvm_attach_s: 11.286
+  debug_s: 43.377
+  jdk_used: Temurin 11.0.32
+  sample: []

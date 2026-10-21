@@ -1,0 +1,48 @@
+id: lab-tariff-calculate-price
+project: lab-insurance
+group: indirect
+target:
+  class: pl.altkom.asc.lab.micronaut.poc.pricing.domain.Tariff
+  method: calculatePrice
+  signature: "(pl.altkom.asc.lab.micronaut.poc.pricing.domain.Calculation) -> pl.altkom.asc.lab.micronaut.poc.pricing.domain.Calculation"
+scenario:
+  test: "pl.altkom.asc.lab.micronaut.poc.pricing.PricingControllerTest#canCalculateHousePolicyPrice"
+  source: pricing-service/src/test/java/pl/altkom/asc/lab/micronaut/poc/pricing/PricingControllerTest.java
+output_test_file: pricing-service/src/test/java/pl/altkom/asc/lab/micronaut/poc/pricing/domain/TariffCarvedTest.java
+hidden_paths:
+- pricing-service/src/test/java/pl/altkom/asc/lab/micronaut/poc/pricing/domain/TariffTest.java
+commands:
+  build: [mvn, "-q", "-o", "-pl", pricing-service, "-DskipTests", test-compile]
+  scenario: [mvn, "-q", "-o", "-pl", pricing-service, "-Dtest=PricingControllerTest#canCalculateHousePolicyPrice", "-Dsurefire.failIfNoTests=false", "-DfailIfNoTests=false", "-Dsurefire.failIfNoSpecifiedTests=false", test]
+  generated_test: [mvn, "-q", "-o", "-pl", pricing-service, "-Dtest=TariffCarvedTest", "-Dsurefire.failIfNoTests=false", "-DfailIfNoTests=false", "-Dsurefire.failIfNoSpecifiedTests=false", test]
+repo:
+  url: "https://github.com/asc-lab/micronaut-microservices-poc.git"
+  commit: 79416dd5a2b17febaf67d0472f5d9f51f7059b01
+  version: "last commit on Java 8 / Micronaut 2.1 (MicroTestCarver Table I: Lab-Insurance 1.0.0)"
+  jdk: 11
+  prebuild:
+  - "['mvn', '-q', '-o', '-DskipTests', 'install', '-f', 'command-bus-api']"
+  - "['mvn', '-q', '-o', '-DskipTests', 'install', '-f', 'command-bus']"
+  - "['mvn', '-q', '-o', '-DskipTests', 'install', '-f', 'pricing-service-api']"
+jdk: 11
+tools_expected:
+  pankti: true
+  rick: false
+  microtestcarver: true
+  note: "JPA entity with lazy collections: XStream risk"
+evidence: "Lab-Insurance (MicroTestCarver subject); Table IV #34 CalculationTest neighbourhood"
+debugger_check:
+  ok: true
+  hits_entry: 1
+  hits_exit: 1
+  exception_exits: 0
+  args_ok: true
+  this_ok: true
+  return_ok: true
+  wall_s: 35
+  jvm_attach_s: 10.9
+  debug_s: 24.742
+  jdk_used: Temurin 11.0.32
+  sample:
+  - "entry#1 args=[Calculation@9240, ] this{4 fields: id=Long@9243 code=\"HSI\" basePriceCalculationRules=PersistentBag@9245 discountMarkupRules=PersistentBag@9246 } locals=1"
+  - "exit#1 returned=Calculation@9240"

@@ -21,6 +21,37 @@ target's invocations per test method under a debugger. Every case passed a debug
 `cases/<id>/meta.yaml` keeps, per case, which tools are expected to apply (by their selection rules),
 the evidence of the target and the debugger check; the runner does not read it.
 
+The scripts and data of the selection are in `scripts/tools-projects/` (README there);
+`python3 scripts/tools-projects/selection_report.py <projects dir>` lists every target the scenario
+search watched and what became of it.
+
+### Projects left out
+
+| Project | Evaluated by | Reason |
+|---|---|---|
+| Gephi | RICK | NetBeans desktop application; its workload is driven through the GUI, no offline test reaches the targets |
+| Jitsi | Pankti | video conferencing: the workload needs network peers (XMPP, media), no offline scenario |
+| Broadleaf Commerce | Pankti | Spring/servlet e-commerce stack with a database; no offline scenario test |
+| Alf.io | MicroTestCarver | Gradle build with PostgreSQL for its tests |
+| hamvocke/spring-testing | MicroTestCarver | Gradle, PostgreSQL, WireMock and Selenium; the current build needs a JDK 25 toolchain |
+
+### Candidates left out
+
+| Candidate | Reason |
+|---|---|
+| lab-percent-markup-rule-apply | the scenario does not reach the target (the markup applies only to destination WORLD or flood YES) |
+| lab-tariff-calculate-price | `TariffTest` names the target; the HTTP scenario timed out under the debugger (10 s client read timeout) |
+| 14 scanned targets | no test method reaches them 1–13 times without naming them (`selection_report.py`: "no scenario") |
+| 24 scanned targets | a scenario exists but the target was not taken (see below) |
+
+### Limitations of the selection
+
+The choice among the targets that had a scenario was made by hand, preferring targets of the authors'
+lists, tests with few invocations and short runs; the reasons for leaving a possible target out were
+not recorded. The search (`Scan.java`), the filter (`pick.py`) and the debugger check are reproducible
+from the committed data; the hand choice is not. The selection was made before any run of the
+autonomous mode or of the three tools on these projects.
+
 ## Running them
 
 The projects run on JDK 11 (MicroTestCarver records only there). The pipeline runs one JDK per run, so

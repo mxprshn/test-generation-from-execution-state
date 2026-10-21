@@ -1,0 +1,504 @@
+{
+ "pdfbox-catalog-get-viewer-preferences": {
+  "signature": "() -> org.apache.pdfbox.pdmodel.interactive.viewerpreferences.PDViewerPreferences",
+  "hidden_paths": [
+   "pdfbox/src/test/java/org/apache/pdfbox/pdmodel/TestPDDocumentCatalog.java"
+  ],
+  "tools_expected": {
+   "pankti": true,
+   "rick": true,
+   "microtestcarver": true,
+   "note": "root.getDictionaryObject: COSDictionary field"
+  },
+  "group": "indirect",
+  "prebuild": null
+ },
+ "pdfbox-xref-trailer-resolver-get-xref-type": {
+  "signature": "() -> org.apache.pdfbox.pdfparser.XrefTrailerResolver$XRefType",
+  "hidden_paths": [],
+  "tools_expected": {
+   "pankti": true,
+   "rick": false,
+   "microtestcarver": true,
+   "note": "no call to a field method: RICK not applicable"
+  },
+  "group": "indirect",
+  "prebuild": null
+ },
+ "pdfbox-cos-parser-get-encryption": {
+  "signature": "() -> org.apache.pdfbox.pdmodel.encryption.PDEncryption",
+  "hidden_paths": [],
+  "tools_expected": {
+   "pankti": true,
+   "rick": false,
+   "microtestcarver": true,
+   "note": "receiver holds an open RandomAccess stream: XStream serialisation risk"
+  },
+  "group": "indirect",
+  "prebuild": null
+ },
+ "pdfbox-font-descriptor-is-symbolic": {
+  "signature": "() -> boolean",
+  "hidden_paths": [],
+  "tools_expected": {
+   "pankti": true,
+   "rick": false,
+   "microtestcarver": true,
+   "note": "calls own isFlagBitOn/getFlags, not a field"
+  },
+  "group": "indirect",
+  "prebuild": null
+ },
+ "pdfbox-font-descriptor-get-flags": {
+  "signature": "() -> int",
+  "hidden_paths": [],
+  "tools_expected": {
+   "pankti": true,
+   "rick": true,
+   "microtestcarver": true,
+   "note": "dic.getInt on the first call (flags cache)"
+  },
+  "group": "indirect",
+  "prebuild": null
+ },
+ "pdfbox-font-descriptor-is-fixed-pitch": {
+  "signature": "() -> boolean",
+  "hidden_paths": [],
+  "tools_expected": {
+   "pankti": true,
+   "rick": false,
+   "microtestcarver": true
+  },
+  "group": "indirect",
+  "prebuild": null
+ },
+ "pdfbox-cid-system-info-get-ordering": {
+  "signature": "() -> java.lang.String",
+  "hidden_paths": [],
+  "tools_expected": {
+   "pankti": true,
+   "rick": true,
+   "microtestcarver": true,
+   "note": "dictionary.getNameAsString"
+  },
+  "group": "indirect",
+  "prebuild": null
+ },
+ "pdfbox-cid-font-get-cid-system-info": {
+  "signature": "() -> org.apache.pdfbox.pdmodel.font.PDCIDSystemInfo",
+  "hidden_paths": [],
+  "tools_expected": {
+   "pankti": true,
+   "rick": true,
+   "microtestcarver": true,
+   "note": "dict.getDictionaryObject"
+  },
+  "group": "indirect",
+  "prebuild": null
+ },
+ "pdfbox-icc-based-get-default-decode": {
+  "signature": "(int) -> float[]",
+  "hidden_paths": [
+   "pdfbox/src/test/java/org/apache/pdfbox/pdmodel/graphics/color/PDICCBasedTest.java"
+  ],
+  "tools_expected": {
+   "pankti": true,
+   "rick": false,
+   "microtestcarver": true,
+   "note": "receiver holds java.awt.color.ICC_ColorSpace: XStream serialisation risk"
+  },
+  "group": "indirect",
+  "prebuild": null
+ },
+ "pdfbox-image-xobject-get-color-key-mask": {
+  "signature": "() -> org.apache.pdfbox.cos.COSArray",
+  "hidden_paths": [
+   "pdfbox/src/test/java/org/apache/pdfbox/pdmodel/graphics/image/PDImageXObjectTest.java"
+  ],
+  "tools_expected": {
+   "pankti": true,
+   "rick": false,
+   "microtestcarver": true,
+   "note": "calls own getCOSObject(): RICK not applicable"
+  },
+  "group": "indirect",
+  "prebuild": null
+ },
+ "pdfbox-image-xobject-get-interpolate": {
+  "signature": "() -> boolean",
+  "hidden_paths": [
+   "pdfbox/src/test/java/org/apache/pdfbox/pdmodel/graphics/image/PDImageXObjectTest.java"
+  ],
+  "tools_expected": {
+   "pankti": true,
+   "rick": false,
+   "microtestcarver": true,
+   "note": "calls own getCOSObject(): RICK not applicable"
+  },
+  "group": "indirect",
+  "prebuild": null
+ },
+ "pdfbox-ext-graphics-state-get-soft-mask": {
+  "signature": "() -> org.apache.pdfbox.pdmodel.graphics.state.PDSoftMask",
+  "hidden_paths": [],
+  "tools_expected": {
+   "pankti": true,
+   "rick": true,
+   "microtestcarver": true,
+   "note": "dict.containsKey / dict.getDictionaryObject"
+  },
+  "group": "indirect",
+  "prebuild": null
+ },
+ "pdfbox-resources-get-ext-gstate": {
+  "signature": "(org.apache.pdfbox.cos.COSName) -> org.apache.pdfbox.pdmodel.graphics.state.PDExtendedGraphicsState",
+  "hidden_paths": [],
+  "tools_expected": {
+   "pankti": true,
+   "rick": true,
+   "microtestcarver": true,
+   "note": "cache.getExtGState: ResourceCache field"
+  },
+  "group": "indirect",
+  "prebuild": null
+ },
+ "pdfbox-default-resource-cache-get-font": {
+  "signature": "(org.apache.pdfbox.cos.COSObject) -> org.apache.pdfbox.pdmodel.font.PDFont",
+  "hidden_paths": [],
+  "tools_expected": {
+   "pankti": true,
+   "rick": false,
+   "microtestcarver": true,
+   "note": "field is a java.util.Map (JDK type): mockable only if RICK mocks JDK types"
+  },
+  "group": "indirect",
+  "prebuild": null
+ },
+ "gh-string-index-load-existing": {
+  "signature": "() -> boolean",
+  "hidden_paths": [
+   "core/src/test/java/com/graphhopper/search/StringIndexTest.java"
+  ],
+  "tools_expected": {
+   "pankti": true,
+   "rick": true,
+   "microtestcarver": true,
+   "note": "keys/vals DataAccess field calls (as in RICK's own test)"
+  },
+  "group": "indirect",
+  "prebuild": null
+ },
+ "gh-storable-properties-load-existing": {
+  "signature": "() -> boolean",
+  "hidden_paths": [
+   "core/src/test/java/com/graphhopper/storage/StorablePropertiesTest.java"
+  ],
+  "tools_expected": {
+   "pankti": true,
+   "rick": true,
+   "microtestcarver": true,
+   "note": "da.loadExisting/getCapacity/getBytes (as in RICK's own test)"
+  },
+  "group": "indirect",
+  "prebuild": null
+ },
+ "gh-line-int-index-load-existing": {
+  "signature": "() -> boolean",
+  "hidden_paths": [],
+  "tools_expected": {
+   "pankti": true,
+   "rick": true,
+   "microtestcarver": true,
+   "note": "dataAccess.loadExisting/getHeader"
+  },
+  "group": "indirect",
+  "prebuild": null
+ },
+ "gh-base-graph-nodes-and-edges-load-existing": {
+  "signature": "() -> boolean",
+  "hidden_paths": [],
+  "tools_expected": {
+   "pankti": true,
+   "rick": true,
+   "microtestcarver": true,
+   "note": "nodes/edges DataAccess calls"
+  },
+  "group": "indirect",
+  "prebuild": null
+ },
+ "gh-graphhopper-storage-load-existing": {
+  "signature": "() -> boolean",
+  "hidden_paths": [
+   "core/src/test/java/com/graphhopper/storage/GraphHopperStorageTest.java",
+   "core/src/test/java/com/graphhopper/storage/GraphHopperStorageWithTurnCostsTest.java",
+   "core/src/test/java/com/graphhopper/storage/GraphHopperStorageLMTest.java",
+   "core/src/test/java/com/graphhopper/storage/GraphStorageViaMMapTest.java"
+  ],
+  "tools_expected": {
+   "pankti": true,
+   "rick": true,
+   "microtestcarver": true,
+   "note": "properties/encodingManager/baseGraph field calls"
+  },
+  "group": "indirect",
+  "prebuild": null
+ },
+ "gh-virtual-edge-iterator-state-get-reverse": {
+  "signature": "(com.graphhopper.routing.ev.BooleanEncodedValue) -> boolean",
+  "hidden_paths": [],
+  "tools_expected": {
+   "pankti": true,
+   "rick": false,
+   "microtestcarver": true,
+   "note": "the mocked call is on the argument, not on a field: RICK not applicable"
+  },
+  "group": "indirect",
+  "prebuild": null
+ },
+ "gh-douglas-peucker-set-max-distance": {
+  "signature": "(double) -> com.graphhopper.util.DouglasPeucker",
+  "hidden_paths": [
+   "core/src/test/java/com/graphhopper/util/DouglasPeuckerTest.java"
+  ],
+  "tools_expected": {
+   "pankti": true,
+   "rick": true,
+   "microtestcarver": true,
+   "note": "calc.calcNormalizedDist: DistanceCalc field (as in RICK's own test)"
+  },
+  "group": "indirect",
+  "prebuild": null
+ },
+ "gh-int-encoded-value-impl-init": {
+  "signature": "(com.graphhopper.routing.ev.EncodedValue$InitializerConfig) -> int",
+  "hidden_paths": [
+   "core/src/test/java/com/graphhopper/routing/ev/IntEncodedValueImplTest.java"
+  ],
+  "tools_expected": {
+   "pankti": false,
+   "rick": false,
+   "microtestcarver": true,
+   "note": "final method; the call is on the argument: Pankti instruments it, RICK not applicable"
+  },
+  "group": "indirect",
+  "prebuild": null
+ },
+ "petclinic-pet-type-formatter-parse": {
+  "signature": "(java.lang.String, java.util.Locale) -> org.springframework.samples.petclinic.owner.PetType",
+  "hidden_paths": [
+   "src/test/java/org/springframework/samples/petclinic/owner/PetTypeFormatterTests.java"
+  ],
+  "tools_expected": {
+   "pankti": true,
+   "rick": true,
+   "microtestcarver": true,
+   "note": "owners.findPetTypes: repository field (Mockito mock in the scenario)"
+  },
+  "group": "indirect",
+  "prebuild": null
+ },
+ "petclinic-owner-get-pet": {
+  "signature": "(java.lang.Integer) -> org.springframework.samples.petclinic.owner.Pet",
+  "hidden_paths": [],
+  "tools_expected": {
+   "pankti": true,
+   "rick": false,
+   "microtestcarver": true,
+   "note": "calls only own getPets()"
+  },
+  "group": "indirect",
+  "prebuild": null
+ },
+ "petclinic-owner-add-visit": {
+  "signature": "(java.lang.Integer, org.springframework.samples.petclinic.owner.Visit) -> org.springframework.samples.petclinic.owner.Owner",
+  "hidden_paths": [],
+  "tools_expected": {
+   "pankti": true,
+   "rick": false,
+   "microtestcarver": true,
+   "note": "calls own getPet and Pet.addVisit on a local"
+  },
+  "group": "indirect",
+  "prebuild": null
+ },
+ "petclinic-owner-get-pet-by-name": {
+  "signature": "(java.lang.String, boolean) -> org.springframework.samples.petclinic.owner.Pet",
+  "hidden_paths": [],
+  "tools_expected": {
+   "pankti": true,
+   "rick": false,
+   "microtestcarver": true
+  },
+  "group": "indirect",
+  "prebuild": null
+ },
+ "petclinic-vets-get-vet-list": {
+  "signature": "() -> java.util.List<org.springframework.samples.petclinic.vet.Vet>",
+  "hidden_paths": [],
+  "tools_expected": {
+   "pankti": true,
+   "rick": false,
+   "microtestcarver": true
+  },
+  "group": "indirect",
+  "prebuild": null
+ },
+ "petclinic-named-entity-to-string": {
+  "signature": "() -> java.lang.String",
+  "hidden_paths": [],
+  "tools_expected": {
+   "pankti": true,
+   "rick": false,
+   "microtestcarver": true
+  },
+  "group": "indirect",
+  "prebuild": null
+ },
+ "petclinic-base-entity-is-new": {
+  "signature": "() -> boolean",
+  "hidden_paths": [],
+  "tools_expected": {
+   "pankti": true,
+   "rick": false,
+   "microtestcarver": true
+  },
+  "group": "indirect",
+  "prebuild": null
+ },
+ "petclinic-pet-validator-validate": {
+  "signature": "(java.lang.Object, org.springframework.validation.Errors) -> void",
+  "hidden_paths": [],
+  "tools_expected": {
+   "pankti": true,
+   "rick": false,
+   "microtestcarver": true,
+   "note": "errors.rejectValue is on an argument"
+  },
+  "group": "indirect",
+  "prebuild": null
+ },
+ "lab-calculate-price-handler-handle": {
+  "signature": "(pl.altkom.asc.lab.micronaut.poc.pricing.service.api.v1.commands.calculateprice.CalculatePriceCommand) -> pl.altkom.asc.lab.micronaut.poc.pricing.service.api.v1.commands.calculateprice.CalculatePriceResult",
+  "hidden_paths": [],
+  "tools_expected": {
+   "pankti": true,
+   "rick": true,
+   "microtestcarver": true,
+   "note": "tariffs.getByCode: repository field; receiver is a Micronaut bean proxy"
+  },
+  "group": "indirect",
+  "prebuild": [
+   [
+    "mvn",
+    "-q",
+    "-o",
+    "-DskipTests",
+    "install",
+    "-f",
+    "command-bus-api"
+   ],
+   [
+    "mvn",
+    "-q",
+    "-o",
+    "-DskipTests",
+    "install",
+    "-f",
+    "command-bus"
+   ],
+   [
+    "mvn",
+    "-q",
+    "-o",
+    "-DskipTests",
+    "install",
+    "-f",
+    "pricing-service-api"
+   ]
+  ]
+ },
+ "lab-percent-markup-rule-apply": {
+  "signature": "(pl.altkom.asc.lab.micronaut.poc.pricing.domain.Calculation) -> pl.altkom.asc.lab.micronaut.poc.pricing.domain.Calculation",
+  "hidden_paths": [
+   "pricing-service/src/test/java/pl/altkom/asc/lab/micronaut/poc/pricing/domain/TariffTest.java"
+  ],
+  "tools_expected": {
+   "pankti": true,
+   "rick": false,
+   "microtestcarver": true,
+   "note": "receiver holds a JPA entity (Tariff)"
+  },
+  "group": "indirect",
+  "prebuild": [
+   [
+    "mvn",
+    "-q",
+    "-o",
+    "-DskipTests",
+    "install",
+    "-f",
+    "command-bus-api"
+   ],
+   [
+    "mvn",
+    "-q",
+    "-o",
+    "-DskipTests",
+    "install",
+    "-f",
+    "command-bus"
+   ],
+   [
+    "mvn",
+    "-q",
+    "-o",
+    "-DskipTests",
+    "install",
+    "-f",
+    "pricing-service-api"
+   ]
+  ]
+ },
+ "lab-tariff-calculate-price": {
+  "signature": "(pl.altkom.asc.lab.micronaut.poc.pricing.domain.Calculation) -> pl.altkom.asc.lab.micronaut.poc.pricing.domain.Calculation",
+  "hidden_paths": [
+   "pricing-service/src/test/java/pl/altkom/asc/lab/micronaut/poc/pricing/domain/TariffTest.java"
+  ],
+  "tools_expected": {
+   "pankti": true,
+   "rick": false,
+   "microtestcarver": true,
+   "note": "JPA entity with lazy collections: XStream risk"
+  },
+  "group": "indirect",
+  "prebuild": [
+   [
+    "mvn",
+    "-q",
+    "-o",
+    "-DskipTests",
+    "install",
+    "-f",
+    "command-bus-api"
+   ],
+   [
+    "mvn",
+    "-q",
+    "-o",
+    "-DskipTests",
+    "install",
+    "-f",
+    "command-bus"
+   ],
+   [
+    "mvn",
+    "-q",
+    "-o",
+    "-DskipTests",
+    "install",
+    "-f",
+    "pricing-service-api"
+   ]
+  ]
+ }
+}
