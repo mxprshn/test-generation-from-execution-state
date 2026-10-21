@@ -96,3 +96,28 @@ ports, one per cell at a time (lock files in `$TESTGEN_PORT_LOCKS`, default `<te
 shared by every run of the machine). Cells of the other modes are
 unchanged; the mode's results can go to a separate results directory and be compared with the cells
 of a published run.
+
+## Full run and comparison with the published cells
+
+The mode runs with the settings of the v2 run (`results/v2-release/provenance/lane-configs/all.yaml`):
+the same model and thinking level, `timeout: 600`, `command_timeout: 900`, rounds 1 and 2,
+`parallel_cases: 1`, `cases: []` (all 70), plus `modes: [autonomous]` and `debug_runs: 3`, into a
+results directory of its own whose `references/` is a copy of the released references (the scenario
+traces do not depend on the mode). `scripts/run.py` first checks with one request that the model answers.
+
+The cells of the other modes are not generated again: their prompts and inputs are those of the release
+(checked by re-rendering the released prompts and comparing the input hashes of the released cells);
+the code hash differs, so `scripts/run.py` would refuse to reuse them in a directory with the new code,
+which is why the runs stay in separate directories. For the tables:
+
+```
+python3 scripts/combine_results.py results/combined results/v2-release results/autonomous-v2
+python3 -m evaluation.aggregate --config combined.yaml   # paths.results: results/combined,
+                                                         # modes: [baseline, dump, rendered, autonomous],
+                                                         # once_modes: [rendered-raw], rounds: [1, 2]
+```
+
+`aggregate` pairs every mode with `baseline` per case and round; the cells of the autonomous run carry
+their own `debugger` summary (`debugger_by_mode`). The 31 cases of `cases/tools-projects.csv` run the
+same way with their own config (JDK 11, `case_list: tools-projects.csv`) and have no cells of the other
+modes.
