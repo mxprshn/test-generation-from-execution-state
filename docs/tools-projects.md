@@ -57,3 +57,11 @@ Project specifics:
 * **PetClinic** runs `./mvnw` (Maven 3.8.2): the wrapper distribution must be in `$HOME/.m2/wrapper`
   of the command environment (downloaded by the online build of setup).
 * **GraphHopper**: only the module `core` is used (`web-bundle` needs npm and `git://`).
+
+Evaluation on JDK 11: the BTrace tracer, its helper jars (compiled with `--release 11`), the JDI server of
+the autonomous mode and PIT 1.15.8 run on JDK 11 (checked: references of all 31 cases; PIT on PDFBox,
+GraphHopper, PetClinic and Lab-Insurance with an existing test of the target class). PIT needs the JUnit
+Platform launcher of the project's platform version in the Maven repository: Spring PetClinic uses 1.8.2
+and Lab-Insurance 1.7.0, which the project builds do not download; scripts/setup.sh fetches them when
+the case list is tools-projects.csv. `evaluation/normalisation-extra.json` masks `hashCode` for
+Lab-Insurance (cached in the executable methods of Micronaut proxies, it differs between runs).

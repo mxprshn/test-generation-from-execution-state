@@ -132,6 +132,15 @@ for entry in "${PIT_JARS[@]}"; do
   sha256_check "$sum" "$M2_REPO/$path"
 done
 
+# PIT runs the generated tests on the JUnit Platform launcher of the project's platform version; the
+# builds of the tools-projects (cases/tools-projects.csv) do not download it
+if python3 -c "import sys; from runner.config import load_config; sys.exit(load_config(sys.argv[1]).case_list != 'tools-projects.csv')" "$CONFIG"; then
+  for v in 1.7.0 1.8.2; do
+    [ -f "$M2_REPO/org/junit/platform/junit-platform-launcher/$v/junit-platform-launcher-$v.jar" ] || mvn -q -Dmaven.repo.local="$M2_REPO" \
+      org.apache.maven.plugins:maven-dependency-plugin:3.6.1:get -Dartifact=org.junit.platform:junit-platform-launcher:$v -Dtransitive=false
+  done
+fi
+
 echo "== debugger"
 python3 -m runner.debugger --config "$CONFIG"
 
