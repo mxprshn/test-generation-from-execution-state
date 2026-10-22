@@ -170,6 +170,33 @@ class PlacementTest(unittest.TestCase):
         self.assertNotIn("import org.jsoup.nodes.Element;", out)
         self.assertNotIn("import java.util.Map;", out)
 
+    def test_mtc_dependency_classpath_argv(self):
+        argv = MTC.dependency_classpath_argv(
+            ["mvn", "-q", "-o", "-pl", "core", "-am", "-Dtest=A#b", "-DfailIfNoTests=false", "test"], Path("/w/cp.txt"))
+        self.assertEqual(argv[:6], ["mvn", "-o", "-pl", "core", "-am", "-DfailIfNoTests=false"])
+        self.assertNotIn("test", argv)
+        self.assertNotIn("-Dtest=A#b", argv)
+        self.assertIn(MTC.DEPENDENCY_PLUGIN, argv)
+        self.assertIn("-Dmdep.outputFile=/w/cp.txt", argv)
+        self.assertIn("-Dmdep.includeScope=test", argv)
+
+    def test_mtc_generator_classpath_is_the_full_module_classpath(self):
+        from unittest import mock
+        with tempfile.TemporaryDirectory() as d:
+            ws = Path(d) / "ws"
+            src = ws / "src/main/java/org/jsoup/parser"
+            src.mkdir(parents=True)
+            (src / "TokenQueue.java").write_text("")
+            (ws / "target/classes").mkdir(parents=True)
+            (ws / "target/test-classes").mkdir(parents=True)
+            (ws / "pom.xml").write_text("<project/>")
+            ctx = C.ToolContext(cfg=None, case=load_case("jsoup-token-queue-chomp-balanced"), workspace=ws,
+                                work=Path(d), env={}, scenario=["mvn", "test"])
+            with mock.patch.object(MTC, "_dependency_classpath", return_value=[Path("/m2/a.jar")]):
+                sources, classpath = MTC._module_paths(ctx)
+            self.assertEqual(sources, ws / "src/main/java")
+            self.assertEqual(classpath, [ws / "target/classes", ws / "target/test-classes", Path("/m2/a.jar")])
+
     def test_record_argv_puts_the_agent_in_the_forked_jvm(self):
         with tempfile.TemporaryDirectory() as d:
             ctx = C.ToolContext(cfg=None, case=load_case("jsoup-element-has-class"), workspace=Path(d),

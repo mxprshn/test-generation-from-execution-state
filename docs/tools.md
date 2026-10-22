@@ -87,6 +87,14 @@ code is not changed):
 Source fixes of the generated class (`runner/tools/mtc.py: fix_source`): unused imports and the import of the
 class under test from its own package removed (JGit's ecj settings).
 
+Classpath of the generator (since `tools-run-1c`): the compiled main and test classes of the workspace and the
+test classpath of the target module (`maven-dependency-plugin:3.6.1:build-classpath`, offline, with the
+group's Maven repository). The generator deserializes the recorded objects, so it needs every class they
+reference; the authors' build bundled each application of their study with all its dependencies into the
+generator (the jars `carver-build.patch` removes). `tools-run-1` and `tools-run-1b` passed only `target/classes`,
+which made the generator fail on objects of dependency classes; their MicroTestCarver cells are superseded by
+`tools-run-1c` (`runs/tools-run-1c/MANIFEST.md`).
+
 ## Conditions of the tools that are kept
 
 - Pankti and RICK: only public, non-static, non-abstract methods are candidates; RICK generates tests only

@@ -17,6 +17,7 @@ import shutil
 from pathlib import Path
 from typing import Any
 
+from runner.process import resolve_argv
 from runner.tools.common import (ADD_OPENS, HAMCREST, first_exception, JUNIT_JUPITER, MOCKITO, MOCKITO_JUPITER, ToolContext,
                                  ToolError, add_test_dependencies, drop_unused_imports, maven_module_root,
                                  output_class, record_argv, run_step, target_module, tool_env, uses_junit5,
@@ -111,6 +112,27 @@ def place_output(ctx: ToolContext, output: Path) -> dict[str, Any]:
     return {"generated": True, "support_files": support, "added_dependencies": added}
 
 
+DEPENDENCY_PLUGIN = "org.apache.maven.plugins:maven-dependency-plugin:3.6.1:build-classpath"
+
+
+def dependency_classpath_argv(scenario: list[str], output: Path) -> list[str]:
+    """The scenario's Maven invocation (same module selection, offline) resolving the module's test classpath."""
+    keep = [a for a in scenario if a != "-q" and not a.startswith("-Dtest=") and a not in ("test", "verify", "install")]
+    return [*keep, "-q", DEPENDENCY_PLUGIN, f"-Dmdep.outputFile={output}", "-Dmdep.includeScope=test"]
+
+
+def _dependency_classpath(ctx: ToolContext) -> list[Path]:
+    out = ctx.work / "dependency-classpath.txt"
+    out.unlink(missing_ok=True)
+    argv = dependency_classpath_argv(resolve_argv(ctx.scenario, ctx.workspace), out)
+    rc = run_step(argv, ctx.workspace, ctx.env, ctx.log("dependency-classpath.log"), 600)
+    if rc or not out.is_file():
+        raise ToolError("cannot resolve the dependency classpath of the module")
+    entries = [Path(e) for e in out.read_text(encoding="utf-8").strip().split(":") if e]
+    ctx.meta["dependency_classpath_entries"] = len(entries)
+    return entries
+
+
 def _module_paths(ctx: ToolContext) -> tuple[Path, list[Path]]:
     target_class = ctx.case.target["class"]
     module = target_module(ctx.workspace, target_class)
@@ -121,7 +143,10 @@ def _module_paths(ctx: ToolContext) -> tuple[Path, list[Path]]:
     sources = source_file
     for _ in target_class.split("."):
         sources = sources.parent
-    return sources, [p for p in ctx.workspace.rglob("target/classes") if p.is_dir()]
+    # the generator deserializes the recorded objects, so it needs the classes they reference: the authors'
+    # build bundled each application with all its dependencies into the generator (docs/tools.md)
+    compiled = [p for name in ("target/classes", "target/test-classes") for p in ctx.workspace.rglob(name) if p.is_dir()]
+    return sources, compiled + _dependency_classpath(ctx)
 
 
 def run(ctx: ToolContext, timeout: float) -> dict[str, Any]:
