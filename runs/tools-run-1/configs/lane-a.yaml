@@ -1,0 +1,84 @@
+# LANE lane-a.yaml of base-70.yaml (projects: checkstyle, jsoup, mybatis): the external tools pankti, rick,
+# microtestcarver (docs/tools.md), round 1, evaluation verify/rq1/quality (no rq2), 2 cells at once.
+provider:
+  name: gateway
+  base_url: https://<openai-compatible-gateway>/v1
+  api_key_env: TESTGEN_API_KEY
+  fallback_api_key_env: TESTGEN_API_KEY_FALLBACK
+  models: []
+model: OpenAI/gpt-6.1-sol
+thinking: medium
+timeout: 600
+command_timeout: 900
+modes: []
+once_modes:
+- pankti
+- rick
+- microtestcarver
+rounds:
+- 1
+run_id_format: r{round}
+parallel_cases: 2
+min_free_disk_gb: 15
+min_free_mem_gb: 3
+paths:
+  projects: /<root>/setup-check/projects
+  results: /<home>/repos/results/tools-v2
+  work: /<home>/repos/tools-run/work-a
+  tools: /<home>/repos/autonomous-trial/tools
+  java_home: /<root>/jdk21
+  maven_repository: /<root>/setup-check/m2
+  external_tools: /<home>/repos/tools-run/external
+evaluation:
+  steps:
+  - verify
+  - rq1
+  - quality
+  reference_runs: 2
+  trace_depth: 5
+env:
+  HOME: /<root>/home
+  TMPDIR: /<home>/repos/tools-run/tmp
+  MAVEN_OPTS: -Xmx2g -Djava.io.tmpdir=/<home>/repos/tools-run/tmp -Duser.home=/<root>/home -Dmaven.repo.local=/<root>/setup-check/m2
+  MAVEN_ARGS: -Dmaven.repo.local=/<root>/setup-check/m2
+  JDK_JAVA_OPTIONS: --add-opens java.base/java.util=ALL-UNNAMED --add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.lang.reflect=ALL-UNNAMED
+    --add-opens java.base/java.text=ALL-UNNAMED --add-opens java.base/java.io=ALL-UNNAMED --add-opens java.base/java.util.concurrent=ALL-UNNAMED
+    --add-opens java.base/java.util.concurrent.locks=ALL-UNNAMED --add-opens java.base/java.util.concurrent.atomic=ALL-UNNAMED
+    --add-opens java.base/java.lang.ref=ALL-UNNAMED --add-opens java.base/java.net=ALL-UNNAMED --add-opens java.base/java.math=ALL-UNNAMED
+    --add-opens java.base/java.nio=ALL-UNNAMED --add-opens java.base/java.nio.charset=ALL-UNNAMED --add-opens java.base/java.time=ALL-UNNAMED
+    --add-opens java.base/sun.nio.cs=ALL-UNNAMED --add-opens java.base/java.security=ALL-UNNAMED --add-opens java.base/jdk.internal.misc=ALL-UNNAMED
+    --add-opens java.base/jdk.internal.ref=ALL-UNNAMED --add-opens java.sql/java.sql=ALL-UNNAMED --add-opens java.desktop/java.awt.font=ALL-UNNAMED
+cases:
+- checkstyle-checker-process
+- checkstyle-empty-line-separator-visit
+- checkstyle-indentation-visit
+- checkstyle-java-parser-parse-file
+- checkstyle-right-curly-visit
+- checkstyle-whitespace-after-visit
+- checkstyle-whitespace-around-visit
+- checkstyle-xpath-query-generator-generate
+- checkstyle-xpath-util-get-xpath-items
+- jsoup-consume-css-identifier
+- jsoup-element-css-selector
+- jsoup-element-has-class
+- jsoup-form-element-form-data
+- jsoup-node-abs-url
+- jsoup-node-wrap
+- jsoup-normalise-whitespace
+- jsoup-safelist-is-safe-attribute
+- jsoup-string-util-resolve
+- jsoup-tag-set-value-of
+- jsoup-token-queue-chomp-balanced
+- mybatis-base-executor-update
+- mybatis-caching-executor-query
+- mybatis-default-sql-session-select-one
+- mybatis-default-sql-session-update
+- mybatis-dynamic-sql-source
+- mybatis-foreach-parameter-handler
+- mybatis-keygen-jdbc3
+- mybatis-lazy-result-loader
+- mybatis-mapper-method-execute
+- mybatis-nested-foreach-node
+- mybatis-prepared-statement-update
+- mybatis-provider-sql-source-get-bound-sql
+tool_timeout: 2400

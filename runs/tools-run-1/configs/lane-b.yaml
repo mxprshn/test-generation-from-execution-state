@@ -1,0 +1,90 @@
+# LANE lane-b.yaml of base-70.yaml (projects: apollo, jgit, klaw, liquibase): the external tools pankti, rick,
+# microtestcarver (docs/tools.md), round 1, evaluation verify/rq1/quality (no rq2), 2 cells at once.
+provider:
+  name: gateway
+  base_url: https://<openai-compatible-gateway>/v1
+  api_key_env: TESTGEN_API_KEY
+  fallback_api_key_env: TESTGEN_API_KEY_FALLBACK
+  models: []
+model: OpenAI/gpt-6.1-sol
+thinking: medium
+timeout: 600
+command_timeout: 900
+modes: []
+once_modes:
+- pankti
+- rick
+- microtestcarver
+rounds:
+- 1
+run_id_format: r{round}
+parallel_cases: 2
+min_free_disk_gb: 15
+min_free_mem_gb: 3
+paths:
+  projects: /<root>/setup-check/projects
+  results: /<home>/repos/results/tools-v2
+  work: /<home>/repos/tools-run/work-b
+  tools: /<home>/repos/autonomous-trial/tools
+  java_home: /<root>/jdk21
+  maven_repository: /<root>/setup-check/m2
+  external_tools: /<home>/repos/tools-run/external
+evaluation:
+  steps:
+  - verify
+  - rq1
+  - quality
+  reference_runs: 2
+  trace_depth: 5
+env:
+  HOME: /<root>/home
+  TMPDIR: /<home>/repos/tools-run/tmp
+  MAVEN_OPTS: -Xmx2g -Djava.io.tmpdir=/<home>/repos/tools-run/tmp -Duser.home=/<root>/home -Dmaven.repo.local=/<root>/setup-check/m2
+  MAVEN_ARGS: -Dmaven.repo.local=/<root>/setup-check/m2
+  JDK_JAVA_OPTIONS: --add-opens java.base/java.util=ALL-UNNAMED --add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.lang.reflect=ALL-UNNAMED
+    --add-opens java.base/java.text=ALL-UNNAMED --add-opens java.base/java.io=ALL-UNNAMED --add-opens java.base/java.util.concurrent=ALL-UNNAMED
+    --add-opens java.base/java.util.concurrent.locks=ALL-UNNAMED --add-opens java.base/java.util.concurrent.atomic=ALL-UNNAMED
+    --add-opens java.base/java.lang.ref=ALL-UNNAMED --add-opens java.base/java.net=ALL-UNNAMED --add-opens java.base/java.math=ALL-UNNAMED
+    --add-opens java.base/java.nio=ALL-UNNAMED --add-opens java.base/java.nio.charset=ALL-UNNAMED --add-opens java.base/java.time=ALL-UNNAMED
+    --add-opens java.base/sun.nio.cs=ALL-UNNAMED --add-opens java.base/java.security=ALL-UNNAMED --add-opens java.base/jdk.internal.misc=ALL-UNNAMED
+    --add-opens java.base/jdk.internal.ref=ALL-UNNAMED --add-opens java.sql/java.sql=ALL-UNNAMED --add-opens java.desktop/java.awt.font=ALL-UNNAMED
+cases:
+- apollo-access-key-service-create
+- apollo-app-namespace-service-create-default-app-namespace
+- apollo-cluster-service-delete
+- apollo-commit-service-create-commit
+- apollo-instance-service-update-instance-config
+- apollo-item-service-update
+- apollo-namespace-branch-service-delete-branch
+- apollo-namespace-branch-service-update-branch-gray-rules
+- apollo-namespace-branch-service-update-rules-release-id
+- apollo-namespace-service-delete-namespace
+- apollo-namespace-service-find-child-namespace
+- apollo-release-history-service-create-release-history
+- apollo-release-service-find-active-releases
+- apollo-release-service-publish
+- apollo-release-service-rollback
+- jgit-checkout-command-call
+- jgit-config-to-text
+- jgit-diff-entry-scan
+- jgit-merge-command-call
+- jgit-merger-merge
+- jgit-path-matcher-matches
+- jgit-raw-text-is-binary
+- jgit-refspec-expand-from-source
+- jgit-stash-create-call
+- klaw-approval-service-add-approval
+- klaw-approval-service-get-approvals-for-request
+- klaw-envs-clusters-tenants-controller-service-add-new-env
+- klaw-envs-clusters-tenants-controller-service-delete-cluster
+- klaw-kw-authentication-success-handler-get-redirect-page
+- klaw-pager-get-items-list
+- klaw-request-statistics-service-get-requests-count-overview
+- klaw-roles-permissions-controller-service-update-permissions
+- klaw-users-teams-controller-service-add-new-team
+- klaw-users-teams-controller-service-approve-new-user-requests
+- klaw-util-methods-get-user-name
+- liquibase-context-expression-matches
+- liquibase-create-sequence-sql
+- liquibase-history-command-h2
+tool_timeout: 2400

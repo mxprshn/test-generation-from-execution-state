@@ -1,0 +1,43 @@
+provider:
+  name: gateway
+  base_url: https://<openai-compatible-gateway>/v1
+  api_key_env: TESTGEN_API_KEY
+  fallback_api_key_env: TESTGEN_API_KEY_FALLBACK
+  models: []
+model: OpenAI/gpt-6.1-sol
+thinking: medium
+timeout: 600
+command_timeout: 900
+modes: []
+once_modes:
+- pankti
+- rick
+- microtestcarver
+rounds:
+- 1
+run_id_format: r{round}
+parallel_cases: 1
+min_free_disk_gb: 15
+min_free_mem_gb: 3
+paths:
+  projects: /<root>/setup-check/projects
+  results: /<home>/repos/results/tools-v2
+  work: /<home>/repos/tools-run/work
+  tools: /<home>/repos/autonomous-trial/tools
+  java_home: /<root>/jdk21
+  maven_repository: /<root>/setup-check/m2
+  external_tools: /<home>/repos/tools-run/external
+evaluation:
+  steps:
+  - verify
+  - rq1
+  - quality
+  reference_runs: 2
+  trace_depth: 5
+env:
+  HOME: /<root>/home
+  TMPDIR: /<home>/repos/tools-run/tmp
+  MAVEN_OPTS: -Xmx2g -Djava.io.tmpdir=/<home>/repos/tools-run/tmp -Duser.home=/<root>/home -Dmaven.repo.local=/<root>/setup-check/m2
+  MAVEN_ARGS: -Dmaven.repo.local=/<root>/setup-check/m2
+cases: []
+tool_timeout: 2400

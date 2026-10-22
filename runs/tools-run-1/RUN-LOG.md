@@ -1,0 +1,33 @@
+# tools-run-1: run log (UTC)
+
+- 2026-10-22T12:56:58+00:00 tag tools-run-1 = ce91871 (autonomous-mode); lanes from make_lanes.py: lane-a 32 cases (checkstyle, jsoup, mybatis), lane-b 38 (apollo, jgit, klaw, liquibase), tp-lane-a 14 (pdfbox), tp-lane-b 17 (graphhopper, lab-insurance, spring-petclinic); modes pankti, rick, microtestcarver, round 1, verify/rq1/quality, 2 cells per lane. References: v2-release (70), autonomous-tools-projects post-caller-fix (31), byte-identical copies.
+- smoke before the tag (dev worktree, results/tools-smoke-*, tools-det-*): see MANIFEST.
+- 2026-10-22T12:57:01+00:00 start 70-case lanes (start.sh 70)
+- 2026-10-22T13:09:52+00:00 check: 18/210 cells evaluated, no errors; load 12, mem avail 11G, disk 101G
+- 2026-10-22T13:11:23+00:00 note: pankti-extract (Spoon 10.4.2, upstream analysis code) crashes on all apollo cases so far (NPE in RICK MockableSelector.isMockableParentPrivateOrStatic, declaring type of a mockable call unresolved in no-classpath mode) and on checkstyle (Spoon UnsupportedOperationException: PartialSourcePosition, building the position of a switch); recorded as tool failures with the exception, not changed (the earlier study never ran these projects).
+- 2026-10-22T13:30:38+00:00 check: 54/210 evaluated, error lines 0, load 13.57, mem avail 10G
+- 2026-10-22T13:40:50+00:00 check: 70/210 evaluated, error lines 0, load 13.89, mem avail 11G
+- 2026-10-22T13:51:40+00:00 check: 84/210 evaluated, error lines 0, load 15.65, mem avail 11G, disk 101G
+- 2026-10-22T14:02:14+00:00 check: 100/210 evaluated, error lines 0, load 12.82, mem avail 13G
+- 2026-10-22T14:12:38+00:00 check: 117/210 evaluated, error lines 0, load 16.52, mem avail 11G
+- 2026-10-22T14:22:50+00:00 check: 128/210 evaluated, error lines 0, load 15.10, mem avail 12G
+- 2026-10-22T14:25:36+00:00 incident: jsoup-consume-css-identifier/microtestcarver/r1 failed with FileNotFoundError (workspace/pool) in the adapter: all 3 recordings aborted under BTrace ("Rewriting method not allowed"), the pool was removed, the adapter then read it. Adapter bug, the tool result is "recording aborted". Fix a3487b0 (branch tools-dev; affects only cells whose 3 recordings all abort or write no pool). The 70-case lanes keep running on tools-run-1 (ce91871); after them: tag tools-run-1b, the 31-case lanes on it, this one cell rerun on it (old cell kept aside).
+- 2026-10-22T14:34:50+00:00 check: 136/210 evaluated, error lines 0, load 15.13, mem avail 11G
+- 2026-10-22T14:45:21+00:00 check: 149/210 evaluated, error lines 0, load 13.91, mem avail 11G
+- 2026-10-22T14:55:33+00:00 check: 164/210 evaluated, error lines 0, load 14.51, mem avail 11G
+- 2026-10-22T15:05:47+00:00 check: 177/210 evaluated, error lines 0, load 13.26, mem avail 13G
+- 2026-10-22T15:16:12+00:00 check: 188/210 evaluated, error lines 0, load 15.86, mem avail 11G
+- 2026-10-22T15:26:38+00:00 check: 197/210 evaluated, error lines 0, load 10.92, mem avail 12G
+- 2026-10-22T15:36:53+00:00 check: 202/210 evaluated, load 6.87
+- 2026-10-22T15:55:35+00:00 70-case lanes done (exit 0, 210 cells). tag tools-run-1b = a3487b0; moved jsoup-consume-css-identifier/microtestcarver/r1 aside (r1.adapter-error-*), rerun on tools-run-1b; then the 31-case lanes on tools-run-1b
+- 2026-10-22T15:56:43+00:00 start 31-case lanes on tools-run-1b (start.sh 31)
+- 2026-10-22T15:58:18+00:00 rerun of jsoup-consume-css-identifier/microtestcarver on tools-run-1b: recorded on the 1st attempt this time (the BTrace abort is intermittent), generator NPE -> tool failure; old cell kept as r1.infra-adapter-1792684535
+- 2026-10-22T16:08:29+00:00 check 31: 12/93 evaluated, error lines 0, load 13.95, mem avail 12G
+- 2026-10-22T16:19:08+00:00 check 31: 25/93 evaluated, error lines 0, load 15.02, mem avail 12G
+- 2026-10-22T16:29:32+00:00 check 31: 37/93 evaluated, error lines 0, load 13.92, mem avail 12G
+- 2026-10-22T16:30:48+00:00 note: microtestcarver on graphhopper: 3 cells "not recorded" = the forked test JVM (graphhopper argLine -Xmx190m) crashed at start under the modified BTrace ("forked VM terminated without properly saying goodbye"), evidence in artifacts/tool/record-*.log; generation failures on gh/pdfbox are the generator itself (XStream ConversionException, NoClassDefFoundError of JTS: the generator classpath is target/classes as in the earlier harness). Kept as tool results.
+- 2026-10-22T16:39:51+00:00 check 31: 52/93 evaluated, error lines 0, load 14.29
+- 2026-10-22T16:50:03+00:00 check 31: 80/93 evaluated, error lines 0, load 14.51
+- 2026-10-22T16:58:17+00:00 check 31: 92/93 evaluated, load 4.41
+- 2026-10-22T17:01:08+00:00 31-case lanes done (exit 0, 93 cells). All 303 tool cells complete.
+- 2026-10-22T17:04:39+00:00 the set-aside cell renamed r1.infra-adapter-1792684535 (the exporter leaves <run>.infra-* out, as for the infra reruns of the other runs)

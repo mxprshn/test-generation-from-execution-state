@@ -1,0 +1,29 @@
+{
+  "pankti": {
+    "url": "https://github.com/ASSERT-KTH/pankti.git",
+    "commit": "c755a1339397fc3d220f0b7aec6062a574e9c4ef",
+    "patch": "external/pankti.patch"
+  },
+  "microtestcarver": {
+    "url": "https://github.com/amirdeljouyi/SCAM-2023-microtestcarver-replication.git",
+    "commit": "88af3ad674d7e176d2b7747d921568f8a58b897f",
+    "patches": [
+      "external/mtc/btrace-build.patch",
+      "external/mtc/carver-build.patch"
+    ]
+  },
+  "glowroot": "0.14.0",
+  "gradle": "7.6",
+  "numpy": "1.26.4",
+  "pandas": "2.2.2",
+  "jdk17": "openjdk version \"17.0.20.1\" 2026-08-18",
+  "jdk11": "openjdk version \"11.0.32.1\" 2026-08-18",
+  "jdk8": "openjdk version \"1.8.0_462\"",
+  "test_dependencies": [
+    "com.thoughtworks.xstream:xstream:1.4.12",
+    "org.junit.jupiter:junit-jupiter:5.10.3",
+    "org.mockito:mockito-core:5.11.0",
+    "org.mockito:mockito-junit-jupiter:5.11.0",
+    "org.hamcrest:hamcrest:2.2"
+  ]
+}

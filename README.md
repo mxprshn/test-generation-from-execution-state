@@ -136,6 +136,8 @@ Redactions (every file): the root directory of the machine → `/<root>`, the ho
 
 **Autonomous run.** The `autonomous` mode (`docs/autonomous-mode.md`) was run on the 70 cases and on the 31 cases of `cases/tools-projects.csv` (2026-10-21/22, tag `autonomous-run-1`, the settings above, `debug_runs` 3; RQ2 not yet computed). Its results are two further archives, `autonomous-v2.tar.gz` and `autonomous-tools-projects.tar.gz`, made the same way; `runs/autonomous-run-1/MANIFEST.md` lists their sha256, the configs, the cell counts, the timeouts and the four infrastructure reruns, and shows how to combine them with `results.tar.gz` for `evaluation.aggregate`.
 
+**Tools run.** The external generators Pankti, RICK and MicroTestCarver (`docs/tools.md`, modes `pankti`, `rick`, `microtestcarver`, no agent) were run on the 70 and the 31 cases, one round (2026-10-22, tags `tools-run-1` and `tools-run-1b`; RQ2 not yet computed). Archives `tools-v2.tar.gz` and `tools-tools-projects.tar.gz`; `runs/tools-run-1/MANIFEST.md` lists their sha256, the configs, the counts and the reasons per tool, and how to combine them with the other runs.
+
 The generated tests, the traces, the sessions and the PIT reports contain code and data of the subject projects; they are distributed under the licenses of the respective projects (see Licenses). The archive is produced by `scripts/export_results.py`.
 
 ## Known limitations

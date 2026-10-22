@@ -1,0 +1,45 @@
+provider:
+  name: gateway
+  base_url: https://<openai-compatible-gateway>/v1
+  api_key_env: TESTGEN_API_KEY
+  fallback_api_key_env: TESTGEN_API_KEY_FALLBACK
+  models: []
+model: OpenAI/gpt-6.1-sol
+thinking: medium
+timeout: 600
+command_timeout: 900
+case_list: tools-projects.csv
+jdk: 11
+modes: []
+once_modes:
+- pankti
+- rick
+- microtestcarver
+rounds:
+- 1
+run_id_format: r{round}
+cases: []
+parallel_cases: 1
+min_free_disk_gb: 15
+min_free_mem_gb: 3
+paths:
+  projects: /<home>/repos/tools-projects/projects
+  results: /<home>/repos/results/tools-tools-projects
+  work: /<home>/repos/tools-run/work-tp
+  tools: /<home>/repos/tools-projects/tools
+  java_home: /<home>/newcases/jdks/jdk-11.0.32.1+1
+  maven_repository: /<home>/newcases/m2
+  external_tools: /<home>/repos/tools-run/external
+evaluation:
+  steps:
+  - verify
+  - rq1
+  - quality
+  reference_runs: 2
+  trace_depth: 5
+env:
+  HOME: /<home>/repos/tools-projects/home
+  TMPDIR: /<home>/repos/tools-run/tmp
+  MAVEN_OPTS: -Xmx2g -Djava.io.tmpdir=/<home>/repos/tools-run/tmp -Duser.home=/<home>/repos/tools-projects/home -Dmaven.repo.local=/<home>/newcases/m2
+  MAVEN_ARGS: -Dmaven.repo.local=/<home>/newcases/m2
+tool_timeout: 2400

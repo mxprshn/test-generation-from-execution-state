@@ -1,0 +1,9 @@
+2026-10-22T15:55:35+00:00 start rerun-1b config=/<home>/repos/tools-run/lane-a.yaml commit=a3487b0d66229c6138a6f9c4d83e760436a70938 tag=tools-run-1b
+2026-10-22T15:55:40+00:00 end rerun-1b exit 1
+2026-10-22T15:56:29+00:00 start rerun-1b config=/<home>/repos/tools-run/rerun-1b.yaml commit=a3487b0d66229c6138a6f9c4d83e760436a70938 tag=tools-run-1b
+2026-10-22T15:57:26+00:00 end rerun-1b exit 0
+--- tail
+[jsoup-consume-css-identifier] microtestcarver/r1: failed 51.6s no test: tool error: MicroTestCarver generation failed: picocli.CommandLine$ExecutionException: Error while calling command (void commands.ParserCommand.parse()): org.apache.velocity.exception.MethodInvocationException: Invocation of method 'testMethod' in  class test_generator.TestMethodGener
+[jsoup-consume-css-identifier] microtestcarver/r1: verify None/None tests None S/A/B/C 0.0/0.0/0.0/0.0
+2026-10-22T15:57:26+00:00 end rerun-1b exit 0
+--- done: 0

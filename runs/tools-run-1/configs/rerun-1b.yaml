@@ -1,0 +1,50 @@
+# one-off: jsoup-consume-css-identifier/microtestcarver on tools-run-1b (adapter fix a3487b0); otherwise lane-a.yaml
+provider:
+  name: gateway
+  base_url: https://<openai-compatible-gateway>/v1
+  api_key_env: TESTGEN_API_KEY
+  fallback_api_key_env: TESTGEN_API_KEY_FALLBACK
+  models: []
+model: OpenAI/gpt-6.1-sol
+thinking: medium
+timeout: 600
+command_timeout: 900
+modes: []
+once_modes:
+- microtestcarver
+rounds:
+- 1
+run_id_format: r{round}
+parallel_cases: 1
+min_free_disk_gb: 15
+min_free_mem_gb: 3
+paths:
+  projects: /<root>/setup-check/projects
+  results: /<home>/repos/results/tools-v2
+  work: /<home>/repos/tools-run/work-a
+  tools: /<home>/repos/autonomous-trial/tools
+  java_home: /<root>/jdk21
+  maven_repository: /<root>/setup-check/m2
+  external_tools: /<home>/repos/tools-run/external
+evaluation:
+  steps:
+  - verify
+  - rq1
+  - quality
+  reference_runs: 2
+  trace_depth: 5
+env:
+  HOME: /<root>/home
+  TMPDIR: /<home>/repos/tools-run/tmp
+  MAVEN_OPTS: -Xmx2g -Djava.io.tmpdir=/<home>/repos/tools-run/tmp -Duser.home=/<root>/home -Dmaven.repo.local=/<root>/setup-check/m2
+  MAVEN_ARGS: -Dmaven.repo.local=/<root>/setup-check/m2
+  JDK_JAVA_OPTIONS: --add-opens java.base/java.util=ALL-UNNAMED --add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.lang.reflect=ALL-UNNAMED
+    --add-opens java.base/java.text=ALL-UNNAMED --add-opens java.base/java.io=ALL-UNNAMED --add-opens java.base/java.util.concurrent=ALL-UNNAMED
+    --add-opens java.base/java.util.concurrent.locks=ALL-UNNAMED --add-opens java.base/java.util.concurrent.atomic=ALL-UNNAMED
+    --add-opens java.base/java.lang.ref=ALL-UNNAMED --add-opens java.base/java.net=ALL-UNNAMED --add-opens java.base/java.math=ALL-UNNAMED
+    --add-opens java.base/java.nio=ALL-UNNAMED --add-opens java.base/java.nio.charset=ALL-UNNAMED --add-opens java.base/java.time=ALL-UNNAMED
+    --add-opens java.base/sun.nio.cs=ALL-UNNAMED --add-opens java.base/java.security=ALL-UNNAMED --add-opens java.base/jdk.internal.misc=ALL-UNNAMED
+    --add-opens java.base/jdk.internal.ref=ALL-UNNAMED --add-opens java.sql/java.sql=ALL-UNNAMED --add-opens java.desktop/java.awt.font=ALL-UNNAMED
+cases:
+- jsoup-consume-css-identifier
+tool_timeout: 2400

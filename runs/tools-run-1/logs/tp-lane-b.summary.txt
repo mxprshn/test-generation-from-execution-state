@@ -1,0 +1,7 @@
+2026-10-22T15:56:43+00:00 start tp-lane-b config=/<home>/repos/tools-run/tp-lane-b.yaml commit=a3487b0d66229c6138a6f9c4d83e760436a70938 tag=tools-run-1b
+2026-10-22T16:52:12+00:00 end tp-lane-b exit 0
+--- tail
+[petclinic-vets-get-vet-list] microtestcarver/r1: failed 45.6s no test: tool error: MicroTestCarver generation failed: picocli.CommandLine$ExecutionException: Error while calling command (void commands.ParserCommand.parse()): com.thoughtworks.xstream.converters.ConversionException: No converter available
+[petclinic-vets-get-vet-list] microtestcarver/r1: verify None/None tests None S/A/B/C 0.0/0.0/0.0/0.0
+2026-10-22T16:52:12+00:00 end tp-lane-b exit 0
+--- done: 0

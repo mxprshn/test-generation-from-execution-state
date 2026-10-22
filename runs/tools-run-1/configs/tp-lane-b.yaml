@@ -1,0 +1,71 @@
+# LANE tp-lane-b.yaml of base-31.yaml (projects: graphhopper, lab-insurance, spring-petclinic): the external tools pankti, rick,
+# microtestcarver (docs/tools.md), round 1, evaluation verify/rq1/quality (no rq2), 2 cells at once.
+provider:
+  name: gateway
+  base_url: https://<openai-compatible-gateway>/v1
+  api_key_env: TESTGEN_API_KEY
+  fallback_api_key_env: TESTGEN_API_KEY_FALLBACK
+  models: []
+model: OpenAI/gpt-6.1-sol
+thinking: medium
+timeout: 600
+command_timeout: 900
+case_list: tools-projects.csv
+jdk: 11
+modes: []
+once_modes:
+- pankti
+- rick
+- microtestcarver
+rounds:
+- 1
+run_id_format: r{round}
+cases:
+- gh-base-graph-nodes-and-edges-load-existing
+- gh-douglas-peucker-set-max-distance
+- gh-graphhopper-storage-load-existing
+- gh-int-encoded-value-impl-init
+- gh-line-int-index-load-existing
+- gh-storable-properties-load-existing
+- gh-string-index-load-existing
+- gh-virtual-edge-iterator-state-get-reverse
+- lab-calculate-price-handler-handle
+- petclinic-base-entity-is-new
+- petclinic-named-entity-to-string
+- petclinic-owner-add-visit
+- petclinic-owner-get-pet-by-name
+- petclinic-owner-get-pet
+- petclinic-pet-type-formatter-parse
+- petclinic-pet-validator-validate
+- petclinic-vets-get-vet-list
+parallel_cases: 2
+min_free_disk_gb: 15
+min_free_mem_gb: 3
+paths:
+  projects: /<home>/repos/tools-projects/projects
+  results: /<home>/repos/results/tools-tools-projects
+  work: /<home>/repos/tools-run/work-tp-b
+  tools: /<home>/repos/tools-projects/tools
+  java_home: /<home>/newcases/jdks/jdk-11.0.32.1+1
+  maven_repository: /<home>/newcases/m2
+  external_tools: /<home>/repos/tools-run/external
+evaluation:
+  steps:
+  - verify
+  - rq1
+  - quality
+  reference_runs: 2
+  trace_depth: 5
+env:
+  HOME: /<home>/repos/tools-projects/home
+  TMPDIR: /<home>/repos/tools-run/tmp
+  MAVEN_OPTS: -Xmx2g -Djava.io.tmpdir=/<home>/repos/tools-run/tmp -Duser.home=/<home>/repos/tools-projects/home -Dmaven.repo.local=/<home>/newcases/m2
+  MAVEN_ARGS: -Dmaven.repo.local=/<home>/newcases/m2
+  JDK_JAVA_OPTIONS: --add-opens java.base/java.util=ALL-UNNAMED --add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.lang.reflect=ALL-UNNAMED
+    --add-opens java.base/java.text=ALL-UNNAMED --add-opens java.base/java.io=ALL-UNNAMED --add-opens java.base/java.util.concurrent=ALL-UNNAMED
+    --add-opens java.base/java.util.concurrent.locks=ALL-UNNAMED --add-opens java.base/java.util.concurrent.atomic=ALL-UNNAMED
+    --add-opens java.base/java.lang.ref=ALL-UNNAMED --add-opens java.base/java.net=ALL-UNNAMED --add-opens java.base/java.math=ALL-UNNAMED
+    --add-opens java.base/java.nio=ALL-UNNAMED --add-opens java.base/java.nio.charset=ALL-UNNAMED --add-opens java.base/java.time=ALL-UNNAMED
+    --add-opens java.base/sun.nio.cs=ALL-UNNAMED --add-opens java.base/java.security=ALL-UNNAMED --add-opens java.base/jdk.internal.misc=ALL-UNNAMED
+    --add-opens java.base/jdk.internal.ref=ALL-UNNAMED --add-opens java.sql/java.sql=ALL-UNNAMED --add-opens java.desktop/java.awt.font=ALL-UNNAMED
+tool_timeout: 2400

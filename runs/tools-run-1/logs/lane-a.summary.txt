@@ -1,0 +1,7 @@
+2026-10-22T12:56:58+00:00 start lane-a config=/<home>/repos/tools-run/lane-a.yaml commit=ce918715d0b65f0b201a29adcb0aac47bd4a17df tag=tools-run-1
+2026-10-22T15:53:09+00:00 end lane-a exit 0
+--- tail
+[mybatis-provider-sql-source-get-bound-sql] microtestcarver/r1: failed 169.5s no test: not recordable: the project's tests need a newer JDK than 11
+[mybatis-provider-sql-source-get-bound-sql] microtestcarver/r1: verify None/None tests None S/A/B/C 0.0/0.0/0.0/0.0
+2026-10-22T15:53:09+00:00 end lane-a exit 0
+--- done: 0
