@@ -15,7 +15,9 @@ import yaml
 
 ROOT = Path(__file__).resolve().parents[1]
 AGENT_MODES = ("baseline", "dump", "rendered", "autonomous")
-NO_AGENT_MODES = ("rendered-raw",)
+# external test generators (runner/tools, docs/tools.md): no agent, the tool records the scenario itself
+TOOL_MODES = ("pankti", "rick", "microtestcarver")
+NO_AGENT_MODES = ("rendered-raw",) + TOOL_MODES
 MODES = AGENT_MODES + NO_AGENT_MODES
 AGENT_COMMANDS = ("build", "scenario", "generated_test")
 EVAL_STEPS = ("verify", "rq1", "rq2", "quality")
@@ -81,6 +83,9 @@ class Config:
     jdk: int = 21
     # autonomous mode: how many times the agent may start the scenario under the debugger in a cell
     debug_runs: int = 3
+    # tool modes: the installed external tools (scripts/setup_external_tools.sh) and the limit of one tool run
+    external_tools_dir: Path = Path()
+    tool_timeout: int = 2400
     extra_env: dict[str, str] = field(default_factory=dict)
     _work_dir: Path | None = field(default=None, repr=False)
 
@@ -156,7 +161,8 @@ def load_config(path: str | Path) -> Config:
     java_home = _path(paths.get("java_home")) or (Path(os.environ["JAVA_HOME"]) if os.environ.get("JAVA_HOME") else None)
     if java_home is None:
         raise ConfigError("set paths.java_home in the config or JAVA_HOME in the environment (the JDK of `jdk`, 21 by default)")
-    modes = list(raw.get("modes") or AGENT_MODES)
+    # `modes: []` (a run of tool modes only, in once_modes) means no agent mode; no key means all of them
+    modes = list(AGENT_MODES if raw.get("modes") is None else raw["modes"])
     once_modes = list(raw.get("once_modes") or [])
     unknown = sorted(set(modes + once_modes) - set(MODES))
     if unknown:
@@ -203,6 +209,8 @@ def load_config(path: str | Path) -> Config:
         jdk=int(raw.get("jdk", 21)),
         debug_runs=int(raw.get("debug_runs", 3)),
     )
+    cfg.external_tools_dir = _path(paths.get("external_tools")) or cfg.tools_dir / "external"
+    cfg.tool_timeout = int(raw.get("tool_timeout", 2400))
     if cfg.debug_runs < 1:
         raise ConfigError(f"debug_runs must be at least 1, got {cfg.debug_runs}")
     if Path(cfg.case_list).name != cfg.case_list or not cfg.case_list.endswith(".csv"):

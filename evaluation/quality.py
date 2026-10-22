@@ -68,6 +68,20 @@ def _code_lines(s: str) -> list[str]:
     return lines
 
 
+def added_by_file(diff: str) -> dict[str, str]:
+    """Added lines of a unified diff, per file (path of the new side)."""
+    out: dict[str, list[str]] = {}
+    current = None
+    for line in diff.splitlines():
+        m = re.match(r"^diff --git a/\S+ b/(\S+)", line)
+        if m:
+            current = m.group(1)
+            out.setdefault(current, [])
+        elif current is not None and line.startswith("+") and not line.startswith("+++"):
+            out[current].append(line[1:])
+    return {name: "\n".join(lines) for name, lines in out.items()}
+
+
 def mock_stats(src: str) -> dict[str, Any]:
     return {"mocks": len(MOCK.findall(src)), "stubbings": len(STUB.findall(src)),
             "data_type_mocks": len(DTO_HINT.findall(src))}

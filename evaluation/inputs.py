@@ -28,6 +28,8 @@ from typing import Any
 from runner.config import ROOT, Config
 
 GENERATION_CODE = ("runner", "pi")
+# tool modes also depend on the patches of the external tools and the limit of a tool run
+TOOL_CONFIG = ("timeout", "command_timeout", "tool_timeout")
 # evaluation code shared by every step: the record, the workspaces, the case commands
 EVAL_COMMON = ("evaluation/evaluate.py", "evaluation/trace.py", "runner/cases.py", "runner/config.py",
                "runner/process.py")
@@ -121,7 +123,23 @@ def mode_input_hash(case, mode: str) -> str | None:
     return _sha(json.dumps(parts).encode())
 
 
+def tool_input_hash(cfg: Config) -> str:
+    """The patches of external/ and the installed versions (versions.json) of the external tools."""
+    versions = cfg.external_tools_dir / "versions.json"
+    return _sha(json.dumps([tree_hash(ROOT / "external"), tree_hash(versions)]).encode())
+
+
 def generation_inputs(cfg: Config, case, mode: str) -> dict[str, Any]:
+    from runner.config import TOOL_MODES
+    if mode in TOOL_MODES:
+        return {
+            "code": generation_code_hash(),
+            "case": tree_hash(case.dir / "case.yaml"),
+            "mode_input": tool_input_hash(cfg),
+            "prompts": None,
+            "config": config_hash(cfg, TOOL_CONFIG),
+            "project": project_hash(case.project),
+        }
     return {
         "code": generation_code_hash(),
         "case": tree_hash(case.dir / "case.yaml"),

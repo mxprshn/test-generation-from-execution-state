@@ -7,8 +7,11 @@
                 if it runs only without workspace-files/, the input is a method failure)
     generation  Pi with the rendered prompts (baseline, dump, rendered, autonomous: with the debugger
                 tools of pi/debugger.ts over the driving scenario), or the preliminary test
-                installed as the output class (rendered-raw, no agent)
-    result      result.diff: the generated class (and workspace-files/) against the original commit
+                installed as the output class (rendered-raw, no agent), or the test class of an
+                external tool that records the scenario itself (pankti, rick, microtestcarver;
+                runner/tools, no agent)
+    result      result.diff: the generated class (and workspace-files/; for a tool, the object files
+                and the module pom it changed) against the original commit
 
 Status: completed (the agent finished and left the test class), timed_out, failed, method_failed
 (the mode has no input for the case). Whether the test compiles and passes is decided later, on a
@@ -30,7 +33,7 @@ from typing import Any
 from runner import agent as A
 from runner import workspace as W
 from runner.cases import Case, eval_command, load_case, load_projects, project_checkout
-from runner.config import AGENT_COMMANDS, AGENT_MODES, Config, neutral_name
+from runner.config import AGENT_COMMANDS, AGENT_MODES, TOOL_MODES, Config, neutral_name
 from runner.process import resolve_argv, run
 from runner.prompts import EXECUTION_INPUT, render
 
@@ -165,7 +168,7 @@ def check_case_scenario(cfg: Config, case_id: str, logs: Path) -> dict[str, Any]
 def _generate(cfg: Config, case: Case, mode: str, checkout: Path, commit: str, cell: Path, tmp: Path,
               summary: dict[str, Any], api_key_env: str) -> dict[str, Any]:
     source = method_input(case, mode)
-    if mode not in ("baseline", "autonomous") and source is None:
+    if mode not in ("baseline", "autonomous", *TOOL_MODES) and source is None:
         summary["status"] = "method_failed"
         summary["error"] = f"no {'call dump' if mode == 'dump' else 'preliminary test'} for this case"
         return summary
@@ -173,7 +176,8 @@ def _generate(cfg: Config, case: Case, mode: str, checkout: Path, commit: str, c
     ws = W.export_commit(checkout, commit, tmp / "workspace")
     summary["workspace"] = str(ws)  # for the escape check: absolute paths inside it are fine
     summary["hidden_paths_removed"] = W.hide_paths(ws, case.hidden_paths)
-    support = W.install_tree(case.workspace_files, ws) if mode not in ("baseline", "autonomous") else []
+    support = (W.install_tree(case.workspace_files, ws)
+               if mode not in ("baseline", "autonomous", *TOOL_MODES) else [])
     summary["support_files"] = support
     execution_input = EXECUTION_INPUT.get(mode)
     if execution_input and mode == "dump":
@@ -249,6 +253,20 @@ def _generate(cfg: Config, case: Case, mode: str, checkout: Path, commit: str, c
             summary["error"] = "the agent left no test class"
         else:
             summary["status"] = "completed"
+    elif mode in TOOL_MODES:
+        summary["phase"] = "tool"
+        from runner import tools
+        res = tools.run_tool(cfg, case, mode, ws, tmp / "tool", env, cell / "artifacts")
+        summary["tool"] = res["meta"]
+        summary["tool_versions"] = tools.versions(cfg)
+        support = list(res["support_files"])
+        summary["support_files"] = support
+        if output.is_file():
+            _write(cell / "artifacts" / "generated" / "v1.txt", output.read_text(encoding="utf-8"))
+            summary["status"] = "completed"
+        else:
+            summary["status"] = "failed"
+            summary["error"] = f"no test: {res['meta'].get('outcome')}"
     else:  # rendered-raw: the preliminary test as is, renamed to the output class
         summary["phase"] = "install"
         text = retarget_test_class(source.read_text(encoding="utf-8"), case.output_test_file)
@@ -271,7 +289,8 @@ def _generate(cfg: Config, case: Case, mode: str, checkout: Path, commit: str, c
 
 # ---------------------------------------------------------------------------------------------
 
-INFRA_ERROR_MARKERS = ("driving scenario does not run", "WorkspaceError", "AgentError", "not a git checkout")
+INFRA_ERROR_MARKERS = ("driving scenario does not run", "WorkspaceError", "AgentError", "not a git checkout",
+                       "ToolSetupError")
 # Pi stderr when the provider could not be reached before the first model turn (pi/provider.ts, Node fetch)
 PROVIDER_FAILURE_MARKERS = ("failed to fetch models", "model list unavailable", "Unknown provider",
                             "fetch failed", "ECONNRESET", "ECONNREFUSED", "ETIMEDOUT", "ENOTFOUND", "EAI_AGAIN",

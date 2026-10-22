@@ -43,7 +43,7 @@ from runner import escape_check as X
 from runner.cases import config_case_rows
 from runner.config import Config, load_config
 
-MODES = ["baseline", "rendered-raw", "rendered", "dump", "autonomous"]
+MODES = ["baseline", "rendered-raw", "rendered", "dump", "autonomous", "pankti", "rick", "microtestcarver"]
 LEVELS = (("structure", "S"), ("io", "A"), ("state", "B"), ("strict", "C"))
 
 

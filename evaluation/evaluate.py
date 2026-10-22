@@ -218,8 +218,17 @@ def eval_quality(cfg: Config, case: Case, cell: Path, rec: dict[str, Any]) -> di
     if not has_test(rec, cell):
         return None
     diff = (cell / "result.diff").read_text()
+    from runner.config import TOOL_MODES
+    if rec.get("mode") in TOOL_MODES:
+        # a tool's result also holds the object files its test loads and the module pom: the measures
+        # are taken on the test class only, the object files are counted (the other modes are unchanged)
+        files = Q.added_by_file(diff)
+        src = "\n".join(t for name, t in files.items() if name == case.output_test_file)
+        q: dict[str, Any] = {"mocks": Q.mock_stats(src), "readability": Q.readability(src),
+                             "object_files": sum(1 for name in files if not name.endswith((".java", "pom.xml")))}
+        return q
     src = "\n".join(line[1:] for line in diff.splitlines() if line.startswith("+") and not line.startswith("+++"))
-    q: dict[str, Any] = {"mocks": Q.mock_stats(src), "readability": Q.readability(src)}
+    q = {"mocks": Q.mock_stats(src), "readability": Q.readability(src)}
     if rec.get("mode") == "rendered" and case.preliminary_test is not None:
         q["preservation"] = Q.preservation(case.preliminary_test.read_text(), src, case.target["method"])
     return q

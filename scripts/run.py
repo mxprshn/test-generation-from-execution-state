@@ -44,7 +44,7 @@ from runner import agent as A  # noqa: E402
 from runner import cell as G  # noqa: E402
 from runner import escape_check as X  # noqa: E402
 from runner.cases import case_ids, check_jdk, load_case  # noqa: E402
-from runner.config import Config, load_config  # noqa: E402
+from runner.config import AGENT_MODES, Config, load_config  # noqa: E402
 
 HASHED = ("runner", "evaluation", "pi", "prompts", "scripts")
 
@@ -346,7 +346,7 @@ def main(argv: list[str] | None = None) -> int:
         n = sum(len(cells_of(cfg, c)) for c in cases)
         print(f"{len(cases)} cases, {n} cells, rounds {cfg.rounds}, modes {cfg.modes} + {cfg.once_modes} once; "
               f"results in {cfg.results_dir}")
-    if not a.dry_run and not a.skip_probe and cfg.modes:
+    if not a.dry_run and not a.skip_probe and any(m in AGENT_MODES for m in cfg.modes + cfg.once_modes):
         ok, notes = probe_model(cfg)
         print(f"model probe {cfg.model}: {notes}", flush=True)
         if not ok:
