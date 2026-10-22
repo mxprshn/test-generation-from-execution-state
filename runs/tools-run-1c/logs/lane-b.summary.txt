@@ -1,0 +1,7 @@
+2026-10-22T19:44:38+00:00 start lane-b config=/<root>/tools-run-1c/lane-b.yaml commit=5d9a09a595fb1c93d7c3f4d3e72f589e0a8dee80 tag=tools-run-1c
+2026-10-22T20:28:40+00:00 end lane-b exit 0
+--- tail
+[liquibase-history-command-h2] microtestcarver/r1: failed 223.6s no test: not recordable: the project's tests need a newer JDK than 11
+[liquibase-history-command-h2] microtestcarver/r1: verify None/None tests None S/A/B/C 0.0/0.0/0.0/0.0
+2026-10-22T20:28:40+00:00 end lane-b exit 0
+--- done: 0

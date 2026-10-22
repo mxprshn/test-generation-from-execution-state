@@ -1,0 +1,7 @@
+2026-10-22T20:39:50+00:00 start tp-lane-a config=/<root>/tools-run-1c/tp-lane-a.yaml commit=5d9a09a595fb1c93d7c3f4d3e72f589e0a8dee80 tag=tools-run-1c
+2026-10-22T20:57:20+00:00 end tp-lane-a exit 0
+--- tail
+[pdfbox-resources-get-ext-gstate] microtestcarver/r1: completed 284.0s 
+[pdfbox-resources-get-ext-gstate] microtestcarver/r1: verify False/None tests None S/A/B/C 0.0/0.0/0.0/0.0
+2026-10-22T20:57:20+00:00 end tp-lane-a exit 0
+--- done: 0
