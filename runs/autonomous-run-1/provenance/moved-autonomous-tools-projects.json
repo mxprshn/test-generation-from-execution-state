@@ -1,0 +1,13 @@
+{
+ "infra": [
+  "pdfbox-icc-based-get-default-decode/autonomous/r2"
+ ],
+ "cause": "gateway stream cut: the session ended on stopReason=error with 'The upstream stream failed before completing the response. Please retry.'; the harness at autonomous-run-1 does not list this marker among gateway errors, the cell was recorded as 'the agent left no test class'; set aside as <run>.infra-stream-<stamp> and regenerated (same rule as ended_on_gateway_error of paper 1, cf. v2-release provenance/moved.json)",
+ "moved_at": {
+  "pdfbox-icc-based-get-default-decode/autonomous/r2": "2026-10-22T05:05:39Z"
+ },
+ "stamps": [
+  1792645539
+ ],
+ "commit": "72ea6a72ede8d9ba76ef2859f3a739b2fa73215d"
+}

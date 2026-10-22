@@ -1,0 +1,62 @@
+# LANE tp-lane-a.yaml (projects: pdfbox; generation without rq2/PIT; 2 cells at once) of config-tools-projects.yaml.
+# Full run of the autonomous mode on the 31 cases of cases/tools-projects.csv (JDK 11), same settings.
+# References: copied from results/tools-projects/references (recorded after the JDK 11 caller fix).
+provider:
+  name: gateway
+  base_url: https://<openai-compatible-gateway>/v1
+  api_key_env: TESTGEN_API_KEY
+  fallback_api_key_env: TESTGEN_API_KEY_FALLBACK
+  models: []
+model: OpenAI/gpt-6.1-sol
+thinking: medium
+timeout: 600
+command_timeout: 900
+case_list: tools-projects.csv
+jdk: 11
+modes:
+- autonomous
+once_modes: []
+rounds:
+- 1
+- 2
+run_id_format: r{round}
+cases:
+- pdfbox-catalog-get-viewer-preferences
+- pdfbox-cid-font-get-cid-system-info
+- pdfbox-cid-system-info-get-ordering
+- pdfbox-cos-parser-get-encryption
+- pdfbox-default-resource-cache-get-font
+- pdfbox-ext-graphics-state-get-soft-mask
+- pdfbox-font-descriptor-get-flags
+- pdfbox-font-descriptor-is-fixed-pitch
+- pdfbox-font-descriptor-is-symbolic
+- pdfbox-icc-based-get-default-decode
+- pdfbox-image-xobject-get-color-key-mask
+- pdfbox-image-xobject-get-interpolate
+- pdfbox-resources-get-ext-gstate
+- pdfbox-xref-trailer-resolver-get-xref-type
+parallel_cases: 2
+min_free_disk_gb: 15
+min_free_mem_gb: 3
+paths:
+  projects: /<home>/repos/tools-projects/projects
+  results: /<home>/repos/results/autonomous-tools-projects
+  work: /<home>/repos/full-run/work-tp-a
+  tools: /<home>/repos/tools-projects/tools
+  java_home: /<home>/newcases/jdks/jdk-11.0.32.1+1
+  maven_repository: /<home>/newcases/m2
+  debug_ports: 5300-5349
+evaluation:
+  steps:
+  - verify
+  - rq1
+  - quality
+  reference_runs: 2
+  trace_depth: 5
+env:
+  HOME: /<home>/repos/tools-projects/home
+  TMPDIR: /<home>/repos/tools-projects/tmp
+  MAVEN_OPTS: -Xmx2g -Djava.io.tmpdir=/<home>/repos/tools-projects/tmp -Duser.home=/<home>/repos/tools-projects/home
+    -Dmaven.repo.local=/<home>/newcases/m2
+  MAVEN_ARGS: -Dmaven.repo.local=/<home>/newcases/m2
+debug_runs: 3

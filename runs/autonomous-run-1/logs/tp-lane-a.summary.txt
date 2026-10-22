@@ -1,0 +1,49 @@
+# tp-lane-a: 120 lines in the full log; exit code (.done) 0
+# start/end/probe/infra/error lines:
+2026-10-22T03:40:40+00:00 start tp-lane-a config=/<home>/repos/full-run/tp-lane-a.yaml commit=72ea6a72ede8d9ba76ef2859f3a739b2fa73215d
+model probe OpenAI/gpt-6.1-sol: TESTGEN_API_KEY: 200; TESTGEN_API_KEY_FALLBACK: 200
+2026-10-22T05:01:52+00:00 end tp-lane-a exit 0
+2026-10-22T05:05:39+00:00 start tp-lane-a config=/<home>/repos/full-run/tp-lane-a.yaml commit=72ea6a72ede8d9ba76ef2859f3a739b2fa73215d
+model probe OpenAI/gpt-6.1-sol: TESTGEN_API_KEY: 200; TESTGEN_API_KEY_FALLBACK: 200
+2026-10-22T05:10:50+00:00 end tp-lane-a exit 0
+# last 40 lines:
+[pdfbox-xref-trailer-resolver-get-xref-type] autonomous/r1: verify True/True tests 3 S/A/B/C 1.0/1.0/0.0/0.0
+[pdfbox-xref-trailer-resolver-get-xref-type] generate autonomous/r2
+[pdfbox-resources-get-ext-gstate] autonomous/r2: completed 205.6s 
+[pdfbox-resources-get-ext-gstate] autonomous/r2: verify True/True tests 2 S/A/B/C 1.0/0.0/0.0/0.0
+[pdfbox-xref-trailer-resolver-get-xref-type] autonomous/r2: completed 287.0s 
+[pdfbox-xref-trailer-resolver-get-xref-type] autonomous/r2: verify True/True tests 3 S/A/B/C 1.0/1.0/0.0/0.0
+2026-10-22T05:01:52+00:00 end tp-lane-a exit 0
+2026-10-22T05:05:39+00:00 start tp-lane-a config=/<home>/repos/full-run/tp-lane-a.yaml commit=72ea6a72ede8d9ba76ef2859f3a739b2fa73215d
+model probe OpenAI/gpt-6.1-sol: TESTGEN_API_KEY: 200; TESTGEN_API_KEY_FALLBACK: 200
+[pdfbox-cid-font-get-cid-system-info] autonomous/r1: verify True/True tests 2 S/A/B/C 1.0/0.5/0.0/0.0
+[pdfbox-catalog-get-viewer-preferences] autonomous/r1: verify True/True tests 1 S/A/B/C 1.0/1.0/0.0/0.0
+[pdfbox-cid-font-get-cid-system-info] autonomous/r2: verify True/True tests 2 S/A/B/C 1.0/0.5/0.0/0.0
+[pdfbox-catalog-get-viewer-preferences] autonomous/r2: verify True/True tests 1 S/A/B/C 1.0/1.0/0.0/0.0
+[pdfbox-cid-system-info-get-ordering] autonomous/r1: verify True/True tests 2 S/A/B/C 1.0/1.0/1.0/1.0
+[pdfbox-cid-system-info-get-ordering] autonomous/r2: verify True/True tests 2 S/A/B/C 1.0/1.0/1.0/1.0
+[pdfbox-cos-parser-get-encryption] autonomous/r1: verify True/True tests 1 S/A/B/C 1.0/1.0/0.0/0.0
+[pdfbox-default-resource-cache-get-font] autonomous/r1: verify True/True tests 2 S/A/B/C 1.0/0.0/0.0/0.0
+[pdfbox-cos-parser-get-encryption] autonomous/r2: verify True/True tests 1 S/A/B/C 1.0/1.0/0.0/0.0
+[pdfbox-default-resource-cache-get-font] autonomous/r2: verify True/True tests 2 S/A/B/C 1.0/0.0/0.0/0.0
+[pdfbox-ext-graphics-state-get-soft-mask] autonomous/r1: verify True/True tests 1 S/A/B/C 1.0/1.0/0.0/0.0
+[pdfbox-font-descriptor-get-flags] autonomous/r1: verify True/True tests 2 S/A/B/C 1.0/1.0/1.0/0.0
+[pdfbox-ext-graphics-state-get-soft-mask] autonomous/r2: verify True/True tests 1 S/A/B/C 1.0/1.0/0.0/0.0
+[pdfbox-font-descriptor-get-flags] autonomous/r2: verify True/True tests 2 S/A/B/C 1.0/1.0/1.0/0.0
+[pdfbox-font-descriptor-is-fixed-pitch] autonomous/r1: verify True/True tests 2 S/A/B/C 1.0/1.0/0.0/0.0
+[pdfbox-font-descriptor-is-symbolic] autonomous/r1: verify True/True tests 2 S/A/B/C 1.0/1.0/0.0/0.0
+[pdfbox-font-descriptor-is-fixed-pitch] autonomous/r2: verify True/True tests 2 S/A/B/C 1.0/1.0/0.0/0.0
+[pdfbox-font-descriptor-is-symbolic] autonomous/r2: verify True/True tests 2 S/A/B/C 1.0/1.0/0.0/0.0
+[pdfbox-icc-based-get-default-decode] autonomous/r1: verify True/True tests 2 S/A/B/C 1.0/1.0/0.0/0.0
+[pdfbox-icc-based-get-default-decode] generate autonomous/r2
+[pdfbox-image-xobject-get-color-key-mask] autonomous/r1: verify True/True tests 4 S/A/B/C 1.0/1.0/0.0/0.0
+[pdfbox-image-xobject-get-color-key-mask] autonomous/r2: verify True/True tests 4 S/A/B/C 1.0/1.0/0.0/0.0
+[pdfbox-image-xobject-get-interpolate] autonomous/r1: verify True/True tests 1 S/A/B/C 1.0/1.0/0.0/0.0
+[pdfbox-image-xobject-get-interpolate] autonomous/r2: verify True/True tests 4 S/A/B/C 1.0/1.0/0.0/0.0
+[pdfbox-resources-get-ext-gstate] autonomous/r1: verify True/True tests 2 S/A/B/C 1.0/0.0/0.0/0.0
+[pdfbox-resources-get-ext-gstate] autonomous/r2: verify True/True tests 2 S/A/B/C 1.0/0.0/0.0/0.0
+[pdfbox-xref-trailer-resolver-get-xref-type] autonomous/r1: verify True/True tests 3 S/A/B/C 1.0/1.0/0.0/0.0
+[pdfbox-xref-trailer-resolver-get-xref-type] autonomous/r2: verify True/True tests 3 S/A/B/C 1.0/1.0/0.0/0.0
+[pdfbox-icc-based-get-default-decode] autonomous/r2: completed 209.7s 
+[pdfbox-icc-based-get-default-decode] autonomous/r2: verify True/True tests 2 S/A/B/C 1.0/1.0/0.0/0.0
+2026-10-22T05:10:50+00:00 end tp-lane-a exit 0

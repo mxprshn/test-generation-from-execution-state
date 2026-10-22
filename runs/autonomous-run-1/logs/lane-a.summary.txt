@@ -1,0 +1,49 @@
+# lane-a: 265 lines in the full log; exit code (.done) 0
+# start/end/probe/infra/error lines:
+2026-10-21T22:00:27+00:00 start lane-a config=/<home>/repos/full-run/lane-a.yaml commit=72ea6a72ede8d9ba76ef2859f3a739b2fa73215d
+model probe OpenAI/gpt-6.1-sol: TESTGEN_API_KEY: 200; TESTGEN_API_KEY_FALLBACK: 200
+2026-10-22T03:14:38+00:00 end lane-a exit 0
+2026-10-22T03:18:38+00:00 start lane-a config=/<home>/repos/full-run/lane-a.yaml commit=72ea6a72ede8d9ba76ef2859f3a739b2fa73215d
+model probe OpenAI/gpt-6.1-sol: TESTGEN_API_KEY: 200; TESTGEN_API_KEY_FALLBACK: 200
+2026-10-22T03:30:27+00:00 end lane-a exit 0
+# last 40 lines:
+[jsoup-node-abs-url] autonomous/r2: verify True/True tests 4 S/A/B/C 1.0/1.0/0.0/0.0
+[jsoup-node-wrap] autonomous/r1: verify True/True tests 1 S/A/B/C 1.0/1.0/1.0/1.0
+[jsoup-node-wrap] autonomous/r2: verify True/True tests 1 S/A/B/C 1.0/1.0/1.0/1.0
+[jsoup-normalise-whitespace] autonomous/r1: verify True/True tests 3 S/A/B/C 1.0/1.0/1.0/1.0
+[jsoup-normalise-whitespace] autonomous/r2: verify True/True tests 3 S/A/B/C 1.0/1.0/1.0/1.0
+[jsoup-safelist-is-safe-attribute] autonomous/r1: verify True/True tests 3 S/A/B/C 1.0/0.0/0.0/0.0
+[jsoup-safelist-is-safe-attribute] autonomous/r2: verify True/True tests 3 S/A/B/C 1.0/0.0/0.0/0.0
+[jsoup-string-util-resolve] autonomous/r1: verify True/True tests 1 S/A/B/C 1.0/1.0/1.0/1.0
+[jsoup-string-util-resolve] autonomous/r2: verify True/True tests 1 S/A/B/C 1.0/1.0/1.0/1.0
+[jsoup-tag-set-value-of] autonomous/r1: verify True/True tests 4 S/A/B/C 1.0/1.0/1.0/1.0
+[jsoup-tag-set-value-of] autonomous/r2: verify True/True tests 4 S/A/B/C 1.0/1.0/1.0/1.0
+[jsoup-token-queue-chomp-balanced] autonomous/r1: verify True/True tests 4 S/A/B/C 1.0/1.0/0.0/0.0
+[jsoup-token-queue-chomp-balanced] autonomous/r2: verify True/True tests 4 S/A/B/C 1.0/1.0/0.0/0.0
+[mybatis-base-executor-update] autonomous/r1: verify True/True tests 1 S/A/B/C 1.0/1.0/0.0/0.0
+[mybatis-base-executor-update] autonomous/r2: verify True/False tests 1 S/A/B/C 0.0/0.0/0.0/0.0
+[mybatis-caching-executor-query] autonomous/r1: verify True/True tests 2 S/A/B/C 1.0/0.0/0.0/0.0
+[mybatis-caching-executor-query] autonomous/r2: verify True/True tests 2 S/A/B/C 1.0/0.0/0.0/0.0
+[mybatis-default-sql-session-select-one] autonomous/r1: verify True/True tests 1 S/A/B/C 1.0/1.0/0.0/0.0
+[mybatis-default-sql-session-select-one] autonomous/r2: verify True/True tests 1 S/A/B/C 1.0/1.0/0.0/0.0
+[mybatis-default-sql-session-update] autonomous/r1: verify True/True tests 1 S/A/B/C 1.0/1.0/1.0/0.0
+[mybatis-default-sql-session-update] autonomous/r2: verify True/True tests 1 S/A/B/C 1.0/1.0/1.0/0.0
+[mybatis-dynamic-sql-source] autonomous/r1: verify True/True tests 1 S/A/B/C 1.0/1.0/0.0/0.0
+[mybatis-dynamic-sql-source] autonomous/r2: verify True/True tests 1 S/A/B/C 1.0/1.0/0.0/0.0
+[mybatis-foreach-parameter-handler] autonomous/r1: verify True/True tests 1 S/A/B/C 1.0/1.0/0.0/0.0
+[mybatis-foreach-parameter-handler] autonomous/r2: verify True/True tests 1 S/A/B/C 1.0/1.0/0.0/0.0
+[mybatis-keygen-jdbc3] autonomous/r1: verify True/True tests 1 S/A/B/C 1.0/0.0/0.0/0.0
+[mybatis-keygen-jdbc3] autonomous/r2: verify True/True tests 1 S/A/B/C 1.0/0.0/0.0/0.0
+[mybatis-lazy-result-loader] autonomous/r1: verify True/True tests 1 S/A/B/C 1.0/1.0/0.0/0.0
+[mybatis-lazy-result-loader] autonomous/r2: verify True/True tests 1 S/A/B/C 1.0/1.0/0.0/0.0
+[mybatis-mapper-method-execute] autonomous/r1: verify True/True tests 1 S/A/B/C 1.0/1.0/1.0/0.0
+[mybatis-mapper-method-execute] autonomous/r2: verify True/True tests 1 S/A/B/C 1.0/1.0/1.0/0.0
+[mybatis-nested-foreach-node] autonomous/r1: verify True/True tests 2 S/A/B/C 1.0/0.0/0.0/0.0
+[mybatis-nested-foreach-node] autonomous/r2: verify True/True tests 2 S/A/B/C 1.0/0.0/0.0/0.0
+[mybatis-prepared-statement-update] autonomous/r1: verify True/True tests 1 S/A/B/C 1.0/1.0/0.0/0.0
+[mybatis-prepared-statement-update] autonomous/r2: verify True/True tests 1 S/A/B/C 1.0/1.0/0.0/0.0
+[mybatis-provider-sql-source-get-bound-sql] autonomous/r1: verify True/True tests 4 S/A/B/C 1.0/1.0/0.25/0.25
+[mybatis-provider-sql-source-get-bound-sql] autonomous/r2: verify True/True tests 4 S/A/B/C 1.0/0.0/0.0/0.0
+[checkstyle-empty-line-separator-visit] autonomous/r2: completed 527.1s 
+[checkstyle-empty-line-separator-visit] autonomous/r2: verify True/True tests 3 S/A/B/C 1.0/1.0/0.0/0.0
+2026-10-22T03:30:27+00:00 end lane-a exit 0

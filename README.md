@@ -133,6 +133,8 @@ Left out: interrupted and infrastructure-failed attempts that were regenerated (
 
 Redactions (every file): the root directory of the machine → `/<root>`, the home directory → `/<home>`, the user name in surefire reports → `<user>`, the host name → `<host>`, the provider's address → `https://<openai-compatible-gateway>/v1`, the names of the key variables → `TESTGEN_API_KEY`, `TESTGEN_API_KEY_FALLBACK`. Passwords, e-mail addresses and tokens that occur in the code and test data of the subject projects are left as they are.
 
+**Autonomous run.** The `autonomous` mode (`docs/autonomous-mode.md`) was run on the 70 cases and on the 31 cases of `cases/tools-projects.csv` (2026-10-21/22, tag `autonomous-run-1`, the settings above, `debug_runs` 3; RQ2 not yet computed). Its results are two further archives, `autonomous-v2.tar.gz` and `autonomous-tools-projects.tar.gz`, made the same way; `runs/autonomous-run-1/MANIFEST.md` lists their sha256, the configs, the cell counts, the timeouts and the four infrastructure reruns, and shows how to combine them with `results.tar.gz` for `evaluation.aggregate`.
+
 The generated tests, the traces, the sessions and the PIT reports contain code and data of the subject projects; they are distributed under the licenses of the respective projects (see Licenses). The archive is produced by `scripts/export_results.py`.
 
 ## Known limitations

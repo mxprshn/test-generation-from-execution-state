@@ -1,0 +1,46 @@
+# tp-lane-b: 105 lines in the full log; exit code (.done) 0
+# start/end/probe/infra/error lines:
+2026-10-22T03:40:43+00:00 start tp-lane-b config=/<home>/repos/full-run/tp-lane-b.yaml commit=72ea6a72ede8d9ba76ef2859f3a739b2fa73215d
+model probe OpenAI/gpt-6.1-sol: TESTGEN_API_KEY: 200; TESTGEN_API_KEY_FALLBACK: 200
+2026-10-22T05:03:56+00:00 end tp-lane-b exit 0
+# last 40 lines:
+[petclinic-named-entity-to-string] autonomous/r2: verify True/True tests 2 S/A/B/C 1.0/1.0/1.0/1.0
+[petclinic-owner-add-visit] generate autonomous/r1
+[lab-calculate-price-handler-handle] autonomous/r2: completed 516.0s 
+[lab-calculate-price-handler-handle] autonomous/r2: verify True/True tests 1 S/A/B/C 1.0/1.0/0.0/0.0
+[petclinic-owner-get-pet-by-name] generate autonomous/r1
+[petclinic-owner-add-visit] autonomous/r1: completed 193.4s 
+[petclinic-owner-add-visit] autonomous/r1: verify True/True tests 1 S/A/B/C 1.0/1.0/1.0/1.0
+[petclinic-owner-add-visit] generate autonomous/r2
+[petclinic-owner-get-pet-by-name] autonomous/r1: completed 148.1s 
+[petclinic-owner-get-pet-by-name] autonomous/r1: verify True/True tests 1 S/A/B/C 1.0/1.0/1.0/1.0
+[petclinic-owner-get-pet-by-name] generate autonomous/r2
+[petclinic-owner-add-visit] autonomous/r2: completed 176.8s 
+[petclinic-owner-get-pet-by-name] autonomous/r2: completed 113.7s 
+[petclinic-owner-add-visit] autonomous/r2: verify True/True tests 1 S/A/B/C 1.0/1.0/0.0/0.0
+[petclinic-owner-get-pet] generate autonomous/r1
+[petclinic-owner-get-pet-by-name] autonomous/r2: verify True/True tests 1 S/A/B/C 1.0/1.0/1.0/1.0
+[petclinic-pet-type-formatter-parse] generate autonomous/r1
+[petclinic-pet-type-formatter-parse] autonomous/r1: completed 136.9s 
+[petclinic-pet-type-formatter-parse] autonomous/r1: verify True/True tests 1 S/A/B/C 1.0/1.0/1.0/1.0
+[petclinic-pet-type-formatter-parse] generate autonomous/r2
+[petclinic-owner-get-pet] autonomous/r1: completed 359.6s 
+[petclinic-pet-type-formatter-parse] autonomous/r2: completed 141.6s 
+[petclinic-owner-get-pet] autonomous/r1: verify True/True tests 2 S/A/B/C 1.0/1.0/1.0/1.0
+[petclinic-owner-get-pet] generate autonomous/r2
+[petclinic-pet-type-formatter-parse] autonomous/r2: verify True/True tests 1 S/A/B/C 1.0/1.0/1.0/1.0
+[petclinic-pet-validator-validate] generate autonomous/r1
+[petclinic-owner-get-pet] autonomous/r2: completed 153.0s 
+[petclinic-owner-get-pet] autonomous/r2: verify True/True tests 2 S/A/B/C 1.0/1.0/1.0/1.0
+[petclinic-vets-get-vet-list] generate autonomous/r1
+[petclinic-vets-get-vet-list] autonomous/r1: completed 117.5s 
+[petclinic-vets-get-vet-list] autonomous/r1: verify True/True tests 2 S/A/B/C 1.0/1.0/1.0/1.0
+[petclinic-vets-get-vet-list] generate autonomous/r2
+[petclinic-pet-validator-validate] autonomous/r1: completed 386.2s 
+[petclinic-pet-validator-validate] autonomous/r1: verify True/True tests 1 S/A/B/C 1.0/1.0/1.0/0.0
+[petclinic-pet-validator-validate] generate autonomous/r2
+[petclinic-vets-get-vet-list] autonomous/r2: completed 137.5s 
+[petclinic-vets-get-vet-list] autonomous/r2: verify True/True tests 2 S/A/B/C 1.0/1.0/1.0/1.0
+[petclinic-pet-validator-validate] autonomous/r2: completed 112.8s 
+[petclinic-pet-validator-validate] autonomous/r2: verify True/True tests 1 S/A/B/C 1.0/1.0/1.0/0.0
+2026-10-22T05:03:56+00:00 end tp-lane-b exit 0

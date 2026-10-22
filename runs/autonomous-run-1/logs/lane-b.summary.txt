@@ -1,0 +1,49 @@
+# lane-b: 314 lines in the full log; exit code (.done) 0
+# start/end/probe/infra/error lines:
+2026-10-21T22:00:30+00:00 start lane-b config=/<home>/repos/full-run/lane-b.yaml commit=72ea6a72ede8d9ba76ef2859f3a739b2fa73215d
+model probe OpenAI/gpt-6.1-sol: TESTGEN_API_KEY: 200; TESTGEN_API_KEY_FALLBACK: 200
+2026-10-22T03:30:21+00:00 end lane-b exit 0
+2026-10-22T03:31:15+00:00 start lane-b config=/<home>/repos/full-run/lane-b.yaml commit=72ea6a72ede8d9ba76ef2859f3a739b2fa73215d
+model probe OpenAI/gpt-6.1-sol: TESTGEN_API_KEY: 200; TESTGEN_API_KEY_FALLBACK: 200
+2026-10-22T03:40:08+00:00 end lane-b exit 0
+# last 40 lines:
+[jgit-path-matcher-matches] autonomous/r2: verify True/True tests 8 S/A/B/C 1.0/1.0/1.0/1.0
+[jgit-raw-text-is-binary] autonomous/r1: verify True/True tests 2 S/A/B/C 1.0/1.0/1.0/1.0
+[jgit-raw-text-is-binary] autonomous/r2: verify True/True tests 2 S/A/B/C 1.0/1.0/1.0/1.0
+[jgit-refspec-expand-from-source] autonomous/r1: verify True/True tests 1 S/A/B/C 1.0/1.0/1.0/1.0
+[jgit-refspec-expand-from-source] autonomous/r2: verify True/True tests 1 S/A/B/C 1.0/1.0/1.0/1.0
+[jgit-stash-create-call] autonomous/r1: verify True/True tests 1 S/A/B/C 1.0/1.0/1.0/1.0
+[jgit-stash-create-call] autonomous/r2: verify True/True tests 1 S/A/B/C 1.0/1.0/1.0/1.0
+[klaw-approval-service-add-approval] generate autonomous/r1
+[apollo-release-service-find-active-releases] autonomous/r2: completed 216.0s 
+[apollo-release-service-find-active-releases] autonomous/r2: verify True/True tests 1 S/A/B/C 1.0/1.0/1.0/0.0
+[klaw-approval-service-get-approvals-for-request] autonomous/r1: verify True/True tests 8 S/A/B/C 1.0/1.0/1.0/1.0
+[klaw-approval-service-get-approvals-for-request] autonomous/r2: verify True/True tests 8 S/A/B/C 1.0/1.0/1.0/1.0
+[klaw-envs-clusters-tenants-controller-service-add-new-env] autonomous/r1: verify True/True tests 6 S/A/B/C 1.0/1.0/0.0/0.0
+[klaw-envs-clusters-tenants-controller-service-add-new-env] autonomous/r2: verify True/True tests 6 S/A/B/C 1.0/1.0/1.0/0.0
+[klaw-envs-clusters-tenants-controller-service-delete-cluster] autonomous/r1: verify True/True tests 1 S/A/B/C 1.0/1.0/0.0/0.0
+[klaw-envs-clusters-tenants-controller-service-delete-cluster] autonomous/r2: verify True/True tests 1 S/A/B/C 1.0/1.0/0.0/0.0
+[klaw-kw-authentication-success-handler-get-redirect-page] autonomous/r1: verify True/True tests 5 S/A/B/C 1.0/1.0/1.0/1.0
+[klaw-kw-authentication-success-handler-get-redirect-page] autonomous/r2: verify True/True tests 5 S/A/B/C 1.0/1.0/1.0/1.0
+[klaw-pager-get-items-list] autonomous/r1: verify True/True tests 4 S/A/B/C 1.0/1.0/1.0/0.0
+[klaw-pager-get-items-list] autonomous/r2: verify True/True tests 4 S/A/B/C 1.0/1.0/1.0/0.0
+[klaw-request-statistics-service-get-requests-count-overview] autonomous/r1: verify True/True tests 1 S/A/B/C 1.0/1.0/1.0/1.0
+[klaw-request-statistics-service-get-requests-count-overview] autonomous/r2: verify True/True tests 1 S/A/B/C 1.0/1.0/1.0/1.0
+[klaw-roles-permissions-controller-service-update-permissions] autonomous/r1: verify True/True tests 1 S/A/B/C 1.0/1.0/1.0/0.0
+[klaw-roles-permissions-controller-service-update-permissions] autonomous/r2: verify True/True tests 1 S/A/B/C 1.0/1.0/1.0/0.0
+[klaw-users-teams-controller-service-add-new-team] autonomous/r1: verify True/True tests 3 S/A/B/C 1.0/1.0/1.0/0.0
+[klaw-users-teams-controller-service-add-new-team] autonomous/r2: verify True/True tests 3 S/A/B/C 1.0/1.0/0.0/0.0
+[klaw-users-teams-controller-service-approve-new-user-requests] autonomous/r1: verify True/True tests 2 S/A/B/C 1.0/1.0/1.0/0.0
+[klaw-users-teams-controller-service-approve-new-user-requests] autonomous/r2: verify True/True tests 2 S/A/B/C 1.0/1.0/1.0/0.0
+[klaw-util-methods-get-user-name] autonomous/r1: verify True/True tests 4 S/A/B/C 1.0/1.0/1.0/1.0
+[klaw-util-methods-get-user-name] autonomous/r2: verify True/True tests 4 S/A/B/C 1.0/1.0/1.0/1.0
+[liquibase-context-expression-matches] autonomous/r1: verify True/True tests 4 S/A/B/C 1.0/1.0/1.0/1.0
+[liquibase-context-expression-matches] autonomous/r2: verify True/True tests 4 S/A/B/C 1.0/1.0/1.0/1.0
+[liquibase-create-sequence-sql] autonomous/r1: verify True/True tests 8 S/A/B/C 1.0/1.0/1.0/0.0
+[liquibase-create-sequence-sql] autonomous/r2: verify True/True tests 8 S/A/B/C 1.0/1.0/1.0/0.0
+[liquibase-history-command-h2] autonomous/r1: verify True/True tests 4 S/A/B/C 1.0/1.0/1.0/0.0
+[liquibase-history-command-h2] autonomous/r2: verify True/True tests 4 S/A/B/C 1.0/1.0/1.0/0.0
+[klaw-approval-service-add-approval] autonomous/r1: completed 404.2s 
+[klaw-approval-service-add-approval] autonomous/r1: verify True/True tests 9 S/A/B/C 1.0/1.0/1.0/1.0
+[klaw-approval-service-add-approval] autonomous/r2: verify True/True tests 9 S/A/B/C 1.0/1.0/1.0/1.0
+2026-10-22T03:40:08+00:00 end lane-b exit 0
