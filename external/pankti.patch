@@ -1,0 +1,155 @@
+diff --git a/pankti-extract/pom.xml b/pankti-extract/pom.xml
+index bec6a68..df2f372 100644
+--- a/pankti-extract/pom.xml
++++ b/pankti-extract/pom.xml
+@@ -14,7 +14,7 @@
+   <properties>
+     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+-    <spoon.core.version>8.0.0</spoon.core.version>
++    <spoon.core.version>10.4.2</spoon.core.version>
+     <maven.build.helper.plugin.version>3.0.0</maven.build.helper.plugin.version>
+     <maven.compiler.plugin.version>3.8.1</maven.compiler.plugin.version>
+     <maven.compiler.plugin.release>11</maven.compiler.plugin.release>
+diff --git a/pankti-extract/src/main/java/se/kth/castor/pankti/extract/launchers/PanktiLauncher.java b/pankti-extract/src/main/java/se/kth/castor/pankti/extract/launchers/PanktiLauncher.java
+index b6c3a0e..92be04c 100644
+--- a/pankti-extract/src/main/java/se/kth/castor/pankti/extract/launchers/PanktiLauncher.java
++++ b/pankti-extract/src/main/java/se/kth/castor/pankti/extract/launchers/PanktiLauncher.java
+@@ -48,6 +48,9 @@ public class PanktiLauncher {
+         LOGGER.info("Invoking launcher for Maven project");
+         MavenLauncher launcher = new MavenLauncher(projectPath, MavenLauncher.SOURCE_TYPE.APP_SOURCE);
+         launcher.getEnvironment().setAutoImports(true);
++        launcher.getEnvironment().setComplianceLevel(Integer.getInteger("pankti.compliance", 11));
++        // dependency classpath is not resolved offline: analyse sources without it
++        launcher.getEnvironment().setNoClasspath(true);
+         launcher.getEnvironment().setCommentEnabled(false);
+         return launcher;
+     }
+@@ -57,6 +60,9 @@ public class PanktiLauncher {
+         LOGGER.info("Invoking launcher for JAR");
+         JarLauncher launcher = new JarLauncher(projectPath);
+         launcher.getEnvironment().setAutoImports(true);
++        launcher.getEnvironment().setComplianceLevel(Integer.getInteger("pankti.compliance", 11));
++        // dependency classpath is not resolved offline: analyse sources without it
++        launcher.getEnvironment().setNoClasspath(true);
+         launcher.getEnvironment().setCommentEnabled(false);
+         return launcher;
+     }
+diff --git a/pankti-generate/pom.xml b/pankti-generate/pom.xml
+index 90c0e14..e966180 100644
+--- a/pankti-generate/pom.xml
++++ b/pankti-generate/pom.xml
+@@ -14,7 +14,7 @@
+   <properties>
+     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+-    <spoon.core.version>8.0.0</spoon.core.version>
++    <spoon.core.version>10.4.2</spoon.core.version>
+     <maven.build.helper.plugin.version>3.0.0</maven.build.helper.plugin.version>
+     <maven.compiler.plugin.version>3.8.1</maven.compiler.plugin.version>
+     <maven.compiler.plugin.release>11</maven.compiler.plugin.release>
+diff --git a/pankti-generate/src/main/java/se/kth/castor/pankti/generate/PanktiGenLauncher.java b/pankti-generate/src/main/java/se/kth/castor/pankti/generate/PanktiGenLauncher.java
+index 10eed17..813b8ee 100644
+--- a/pankti-generate/src/main/java/se/kth/castor/pankti/generate/PanktiGenLauncher.java
++++ b/pankti-generate/src/main/java/se/kth/castor/pankti/generate/PanktiGenLauncher.java
+@@ -7,7 +7,12 @@ public class PanktiGenLauncher {
+     public MavenLauncher getMavenLauncher(final String projectPath, final String projectName) {
+         MavenLauncher launcher = new MavenLauncher(projectPath, MavenLauncher.SOURCE_TYPE.APP_SOURCE);
+         launcher.getEnvironment().setAutoImports(true);
++        launcher.getEnvironment().setComplianceLevel(Integer.getInteger("pankti.compliance", 11));
++        // dependency classpath is not resolved offline: analyse sources without it
++        launcher.getEnvironment().setNoClasspath(true);
+         launcher.getEnvironment().disableConsistencyChecks();
++        // Spoon 10 validates identifiers (JLS); Spoon 8, which the generators were written for, did not
++        launcher.getEnvironment().setIgnoreSyntaxErrors(true);
+         System.out.println("Skip checks: " + launcher.getEnvironment().checksAreSkipped());
+         launcher.getEnvironment().setCommentEnabled(true);
+         return launcher;
+diff --git a/pankti-generate/src/main/java/se/kth/castor/pankti/generate/generators/TestGenerator.java b/pankti-generate/src/main/java/se/kth/castor/pankti/generate/generators/TestGenerator.java
+index b8f012a..6ffb523 100644
+--- a/pankti-generate/src/main/java/se/kth/castor/pankti/generate/generators/TestGenerator.java
++++ b/pankti-generate/src/main/java/se/kth/castor/pankti/generate/generators/TestGenerator.java
+@@ -161,7 +161,11 @@ public class TestGenerator {
+         } else if (method.getType().isPrimitive() || method.getType().getQualifiedName().equals("java.lang.String")) {
+             String value = serializedObject.getReturnedObject().replaceAll("</?\\w+>", "");
+             if (method.getType().getQualifiedName().equals("java.lang.String"))
+-                value = "\"" + value + "\"";
++                // unescape the XML text and escape it as a Java string literal
++                value = "\"" + value.replace("&quot;", "\"").replace("&apos;", "'")
++                        .replace("&lt;", "<").replace("&gt;", ">").replace("&amp;", "&")
++                        .replace("\\", "\\\\").replace("\"", "\\\"")
++                        .replace("\n", "\\n").replace("\r", "\\r").replace("\t", "\\t") + "\"";
+             assertExpectedObject = factory.createCodeSnippetExpression(
+                     method.getType().getSimpleName().equals("char") ?
+                             "'" + value + "'" :
+diff --git a/pankti-generate/src/main/java/se/kth/castor/pankti/generate/util/TestGeneratorUtil.java b/pankti-generate/src/main/java/se/kth/castor/pankti/generate/util/TestGeneratorUtil.java
+index f292a1e..07ca042 100644
+--- a/pankti-generate/src/main/java/se/kth/castor/pankti/generate/util/TestGeneratorUtil.java
++++ b/pankti-generate/src/main/java/se/kth/castor/pankti/generate/util/TestGeneratorUtil.java
+@@ -209,7 +209,7 @@ public class TestGeneratorUtil {
+         if (paramList.size() == 0)
+             return "";
+         return (paramList.size() == 1 & paramList.get(0).isEmpty())
+-                ? "" : "_" + String.join(",", paramList);
++                ? "" : "_" + String.join(",", paramList).replaceAll("[a-zA-Z0-9_$]+\\.", "");
+     }
+ 
+     public boolean allMethodParametersArePrimitive(CtMethod<?> method) {
+diff --git a/pankti-instrument/src/main/java/se/kth/castor/pankti/instrument/plugins/AdviceTemplate.java b/pankti-instrument/src/main/java/se/kth/castor/pankti/instrument/plugins/AdviceTemplate.java
+index 639e839..a8ed084 100644
+--- a/pankti-instrument/src/main/java/se/kth/castor/pankti/instrument/plugins/AdviceTemplate.java
++++ b/pankti-instrument/src/main/java/se/kth/castor/pankti/instrument/plugins/AdviceTemplate.java
+@@ -38,7 +38,7 @@ public interface AdviceTemplate {
+     static Map<Type, String> setUpFiles(String path) {
+         Map<Type, String> fileNameMap = new HashMap<>();
+         try {
+-            String storageDir = "/tmp/pankti-object-data/";
++            String storageDir = System.getProperty("pankti.storage.dir", "/tmp/pankti-object-data") + "/";
+             Files.createDirectories(Paths.get(storageDir));
+             String invokedMethodsCSVFilePath = setUpInvokedMethodsCSVFile(storageDir);
+             String filePath = storageDir + path;
+diff --git a/pankti-instrument/src/main/java/se/kth/castor/pankti/instrument/plugins/MethodAspect0.java b/pankti-instrument/src/main/java/se/kth/castor/pankti/instrument/plugins/MethodAspect0.java
+index ea78510..bfc5e9c 100644
+--- a/pankti-instrument/src/main/java/se/kth/castor/pankti/instrument/plugins/MethodAspect0.java
++++ b/pankti-instrument/src/main/java/se/kth/castor/pankti/instrument/plugins/MethodAspect0.java
+@@ -42,7 +42,7 @@ public class MethodAspect0 {
+         private static String rowInCSVFile = "";
+         private static final boolean isReturnTypeVoid = false;
+         private static final boolean hasMockableInvocations = false;
+-        private static final String methodParamTypesString = String.join(",", TargetMethodAdvice.class.getAnnotation(Pointcut.class).methodParameterTypes());
++        private static final String methodParamTypesString = String.join(",", TargetMethodAdvice.class.getAnnotation(Pointcut.class).methodParameterTypes()).replaceAll("[a-zA-Z0-9_$]+\\.", "");
+         private static final String postfix = methodParamTypesString.isEmpty() ? "" : "_" + methodParamTypesString;
+         public static final String methodFQN = TargetMethodAdvice.class.getAnnotation(Pointcut.class).className() + "."
+                 + TargetMethodAdvice.class.getAnnotation(Pointcut.class).methodName() + postfix;
+@@ -174,7 +174,7 @@ public class MethodAspect0 {
+         @IsEnabled
+         public static boolean enableProfileCollection() {
+             invocationUuid = null;
+-            return INVOCATION_COUNT < 1;
++            return true; // invocation limit lifted (was: INVOCATION_COUNT < 1)
+         }
+ 
+         @OnBefore
+diff --git a/pankti-instrument/src/main/java/se/kth/castor/pankti/instrument/plugins/MethodAspect0Nested0.java b/pankti-instrument/src/main/java/se/kth/castor/pankti/instrument/plugins/MethodAspect0Nested0.java
+index 72b0a13..b410c8f 100644
+--- a/pankti-instrument/src/main/java/se/kth/castor/pankti/instrument/plugins/MethodAspect0Nested0.java
++++ b/pankti-instrument/src/main/java/se/kth/castor/pankti/instrument/plugins/MethodAspect0Nested0.java
+@@ -39,7 +39,7 @@ public class MethodAspect0Nested0 {
+         private static String parentInvocationClassName = MethodAspect0.TargetMethodAdvice.class.getAnnotation(Pointcut.class).className();
+         private static String parentInvocationMethodName = MethodAspect0.TargetMethodAdvice.class.getAnnotation(Pointcut.class).methodName();
+         private static Logger logger = Logger.getLogger(TargetMethodAdvice.class);
+-        private static final String methodParamTypesString = String.join(",", TargetMethodAdvice.class.getAnnotation(Pointcut.class).methodParameterTypes());
++        private static final String methodParamTypesString = String.join(",", TargetMethodAdvice.class.getAnnotation(Pointcut.class).methodParameterTypes()).replaceAll("[a-zA-Z0-9_$]+\\.", "");
+         private static final String postfix = methodParamTypesString.isEmpty() ? "" : "_" + methodParamTypesString;
+         private static final String methodFQN = TargetMethodAdvice.class.getAnnotation(Pointcut.class).className() + "."
+                 + TargetMethodAdvice.class.getAnnotation(Pointcut.class).methodName() + postfix;
+@@ -210,8 +210,7 @@ public class MethodAspect0Nested0 {
+         @IsEnabled
+         public synchronized static boolean isNestedInvocation() {
+             invocationUuid = null;
+-            if (INVOCATION_COUNT >= 10)
+-                return false;
++            // invocation limit lifted (was: INVOCATION_COUNT >= 10)
+             boolean isNestedInvocation = Arrays.stream(Thread.currentThread().getStackTrace()).anyMatch(s ->
+                     s.getClassName().equals(parentInvocationClassName) &
+                             s.getMethodName().equals(parentInvocationMethodName));

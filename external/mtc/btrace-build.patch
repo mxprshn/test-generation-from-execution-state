@@ -1,0 +1,52 @@
+--- a/btrace-client/build.gradle	2026-10-06 13:36:20
++++ b/btrace-client/build.gradle	2026-10-06 13:40:27
+@@ -1,5 +1,4 @@
+ plugins {
+-    alias(libs.plugins.versioning)
+ }
+ 
+ dependencies {
+@@ -20,7 +19,7 @@
+         attributes(
+                 'Built-By'       : System.properties['user.name'],
+                 'Build-Timestamp': new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").format(new Date()),
+-                'Build-Revision' : versioning.info.commit,
++                'Build-Revision' : "88af3ad-mtc-replication",
+                 'Created-By'     : "Gradle ${gradle.gradleVersion}",
+                 'Build-Jdk'      : "${System.properties['java.version']} (${System.properties['java.vendor']} ${System.properties['java.vm.version']})",
+                 'Build-OS'       : "${System.properties['os.name']} ${System.properties['os.arch']} ${System.properties['os.version']}",
+--- a/btrace-core/build.gradle	2026-10-06 13:36:20
++++ b/btrace-core/build.gradle	2026-10-06 13:40:27
+@@ -1,7 +1,6 @@
+ import org.apache.tools.ant.filters.*
+ 
+ plugins {
+-    alias(libs.plugins.versioning)
+ }
+ 
+ dependencies {
+@@ -28,6 +27,6 @@
+ processResources {
+     filter ReplaceTokens, tokens: [
+         "btrace.version": project.version,
+-        "hash"          : versioning.info.commit
++        "hash"          : "88af3ad-mtc-replication"
+     ]
+ }
+--- a/btrace-ui/build.gradle	2026-10-06 13:36:20
++++ b/btrace-ui/build.gradle	2026-10-06 13:40:27
+@@ -1,5 +1,4 @@
+ plugins {
+-  alias(libs.plugins.versioning)
+ }
+ 
+ sourceCompatibility = '11'
+@@ -16,7 +15,7 @@
+         attributes(
+                 'Built-By'       : System.properties['user.name'],
+                 'Build-Timestamp': new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").format(new Date()),
+-                'Build-Revision' : versioning.info.commit,
++                'Build-Revision' : "88af3ad-mtc-replication",
+                 'Created-By'     : "Gradle ${gradle.gradleVersion}",
+                 'Build-Jdk'      : "${System.properties['java.version']} (${System.properties['java.vendor']} ${System.properties['java.vm.version']})",
+                 'Build-OS'       : "${System.properties['os.name']} ${System.properties['os.arch']} ${System.properties['os.version']}",

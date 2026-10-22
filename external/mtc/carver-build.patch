@@ -1,0 +1,27 @@
+--- a/build.gradle
++++ b/build.gradle
+@@ -18,14 +18,10 @@
+ 
+ //    Projects:
+ //    implementation files('libs/broadleaf-framework-6.2.5-SNAPSHOT-jar-with-dependencies')
+-    implementation files('libs/spring-testing-0.0.1-SNAPSHOT-all.jar')
+-    implementation files('libs/alfio-2.0-M5-SNAPSHOT-all.jar')
+-    implementation files('libs/spring-petclinic-2.7.3-all.jar')
+-    implementation files('libs/spring-petclinic-rest-2.6.2-jar-with-dependencies.jar')
+-    implementation files('libs/product-service-1.0-jar-with-dependencies.jar')
+-    implementation files('libs/pricing-service-1.0-jar-with-dependencies.jar')
+ 
+     implementation files('libs/btrace-client.jar')
++    // was provided by the bundled Spring applications of the original study
++    implementation 'org.hibernate:hibernate-core:5.6.15.Final'
+     implementation 'org.apache.velocity:velocity-engine-core:2.3'
+     annotationProcessor 'info.picocli:picocli-codegen:4.6.3'
+ 
+@@ -42,4 +38,5 @@
+ 
+ compileJava {
+     options.compilerArgs += ["-Aproject=${project.group}/${project.name}"]
+-}
+\ No newline at end of file
++}
++shadowJar { zip64 true }
