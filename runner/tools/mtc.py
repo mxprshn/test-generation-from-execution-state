@@ -134,7 +134,7 @@ def run(ctx: ToolContext, timeout: float) -> dict[str, Any]:
     # recorded constructor arguments); if BTrace breaks the bytecode (VerifyError) it is narrowed to the
     # target method alone
     attempts = [("target-and-constructors", f"/^({re.escape(method)}|<init>)$/"), ("target", f"/^{re.escape(method)}$/")]
-    rc, pool, verify = 0, ctx.workspace / "pool", False
+    rc, pool, verify, crashed = 0, ctx.workspace / "pool", False, False
     for scope, pattern in attempts:
         probe = compile_probe(ctx, pattern)
         for attempt in range(1, RECORD_RETRIES + 1):
@@ -154,6 +154,10 @@ def run(ctx: ToolContext, timeout: float) -> dict[str, Any]:
         shutil.rmtree(pool, ignore_errors=True)
     meta["trace_scope"] = scope
     meta["scenario_exit_code"] = rc
+    if crashed:
+        # every attempt aborted: the trace is incomplete and the object pool is gone
+        meta["outcome"] = f"the recording JVM aborted under BTrace in all {RECORD_RETRIES} attempts"
+        return {"generated": False, "support_files": []}
     text = trace.read_text(encoding="utf-8", errors="replace") if trace.is_file() else ""
     meta["recorded_target_invocations"] = len(re.findall(rf"#{re.escape(method)}(?:\(.*\))?:\{{", text))
     meta["recorded_pool_objects"] = len(list(pool.glob("*.xml"))) if pool.is_dir() else 0
@@ -165,6 +169,9 @@ def run(ctx: ToolContext, timeout: float) -> dict[str, Any]:
         else:
             meta["outcome"] = "the target method was not recorded"
         shutil.rmtree(pool, ignore_errors=True)
+        return {"generated": False, "support_files": []}
+    if not pool.is_dir():
+        meta["outcome"] = "the recording wrote no object pool"
         return {"generated": False, "support_files": []}
     sources, classes = _module_paths(ctx)
     output = generate(ctx, sources, classes, trace, pool)

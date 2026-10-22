@@ -256,7 +256,12 @@ def _generate(cfg: Config, case: Case, mode: str, checkout: Path, commit: str, c
     elif mode in TOOL_MODES:
         summary["phase"] = "tool"
         from runner import tools
-        res = tools.run_tool(cfg, case, mode, ws, tmp / "tool", env, cell / "artifacts")
+        try:
+            res = tools.run_tool(cfg, case, mode, ws, tmp / "tool", env, cell / "artifacts")
+        except Exception as exc:
+            summary["tool"] = getattr(exc, "tool_meta", None)
+            summary["tool_versions"] = tools.versions(cfg)
+            raise
         summary["tool"] = res["meta"]
         summary["tool_versions"] = tools.versions(cfg)
         support = list(res["support_files"])

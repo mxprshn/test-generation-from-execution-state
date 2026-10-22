@@ -66,6 +66,11 @@ def run_tool(cfg: Config, case: Case, mode: str, ws: Path, work: Path, env: dict
             placed = pankti.run(ctx, mode, cfg.tool_timeout)
     except ToolError as exc:
         ctx.meta["outcome"] = f"tool error: {exc}"
+    except Exception as exc:
+        # a defect of the adapter: keep what the tool did in the summary, the cell fails with the error
+        ctx.meta["outcome"] = f"adapter error: {type(exc).__name__}: {exc}"
+        exc.tool_meta = ctx.meta
+        raise
     finally:
         ctx.meta["seconds"] = round(time.time() - started, 1)
         _keep_artifacts(work, artifacts / "tool")

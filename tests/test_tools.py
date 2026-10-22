@@ -194,6 +194,32 @@ class ReasonTest(unittest.TestCase):
             self.assertIsNone(C.first_exception(Path(d) / "missing.log"))
 
 
+class MtcRecordingTest(unittest.TestCase):
+    def test_all_attempts_aborted_is_a_reason_not_a_crash(self):
+        from unittest import mock
+        with tempfile.TemporaryDirectory() as d:
+            ws, work, ext = Path(d) / "ws", Path(d) / "work", Path(d) / "ext"
+            ws.mkdir(); work.mkdir()
+            dist = ext / "mtc/btrace/btrace-dist/build/resources/main/v2.3.0-SNAPSHOT/libs"
+            dist.mkdir(parents=True); (dist / "btrace-agent.jar").write_text("")
+            jar = ext / "mtc/carver/build/libs/carving-1.0-SNAPSHOT-all.jar"
+            jar.parent.mkdir(parents=True); jar.write_text("")
+            cfg = mock.Mock(external_tools_dir=ext)
+            ctx = C.ToolContext(cfg=cfg, case=load_case("jsoup-consume-css-identifier"), workspace=ws, work=work,
+                                env={}, scenario=["mvn", "test"])
+
+            def record(ctx_, probe, trace, log, timeout):
+                log.write_text("# fatal error: Rewriting method not allowed at this stage\n")
+                trace.write_text("org.jsoup.parser.TokenQueue#consumeCssIdentifier:{\n")
+                return 134, ws / "pool"
+            with mock.patch.object(MTC, "compile_probe", return_value=work / "p.class"), \
+                    mock.patch.object(MTC, "record", side_effect=record):
+                placed = MTC.run(ctx, 10)
+            self.assertEqual(placed, {"generated": False, "support_files": []})
+            self.assertIn("aborted under BTrace in all 3 attempts", ctx.meta["outcome"])
+            self.assertEqual(len(ctx.meta["record_attempts"]), 3)
+
+
 class QualityOfToolCellsTest(unittest.TestCase):
     def test_added_by_file(self):
         diff = ("diff --git a/pom.xml b/pom.xml\n+++ b/pom.xml\n+<dep/>\n"
