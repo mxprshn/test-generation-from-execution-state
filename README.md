@@ -14,11 +14,12 @@ The repository contains the data set of the experiment (70 target methods in 7 o
 | Path | What |
 |---|---|
 | `cases/cases.csv` | the 70 cases: project, group (`direct`: the scenario test calls the target method itself, `indirect`: through a call chain), target method, scenario test, which execution data exist |
-| `cases/tools-projects.csv` | 31 further cases on the projects Pankti, RICK and MicroTestCarver were evaluated on (PDFBox, GraphHopper, Spring PetClinic, Lab-Insurance; JDK 11), for the autonomous mode only; `cases/<id>/meta.yaml` per case; see `docs/tools-projects.md` |
+| `cases/tools-projects.csv` | 31 further cases on the projects Pankti, RICK and MicroTestCarver were evaluated on (PDFBox, GraphHopper, Spring PetClinic, Lab-Insurance; JDK 11), for the autonomous mode and the tool modes only; `cases/<id>/meta.yaml` per case; see `docs/tools-projects.md` |
 | `cases/<id>/case.yaml` | target method, scenario test, output test class, hidden tests, build and test commands |
 | `cases/<id>/call-dumps.json` | recorded executions of the target method: receiver state, arguments, calls to collaborators with their arguments and results, outcome (65 cases) |
 | `cases/<id>/preliminary-test.java` | the test rendered deterministically from the dump (51 cases) |
 | `cases/<id>/workspace-files/` | resources the recorded data refer to (large values stored as files), installed into the project for the `dump`, `rendered` and `rendered-raw` modes |
+| `runner/tools/`, `external/`, `scripts/setup_external_tools.sh` | the external test generators Pankti, RICK and MicroTestCarver as modes without an agent (`pankti`, `rick`, `microtestcarver`): adapter, the patches applied to the pinned upstream sources, their installation; see `docs/tools.md` |
 | `projects.yaml` | the subject projects: repository, commit, JDK, license (and `prebuild` commands where a case needs sibling modules installed) |
 | `prompts/` | system prompt and task prompts (common part + one per mode) |
 | `pi/provider.ts`, `pi/guard.ts` | Pi extensions: the model provider from the config; the workspace guard |
