@@ -287,6 +287,11 @@ export default function (pi: ExtensionAPI) {
 					`only the named case commands are allowed, exactly as written: ${Object.keys(config.commands ?? {}).join(", ")}${komar}`,
 				);
 			}
+			if (name === "komar") {
+				// the wrapper bounds a Komar run itself (runner/komar.py RUN_TIMEOUT); a shorter bash timeout
+				// would kill the shell while the scenario's JVMs keep running
+				delete (event.input as { timeout?: number }).timeout;
+			}
 			pending.set(event.toolCallId, { name, command: raw, started: Date.now() });
 			record({ event: "start", name, command: raw, timestamp: Date.now() });
 			return undefined;

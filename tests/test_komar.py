@@ -7,8 +7,11 @@ javac. Missing tools skip the check."""
 import json
 import os
 import shutil
+import signal
 import subprocess
+import sys
 import tempfile
+import time
 import unittest
 from pathlib import Path
 
@@ -76,6 +79,7 @@ class CommandFormsTest(unittest.TestCase):
         out = json.loads(r.stdout)
         self.assertEqual(out["kinds"], [k for _, k in COMMANDS])
         self.assertEqual(out["spec"], [True, True, False, False, False])
+        self.assertEqual(out["timeouts"], [None, 120])
 
 
 class WrapperTest(unittest.TestCase):
@@ -127,6 +131,86 @@ class WrapperTest(unittest.TestCase):
         s = K.log_summary(rows, commands, 2)
         self.assertEqual((s["runs"], s["spec_errors"], s["refused"], s["hits"], s["jq_queries"], s["jq_failed"]),
                          (2, 2, 1, 2, 2, 1))
+
+
+@unittest.skipUnless(Path("/proc").is_dir(), "needs /proc")
+class WrapperProcessTreeTest(unittest.TestCase):
+    """A fake Komar that, like Komar, starts the scenario in a process group of its own; the scenario
+    sleeps. No process of the run may survive a timeout or a kill of the wrapper."""
+
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        d = Path(self.tmp.name)
+        self.ws = d / "ws"
+        (self.ws / "komar").mkdir(parents=True)
+        (self.ws / "komar" / "a.yaml").write_text("probes: []\n")
+        self.agent = d / "agent"
+        self.agent.mkdir()
+        self.marker = f"komar-tree-test-{os.getpid()}-{id(self)}"
+        fake = d / "komar-bin"
+        scenario = d / self.marker
+        scenario.write_text("while :; do sleep 1; done\n")
+        fake.write_text(f"#!/bin/sh\nsetsid sh {scenario} &\nwait\n")
+        fake.chmod(0o755)
+        self.config = self.agent / "komar.json"
+        self.config.write_text(json.dumps({
+            "workspace": str(self.ws), "binary": str(fake), "jar": str(d / "agent.jar"), "scenario": SCENARIO,
+            "runs": 3, "log": str(self.agent / "komar-log.jsonl"), "state": str(self.agent / "komar-runs"),
+            "pids": str(self.agent / "komar-pids.txt"), "run_timeout": 3}))
+        self.argv = ["run", "komar/a.yaml", "-o", "komar/a.jsonl", "--", *SCENARIO]
+
+    def tearDown(self):
+        subprocess.run(["pkill", "-KILL", "-f", self.marker])
+        self.tmp.cleanup()
+
+    def survivors(self) -> list[str]:
+        r = subprocess.run(["pgrep", "-f", self.marker], capture_output=True, text=True)
+        return r.stdout.split()
+
+    def wait_for_scenario(self) -> None:
+        for _ in range(100):
+            if self.survivors():
+                return
+            time.sleep(0.1)
+        self.fail("the fake scenario did not start")
+
+    def wrapper_process(self) -> subprocess.Popen:
+        return subprocess.Popen([sys.executable, "-m", "runner.komar", str(self.config), *self.argv], cwd=ROOT,
+                                env=dict(os.environ, PYTHONPATH=str(ROOT)), stderr=subprocess.PIPE, text=True)
+
+    def test_timeout_kills_the_run_and_counts_it(self):
+        p = self.wrapper_process()
+        _, err = p.communicate(timeout=60)
+        self.assertIn("Komar run stopped after 3 s; the scenario did not finish", err)
+        time.sleep(0.5)
+        self.assertEqual(self.survivors(), [])
+        rows = K.read_log(self.agent / "komar-log.jsonl")
+        self.assertEqual([(r["event"], r.get("timed_out")) for r in rows], [("run", True)])
+
+    def test_killed_wrapper_leaves_no_process(self):
+        for sig in (signal.SIGKILL, signal.SIGTERM):
+            with self.subTest(sig=sig):
+                p = self.wrapper_process()
+                self.wait_for_scenario()
+                p.send_signal(sig)
+                p.wait(timeout=30)
+                for _ in range(100):
+                    if not self.survivors():
+                        break
+                    time.sleep(0.1)
+                self.assertEqual(self.survivors(), [])
+
+    def test_kill_leftovers_ends_a_running_run(self):
+        p = self.wrapper_process()
+        self.wait_for_scenario()
+        time.sleep(1.5)  # the supervisor notes the groups of the run every 0.5 s
+        K.kill_leftovers(self.agent / "komar-pids.txt")
+        p.wait(timeout=30)
+        for _ in range(50):
+            if not self.survivors():
+                break
+            time.sleep(0.1)
+        self.assertEqual(self.survivors(), [])
 
 
 class ModeWiringTest(unittest.TestCase):

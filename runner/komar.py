@@ -15,6 +15,11 @@ started) is journalled and does not count as a run. A spec with `calls: true` (e
 methods of the program) is refused the same way: as with the debugger, no code of the program runs
 for the observation.
 
+A run is bounded by RUN_TIMEOUT, whatever timeout the agent gives its bash command (the guard drops it):
+the wrapper starts a supervisor in a session of its own, which runs Komar and kills every process group
+of the run (Komar, Maven, the test JVMs) when the run outlives RUN_TIMEOUT or the wrapper dies. The
+groups are also noted in komar-pids.txt for kill_leftovers at the end of the cell.
+
 Komar itself is installed by scripts/setup_komar.sh into paths.komar (default <tools>/komar):
 bin/komar, komar-agent.jar, versions.json.
 """
@@ -27,7 +32,6 @@ import shlex
 import signal
 import subprocess
 import sys
-import threading
 import time
 from pathlib import Path
 from typing import Any
@@ -44,6 +48,8 @@ JQ_LONG_FLAGS = {"--compact-output", "--raw-output", "--slurp", "--null-input", 
                  "--exit-status", "--join-output"}
 JQ_MODULES = re.compile(r"\b(?:import|include)\b")
 REFUSED = "komar: limit of {n} scenario runs reached; write the test from the data you have"
+RUN_TIMEOUT = 300
+STOPPED = "komar: Komar run stopped after {s} s; the scenario did not finish"
 
 
 class KomarError(Exception):
@@ -152,6 +158,7 @@ def prepare(cfg: Config, workspace: Path, agent_dir: Path, scenario: list[str]) 
         "workspace": str(workspace), "binary": str(inst["binary"]), "jar": str(inst["jar"]),
         "scenario": scenario, "runs": cfg.debug_runs, "log": str(agent_dir / "komar-log.jsonl"),
         "state": str(agent_dir / "komar-runs"), "pids": str(agent_dir / "komar-pids.txt"),
+        "run_timeout": RUN_TIMEOUT,
     }, indent=2))
     bin_dir = agent_dir / "komar-bin"
     bin_dir.mkdir(exist_ok=True)
@@ -241,20 +248,69 @@ def _output_summary(path: Path) -> dict[str, Any]:
     return out
 
 
-def _record_children(pid: int, pids_file: Path, stop: threading.Event) -> None:
-    """Komar starts the scenario in a process group of its own: note those groups for kill_leftovers."""
-    seen: set[str] = set()
-    while not stop.is_set():
+def _descendant_groups(root: int) -> set[int]:
+    children: dict[int, list[int]] = {}
+    for stat in Path("/proc").glob("[0-9]*/stat"):
         try:
-            children = Path(f"/proc/{pid}/task/{pid}/children").read_text().split()
+            fields = stat.read_text().rsplit(")", 1)[1].split()
+        except (OSError, IndexError):
+            continue
+        children.setdefault(int(fields[1]), []).append(int(stat.parent.name))
+    groups: set[int] = set()
+    todo = [root]
+    while todo:
+        pid = todo.pop()
+        try:
+            groups.add(os.getpgid(pid))
         except OSError:
-            return
-        for c in children:
-            if c not in seen:
-                seen.add(c)
-                with pids_file.open("a") as f:
-                    f.write(f"{c}\n")
-        stop.wait(0.5)
+            pass
+        todo += children.get(pid, [])
+    return groups
+
+
+def _kill_groups(groups: set[int]) -> None:
+    for sig in (signal.SIGTERM, signal.SIGKILL):
+        for g in groups:
+            try:
+                os.killpg(g, sig)
+            except OSError:
+                continue
+        if sig == signal.SIGTERM:
+            time.sleep(5)
+
+
+def _note_groups(pids_file: Path, groups: set[int]) -> None:
+    with pids_file.open("a") as f:
+        f.write("".join(f"{g}\n" for g in sorted(groups)))
+
+
+def supervise(config_path: str, argv: list[str]) -> int:
+    """Runs Komar for the wrapper from a session of its own, which a kill of the agent's shell does not reach.
+    Every process group of the run is killed when the run outlives run_timeout or the wrapper dies."""
+    cfg = json.loads(Path(config_path).read_text())
+    pids = Path(cfg["pids"])
+    wrapper_pid = os.getppid()
+    proc = subprocess.Popen([cfg["binary"], *argv], env=dict(os.environ, KOMAR_AGENT_JAR=cfg["jar"]),
+                            start_new_session=True)
+    groups = {os.getpid(), proc.pid}
+    _note_groups(pids, groups)
+    deadline = time.time() + float(cfg.get("run_timeout", RUN_TIMEOUT))
+    while True:
+        try:
+            return proc.wait(timeout=0.5)
+        except subprocess.TimeoutExpired:
+            pass
+        new = _descendant_groups(proc.pid) - groups
+        if new:
+            groups |= new
+            _note_groups(pids, new)
+        expired = time.time() > deadline
+        if expired or os.getppid() != wrapper_pid:
+            if expired:
+                Path(f"{cfg['state']}.timed-out").write_text("")
+            _kill_groups((groups | _descendant_groups(proc.pid)) - {os.getpid()})
+            proc.wait()
+            return 124
 
 
 def wrapper(config_path: str, argv: list[str]) -> int:
@@ -285,31 +341,26 @@ def wrapper(config_path: str, argv: list[str]) -> int:
         journal({"event": "refused", "spec": spec, "runs": runs, "limit": cfg["runs"]})
         print(REFUSED.format(n=cfg["runs"]), file=sys.stderr)
         return 1
-    env = dict(os.environ, KOMAR_AGENT_JAR=cfg["jar"])
+    stopped = Path(f"{cfg['state']}.timed-out")
+    stopped.unlink(missing_ok=True)
     started = time.time()
-    proc = subprocess.Popen([cfg["binary"], *argv], cwd=ws, env=env, start_new_session=True)
-    with Path(cfg["pids"]).open("a") as f:
-        f.write(f"{proc.pid}\n")
-    stop = threading.Event()
-    watcher = threading.Thread(target=_record_children, args=(proc.pid, Path(cfg["pids"]), stop), daemon=True)
-    watcher.start()
-    try:
-        code = proc.wait()
-    except BaseException:
-        os.killpg(proc.pid, signal.SIGTERM)
-        raise
-    finally:
-        stop.set()
+    code = subprocess.call([sys.executable, "-m", "runner.komar", "--supervise", config_path, *argv], cwd=ws,
+                           env=dict(os.environ, PYTHONPATH=str(ROOT)), start_new_session=True)
     seconds = round(time.time() - started, 1)
-    if code == 2:  # the spec was rejected before anything started
+    timed_out = stopped.is_file()
+    if code == 2 and not timed_out:  # the spec was rejected before anything started
         journal({"event": "spec_error", "spec": spec, "spec_text": spec_text, "exit_code": code, "seconds": seconds})
         return code
     runs += 1
     state.write_text(str(runs))
     journal({"event": "run", "run": runs, "spec": spec, "spec_text": spec_text, "output": output, "exit_code": code,
-             "seconds": seconds, **_output_summary(ws / output)})
+             "seconds": seconds, "timed_out": timed_out, **_output_summary(ws / output)})
+    if timed_out:
+        print(STOPPED.format(s=int(cfg.get("run_timeout", RUN_TIMEOUT))), file=sys.stderr)
     return code
 
 
 if __name__ == "__main__":
+    if sys.argv[1] == "--supervise":
+        raise SystemExit(supervise(sys.argv[2], sys.argv[3:]))
     raise SystemExit(wrapper(sys.argv[1], sys.argv[2:]))

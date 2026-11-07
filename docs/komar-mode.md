@@ -43,6 +43,11 @@ of the full output, which lies outside the workspace and cannot be read. A jq qu
 output is therefore cut too. In the smoke this happened in 2 of 6 cells; both times the agent
 narrowed the query. The debugger tools have their own limit (8 KB per answer).
 
+The agent may give a bash command a timeout. In komar-run-1 it gave `komar run` 120 s; under load
+Maven needed longer, Pi killed the shell, and the wrapper, Komar and the scenario's JVMs kept running,
+detached. komar-run-1b fixed this with the run bound and the supervisor above; no komar-run-1 cell is a
+result.
+
 ## The wrapper and the run limit
 
 `komar` on the PATH of the agent's commands is a wrapper (`runner/komar.py`, `wrapper`). For each
@@ -53,12 +58,20 @@ call it:
 - refuses a spec with `calls: true`. As in the debugger, no code of the program runs for the
   observation. Komar reads values from fields unless a spec enables calls;
 - runs the pinned binary with the installed agent jar (`KOMAR_AGENT_JAR`, nothing is extracted to
-  the user cache), in a process group of its own;
+  the user cache) under a supervisor in a session of its own (`--supervise`), which notes every
+  process group of the run (Komar starts the scenario in a group of its own) in `komar-pids.txt`;
+- bounds a run by 300 s (`RUN_TIMEOUT`, as the first `resume` of the debugger). The guard drops the
+  `timeout` the agent gives the bash command of a `komar run`, so Pi does not kill the shell earlier.
+  When the run outlives 300 s, the supervisor kills every group of the run (Komar, Maven, the test
+  JVMs), the run counts as a run (`timed_out` in the journal), and the agent reads `komar: Komar run
+  stopped after 300 s; the scenario did not finish`. When the wrapper itself dies, the supervisor
+  kills the run as well;
 - journals the call to `artifacts/komar-log.jsonl`: spec text, exit code, seconds, output size,
   hits per probe, diagnostics by level, the `end` record.
 
 A spec that Komar rejects (exit code 2, nothing started) does not count as a run. Neither does a
-refused `calls: true`. The process groups of runs still alive when the agent stops are killed.
+refused `calls: true`. The process groups of runs still alive when the agent stops are killed (`kill_leftovers` over
+`komar-pids.txt`).
 
 `summary.json` gets `komar`, with the counts of the cell: runs, spec errors, refused runs, runs
 without an `end` record, runs whose scenario failed, hits, diagnostics, output bytes, jq queries
