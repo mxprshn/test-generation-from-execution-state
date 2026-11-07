@@ -38,6 +38,11 @@ part of the result, and the escape check flags a generated test that names it.
 `runner/komar.py` has the same rules in Python; `tests/test_komar.py` checks that both agree on a
 table of commands.
 
+Pi cuts the output of a bash command at 50 KB, in every mode; the agent sees the tail and the path
+of the full output, which lies outside the workspace and cannot be read. A jq query over a large
+output is therefore cut too. In the smoke this happened in 2 of 6 cells; both times the agent
+narrowed the query. The debugger tools have their own limit (8 KB per answer).
+
 ## The wrapper and the run limit
 
 `komar` on the PATH of the agent's commands is a wrapper (`runner/komar.py`, `wrapper`). For each
