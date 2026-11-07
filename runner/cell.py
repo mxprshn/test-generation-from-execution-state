@@ -6,7 +6,8 @@
     scenario    the driving scenario must run in the workspace (otherwise an infrastructure failure;
                 if it runs only without workspace-files/, the input is a method failure)
     generation  Pi with the rendered prompts (baseline, dump, rendered, autonomous: with the debugger
-                tools of pi/debugger.ts over the driving scenario), or the preliminary test
+                tools of pi/debugger.ts over the driving scenario, komar: with the scenario under
+                Komar and jq over its output, runner/komar.py), or the preliminary test
                 installed as the output class (rendered-raw, no agent), or the test class of an
                 external tool that records the scenario itself (pankti, rick, microtestcarver;
                 runner/tools, no agent)
@@ -46,6 +47,15 @@ def debugger_input(case: Case) -> dict:
     """What pi/debugger.ts runs: the command of the scenario check (eval_maven_args included, e.g. the
     spotless check skipped), so the agent's own test file cannot break a debugged run on a format check."""
     return {"scenario": eval_command(case, "scenario"), "target": case.target}
+
+
+def komar_input(case: Case) -> dict:
+    """The command the agent runs under Komar: the scenario check, as for the debugger (debugger_input)."""
+    return {"scenario": eval_command(case, "scenario")}
+
+
+# komar mode: the outputs of Komar kept as artifacts are cut at this size
+KOMAR_OUTPUT_KEEP = 2_000_000
 
 
 def _write(path: Path, text: str) -> None:
@@ -168,7 +178,7 @@ def check_case_scenario(cfg: Config, case_id: str, logs: Path) -> dict[str, Any]
 def _generate(cfg: Config, case: Case, mode: str, checkout: Path, commit: str, cell: Path, tmp: Path,
               summary: dict[str, Any], api_key_env: str) -> dict[str, Any]:
     source = method_input(case, mode)
-    if mode not in ("baseline", "autonomous", *TOOL_MODES) and source is None:
+    if mode not in ("baseline", "autonomous", "komar", *TOOL_MODES) and source is None:
         summary["status"] = "method_failed"
         summary["error"] = f"no {'call dump' if mode == 'dump' else 'preliminary test'} for this case"
         return summary
@@ -177,7 +187,7 @@ def _generate(cfg: Config, case: Case, mode: str, checkout: Path, commit: str, c
     summary["workspace"] = str(ws)  # for the escape check: absolute paths inside it are fine
     summary["hidden_paths_removed"] = W.hide_paths(ws, case.hidden_paths)
     support = (W.install_tree(case.workspace_files, ws)
-               if mode not in ("baseline", "autonomous", *TOOL_MODES) else [])
+               if mode not in ("baseline", "autonomous", "komar", *TOOL_MODES) else [])
     summary["support_files"] = support
     execution_input = EXECUTION_INPUT.get(mode)
     if execution_input and mode == "dump":
@@ -219,8 +229,20 @@ def _generate(cfg: Config, case: Case, mode: str, checkout: Path, commit: str, c
             "task": hashlib.sha256(prompts["task"].encode()).hexdigest(),
         }
         debugger = debugger_input(case) if mode == "autonomous" else None
-        res = A.run_agent(cfg, ws, case.output_test_file, commands, prompts, tmp / "agent", api_key_env, debugger)
+        komar = komar_input(case) if mode == "komar" else None
+        res = A.run_agent(cfg, ws, case.output_test_file, commands, prompts, tmp / "agent", api_key_env, debugger,
+                          komar)
         _jsonl(cell / "artifacts" / "session.jsonl", res.events)
+        if res.komar_log is not None:
+            from runner import komar as K
+            _jsonl(cell / "artifacts" / "komar-log.jsonl", res.komar_log)
+            for f in sorted((ws / K.SCRATCH).glob("*")):
+                if f.is_file():
+                    data = f.read_bytes()
+                    (cell / "artifacts" / "komar").mkdir(parents=True, exist_ok=True)
+                    (cell / "artifacts" / "komar" / f.name).write_bytes(data[:KOMAR_OUTPUT_KEEP])
+            summary["komar"] = K.log_summary(res.komar_log, res.commands, cfg.debug_runs)
+            summary["komar_versions"] = K.versions(cfg)
         if res.debug_log is not None:
             from runner import debugger as D
             _jsonl(cell / "artifacts" / "debug-log.jsonl", res.debug_log)
@@ -283,7 +305,10 @@ def _generate(cfg: Config, case: Case, mode: str, checkout: Path, commit: str, c
     summary["phase"] = "result"
     summary["output_exists"] = output.is_file()
     allowed = {case.output_test_file, *support, *([execution_input] if execution_input else [])}
-    summary["unexpected_changes"] = W.unexpected_changes(before, W.snapshot(ws), allowed)
+    changes = W.unexpected_changes(before, W.snapshot(ws), allowed)
+    if mode == "komar":  # the scratch directory of the Komar specs and outputs (runner/komar.py)
+        changes = [p for p in changes if not p.startswith("komar/")]
+    summary["unexpected_changes"] = changes
     if output.is_file():
         files = {case.output_test_file: output, **{rel: ws / rel for rel in support if (ws / rel).is_file()}}
         diff = W.result_diff(checkout, commit, files, tmp / "result")
@@ -295,7 +320,7 @@ def _generate(cfg: Config, case: Case, mode: str, checkout: Path, commit: str, c
 # ---------------------------------------------------------------------------------------------
 
 INFRA_ERROR_MARKERS = ("driving scenario does not run", "WorkspaceError", "AgentError", "not a git checkout",
-                       "ToolSetupError")
+                       "ToolSetupError", "KomarError")
 # Pi stderr when the provider could not be reached before the first model turn (pi/provider.ts, Node fetch)
 PROVIDER_FAILURE_MARKERS = ("failed to fetch models", "model list unavailable", "Unknown provider",
                             "fetch failed", "ECONNRESET", "ECONNREFUSED", "ETIMEDOUT", "ENOTFOUND", "EAI_AGAIN",

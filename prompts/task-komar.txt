@@ -1,0 +1,67 @@
+Condition: Komar.
+
+No execution data is provided. You can run the driving scenario under Komar, a tool that observes a
+running JVM program without changing its code: a YAML spec says where to observe, when to record and
+what to capture; Komar instruments the program at load time and writes one JSONL file, which you query
+with jq. Observe the executions of the target method and use the observed values as test data and
+expected results; do not replace them with invented values. If the observed data are not sufficient,
+you may change the spec and run the scenario again, at most {{debug_runs}} runs in total.
+
+Komar commands (NAME: letters, digits, '.', '_', '-'; komar/ is a scratch directory of the workspace,
+not part of the result):
+- write the spec with the write tool to komar/NAME.yaml;
+- run the scenario under Komar with the bash tool:
+  komar run komar/NAME.yaml -o komar/NAME.jsonl -- {{komar_scenario}}
+  A spec with errors is reported before anything starts and does not count as a run.
+- query the output with the bash tool, one jq command without pipes or redirection:
+  jq [-c] [-r] [-s] [-n] [--arg NAME VALUE] [--argjson NAME VALUE] 'FILTER' komar/NAME.jsonl ...
+
+Komar documentation (excerpts):
+
+  stop: { after: 30s }                 # optional
+  limits: { depth: 3 }                 # optional; a probe may have its own limits
+  probes:
+    - id: big_orders
+      where: { class: com.shop.OrderService, method: charge, at: [entry, exit] }
+      when: 'vars.order.total > 1000'
+      what:
+        - id: vars.order.id
+        - customer: vars.order.customer.name
+        - ret
+    - id: loop
+      where: { class: com.shop.OrderService, method: charge, line: [42] }
+      what: [vars.item, vars.subtotal]
+    - id: repo_get
+      where:
+        class: com.shop.OrderService
+        method: charge
+        call: { class: java.util.HashMap, method: get }
+        at: [after]
+      what: [call.args, ret]
+
+- Probe kinds: method and constructor (`method: new`), points `entry`, `exit`, `exception`; line
+  (`line: [...]`, no `at`); call site (`call: {...}`), points `before`, `after`, `exception`.
+- `class` is a fully qualified name or a wildcard ('com.shop.*Service'); `subtypes: true` also matches
+  subclasses and implementations. `method` without `params` covers every overload; `params: [String, int]`
+  selects overloads by parameter types written as in the source.
+- `when` and `what` are CEL expressions over `this`, `args` (`args[0]`, ...), `vars.<name>` (parameters
+  and local variables by source name), `ret` (at `exit`, `after`), `exception`, `duration` (ms) and, at a
+  call site, `call.target` and `call.args`. A `what` item is a bare expression, keyed by its text, or
+  `name: expression`. Quote expressions that contain YAML special characters.
+- Values are read from fields; program methods never run. JDK strings, numbers, `BigDecimal`,
+  `java.time` types, enums, collections, maps and arrays are plain JSON; other objects are maps of their
+  fields with `"@type"`.
+- `vars` needs classes compiled with `-parameters` or `-g`; local variables at a line need `-g`. An item
+  that does not exist at a point is left out of that record; a key with `null` means the value was null.
+- `limits` (defaults): `depth` 3 (levels of object fields), `items` 100, `string` 1000, `fields` 50,
+  `max_hits` 1000 (hits after which a probe stops firing). A value cut by a limit is marked
+  (`"@truncated": true`, `"@size"`, `"@prefix"`); an object met twice in one record is `"@id": N` the
+  first time and `{"@ref": N}` later.
+- Output: one JSON record per line: `run`, then `hit` and `diag` records, then `end`. A hit has
+  `probe`, `point`, `method`, `line`, `call` (shared by the records of one execution, e.g. its entry and
+  exit), `parent` (the call of the enclosing probed execution), `thread`, `pid` and `what` (the keys
+  of the spec). A `diag` explains placement (placed, no class matched, a name not available); `end`
+  has the hits per probe and `code`, the exit code of the scenario.
+
+  jq -c 'select(.kind=="hit" and .probe=="big_orders") | .what' komar/NAME.jsonl
+  jq -c 'select(.kind=="diag" or .kind=="end")' komar/NAME.jsonl

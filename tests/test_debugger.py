@@ -151,10 +151,12 @@ class RunLimitConfigTest(unittest.TestCase):
                             I.generation_inputs(five, case, "autonomous")["config"])
 
     def test_prompts_of_the_old_modes_unchanged(self):
-        """The prompt files other than task-autonomous.txt hash as in the released cells (v2-results)."""
+        """The prompt files other than task-autonomous.txt and task-komar.txt hash as in the released cells
+        (v2-results)."""
         from evaluation import inputs as I
         d = ROOT / "prompts"
-        self.assertEqual(I.files_hash([p for p in d.rglob("*") if p.is_file() and p.name != "task-autonomous.txt"], d),
+        self.assertEqual(I.files_hash([p for p in d.rglob("*") if p.is_file()
+                                       and p.name not in ("task-autonomous.txt", "task-komar.txt")], d),
                          "b50bbd4b4d1b363c")
 
 

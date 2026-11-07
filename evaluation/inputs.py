@@ -41,7 +41,7 @@ STEP_CODE = {
 }
 SKIP_SUFFIXES = (".pyc", ".json")  # evaluation data files are hashed separately (normalisation)
 GENERATION_CONFIG = ("provider_name", "base_url", "model", "thinking", "timeout", "command_timeout")
-# the autonomous mode also depends on its limit of scenario runs; the other modes keep their hashes
+# the autonomous and komar modes also depend on their limit of scenario runs; the other modes keep their hashes
 AUTONOMOUS_CONFIG = GENERATION_CONFIG + ("debug_runs",)
 EVAL_CONFIG = ("command_timeout", "trace_depth", "reference_runs")
 
@@ -129,8 +129,34 @@ def tool_input_hash(cfg: Config) -> str:
     return _sha(json.dumps([tree_hash(ROOT / "external"), tree_hash(versions)]).encode())
 
 
+KOMAR_PROMPT = "task-komar.txt"
+
+
+def prompts_hash(cfg: Config, mode: str) -> str | None:
+    """The prompt templates; for the modes other than komar without its template, so that adding it kept
+    the hashes of the cells generated before."""
+    d = cfg.prompts_dir
+    if mode == "komar" or not (d / KOMAR_PROMPT).is_file():
+        return tree_hash(d)
+    return files_hash([p for p in d.rglob("*") if p.is_file() and p.name != KOMAR_PROMPT], d)
+
+
+def komar_input_hash(cfg: Config) -> str:
+    """The installed Komar (versions.json of scripts/setup_komar.sh: commit, checksums of binary and jar)."""
+    return _sha(json.dumps([tree_hash(cfg.komar_dir / "versions.json")]).encode())
+
+
 def generation_inputs(cfg: Config, case, mode: str) -> dict[str, Any]:
     from runner.config import TOOL_MODES
+    if mode == "komar":
+        return {
+            "code": generation_code_hash(),
+            "case": tree_hash(case.dir / "case.yaml"),
+            "mode_input": komar_input_hash(cfg),
+            "prompts": prompts_hash(cfg, mode),
+            "config": config_hash(cfg, AUTONOMOUS_CONFIG),
+            "project": project_hash(case.project),
+        }
     if mode in TOOL_MODES:
         return {
             "code": generation_code_hash(),
@@ -144,7 +170,7 @@ def generation_inputs(cfg: Config, case, mode: str) -> dict[str, Any]:
         "code": generation_code_hash(),
         "case": tree_hash(case.dir / "case.yaml"),
         "mode_input": mode_input_hash(case, mode),
-        "prompts": tree_hash(cfg.prompts_dir) if mode != "rendered-raw" else None,
+        "prompts": prompts_hash(cfg, mode) if mode != "rendered-raw" else None,
         "config": (None if mode == "rendered-raw"
                    else config_hash(cfg, AUTONOMOUS_CONFIG if mode == "autonomous" else GENERATION_CONFIG)),
         "project": project_hash(case.project),

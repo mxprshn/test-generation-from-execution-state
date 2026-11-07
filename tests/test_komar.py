@@ -1,0 +1,251 @@
+"""The komar mode: the command forms of the guard (Python and TypeScript agree), the wrapper (run limit,
+spec errors, journal), the prompt and the wiring of the mode, the hashes of the other modes.
+
+The guard check needs node and an installed Pi package (as tests/test_runner.py); the integration check
+needs Komar installed (scripts/setup_komar.sh, TESTGEN_KOMAR or <TESTGEN_TOOLS>/komar) and JDK 21 with
+javac. Missing tools skip the check."""
+import json
+import os
+import shutil
+import subprocess
+import tempfile
+import unittest
+from pathlib import Path
+
+from evaluation import inputs as I
+from runner import agent as A
+from runner import cell as G
+from runner import escape_check as X
+from runner import komar as K
+from runner.cases import eval_command, load_case
+from runner.config import AGENT_MODES, DEFAULT_MODES, ROOT, load_config
+from runner.prompts import render
+from tests.test_runner import PiExtensionsTest, write_config
+
+SCENARIO = ["mvn", "-q", "-o", "-Dtest=CacheTest#testplan1", "test"]
+SCENARIO_TEXT = "mvn -q -o -Dtest=CacheTest#testplan1 test"
+
+# (command, expected kind): the same table is checked against pi/guard.ts in test_guard_agrees
+COMMANDS = [
+    (f"komar run komar/a.yaml -o komar/a.jsonl -- {SCENARIO_TEXT}", "komar"),
+    (f"komar  run komar/run-2.yaml -o komar/out.v2.jsonl --\t{SCENARIO_TEXT}", "komar"),
+    (f"komar run 'komar/a.yaml' -o komar/a.jsonl -- mvn -q -o '-Dtest=CacheTest#testplan1' test", "komar"),
+    (f"komar run komar/a.yaml -o komar/a.jsonl -- {SCENARIO_TEXT} -X", None),
+    ("komar run komar/a.yaml -o komar/a.jsonl -- mvn -q -o test", None),
+    (f"komar run ../a.yaml -o komar/a.jsonl -- {SCENARIO_TEXT}", None),
+    (f"komar run komar/../x.yaml -o komar/a.jsonl -- {SCENARIO_TEXT}", None),
+    (f"komar run komar/a.yaml -o /tmp/a.jsonl -- {SCENARIO_TEXT}", None),
+    (f"komar run komar/a.yaml -o komar/a.jsonl -p 1234", None),
+    (f"komar run komar/a.yaml -o komar/a.jsonl -- {SCENARIO_TEXT} > x", None),
+    (f"komar run komar/a.yaml -o komar/a.jsonl -- {SCENARIO_TEXT}; cat x", None),
+    (f"komar run komar/a.yaml -o komar/a.jsonl -- {SCENARIO_TEXT}\nls", None),
+    ("jq -c 'select(.kind==\"hit\" and .probe==\"p\") | .what' komar/a.jsonl", "jq"),
+    ("jq -r '.what | keys[]' komar/a.jsonl komar/b.jsonl", "jq"),
+    ("jq -s 'map(select(.kind==\"hit\")) | group_by(.call) | length' komar/a.jsonl", "jq"),
+    ("jq -c --arg p hc 'select(.probe==$p)' komar/a.jsonl", "jq"),
+    ("jq -n '1+1'", "jq"),
+    ("jq '.' komar/a.jsonl | head", None),
+    ("jq '.' /etc/passwd", None),
+    ("jq '.' komar/../../x.jsonl", None),
+    ("jq '.' komar/a.yaml", None),
+    ("jq -L /tmp 'import \"x\" as x; .' komar/a.jsonl", None),
+    ("jq 'include \"x\"; .' komar/a.jsonl", None),
+    ("jq --rawfile x /etc/passwd '$x' -n", None),
+    ("jq -f prog.jq komar/a.jsonl", None),
+    ("jq \"$(cat x)\" komar/a.jsonl", None),
+    ("jq '.' komar/*.jsonl", None),
+    ("jq '.'", None),
+    ("cat komar/a.jsonl", None),
+    (SCENARIO_TEXT, None),
+]
+
+
+class CommandFormsTest(unittest.TestCase):
+    def test_python_forms(self):
+        for command, kind in COMMANDS:
+            self.assertEqual(K.command_kind(command, SCENARIO), kind, command)
+
+    def test_guard_agrees(self):
+        pi = PiExtensionsTest.pi_package()
+        if pi is None or shutil.which("node") is None:
+            self.skipTest("node and an installed Pi package are needed")
+        r = subprocess.run(["node", str(ROOT / "tests" / "node" / "komar.mjs"), str(pi), str(ROOT)],
+                           input=json.dumps({"scenario": SCENARIO, "commands": [c for c, _ in COMMANDS]}),
+                           capture_output=True, text=True, timeout=120)
+        self.assertEqual(r.returncode, 0, r.stderr[-2000:])
+        out = json.loads(r.stdout)
+        self.assertEqual(out["kinds"], [k for _, k in COMMANDS])
+        self.assertEqual(out["spec"], [True, True, False, False, False])
+
+
+class WrapperTest(unittest.TestCase):
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        d = Path(self.tmp.name)
+        self.ws = d / "ws"
+        (self.ws / "komar").mkdir(parents=True)
+        self.agent = d / "agent"
+        self.agent.mkdir()
+        # a fake Komar: exit 2 for a spec containing "bad", else write an output like Komar's and exit 0
+        fake = d / "komar-bin"
+        fake.write_text("#!/bin/sh\n"
+                        "grep -q bad \"$2\" && { echo 'komar: 1 errors, nothing started' >&2; exit 2; }\n"
+                        "printf '%s\\n' '{\"kind\":\"run\"}' '{\"kind\":\"diag\",\"level\":\"info\"}' "
+                        "'{\"kind\":\"hit\",\"probe\":\"p\"}' '{\"kind\":\"end\",\"reason\":\"exit\",\"code\":0,"
+                        "\"hits\":{\"p\":1},\"dropped\":0,\"when_errors\":{}}' > \"$4\"\n")
+        fake.chmod(0o755)
+        self.config = self.agent / "komar.json"
+        self.config.write_text(json.dumps({
+            "workspace": str(self.ws), "binary": str(fake), "jar": str(d / "agent.jar"), "scenario": SCENARIO,
+            "runs": 2, "log": str(self.agent / "komar-log.jsonl"), "state": str(self.agent / "komar-runs"),
+            "pids": str(self.agent / "komar-pids.txt")}))
+
+    def tearDown(self):
+        self.tmp.cleanup()
+
+    def run_wrapper(self, name: str) -> int:
+        argv = ["run", f"komar/{name}.yaml", "-o", f"komar/{name}.jsonl", "--", *SCENARIO]
+        return K.wrapper(str(self.config), argv)
+
+    def test_limit_spec_errors_and_journal(self):
+        (self.ws / "komar" / "ok.yaml").write_text("probes: []\n")
+        (self.ws / "komar" / "bad.yaml").write_text("probes: bad\n")
+        (self.ws / "komar" / "calls.yaml").write_text("calls: true\nprobes: []\n")
+        self.assertEqual(self.run_wrapper("bad"), 2)
+        self.assertEqual(self.run_wrapper("calls"), 2)
+        self.assertEqual(self.run_wrapper("ok"), 0)
+        self.assertEqual(self.run_wrapper("ok"), 0)
+        self.assertEqual(self.run_wrapper("ok"), 1)  # third run: refused
+        self.assertEqual(K.wrapper(str(self.config), ["run", "komar/ok.yaml", "-o", "/tmp/x.jsonl", "--", *SCENARIO]), 2)
+        rows = K.read_log(self.agent / "komar-log.jsonl")
+        self.assertEqual([r["event"] for r in rows], ["spec_error", "spec_error", "run", "run", "refused", "rejected"])
+        self.assertEqual(rows[1]["reason"], "calls")
+        self.assertEqual(rows[2]["hits"], {"p": 1})
+        self.assertEqual(rows[2]["diag"], {"info": 1})
+        self.assertEqual(rows[2]["spec_text"], "probes: []\n")
+        commands = [{"event": "end", "name": "jq", "succeeded": True}, {"event": "end", "name": "jq", "succeeded": False}]
+        s = K.log_summary(rows, commands, 2)
+        self.assertEqual((s["runs"], s["spec_errors"], s["refused"], s["hits"], s["jq_queries"], s["jq_failed"]),
+                         (2, 2, 1, 2, 2, 1))
+
+
+class ModeWiringTest(unittest.TestCase):
+    def test_prompt(self):
+        case = load_case("mybatis-caching-executor-query")
+        commands = {n: case.commands[n] for n in ("build", "scenario", "generated_test")}
+        komar = render(ROOT / "prompts", case, "komar", commands)
+        auto = render(ROOT / "prompts", case, "autonomous", commands)
+        self.assertEqual(komar["system"], auto["system"])
+        common = (ROOT / "prompts" / "task-common.txt").read_text()
+        self.assertTrue(komar["task"].startswith(auto["task"][:auto["task"].index("Condition:")]))
+        self.assertIn("Condition: Komar.", komar["task"])
+        self.assertIn("at most 3 runs in total.", komar["task"])
+        scenario = K.scenario_text(eval_command(case, "scenario"))
+        self.assertIn(f"komar run komar/NAME.yaml -o komar/NAME.jsonl -- {scenario}\n", komar["task"])
+        self.assertTrue(common)
+
+    def test_scenario_of_the_prompt_is_accepted(self):
+        for case_id in ("mybatis-caching-executor-query", "klaw-envs-clusters-tenants-controller-service-add-new-env",
+                        "petclinic-owner-get-pet"):
+            case = load_case(case_id)
+            scenario = G.komar_input(case)["scenario"]
+            text = K.scenario_text(scenario)
+            self.assertEqual(K.command_kind(f"komar run komar/a.yaml -o komar/a.jsonl -- {text}", scenario), "komar")
+
+    def test_mode_and_defaults(self):
+        self.assertIn("komar", AGENT_MODES)
+        self.assertNotIn("komar", DEFAULT_MODES)
+        with tempfile.TemporaryDirectory() as d:
+            cfg = load_config(write_config(Path(d), paths={"java_home": d, "pi": "/bin/echo", "results": d + "/r"}))
+            self.assertEqual(cfg.komar_dir, cfg.tools_dir / "komar")
+            argv = A.pi_argv(cfg, {"system": "S", "task": "T"}, Path(d))
+            self.assertEqual(argv[argv.index("-t") + 1].split(","), list(A.BUILTIN_TOOLS))
+            with self.assertRaisesRegex(K.KomarError, "setup_komar.sh"):
+                K.installation(cfg)
+
+    def test_inputs_of_the_other_modes_unchanged(self):
+        """Adding task-komar.txt leaves the prompt hash of the other modes as it was without it; the komar
+        cells hash the installed Komar, their prompts (all templates) and the run limit."""
+        with tempfile.TemporaryDirectory() as d:
+            case = load_case("jsoup-element-has-class")
+            three = load_config(write_config(Path(d), paths={"java_home": d, "komar": d + "/k"}))
+            five = load_config(write_config(Path(d), debug_runs=5, paths={"java_home": d, "komar": d + "/k"}))
+            p = ROOT / "prompts"
+            without = I.files_hash([f for f in p.rglob("*") if f.is_file() and f.name != "task-komar.txt"], p)
+            for mode in ("baseline", "dump", "rendered", "autonomous"):
+                self.assertEqual(I.generation_inputs(three, case, mode)["prompts"], without, mode)
+            k = I.generation_inputs(three, case, "komar")
+            self.assertEqual(k["prompts"], I.tree_hash(p))
+            self.assertNotEqual(k["config"], I.generation_inputs(five, case, "komar")["config"])
+            (Path(d) / "k").mkdir()
+            (Path(d) / "k" / "versions.json").write_text('{"commit": "x"}')
+            self.assertNotEqual(I.generation_inputs(three, case, "komar")["mode_input"], k["mode_input"])
+
+    def test_missing_komar_is_an_infrastructure_failure(self):
+        s = {"status": "failed", "phase": "agent", "error": "KomarError: Komar is not installed"}
+        self.assertTrue(G.is_infra_failure(s, Path("/nonexistent")))
+
+
+class EscapeCheckTest(unittest.TestCase):
+    def test_jq_filters_are_plain_commands_in_the_komar_mode(self):
+        calls = [{"name": "bash", "arguments": {"command": "jq -c 'select(.probe==$p) | .what' --arg p x komar/a.jsonl"}}]
+        self.assertEqual(X.check_tool_calls(calls, [], "/w", komar_mode=True), [])
+        self.assertEqual([f["kind"] for f in X.check_tool_calls(calls, [], "/w")], ["shell syntax in a command"])
+        bad = [{"name": "bash", "arguments": {"command": "jq . komar/a.jsonl | sh"}}]
+        self.assertEqual([f["kind"] for f in X.check_tool_calls(bad, [], "/w", komar_mode=True)],
+                         ["shell syntax in a command"])
+
+    def test_test_reading_the_observations_is_an_escape(self):
+        found = X.check_code('String s = Files.readString(Path.of("komar/a.jsonl"));', "T.java")
+        self.assertIn("reads mode input", [f["kind"] for f in found])
+
+
+def komar_installation() -> Path | None:
+    for c in (os.environ.get("TESTGEN_KOMAR"),
+              os.environ.get("TESTGEN_TOOLS") and str(Path(os.environ["TESTGEN_TOOLS"]) / "komar")):
+        if c and (Path(c) / "bin" / "komar").is_file():
+            return Path(c)
+    return None
+
+
+class KomarIntegrationTest(unittest.TestCase):
+    def test_wrapper_runs_komar_on_a_java_program(self):
+        """The installed Komar under the wrapper: a probe of a sample class compiled with -g; the agent jar
+        comes from the installation (KOMAR_AGENT_JAR), the output summary reaches the journal."""
+        inst = komar_installation()
+        java_home = Path(os.environ.get("JAVA_HOME", ""))
+        if inst is None or not (java_home / "bin" / "javac").is_file():
+            self.skipTest("an installed Komar (TESTGEN_KOMAR) and JAVA_HOME with javac are needed")
+        with tempfile.TemporaryDirectory() as d:
+            d = Path(d)
+            ws, agent = d / "ws", d / "agent"
+            (ws / "komar").mkdir(parents=True)
+            agent.mkdir()
+            (ws / "A.java").write_text("public class A {\n  int n = 2;\n  int twice(int x) {\n    int y = x * n;\n"
+                                       "    return y;\n  }\n  public static void main(String[] a) {\n"
+                                       "    System.out.println(new A().twice(21));\n  }\n}\n")
+            subprocess.run([str(java_home / "bin" / "javac"), "-g", "A.java"], cwd=ws, check=True)
+            scenario = [str(java_home / "bin" / "java"), "-cp", ".", "A"]
+            (ws / "komar" / "s.yaml").write_text(
+                "probes:\n  - id: m\n    where: { class: A, method: twice, at: [entry, exit] }\n    what: [this, args, ret]\n"
+                "  - id: l\n    where: { class: A, method: twice, line: [5] }\n    what: [vars.y]\n")
+            cfg_path = agent / "komar.json"
+            cfg_path.write_text(json.dumps({
+                "workspace": str(ws), "binary": str(inst / "bin" / "komar"), "jar": str(inst / "komar-agent.jar"),
+                "scenario": scenario, "runs": 3, "log": str(agent / "log.jsonl"), "state": str(agent / "runs"),
+                "pids": str(agent / "pids.txt")}))
+            code = K.wrapper(str(cfg_path), ["run", "komar/s.yaml", "-o", "komar/s.jsonl", "--", *scenario])
+            self.assertEqual(code, 0)
+            rows = [json.loads(line) for line in (ws / "komar" / "s.jsonl").read_text().splitlines()]
+            hits = [r for r in rows if r["kind"] == "hit"]
+            exit_hit = next(h for h in hits if h.get("point") == "exit")
+            self.assertEqual(exit_hit["what"]["ret"], 42)
+            self.assertEqual(exit_hit["what"]["this"]["n"], 2)
+            self.assertEqual(next(h for h in hits if h["probe"] == "l")["what"]["vars.y"], 42)
+            log = K.read_log(agent / "log.jsonl")
+            self.assertEqual(log[0]["hits"], {"m": 2, "l": 1})
+            self.assertEqual(log[0]["end"]["code"], 0)
+
+
+if __name__ == "__main__":
+    unittest.main()

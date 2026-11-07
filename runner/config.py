@@ -14,7 +14,9 @@ from typing import Any
 import yaml
 
 ROOT = Path(__file__).resolve().parents[1]
-AGENT_MODES = ("baseline", "dump", "rendered", "autonomous")
+AGENT_MODES = ("baseline", "dump", "rendered", "autonomous", "komar")
+# the agent modes of a config without `modes` (the komar mode only when asked for)
+DEFAULT_MODES = ("baseline", "dump", "rendered", "autonomous")
 # external test generators (runner/tools, docs/tools.md): no agent, the tool records the scenario itself
 TOOL_MODES = ("pankti", "rick", "microtestcarver")
 NO_AGENT_MODES = ("rendered-raw",) + TOOL_MODES
@@ -81,8 +83,11 @@ class Config:
     case_list: str = "cases.csv"
     # major version of the JDK at paths.java_home; every project of the case set must use it
     jdk: int = 21
-    # autonomous mode: how many times the agent may start the scenario under the debugger in a cell
+    # autonomous and komar modes: how many times the agent may run the scenario under the debugger or
+    # under Komar in a cell
     debug_runs: int = 3
+    # komar mode: the installed Komar (scripts/setup_komar.sh)
+    komar_dir: Path = Path()
     # tool modes: the installed external tools (scripts/setup_external_tools.sh) and the limit of one tool run
     external_tools_dir: Path = Path()
     tool_timeout: int = 2400
@@ -162,7 +167,7 @@ def load_config(path: str | Path) -> Config:
     if java_home is None:
         raise ConfigError("set paths.java_home in the config or JAVA_HOME in the environment (the JDK of `jdk`, 21 by default)")
     # `modes: []` (a run of tool modes only, in once_modes) means no agent mode; no key means all of them
-    modes = list(AGENT_MODES if raw.get("modes") is None else raw["modes"])
+    modes = list(DEFAULT_MODES if raw.get("modes") is None else raw["modes"])
     once_modes = list(raw.get("once_modes") or [])
     unknown = sorted(set(modes + once_modes) - set(MODES))
     if unknown:
@@ -211,6 +216,7 @@ def load_config(path: str | Path) -> Config:
     )
     cfg.external_tools_dir = _path(paths.get("external_tools")) or cfg.tools_dir / "external"
     cfg.tool_timeout = int(raw.get("tool_timeout", 2400))
+    cfg.komar_dir = _path(paths.get("komar")) or cfg.tools_dir / "komar"
     if cfg.debug_runs < 1:
         raise ConfigError(f"debug_runs must be at least 1, got {cfg.debug_runs}")
     if Path(cfg.case_list).name != cfg.case_list or not cfg.case_list.endswith(".csv"):

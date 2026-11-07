@@ -3,7 +3,8 @@
 Pi starts with nothing but the two prompts and two extensions: pi/provider.ts (the model provider
 from config.yaml) and pi/guard.ts (writes only to the generated test class, reads only inside the
 workspace, bash only for the named case commands). The autonomous mode adds pi/debugger.ts (the five
-debugger tools over the driving scenario). No user settings, skills, prompt templates or context
+debugger tools over the driving scenario); the komar mode adds the Komar commands to the guard and the
+Komar wrapper to the PATH of the commands (runner/komar.py). No user settings, skills, prompt templates or context
 files (AGENTS.md, CLAUDE.md) are loaded: Pi gets a fresh agent directory per cell.
 """
 from __future__ import annotations
@@ -40,6 +41,7 @@ class AgentResult:
     commands: list[dict]
     output_versions: list[str]
     debug_log: list[dict] | None = None
+    komar_log: list[dict] | None = None
 
 
 def pi_binary(cfg: Config) -> Path:
@@ -159,16 +161,19 @@ def tool_calls(events: list[dict]) -> list[dict]:
 
 def run_agent(cfg: Config, workspace: Path, output_test_file: str, commands: dict[str, list[str]],
               prompts: dict[str, str], agent_dir: Path, api_key_env: str,
-              debugger: dict | None = None) -> AgentResult:
+              debugger: dict | None = None, komar: dict | None = None) -> AgentResult:
     """Run Pi with the cell's prompts; agent_dir holds Pi's own state and the guard logs.
-    `debugger` (autonomous mode): {"scenario": argv, "target": case target} for pi/debugger.ts."""
+    `debugger` (autonomous mode): {"scenario": argv, "target": case target} for pi/debugger.ts.
+    `komar` (komar mode): {"scenario": argv}, the command the agent runs under Komar."""
     agent_dir.mkdir(parents=True, exist_ok=True)
     session_dir = agent_dir / "session"
     session_dir.mkdir(exist_ok=True)
     guard_config = agent_dir / "guard.json"
-    guard_config.write_text(json.dumps({"workspace": str(workspace), "output_test_file": output_test_file,
-                                        "commands": commands, "command_env": sorted(cfg.command_env())},
-                                       indent=2))
+    guard = {"workspace": str(workspace), "output_test_file": output_test_file,
+             "commands": commands, "command_env": sorted(cfg.command_env())}
+    if komar is not None:
+        guard["komar"] = {"scenario": komar["scenario"]}
+    guard_config.write_text(json.dumps(guard, indent=2))
     env = agent_env(cfg, api_key_env)
     env.update({
         "PI_CODING_AGENT_DIR": str(agent_dir / "pi-home"),
@@ -177,9 +182,18 @@ def run_agent(cfg: Config, workspace: Path, output_test_file: str, commands: dic
         "GUARD_COMMAND_LOG": str(agent_dir / "commands.jsonl"),
         "GUARD_OUTPUT_VERSION_LOG": str(agent_dir / "output-versions.jsonl"),
     })
-    if debugger is None:
+    debug_log = komar_log = None
+    if komar is not None:
+        from runner import komar as K
+        bin_dir = K.prepare(cfg, workspace, agent_dir, komar["scenario"])
+        env["PATH"] = f"{bin_dir}{os.pathsep}{env['PATH']}"
+        try:
+            result = run(pi_argv(cfg, prompts, session_dir), workspace, env, cfg.timeout, "pi")
+        finally:
+            K.kill_leftovers(agent_dir / "komar-pids.txt")
+        komar_log = K.read_log(agent_dir / "komar-log.jsonl")
+    elif debugger is None:
         result = run(pi_argv(cfg, prompts, session_dir), workspace, env, cfg.timeout, "pi")
-        debug_log = None
     else:
         from runner import debugger as D
         with D.lease_port(cfg) as port:
@@ -197,7 +211,7 @@ def run_agent(cfg: Config, workspace: Path, output_test_file: str, commands: dic
         denied=_jsonl(agent_dir / "denied.jsonl"), commands=_jsonl(agent_dir / "commands.jsonl"),
         output_versions=[r["content"] for r in _jsonl(agent_dir / "output-versions.jsonl")
                          if isinstance(r.get("content"), str)],
-        debug_log=debug_log,
+        debug_log=debug_log, komar_log=komar_log,
     )
 
 

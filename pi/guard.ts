@@ -13,6 +13,10 @@ import { createBashTool } from "@earendil-works/pi-coding-agent";
  * Denied calls return an error to the agent and are logged. Every command run and every version of
  * the generated class are logged for the runner. The debugger tools of the autonomous mode
  * (pi/debugger.ts) are allowed and logged here too; that extension confines them itself.
+ * In the komar mode (config `komar`), bash also runs two more command forms, read word by word
+ * (komarCommandKind; runner/komar.py has the same rules): the scenario under Komar with a spec and an
+ * output in the scratch directory komar/, and jq over outputs there; write/edit may also write the
+ * specs komar/NAME.yaml.
  *
  * Commands run with an environment reduced to GUARD_ENV_ALLOW (the runner's command environment):
  * no API key, no Pi or guard variables, no session metadata reach the project code.
@@ -26,6 +30,8 @@ interface GuardConfig {
 	commands: Record<string, string[]>;
 	/** names of the environment variables that commands may see */
 	command_env: string[];
+	/** komar mode: the scenario command the agent runs under Komar */
+	komar?: { scenario: string[] };
 }
 
 export function commandEnv(env: NodeJS.ProcessEnv, allowed: string[]): NodeJS.ProcessEnv {
@@ -64,6 +70,85 @@ export function allowedCommands(commands: Record<string, string[]>): Map<string,
 export function matchCommand(allowed: Map<string, string>, command: string): string | undefined {
 	const canonical = canonicalCommand(command);
 	return canonical === null ? undefined : allowed.get(canonical);
+}
+
+const KOMAR_NAME = "[A-Za-z0-9_-][A-Za-z0-9._-]*";
+export const KOMAR_SPEC = new RegExp(`^komar/${KOMAR_NAME}\\.yaml$`);
+const KOMAR_OUTPUT = new RegExp(`^komar/${KOMAR_NAME}\\.jsonl$`);
+const JQ_FLAGS = /^-[crsnSej]+$/;
+const JQ_LONG_FLAGS = new Set(["--compact-output", "--raw-output", "--slurp", "--null-input", "--sort-keys", "--tab",
+	"--exit-status", "--join-output"]);
+
+/** The words bash reads from `command` if it reads them literally (plain words of safe characters, '...'
+ * and "..." without $, backquote, backslash or !), or null (operators, expansions, globs, comments). */
+export function shellWords(command: string): string[] | null {
+	if (/[\r\n\u2028\u2029]/.test(command)) {
+		return null;
+	}
+	const s = command.trim();
+	const words: string[] = [];
+	let cur: string | null = null;
+	let i = 0;
+	while (i < s.length) {
+		const c = s[i];
+		if (c === " " || c === "\t") {
+			if (cur !== null) {
+				words.push(cur);
+				cur = null;
+			}
+			i++;
+		} else if (c === "'") {
+			const j = s.indexOf("'", i + 1);
+			if (j < 0) return null;
+			cur = (cur ?? "") + s.slice(i + 1, j);
+			i = j + 1;
+		} else if (c === '"') {
+			const j = s.indexOf('"', i + 1);
+			if (j < 0 || /[$`\\!]/.test(s.slice(i + 1, j))) return null;
+			cur = (cur ?? "") + s.slice(i + 1, j);
+			i = j + 1;
+		} else if (/[A-Za-z0-9_@%+=:,./#-]/.test(c) && !(c === "#" && cur === null)) {
+			cur = (cur ?? "") + c;
+			i++;
+		} else {
+			return null;
+		}
+	}
+	if (cur !== null) words.push(cur);
+	return words;
+}
+
+/** "komar" or "jq" for a command of the two forms of the komar mode, undefined otherwise. */
+export function komarCommandKind(command: string, scenario: string[]): "komar" | "jq" | undefined {
+	const words = shellWords(command);
+	if (!words || words.length === 0) return undefined;
+	if (words[0] === "komar") {
+		const ok = words.length > 6 && words[1] === "run" && KOMAR_SPEC.test(words[2]) && words[3] === "-o"
+			&& KOMAR_OUTPUT.test(words[4]) && words[5] === "--" && words.length - 6 === scenario.length
+			&& scenario.every((a, k) => words[6 + k] === a);
+		return ok ? "komar" : undefined;
+	}
+	if (words[0] === "jq") {
+		let i = 1;
+		let nullInput = false;
+		while (i < words.length && words[i].startsWith("-")) {
+			const w = words[i];
+			if (w === "--arg" || w === "--argjson") {
+				if (i + 2 >= words.length || !/^[A-Za-z_][A-Za-z0-9_]*$/.test(words[i + 1])) return undefined;
+				i += 3;
+				continue;
+			}
+			if (!(JQ_FLAGS.test(w) || JQ_LONG_FLAGS.has(w))) return undefined;
+			nullInput = nullInput || w === "--null-input" || (!w.startsWith("--") && w.includes("n"));
+			i++;
+		}
+		const rest = words.slice(i);
+		if (rest.length === 0 || /\b(?:import|include)\b/.test(rest[0])) return undefined;
+		const files = rest.slice(1);
+		if (files.length === 0 && !nullInput) return undefined;
+		return files.every((f) => KOMAR_OUTPUT.test(f)) ? "jq" : undefined;
+	}
+	return undefined;
 }
 
 /** Tools of pi/debugger.ts (autonomous mode); Pi offers them only when that extension is loaded. */
@@ -183,19 +268,23 @@ export default function (pi: ExtensionAPI) {
 			if (!inside) {
 				return deny(event.toolName, raw, "writes outside the workspace are not allowed");
 			}
-			if (target !== outputPath) {
+			const spec = config.komar !== undefined && KOMAR_SPEC.test(relative(workspace, target));
+			if (target !== outputPath && !spec) {
 				return deny(event.toolName, raw, `writes are restricted to ${config.output_test_file}`);
 			}
 			return undefined;
 		}
 		if (event.toolName === "bash") {
 			const raw = String(event.input.command ?? "");
-			const name = matchCommand(allowed, raw);
+			const name =
+				matchCommand(allowed, raw) ??
+				(config.komar !== undefined ? komarCommandKind(raw, config.komar.scenario) : undefined);
 			if (name === undefined) {
+				const komar = config.komar !== undefined ? ", and the komar run and jq commands of the task" : "";
 				return deny(
 					"bash",
 					raw.slice(0, 2000),
-					`only the named case commands are allowed, exactly as written: ${Object.keys(config.commands ?? {}).join(", ")}`,
+					`only the named case commands are allowed, exactly as written: ${Object.keys(config.commands ?? {}).join(", ")}${komar}`,
 				);
 			}
 			pending.set(event.toolCallId, { name, command: raw, started: Date.now() });

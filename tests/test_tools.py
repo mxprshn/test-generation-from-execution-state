@@ -10,7 +10,7 @@ from evaluation import inputs as I
 from evaluation import quality as Q
 from runner import cell as G
 from runner.cases import load_case
-from runner.config import AGENT_MODES, NO_AGENT_MODES, TOOL_MODES, load_config
+from runner.config import AGENT_MODES, DEFAULT_MODES, NO_AGENT_MODES, TOOL_MODES, load_config
 from runner.tools import common as C
 from runner.tools import mtc as MTC
 from runner.tools import pankti as P
@@ -52,7 +52,7 @@ class ModesTest(unittest.TestCase):
     def test_empty_modes_means_no_agent_mode(self):
         with tempfile.TemporaryDirectory() as d:
             self.assertEqual(load_config(write_config(Path(d), modes=[], once_modes=["pankti"])).modes, [])
-            self.assertEqual(load_config(write_config(Path(d))).modes, list(AGENT_MODES))
+            self.assertEqual(load_config(write_config(Path(d))).modes, list(DEFAULT_MODES))
 
     def test_config_defaults_and_external_dir(self):
         with tempfile.TemporaryDirectory() as d:

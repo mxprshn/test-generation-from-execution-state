@@ -3,10 +3,11 @@ from __future__ import annotations
 
 import json
 import re
+import shlex
 from pathlib import Path
 from typing import Any
 
-from runner.cases import Case, load_projects
+from runner.cases import Case, eval_command, load_projects
 
 PLACEHOLDER = re.compile(r"\{\{\s*([a-zA-Z_][a-zA-Z0-9_]*)\s*\}\}")
 # Where the execution input of the dump/rendered modes is placed in the agent workspace.
@@ -56,6 +57,8 @@ def context(case: Case, commands: dict[str, list[str]], mode: str, debug_runs: i
         "command_names": ", ".join(sorted(commands)),
         "execution_input": EXECUTION_INPUT.get(mode, ""),
         "debug_runs": debug_runs,
+        # komar mode: the scenario command as the harness checks it (runner/cell.py, komar_input)
+        "komar_scenario": " ".join(shlex.quote(a) for a in eval_command(case, "scenario")),
     }
 
 
