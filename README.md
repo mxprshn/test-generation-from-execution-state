@@ -138,6 +138,8 @@ Redactions (every file): the root directory of the machine → `/<root>`, the ho
 
 **Tools run.** The external generators Pankti, RICK and MicroTestCarver (`docs/tools.md`, modes `pankti`, `rick`, `microtestcarver`, no agent) were run on the 70 and the 31 cases, one round (2026-10-22, tags `tools-run-1` and `tools-run-1b`; RQ2 not yet computed). Archives `tools-v2.tar.gz` and `tools-tools-projects.tar.gz`; `runs/tools-run-1/MANIFEST.md` lists their sha256, the configs, the counts and the reasons per tool, and how to combine them with the other runs. MicroTestCarver was rerun with the full classpath of the target module for its generator (tag `tools-run-1c`, archives `tools-mtc-1c-v2.tar.gz` and `tools-mtc-1c-tools-projects.tar.gz`); its cells supersede the `microtestcarver` cells of `tools-run-1`/`1b`, see `runs/tools-run-1c/MANIFEST.md`.
 
+**Komar run.** The mode `komar` (`docs/komar-mode.md`, branch `komar-mode`): the autonomous mode with the debugger replaced by Komar. Run on the 101 cases x 2 rounds (2026-11-07/08, tag `komar-run-1b`; RQ2 not yet computed). Archives `komar-v2.tar.gz` and `komar-tools-projects.tar.gz`; `runs/komar-run-1/MANIFEST.md` lists their sha256, the results and why no cell of tag `komar-run-1` is a result.
+
 The generated tests, the traces, the sessions and the PIT reports contain code and data of the subject projects; they are distributed under the licenses of the respective projects (see Licenses). The archive is produced by `scripts/export_results.py`.
 
 ## Known limitations
