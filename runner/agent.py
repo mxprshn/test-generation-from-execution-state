@@ -3,7 +3,7 @@
 Pi starts with nothing but the two prompts and two extensions: pi/provider.ts (the model provider
 from config.yaml) and pi/guard.ts (writes only to the generated test class, reads only inside the
 workspace, bash only for the named case commands). The autonomous mode adds pi/debugger.ts (the five
-debugger tools over the driving scenario); the komar mode adds the Komar commands to the guard and the
+debugger tools over the driving scenario); the komar modes add the Komar commands to the guard and the
 Komar wrapper to the PATH of the commands (runner/komar.py). No user settings, skills, prompt templates or context
 files (AGENTS.md, CLAUDE.md) are loaded: Pi gets a fresh agent directory per cell.
 """
@@ -164,7 +164,8 @@ def run_agent(cfg: Config, workspace: Path, output_test_file: str, commands: dic
               debugger: dict | None = None, komar: dict | None = None) -> AgentResult:
     """Run Pi with the cell's prompts; agent_dir holds Pi's own state and the guard logs.
     `debugger` (autonomous mode): {"scenario": argv, "target": case target} for pi/debugger.ts.
-    `komar` (komar mode): {"scenario": argv}, the command the agent runs under Komar."""
+    `komar` (komar modes): {"scenario": argv, "compact": bool}, the command the agent runs under Komar and
+    whether it reads only the compact view (komar-compact)."""
     agent_dir.mkdir(parents=True, exist_ok=True)
     session_dir = agent_dir / "session"
     session_dir.mkdir(exist_ok=True)
@@ -172,7 +173,7 @@ def run_agent(cfg: Config, workspace: Path, output_test_file: str, commands: dic
     guard = {"workspace": str(workspace), "output_test_file": output_test_file,
              "commands": commands, "command_env": sorted(cfg.command_env())}
     if komar is not None:
-        guard["komar"] = {"scenario": komar["scenario"]}
+        guard["komar"] = {"scenario": komar["scenario"], "compact": bool(komar.get("compact"))}
     guard_config.write_text(json.dumps(guard, indent=2))
     env = agent_env(cfg, api_key_env)
     env.update({
@@ -185,7 +186,7 @@ def run_agent(cfg: Config, workspace: Path, output_test_file: str, commands: dic
     debug_log = komar_log = None
     if komar is not None:
         from runner import komar as K
-        bin_dir = K.prepare(cfg, workspace, agent_dir, komar["scenario"])
+        bin_dir = K.prepare(cfg, workspace, agent_dir, komar["scenario"], bool(komar.get("compact")))
         env["PATH"] = f"{bin_dir}{os.pathsep}{env['PATH']}"
         try:
             result = run(pi_argv(cfg, prompts, session_dir), workspace, env, cfg.timeout, "pi")

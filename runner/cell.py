@@ -7,7 +7,8 @@
                 if it runs only without workspace-files/, the input is a method failure)
     generation  Pi with the rendered prompts (baseline, dump, rendered, autonomous: with the debugger
                 tools of pi/debugger.ts over the driving scenario, komar: with the scenario under
-                Komar and jq over its output, runner/komar.py), or the preliminary test
+                Komar and jq over its output, komar-compact: the same with the compact view of the
+                output instead of jq, runner/komar.py), or the preliminary test
                 installed as the output class (rendered-raw, no agent), or the test class of an
                 external tool that records the scenario itself (pankti, rick, microtestcarver;
                 runner/tools, no agent)
@@ -34,7 +35,7 @@ from typing import Any
 from runner import agent as A
 from runner import workspace as W
 from runner.cases import Case, eval_command, load_case, load_projects, project_checkout
-from runner.config import AGENT_COMMANDS, AGENT_MODES, TOOL_MODES, Config, neutral_name
+from runner.config import AGENT_COMMANDS, AGENT_MODES, KOMAR_MODES, TOOL_MODES, Config, neutral_name
 from runner.process import resolve_argv, run
 from runner.prompts import EXECUTION_INPUT, render
 
@@ -49,9 +50,10 @@ def debugger_input(case: Case) -> dict:
     return {"scenario": eval_command(case, "scenario"), "target": case.target}
 
 
-def komar_input(case: Case) -> dict:
-    """The command the agent runs under Komar: the scenario check, as for the debugger (debugger_input)."""
-    return {"scenario": eval_command(case, "scenario")}
+def komar_input(case: Case, compact: bool = False) -> dict:
+    """The command the agent runs under Komar: the scenario check, as for the debugger (debugger_input);
+    `compact` (komar-compact mode): the agent reads the compact view only, not the dump."""
+    return {"scenario": eval_command(case, "scenario"), "compact": compact}
 
 
 # komar mode: the outputs of Komar kept as artifacts are cut at this size
@@ -178,7 +180,7 @@ def check_case_scenario(cfg: Config, case_id: str, logs: Path) -> dict[str, Any]
 def _generate(cfg: Config, case: Case, mode: str, checkout: Path, commit: str, cell: Path, tmp: Path,
               summary: dict[str, Any], api_key_env: str) -> dict[str, Any]:
     source = method_input(case, mode)
-    if mode not in ("baseline", "autonomous", "komar", *TOOL_MODES) and source is None:
+    if mode not in ("baseline", "autonomous", *KOMAR_MODES, *TOOL_MODES) and source is None:
         summary["status"] = "method_failed"
         summary["error"] = f"no {'call dump' if mode == 'dump' else 'preliminary test'} for this case"
         return summary
@@ -187,7 +189,7 @@ def _generate(cfg: Config, case: Case, mode: str, checkout: Path, commit: str, c
     summary["workspace"] = str(ws)  # for the escape check: absolute paths inside it are fine
     summary["hidden_paths_removed"] = W.hide_paths(ws, case.hidden_paths)
     support = (W.install_tree(case.workspace_files, ws)
-               if mode not in ("baseline", "autonomous", "komar", *TOOL_MODES) else [])
+               if mode not in ("baseline", "autonomous", *KOMAR_MODES, *TOOL_MODES) else [])
     summary["support_files"] = support
     execution_input = EXECUTION_INPUT.get(mode)
     if execution_input and mode == "dump":
@@ -229,7 +231,7 @@ def _generate(cfg: Config, case: Case, mode: str, checkout: Path, commit: str, c
             "task": hashlib.sha256(prompts["task"].encode()).hexdigest(),
         }
         debugger = debugger_input(case) if mode == "autonomous" else None
-        komar = komar_input(case) if mode == "komar" else None
+        komar = komar_input(case, compact=mode == "komar-compact") if mode in KOMAR_MODES else None
         res = A.run_agent(cfg, ws, case.output_test_file, commands, prompts, tmp / "agent", api_key_env, debugger,
                           komar)
         _jsonl(cell / "artifacts" / "session.jsonl", res.events)
@@ -306,7 +308,7 @@ def _generate(cfg: Config, case: Case, mode: str, checkout: Path, commit: str, c
     summary["output_exists"] = output.is_file()
     allowed = {case.output_test_file, *support, *([execution_input] if execution_input else [])}
     changes = W.unexpected_changes(before, W.snapshot(ws), allowed)
-    if mode == "komar":  # the scratch directory of the Komar specs and outputs (runner/komar.py)
+    if mode in KOMAR_MODES:  # the scratch directory of the Komar specs and outputs (runner/komar.py)
         changes = [p for p in changes if not p.startswith("komar/")]
     summary["unexpected_changes"] = changes
     if output.is_file():

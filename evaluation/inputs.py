@@ -129,16 +129,16 @@ def tool_input_hash(cfg: Config) -> str:
     return _sha(json.dumps([tree_hash(ROOT / "external"), tree_hash(versions)]).encode())
 
 
-KOMAR_PROMPT = "task-komar.txt"
+KOMAR_PROMPTS = {"komar": "task-komar.txt", "komar-compact": "task-komar-compact.txt"}
 
 
 def prompts_hash(cfg: Config, mode: str) -> str | None:
-    """The prompt templates; for the modes other than komar without its template, so that adding it kept
-    the hashes of the cells generated before."""
+    """The prompt templates without the templates of the Komar modes other than `mode`, so that adding a
+    Komar template kept the hashes of the cells generated before (the komar mode hashes every template but
+    task-komar-compact.txt)."""
     d = cfg.prompts_dir
-    if mode == "komar" or not (d / KOMAR_PROMPT).is_file():
-        return tree_hash(d)
-    return files_hash([p for p in d.rglob("*") if p.is_file() and p.name != KOMAR_PROMPT], d)
+    other = {name for m, name in KOMAR_PROMPTS.items() if m != mode}
+    return files_hash([p for p in d.rglob("*") if p.is_file() and p.name not in other], d)
 
 
 def komar_input_hash(cfg: Config) -> str:
@@ -148,7 +148,7 @@ def komar_input_hash(cfg: Config) -> str:
 
 def generation_inputs(cfg: Config, case, mode: str) -> dict[str, Any]:
     from runner.config import TOOL_MODES
-    if mode == "komar":
+    if mode in KOMAR_PROMPTS:
         return {
             "code": generation_code_hash(),
             "case": tree_hash(case.dir / "case.yaml"),

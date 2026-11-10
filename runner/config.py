@@ -14,8 +14,11 @@ from typing import Any
 import yaml
 
 ROOT = Path(__file__).resolve().parents[1]
-AGENT_MODES = ("baseline", "dump", "rendered", "autonomous", "komar")
-# the agent modes of a config without `modes` (the komar mode only when asked for)
+AGENT_MODES = ("baseline", "dump", "rendered", "autonomous", "komar", "komar-compact")
+# the modes with Komar (runner/komar.py): komar reads the JSONL dump with jq, komar-compact reads only the
+# compact view NAME.komar that Komar writes next to the dump (docs/komar-mode.md)
+KOMAR_MODES = ("komar", "komar-compact")
+# the agent modes of a config without `modes` (the Komar modes only when asked for)
 DEFAULT_MODES = ("baseline", "dump", "rendered", "autonomous")
 # external test generators (runner/tools, docs/tools.md): no agent, the tool records the scenario itself
 TOOL_MODES = ("pankti", "rick", "microtestcarver")

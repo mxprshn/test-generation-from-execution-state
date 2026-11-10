@@ -16,7 +16,8 @@ import { createBashTool } from "@earendil-works/pi-coding-agent";
  * In the komar mode (config `komar`), bash also runs two more command forms, read word by word
  * (komarCommandKind; runner/komar.py has the same rules): the scenario under Komar with a spec and an
  * output in the scratch directory komar/, and jq over outputs there; write/edit may also write the
- * specs komar/NAME.yaml.
+ * specs komar/NAME.yaml. In the komar-compact mode (`komar.compact`) there is no jq: the agent reads the
+ * compact view komar/NAME.komar, and no tool reads the dumps komar/*.jsonl (compactReadDenied).
  *
  * Commands run with an environment reduced to GUARD_ENV_ALLOW (the runner's command environment):
  * no API key, no Pi or guard variables, no session metadata reach the project code.
@@ -30,8 +31,8 @@ interface GuardConfig {
 	commands: Record<string, string[]>;
 	/** names of the environment variables that commands may see */
 	command_env: string[];
-	/** komar mode: the scenario command the agent runs under Komar */
-	komar?: { scenario: string[] };
+	/** komar modes: the scenario command the agent runs under Komar; compact: no jq, no reading the dumps */
+	komar?: { scenario: string[]; compact?: boolean };
 }
 
 export function commandEnv(env: NodeJS.ProcessEnv, allowed: string[]): NodeJS.ProcessEnv {
@@ -118,8 +119,9 @@ export function shellWords(command: string): string[] | null {
 	return words;
 }
 
-/** "komar" or "jq" for a command of the two forms of the komar mode, undefined otherwise. */
-export function komarCommandKind(command: string, scenario: string[]): "komar" | "jq" | undefined {
+/** "komar" or "jq" for a command of the two forms of the komar mode, undefined otherwise; with `compact`
+ * (komar-compact mode) only the komar form. */
+export function komarCommandKind(command: string, scenario: string[], compact = false): "komar" | "jq" | undefined {
 	const words = shellWords(command);
 	if (!words || words.length === 0) return undefined;
 	if (words[0] === "komar") {
@@ -128,7 +130,7 @@ export function komarCommandKind(command: string, scenario: string[]): "komar" |
 			&& scenario.every((a, k) => words[6 + k] === a);
 		return ok ? "komar" : undefined;
 	}
-	if (words[0] === "jq") {
+	if (words[0] === "jq" && !compact) {
 		let i = 1;
 		let nullInput = false;
 		while (i < words.length && words[i].startsWith("-")) {
@@ -147,6 +149,25 @@ export function komarCommandKind(command: string, scenario: string[]): "komar" |
 		const files = rest.slice(1);
 		if (files.length === 0 && !nullInput) return undefined;
 		return files.every((f) => KOMAR_OUTPUT.test(f)) ? "jq" : undefined;
+	}
+	return undefined;
+}
+
+const KOMAR_DUMP = /^komar\/.*\.jsonl$/i;
+// a grep glob ending in a plain extension other than jsonl, or a negated glob: either keeps the ignore
+// rules, so the dumps (excluded in .git/info/exclude by runner/komar.py) stay out of the search
+const GREP_SAFE_GLOB = /^(?:!.*|[^{}[\]]*\.(?!jsonl$)[A-Za-z0-9_-]+)$/i;
+
+/** komar-compact mode: why a read/grep/find/ls call would show a Komar dump, or undefined. `rel` is the
+ * workspace-relative path of the call (symlinks resolved), `glob` the glob of a grep call. */
+export function compactReadDenied(tool: string, rel: string, glob?: string): string | undefined {
+	const path = rel === "" ? "." : rel;
+	if ((tool === "read" || tool === "grep") && (KOMAR_DUMP.test(path) || /^komar\/.*\.jsonl\//i.test(path))) {
+		return "the raw Komar dumps komar/*.jsonl are not available; read the compact view komar/NAME.komar";
+	}
+	const scopeHasKomar = path === "." || path === "komar" || path.startsWith("komar/");
+	if (tool === "grep" && glob !== undefined && glob !== "" && scopeHasKomar && !GREP_SAFE_GLOB.test(glob)) {
+		return "this glob would search the raw Komar dumps komar/*.jsonl; use a glob with a file extension, e.g. '*.java'";
 	}
 	return undefined;
 }
@@ -240,11 +261,14 @@ export default function (pi: ExtensionAPI) {
 		}
 	}
 
-	function readable(raw: string | undefined): boolean {
-		const target = canonical(
+	function readTarget(raw: string | undefined): string {
+		return canonical(
 			raw === undefined || raw === "" ? workspace : isAbsolute(raw) ? resolve(raw) : resolve(workspace, raw),
 		);
-		const rel = relative(readRoot, target);
+	}
+
+	function readable(raw: string | undefined): boolean {
+		const rel = relative(readRoot, readTarget(raw));
 		return rel === "" || (rel !== ".." && !rel.startsWith("../") && !isAbsolute(rel));
 	}
 
@@ -258,6 +282,13 @@ export default function (pi: ExtensionAPI) {
 			const raw = (event.input as { path?: string }).path;
 			if (!readable(raw)) {
 				return deny(event.toolName, String(raw), "reads are restricted to the workspace");
+			}
+			if (config.komar?.compact) {
+				const glob = (event.input as { glob?: string }).glob;
+				const reason = compactReadDenied(event.toolName, relative(readRoot, readTarget(raw)), glob);
+				if (reason !== undefined) {
+					return deny(event.toolName, String(raw), reason);
+				}
 			}
 			return undefined;
 		}
@@ -278,9 +309,10 @@ export default function (pi: ExtensionAPI) {
 			const raw = String(event.input.command ?? "");
 			const name =
 				matchCommand(allowed, raw) ??
-				(config.komar !== undefined ? komarCommandKind(raw, config.komar.scenario) : undefined);
+				(config.komar !== undefined ? komarCommandKind(raw, config.komar.scenario, config.komar.compact) : undefined);
 			if (name === undefined) {
-				const komar = config.komar !== undefined ? ", and the komar run and jq commands of the task" : "";
+				const komar = config.komar === undefined ? ""
+					: config.komar.compact ? ", and the komar run command of the task" : ", and the komar run and jq commands of the task";
 				return deny(
 					"bash",
 					raw.slice(0, 2000),

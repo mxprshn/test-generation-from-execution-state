@@ -102,3 +102,33 @@ Adding the mode changes no input of the cells of the other modes:
 
 The komar cells hash all prompt templates, the installed Komar and `debug_runs`, as in the
 autonomous config hash.
+
+## The komar-compact mode
+
+The `komar` mode with another Komar and another way of reading its output. Komar is built from the
+branch `compact-view`, commit `03f4534a0fecd75a1e7c097c88fb01922200a92f`
+(`KOMAR_COMMIT=03f4534a0fecd75a1e7c097c88fb01922200a92f scripts/setup_komar.sh <config> <dir>`, into a
+directory of its own). `komar run` then also writes `NAME.komar` next to the dump `NAME.jsonl`: a
+compact view of the run with the hits per probe, warnings, the end record and each distinct execution
+of a probed method once, as a tree with its collaborator calls and its outcome. At this commit
+call-site hits also record the called method (`callee`), so the dump differs from that of the
+komar mode as well.
+
+The agent reads only the view:
+
+- `prompts/task-komar-compact.txt` is `task-komar.txt` with the jq command replaced by reading
+  `komar/NAME.komar` with the read tool, the JSONL description and the jq examples replaced by a
+  description of the view (checked against `internal/compact` at the commit) and its example from
+  `e2e/testdata/compact-view.txtar`, and the marker names of the dump replaced by a pointer to the
+  view. The first paragraph says the agent reads a compact view instead of querying with jq. The
+  spec documentation is unchanged;
+- the guard refuses jq, `read` and `grep` of `komar/*.jsonl`, and a `grep` glob that could match the
+  dumps (anything but a negated glob or a glob ending in another extension) over the workspace or
+  `komar/`. `runner/komar.py` adds `/komar/*.jsonl` to `.git/info/exclude`, so a plain `grep` of the
+  workspace, which keeps the ignore rules, skips the dumps. `find` and `ls` list file names only;
+- the wrapper and the run limit are those of the komar mode; the journal also records the size of the
+  view (`view_bytes`).
+
+The komar cells keep their prompt hash: it leaves out `task-komar-compact.txt`, and the komar-compact
+cells leave out `task-komar.txt`.
+

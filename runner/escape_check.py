@@ -61,6 +61,8 @@ import re
 from pathlib import Path
 from typing import Any
 
+from runner.config import KOMAR_MODES
+
 INPUT_MARKERS = re.compile(r"carving/|call-dumps\.json|PreliminaryTest\.java\.txt|\bkomar/")
 ABS_LITERAL = re.compile(r'"(?:/(?:home|Users|tmp|private|var|root|etc|opt|mnt|srv|usr|proc)\b[^"]*|~/[^"]*|[A-Za-z]:\\\\[^"]*)"')
 UP_LITERAL = re.compile(r'"(?:\.\./)+[^"]*"|"\.\."')
@@ -313,7 +315,7 @@ def check_cell(cell: Path, harness_roots: list[str], workspace: str | None = Non
         t = denied_type(row)
         denied_types[t] = denied_types.get(t, 0) + 1
     findings += check_tool_calls(tool_calls(_jsonl(cell / "artifacts" / "session.jsonl")), harness_roots, workspace,
-                                 komar_mode=summary.get("mode") == "komar")
+                                 komar_mode=summary.get("mode") in KOMAR_MODES)
     findings += check_debugger(_jsonl(cell / "artifacts" / "debug-log.jsonl"))
     diff = cell / "result.diff"
     if diff.is_file():

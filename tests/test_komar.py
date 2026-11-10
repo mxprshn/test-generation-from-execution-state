@@ -63,21 +63,50 @@ COMMANDS = [
 ]
 
 
+# komar-compact mode: (tool, workspace-relative path, grep glob, refused): no tool shows a dump komar/*.jsonl
+COMPACT_READS = [
+    ("read", "komar/a.jsonl", None, True),
+    ("read", "komar/a.JSONL", None, True),
+    ("grep", "komar/a.jsonl", None, True),
+    ("read", "komar/a.komar", None, False),
+    ("read", "komar/a.yaml", None, False),
+    ("grep", "komar", None, False),
+    ("grep", "", None, False),
+    ("grep", "", "*.java", False),
+    ("grep", "komar", "*.komar", False),
+    ("grep", "", "!*.xml", False),
+    ("grep", "", "*.jsonl", True),
+    ("grep", "", "*", True),
+    ("grep", "", "**", True),
+    ("grep", "komar", "*.json?", True),
+    ("grep", "", "komar/**", True),
+    ("grep", "", "*.{jsonl,java}", True),
+    ("grep", "src", "*", False),
+    ("find", "komar", None, False),
+    ("ls", "komar", None, False),
+    ("read", "src/A.jsonl", None, False),
+]
+
+
 class CommandFormsTest(unittest.TestCase):
     def test_python_forms(self):
         for command, kind in COMMANDS:
             self.assertEqual(K.command_kind(command, SCENARIO), kind, command)
+            self.assertEqual(K.command_kind(command, SCENARIO, compact=True), None if kind == "jq" else kind, command)
 
     def test_guard_agrees(self):
         pi = PiExtensionsTest.pi_package()
         if pi is None or shutil.which("node") is None:
             self.skipTest("node and an installed Pi package are needed")
         r = subprocess.run(["node", str(ROOT / "tests" / "node" / "komar.mjs"), str(pi), str(ROOT)],
-                           input=json.dumps({"scenario": SCENARIO, "commands": [c for c, _ in COMMANDS]}),
+                           input=json.dumps({"scenario": SCENARIO, "commands": [c for c, _ in COMMANDS],
+                                             "reads": [[t, p, g] for t, p, g, _ in COMPACT_READS]}),
                            capture_output=True, text=True, timeout=120)
         self.assertEqual(r.returncode, 0, r.stderr[-2000:])
         out = json.loads(r.stdout)
         self.assertEqual(out["kinds"], [k for _, k in COMMANDS])
+        self.assertEqual(out["compactKinds"], [None if k == "jq" else k for _, k in COMMANDS])
+        self.assertEqual(out["compactReads"], [refused for *_, refused in COMPACT_READS])
         self.assertEqual(out["spec"], [True, True, False, False, False])
         self.assertEqual(out["timeouts"], [None, 120])
 
@@ -228,6 +257,39 @@ class ModeWiringTest(unittest.TestCase):
         self.assertIn(f"komar run komar/NAME.yaml -o komar/NAME.jsonl -- {scenario}\n", komar["task"])
         self.assertTrue(common)
 
+    def test_compact_prompt(self):
+        """task-komar-compact.txt is task-komar.txt with the jq command and the JSONL description replaced by
+        the compact view; the rest of the task is the same."""
+        case = load_case("mybatis-caching-executor-query")
+        commands = {n: case.commands[n] for n in ("build", "scenario", "generated_test")}
+        komar = render(ROOT / "prompts", case, "komar", commands)
+        compact = render(ROOT / "prompts", case, "komar-compact", commands)
+        self.assertEqual(compact["system"], komar["system"])
+        head = komar["task"][:komar["task"].index("Condition:")]
+        self.assertTrue(compact["task"].startswith(head + "Condition: Komar.\n"))
+        self.assertNotIn("jq", compact["task"])
+        self.assertIn("read tool from komar/NAME.komar", compact["task"])
+        scenario = K.scenario_text(eval_command(case, "scenario"))
+        self.assertIn(f"komar run komar/NAME.yaml -o komar/NAME.jsonl -- {scenario}\n", compact["task"])
+        spec_doc = komar["task"][komar["task"].index("Komar documentation"):komar["task"].index("- Values are read")]
+        self.assertIn(spec_doc, compact["task"])
+
+    def test_compact_prepare_excludes_the_dumps(self):
+        with tempfile.TemporaryDirectory() as d:
+            d = Path(d)
+            inst = d / "k"
+            (inst / "bin").mkdir(parents=True)
+            for f in (inst / "bin" / "komar", inst / "komar-agent.jar", inst / "versions.json"):
+                f.write_text("{}")
+            ws, agent = d / "ws", d / "agent"
+            (ws / ".git" / "info").mkdir(parents=True)
+            agent.mkdir()
+            cfg = load_config(write_config(d, paths={"java_home": str(d), "komar": str(inst)}))
+            K.prepare(cfg, ws, agent, SCENARIO)
+            self.assertFalse((ws / ".git" / "info" / "exclude").exists())
+            K.prepare(cfg, ws, agent, SCENARIO, compact=True)
+            self.assertIn("/komar/*.jsonl", (ws / ".git" / "info" / "exclude").read_text())
+
     def test_scenario_of_the_prompt_is_accepted(self):
         for case_id in ("mybatis-caching-executor-query", "klaw-envs-clusters-tenants-controller-service-add-new-env",
                         "petclinic-owner-get-pet"):
@@ -237,8 +299,10 @@ class ModeWiringTest(unittest.TestCase):
             self.assertEqual(K.command_kind(f"komar run komar/a.yaml -o komar/a.jsonl -- {text}", scenario), "komar")
 
     def test_mode_and_defaults(self):
-        self.assertIn("komar", AGENT_MODES)
-        self.assertNotIn("komar", DEFAULT_MODES)
+        for mode in ("komar", "komar-compact"):
+            self.assertIn(mode, AGENT_MODES)
+            self.assertNotIn(mode, DEFAULT_MODES)
+        self.assertEqual(G.komar_input(load_case("mybatis-caching-executor-query"), compact=True)["compact"], True)
         with tempfile.TemporaryDirectory() as d:
             cfg = load_config(write_config(Path(d), paths={"java_home": d, "pi": "/bin/echo", "results": d + "/r"}))
             self.assertEqual(cfg.komar_dir, cfg.tools_dir / "komar")
@@ -255,11 +319,19 @@ class ModeWiringTest(unittest.TestCase):
             three = load_config(write_config(Path(d), paths={"java_home": d, "komar": d + "/k"}))
             five = load_config(write_config(Path(d), debug_runs=5, paths={"java_home": d, "komar": d + "/k"}))
             p = ROOT / "prompts"
-            without = I.files_hash([f for f in p.rglob("*") if f.is_file() and f.name != "task-komar.txt"], p)
+            komar_files = ("task-komar.txt", "task-komar-compact.txt")
+            without = I.files_hash([f for f in p.rglob("*") if f.is_file() and f.name not in komar_files], p)
             for mode in ("baseline", "dump", "rendered", "autonomous"):
                 self.assertEqual(I.generation_inputs(three, case, mode)["prompts"], without, mode)
             k = I.generation_inputs(three, case, "komar")
-            self.assertEqual(k["prompts"], I.tree_hash(p))
+            # the komar cells keep the hash of the prompts without the compact template
+            self.assertEqual(k["prompts"], I.files_hash([f for f in p.rglob("*") if f.is_file()
+                                                         and f.name != "task-komar-compact.txt"], p))
+            c = I.generation_inputs(three, case, "komar-compact")
+            self.assertEqual(c["prompts"], I.files_hash([f for f in p.rglob("*") if f.is_file()
+                                                         and f.name != "task-komar.txt"], p))
+            self.assertEqual({k2: v for k2, v in c.items() if k2 != "prompts"},
+                             {k2: v for k2, v in k.items() if k2 != "prompts"})
             self.assertNotEqual(k["config"], I.generation_inputs(five, case, "komar")["config"])
             (Path(d) / "k").mkdir()
             (Path(d) / "k" / "versions.json").write_text('{"commit": "x"}')

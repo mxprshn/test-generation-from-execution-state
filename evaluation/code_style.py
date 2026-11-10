@@ -301,7 +301,7 @@ def analyse_case(job: dict[str, Any]) -> list[dict[str, Any]]:
 
 
 # --- tables ---------------------------------------------------------------------------------------
-MODE_ORDER = ["developers", "baseline", "dump", "rendered", "rendered-raw", "autonomous", "komar", "pankti", "rick",
+MODE_ORDER = ["developers", "baseline", "dump", "rendered", "rendered-raw", "autonomous", "komar", "komar-compact", "pankti", "rick",
               "microtestcarver"]
 
 

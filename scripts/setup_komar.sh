@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
-# Install Komar (github.com/mxprshn/komar), the observation tool of the komar mode (docs/komar-mode.md),
-# into <dir>: the pinned commit, built from source with a pinned Go and Gradle and the config's JDK 21+.
+# Install Komar (github.com/mxprshn/komar), the observation tool of the komar and komar-compact modes
+# (docs/komar-mode.md), into <dir>: the pinned commit, built from source with a pinned Go and Gradle and the
+# config's JDK 21+.
 #
 #   scripts/setup_komar.sh <config.yaml> [<dir>]     (<dir>: default paths.komar, else <paths.tools>/komar)
+#   KOMAR_COMMIT=<hash> scripts/setup_komar.sh ...  (another commit; the komar-compact mode: see below)
 #
 # Result: <dir>/bin/komar, <dir>/komar-agent.jar (the agent jar the binary embeds, extracted; the mode
 # passes it with KOMAR_AGENT_JAR so that nothing is written to the user cache), <dir>/versions.json
@@ -31,7 +33,10 @@ DIR="$(cd "$DIR" && pwd)"
 [ "$(uname -s)-$(uname -m)" = "Linux-x86_64" ] || { echo "komar: Linux x86_64 only"; exit 1; }
 
 KOMAR_URL=https://github.com/mxprshn/komar.git
-KOMAR_COMMIT=1f4d6e1284bd1647a785caa17ea254a8fb86b131
+# the komar mode: 1f4d6e1 (MVP); the komar-compact mode: KOMAR_COMMIT=03f4534a0fecd75a1e7c097c88fb01922200a92f
+# (branch compact-view: the compact view NAME.komar next to the dump, call-site hits record the callee)
+KOMAR_COMMIT="${KOMAR_COMMIT:-1f4d6e1284bd1647a785caa17ea254a8fb86b131}"
+[[ "$KOMAR_COMMIT" =~ ^[0-9a-f]{40}$ ]] || { echo "komar: KOMAR_COMMIT must be a full commit hash"; exit 1; }
 GO_VERSION=go1.26.10
 GO_URL=https://go.dev/dl/go1.26.10.linux-amd64.tar.gz
 GO_SHA=ccfe7ae822d2c2f41f4fe7c956199967a4dac22d0ee0d2b2bfdb440aab3b20c5

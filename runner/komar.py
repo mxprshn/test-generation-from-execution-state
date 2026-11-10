@@ -20,6 +20,11 @@ the wrapper starts a supervisor in a session of its own, which runs Komar and ki
 of the run (Komar, Maven, the test JVMs) when the run outlives RUN_TIMEOUT or the wrapper dies. The
 groups are also noted in komar-pids.txt for kill_leftovers at the end of the cell.
 
+The komar-compact mode uses a Komar that also writes a compact view of the run, NAME.komar, next to the
+dump (prompts/task-komar-compact.txt). There the jq form is refused and the agent reads only the view: the
+guard refuses read and grep of komar/*.jsonl (compactReadDenied in pi/guard.ts), and prepare excludes the
+dumps in .git/info/exclude so that a grep over the workspace, which keeps the ignore rules, skips them.
+
 Komar itself is installed by scripts/setup_komar.sh into paths.komar (default <tools>/komar):
 bin/komar, komar-agent.jar, versions.json.
 """
@@ -95,8 +100,9 @@ def shell_words(command: str) -> list[str] | None:
     return words
 
 
-def command_kind(command: str, scenario: list[str]) -> str | None:
-    """"komar" or "jq" for a command of the two allowed forms, None otherwise."""
+def command_kind(command: str, scenario: list[str], compact: bool = False) -> str | None:
+    """"komar" or "jq" for a command of the two allowed forms, None otherwise; with `compact`
+    (komar-compact mode) only the komar form."""
     words = shell_words(command)
     if not words:
         return None
@@ -104,7 +110,7 @@ def command_kind(command: str, scenario: list[str]) -> str | None:
         ok = (len(words) > 6 and words[1] == "run" and SPEC.match(words[2]) and words[3] == "-o"
               and OUTPUT.match(words[4]) and words[5] == "--" and words[6:] == list(scenario))
         return "komar" if ok else None
-    if words[0] == "jq":
+    if words[0] == "jq" and not compact:
         i, null_input, rest = 1, False, words[1:]
         while i < len(words) and words[i].startswith("-"):
             w = words[i]
@@ -148,11 +154,16 @@ def versions(cfg: Config) -> dict[str, Any] | None:
     return json.loads(path.read_text()) if path.is_file() else None
 
 
-def prepare(cfg: Config, workspace: Path, agent_dir: Path, scenario: list[str]) -> Path:
+def prepare(cfg: Config, workspace: Path, agent_dir: Path, scenario: list[str], compact: bool = False) -> Path:
     """The scratch directory, the wrapper on a PATH entry of its own and its configuration. Returns the
-    directory to put first on PATH."""
+    directory to put first on PATH. `compact` (komar-compact mode): the dumps are excluded from searches."""
     inst = installation(cfg)
     (workspace / SCRATCH).mkdir(exist_ok=True)
+    if compact:
+        exclude = workspace / ".git" / "info" / "exclude"
+        exclude.parent.mkdir(parents=True, exist_ok=True)
+        with exclude.open("a", encoding="utf-8") as f:
+            f.write(f"/{SCRATCH}/*.jsonl\n")
     config = agent_dir / "komar.json"
     config.write_text(json.dumps({
         "workspace": str(workspace), "binary": str(inst["binary"]), "jar": str(inst["jar"]),
@@ -211,6 +222,7 @@ def log_summary(rows: list[dict[str, Any]], commands: list[dict[str, Any]], run_
         "hits": sum(sum((r.get("hits") or {}).values()) for r in runs),
         "diag": dict(sorted(diag.items())),
         "output_bytes": sum(int(r.get("output_bytes") or 0) for r in runs),
+        "view_bytes": sum(int(r.get("view_bytes") or 0) for r in runs),
         "jq_queries": len(jq), "jq_failed": sum(1 for e in jq if not e.get("succeeded")),
     }
 
@@ -228,8 +240,9 @@ def calls_enabled(spec_text: str | None) -> bool:
 
 
 def _output_summary(path: Path) -> dict[str, Any]:
+    view = path.with_suffix(".komar")  # the compact view of the Komar of the komar-compact mode
     out: dict[str, Any] = {"output_bytes": path.stat().st_size if path.is_file() else 0, "hits": {}, "diag": {},
-                           "end": None}
+                           "end": None, **({"view_bytes": view.stat().st_size} if view.is_file() else {})}
     if not path.is_file():
         return out
     with path.open(encoding="utf-8", errors="replace") as f:
