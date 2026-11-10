@@ -1,0 +1,64 @@
+--- /tmp/task-komar-1b.txt	2026-11-10 11:18:18.402163792 +0000
++++ prompts/task-komar-compact.txt	2026-11-10 11:18:18.379163683 +0000
+@@ -2,8 +2,8 @@
+ 
+ No execution data is provided. You can run the driving scenario under Komar, a tool that observes a
+ running JVM program without changing its code: a YAML spec says where to observe, when to record and
+-what to capture; Komar instruments the program at load time and writes one JSONL file, which you query
+-with jq. Observe the executions of the target method and use the observed values as test data and
++what to capture; Komar instruments the program at load time and writes what it observed, which you read
++in a compact view. Observe the executions of the target method and use the observed values as test data and
+ expected results; do not replace them with invented values. If the observed data are not sufficient,
+ you may change the spec and run the scenario again, at most {{debug_runs}} runs in total.
+ 
+@@ -13,8 +13,8 @@
+ - run the scenario under Komar with the bash tool:
+   komar run komar/NAME.yaml -o komar/NAME.jsonl -- {{komar_scenario}}
+   A spec with errors is reported before anything starts and does not count as a run.
+-- query the output with the bash tool, one jq command without pipes or redirection:
+-  jq [-c] [-r] [-s] [-n] [--arg NAME VALUE] [--argjson NAME VALUE] 'FILTER' komar/NAME.jsonl ...
++- read what was observed with the read tool from komar/NAME.komar, a compact view of the run that
++  komar run writes next to the raw dump komar/NAME.jsonl.
+ 
+ Komar documentation (excerpts):
+ 
+@@ -49,19 +49,26 @@
+   call site, `call.target` and `call.args`. A `what` item is a bare expression, keyed by its text, or
+   `name: expression`. Quote expressions that contain YAML special characters.
+ - Values are read from fields; program methods never run. JDK strings, numbers, `BigDecimal`,
+-  `java.time` types, enums, collections, maps and arrays are plain JSON; other objects are maps of their
+-  fields with `"@type"`.
++  `java.time` types, enums, collections, maps and arrays are shown as plain values; other objects by their
++  type and fields.
+ - `vars` needs classes compiled with `-parameters` or `-g`; local variables at a line need `-g`. An item
+   that does not exist at a point is left out of that record; a key with `null` means the value was null.
+ - `limits` (defaults): `depth` 3 (levels of object fields), `items` 100, `string` 1000, `fields` 50,
+-  `max_hits` 1000 (hits after which a probe stops firing). A value cut by a limit is marked
+-  (`"@truncated": true`, `"@size"`, `"@prefix"`); an object met twice in one record is `"@id": N` the
+-  first time and `{"@ref": N}` later.
+-- Output: one JSON record per line: `run`, then `hit` and `diag` records, then `end`. A hit has
+-  `probe`, `point`, `method`, `line`, `call` (shared by the records of one execution, e.g. its entry and
+-  exit), `parent` (the call of the enclosing probed execution), `thread`, `pid` and `what` (the keys
+-  of the spec). A `diag` explains placement (placed, no class matched, a name not available); `end`
+-  has the hits per probe and `code`, the exit code of the scenario.
+-
+-  jq -c 'select(.kind=="hit" and .probe=="big_orders") | .what' komar/NAME.jsonl
+-  jq -c 'select(.kind=="diag" or .kind=="end")' komar/NAME.jsonl
++  `max_hits` 1000 (hits after which a probe stops firing). A value cut by a limit is marked in
++  the view (below).
++- The compact view starts with a legend line, the hits per probe and point (`probe@point N`), placement
++  warnings and errors, the end of the run with `code`, the exit code of the scenario, and the number of
++  executions. Then each distinct execution of a probed method is shown once as a tree: the method with
++  the values captured at entry ((no entry record) if `entry` is not probed); indented under it, the probed
++  methods it called, the calls captured by call-site probes (→ call ⇒ result) and line probes (`L42 ...`);
++  and its outcome (⇒ value, ⇒ threw, or ⇒ returned when `ret` is not captured). Identical executions and
++  identical lines are shown once with ×N. Types are simple names; a map entry with a key that is not text
++  is key: value. A longer value is labelled where it first occurs, Order#1{id: 1, ...}, and written
++  Order#1 (#1 for a list) later; Order#3=#1+{id: 2, note: ∅} is a value like #1 except these fields
++  (∅: field absent). Order{…} is an object cut by a limit, "abc…"(1200 chars) a cut string, [...]…+5 a
++  cut collection; Order^1{...} and ^1 mark an object met twice within one captured value; <error: ...> a
++  value that could not be read.
++
++  Main.discount(Order)  args=(Order#1{id: 1, customer: "ann-the-long-customer-name"})   ×3
++    → Repo.tier(Order#1) ⇒ "gold"
++    ⇒ 0.1

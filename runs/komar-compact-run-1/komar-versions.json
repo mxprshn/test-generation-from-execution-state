@@ -1,0 +1,9 @@
+{
+  "commit": "03f4534a0fecd75a1e7c097c88fb01922200a92f",
+  "go": "go1.26.10",
+  "gradle": "9.8.2",
+  "build_jdk": "openjdk version \"21.0.12.1\" 2026-08-18 LTS",
+  "jq": "jq-1.7",
+  "binary_sha256": "efc4601b9a9b6cfe1ed3c351cfab028a6c545f70349e3985a047f7d02fdacf26",
+  "agent_jar_sha256": "fa863386ef903171b924bb1a15762c2c35926dbac97bd641abed95a6be37c678"
+}

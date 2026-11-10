@@ -1,0 +1,48 @@
+# komar-compact run, group 70: settings of komar-run-1b, mode komar-compact, rounds 1-2, no PIT; one case per run.py call
+provider:
+  name: gateway
+  base_url: https://<openai-compatible-gateway>/v1
+  api_key_env: TESTGEN_API_KEY
+  fallback_api_key_env: TESTGEN_API_KEY_FALLBACK
+  models: []
+model: OpenAI/gpt-6.1-sol
+thinking: medium
+timeout: 600
+command_timeout: 900
+modes:
+- komar-compact
+once_modes: []
+rounds:
+- 1
+- 2
+run_id_format: r{round}
+parallel_cases: 1
+min_free_disk_gb: 15
+min_free_mem_gb: 3
+paths:
+  projects: /<home>/ispras-eval/setup-check/projects
+  results: /<home>/repos/results/komar-compact/v2
+  work: /<home>/repos/komar-compact-run/work/w4
+  tools: /<home>/repos/autonomous-trial/tools
+  java_home: /<home>/ispras-eval/jdk21
+  maven_repository: /<home>/ispras-eval/setup-check/m2
+  debug_ports: 5500-5599
+  komar: /<home>/repos/komar-compact-run/komar
+evaluation:
+  steps:
+  - verify
+  - rq1
+  - quality
+  reference_runs: 2
+  trace_depth: 5
+env:
+  HOME: /<home>/ispras-eval/home
+  TMPDIR: /<home>/repos/komar-compact-run/tmp
+  MAVEN_OPTS: -Xmx2g -Djava.io.tmpdir=/<home>/repos/komar-compact-run/tmp -Duser.home=/<home>/ispras-eval/home
+    -Dmaven.repo.local=/<home>/ispras-eval/setup-check/m2
+  MAVEN_ARGS: -Dmaven.repo.local=/<home>/ispras-eval/setup-check/m2
+cases:
+- klaw-users-teams-controller-service-approve-new-user-requests
+- checkstyle-indentation-visit
+- mybatis-caching-executor-query
+debug_runs: 3

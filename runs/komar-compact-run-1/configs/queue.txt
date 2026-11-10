@@ -1,0 +1,5 @@
+70 klaw klaw-users-teams-controller-service-approve-new-user-requests
+70 checkstyle checkstyle-indentation-visit
+31 lab lab-calculate-price-handler-handle
+70 mybatis mybatis-caching-executor-query
+31 pdfbox pdfbox-font-descriptor-is-fixed-pitch
