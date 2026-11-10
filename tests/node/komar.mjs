@@ -17,6 +17,8 @@ const input = JSON.parse(readFileSync(0, "utf-8"));
 const out = {
 	kinds: input.commands.map((c) => guard.komarCommandKind(c, input.scenario) ?? null),
 	compactKinds: input.commands.map((c) => guard.komarCommandKind(c, input.scenario, true) ?? null),
+	viewKinds: (input.views ?? []).map((c) => guard.komarCommandKind(c, input.scenario) ?? null),
+	compactViewKinds: (input.views ?? []).map((c) => guard.komarCommandKind(c, input.scenario, true) ?? null),
 	compactReads: (input.reads ?? []).map(([tool, rel, glob]) => guard.compactReadDenied(tool, rel, glob ?? undefined) !== undefined),
 	spec: ["komar/a.yaml", "komar/run-2.v1.yaml", "komar/a.jsonl", "komar/../a.yaml", "src/a.yaml"].map((p) =>
 		guard.KOMAR_SPEC.test(p),

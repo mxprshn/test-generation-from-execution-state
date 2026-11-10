@@ -47,6 +47,9 @@ SCRATCH = "komar"
 NAME = r"[A-Za-z0-9_-][A-Za-z0-9._-]*"
 SPEC = re.compile(rf"^{SCRATCH}/{NAME}\.yaml$")
 OUTPUT = re.compile(rf"^{SCRATCH}/{NAME}\.jsonl$")
+VIEW = re.compile(rf"^{SCRATCH}/{NAME}\.komar$")
+SED_RANGE = re.compile(r"^\d+(?:,\d+)?p$")
+CUT_RANGE = re.compile(r"^(?:\d+-?\d*|-\d+)$")
 SAFE = re.compile(r"[A-Za-z0-9_@%+=:,./#-]")
 JQ_FLAGS = re.compile(r"^-[crsnSej]+$")
 JQ_LONG_FLAGS = {"--compact-output", "--raw-output", "--slurp", "--null-input", "--sort-keys", "--tab",
@@ -102,7 +105,8 @@ def shell_words(command: str) -> list[str] | None:
 
 def command_kind(command: str, scenario: list[str], compact: bool = False) -> str | None:
     """"komar" or "jq" for a command of the two allowed forms, None otherwise; with `compact`
-    (komar-compact mode) only the komar form."""
+    (komar-compact mode) the komar form and "view": `sed -n 'A,Bp'` or `cut -c A-B` of one view
+    komar/NAME.komar, for lines too long for the read tool."""
     words = shell_words(command)
     if not words:
         return None
@@ -110,6 +114,10 @@ def command_kind(command: str, scenario: list[str], compact: bool = False) -> st
         ok = (len(words) > 6 and words[1] == "run" and SPEC.match(words[2]) and words[3] == "-o"
               and OUTPUT.match(words[4]) and words[5] == "--" and words[6:] == list(scenario))
         return "komar" if ok else None
+    if compact and len(words) == 4 and VIEW.match(words[3]) and (
+            (words[0] == "sed" and words[1] == "-n" and SED_RANGE.match(words[2]))
+            or (words[0] == "cut" and words[1] == "-c" and CUT_RANGE.match(words[2]))):
+        return "view"
     if words[0] == "jq" and not compact:
         i, null_input, rest = 1, False, words[1:]
         while i < len(words) and words[i].startswith("-"):
@@ -224,6 +232,7 @@ def log_summary(rows: list[dict[str, Any]], commands: list[dict[str, Any]], run_
         "output_bytes": sum(int(r.get("output_bytes") or 0) for r in runs),
         "view_bytes": sum(int(r.get("view_bytes") or 0) for r in runs),
         "jq_queries": len(jq), "jq_failed": sum(1 for e in jq if not e.get("succeeded")),
+        "view_commands": sum(1 for e in commands if e.get("event") == "end" and e.get("name") == "view"),
     }
 
 

@@ -62,6 +62,29 @@ COMMANDS = [
     (SCENARIO_TEXT, None),
 ]
 
+# komar-compact mode only: commands reading a view; "view" in compact mode, None in the komar mode
+VIEW_COMMANDS = [
+    ("sed -n '1,40p' komar/a.komar", "view"),
+    ("sed -n 7p komar/run-2.v1.komar", "view"),
+    ("sed -n \"3,3p\" komar/a.komar", "view"),
+    ("cut -c 1-20000 komar/a.komar", "view"),
+    ("cut -c 20001- komar/a.komar", "view"),
+    ("cut -c -500 komar/a.komar", "view"),
+    ("sed -n '1,40p' komar/a.jsonl", None),
+    ("cut -c 1-100 komar/a.jsonl", None),
+    ("sed -n '1,40p' komar/a.komar komar/b.komar", None),
+    ("sed -n '1,40p' komar/a.komar | head", None),
+    ("sed -n '1,40p' komar/a.komar > x", None),
+    ("sed '1,40p' komar/a.komar", None),
+    ("sed -n '1,40p;w x' komar/a.komar", None),
+    ("sed -n 'e cat /etc/passwd' komar/a.komar", None),
+    ("sed -n '1,40p' komar/../src/A.komar", None),
+    ("sed -n '1,40p' /tmp/a.komar", None),
+    ("sed -n '1,40p' src/A.java", None),
+    ("cut -f 1 komar/a.komar", None),
+    ("cut -c 1-20 komar/*.komar", None),
+]
+
 
 # komar-compact mode: (tool, workspace-relative path, grep glob, refused): no tool shows a dump komar/*.jsonl
 COMPACT_READS = [
@@ -93,6 +116,9 @@ class CommandFormsTest(unittest.TestCase):
         for command, kind in COMMANDS:
             self.assertEqual(K.command_kind(command, SCENARIO), kind, command)
             self.assertEqual(K.command_kind(command, SCENARIO, compact=True), None if kind == "jq" else kind, command)
+        for command, kind in VIEW_COMMANDS:
+            self.assertEqual(K.command_kind(command, SCENARIO), None, command)
+            self.assertEqual(K.command_kind(command, SCENARIO, compact=True), kind, command)
 
     def test_guard_agrees(self):
         pi = PiExtensionsTest.pi_package()
@@ -100,6 +126,7 @@ class CommandFormsTest(unittest.TestCase):
             self.skipTest("node and an installed Pi package are needed")
         r = subprocess.run(["node", str(ROOT / "tests" / "node" / "komar.mjs"), str(pi), str(ROOT)],
                            input=json.dumps({"scenario": SCENARIO, "commands": [c for c, _ in COMMANDS],
+                                             "views": [c for c, _ in VIEW_COMMANDS],
                                              "reads": [[t, p, g] for t, p, g, _ in COMPACT_READS]}),
                            capture_output=True, text=True, timeout=120)
         self.assertEqual(r.returncode, 0, r.stderr[-2000:])
@@ -107,6 +134,8 @@ class CommandFormsTest(unittest.TestCase):
         self.assertEqual(out["kinds"], [k for _, k in COMMANDS])
         self.assertEqual(out["compactKinds"], [None if k == "jq" else k for _, k in COMMANDS])
         self.assertEqual(out["compactReads"], [refused for *_, refused in COMPACT_READS])
+        self.assertEqual(out["viewKinds"], [None for _ in VIEW_COMMANDS])
+        self.assertEqual(out["compactViewKinds"], [k for _, k in VIEW_COMMANDS])
         self.assertEqual(out["spec"], [True, True, False, False, False])
         self.assertEqual(out["timeouts"], [None, 120])
 

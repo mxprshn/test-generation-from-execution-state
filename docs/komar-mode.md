@@ -126,6 +126,10 @@ The agent reads only the view:
   dumps (anything but a negated glob or a glob ending in another extension) over the workspace or
   `komar/`. `runner/komar.py` adds `/komar/*.jsonl` to `.git/info/exclude`, so a plain `grep` of the
   workspace, which keeps the ignore rules, skips the dumps. `find` and `ls` list file names only;
+- a line of the view can be longer than the read tool shows (it then suggests `sed`): the guard also
+  accepts, as single commands, `sed -n 'A,Bp' komar/NAME.komar` and `cut -c A-B komar/NAME.komar`
+  (also `A-` and `-B`), on one view only. The prompt does not mention them. The command log names
+  them `view`; the cell summary counts them (`view_commands`);
 - the wrapper and the run limit are those of the komar mode; the journal also records the size of the
   view (`view_bytes`).
 

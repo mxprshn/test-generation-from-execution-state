@@ -76,6 +76,7 @@ export function matchCommand(allowed: Map<string, string>, command: string): str
 const KOMAR_NAME = "[A-Za-z0-9_-][A-Za-z0-9._-]*";
 export const KOMAR_SPEC = new RegExp(`^komar/${KOMAR_NAME}\\.yaml$`);
 const KOMAR_OUTPUT = new RegExp(`^komar/${KOMAR_NAME}\\.jsonl$`);
+const KOMAR_VIEW = new RegExp(`^komar/${KOMAR_NAME}\\.komar$`);
 const JQ_FLAGS = /^-[crsnSej]+$/;
 const JQ_LONG_FLAGS = new Set(["--compact-output", "--raw-output", "--slurp", "--null-input", "--sort-keys", "--tab",
 	"--exit-status", "--join-output"]);
@@ -120,8 +121,9 @@ export function shellWords(command: string): string[] | null {
 }
 
 /** "komar" or "jq" for a command of the two forms of the komar mode, undefined otherwise; with `compact`
- * (komar-compact mode) only the komar form. */
-export function komarCommandKind(command: string, scenario: string[], compact = false): "komar" | "jq" | undefined {
+ * (komar-compact mode) the komar form and "view": `sed -n 'A,Bp'` or `cut -c A-B` of one view komar/NAME.komar,
+ * for lines too long for the read tool (its hint names sed). */
+export function komarCommandKind(command: string, scenario: string[], compact = false): "komar" | "jq" | "view" | undefined {
 	const words = shellWords(command);
 	if (!words || words.length === 0) return undefined;
 	if (words[0] === "komar") {
@@ -129,6 +131,11 @@ export function komarCommandKind(command: string, scenario: string[], compact = 
 			&& KOMAR_OUTPUT.test(words[4]) && words[5] === "--" && words.length - 6 === scenario.length
 			&& scenario.every((a, k) => words[6 + k] === a);
 		return ok ? "komar" : undefined;
+	}
+	if (compact && words.length === 4 && KOMAR_VIEW.test(words[3])
+		&& ((words[0] === "sed" && words[1] === "-n" && /^\d+(?:,\d+)?p$/.test(words[2]))
+			|| (words[0] === "cut" && words[1] === "-c" && /^(?:\d+-?\d*|-\d+)$/.test(words[2])))) {
+		return "view";
 	}
 	if (words[0] === "jq" && !compact) {
 		let i = 1;
@@ -312,7 +319,7 @@ export default function (pi: ExtensionAPI) {
 				(config.komar !== undefined ? komarCommandKind(raw, config.komar.scenario, config.komar.compact) : undefined);
 			if (name === undefined) {
 				const komar = config.komar === undefined ? ""
-					: config.komar.compact ? ", and the komar run command of the task" : ", and the komar run and jq commands of the task";
+					: config.komar.compact ? ", the komar run command of the task, and sed -n 'A,Bp' or cut -c A-B of a view komar/NAME.komar" : ", and the komar run and jq commands of the task";
 				return deny(
 					"bash",
 					raw.slice(0, 2000),

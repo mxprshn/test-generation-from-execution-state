@@ -165,7 +165,7 @@ def komar_literal(command: str) -> bool:
     parentheses); the guard decides whether it is one of the allowed forms."""
     from runner.komar import shell_words
     words = shell_words(command)
-    return bool(words) and words[0] in ("komar", "jq")
+    return bool(words) and words[0] in ("komar", "jq", "sed", "cut")
 
 
 def check_tool_calls(calls: list[dict], harness_roots: list[str], workspace: str | None = None,
